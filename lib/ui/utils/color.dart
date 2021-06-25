@@ -5,3 +5,4 @@ const KColorAppBar = Colors.blue;
 const inputText = Color.fromRGBO(143, 201, 97, 1);
 const labelText = Color.fromRGBO(192, 193, 191, 1);
 const bgroundCol = Color.fromRGBO(99, 186, 70, 1);
+const inactiveColor = Color.fromRGBO(99, 186, 70, 0.5);

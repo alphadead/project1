@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:vamos/ui/loginPages/setPass.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:vamos/ui/utils/loginbkground.dart';
+import 'package:vamos/ui/utils/theme.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -13,62 +16,53 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
+    return SafeArea(
+      child: Scaffold(
+        body: Column(
           children: [
             Expanded(
               child: Stack(
                 children: [
+                  backgroundContainer(),
                   Positioned(
-                    width: 500.w,
-                    height: 250.h,
-                    child: Transform.rotate(
-                      angle: 6.0,
-                      origin: Offset(-250, 120),
-                      child: Container(
-                        width: 200.w,
-                        height: 500.h,
-                        decoration: BoxDecoration(
-                          color: bgroundCol,
-                          borderRadius: BorderRadius.circular(40),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    top: 20.0,
+                    top: 10.h,
+                    left: 100.w,
                     child: Image.asset(
                       'assets/images/register.png',
-                      height: 200.h,
-                      width: 200.w,
+                      height: 250.h,
+                      width: 270.w,
                     ),
                   ),
                   Positioned(
-                    top: 140.0,
-                    left: 30.0,
-                    child: Text(
-                      'Register',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
+                      top: 170.h,
+                      left: 60.w,
+                      child: Text('Register',
+                          style: themeData().textTheme.headline1!.copyWith(
+                                color: Colors.white,
+                                fontSize: 30,
+                              ))
+                      // Text(
+                      //   'Register',
+                      //   style: TextStyle(
+                      //       color: Colors.white,
+                      //       fontSize: 20.sp,
+                      //       fontWeight: FontWeight.bold),
+                      // ),
+                      ),
                 ],
               ),
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
               child: TextField(
-                style: TextStyle(color: labelText),
+                style: TextStyle(color: inputText),
                 decoration: InputDecoration(
                   enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: labelText),
+                    borderSide: BorderSide(color: inputText),
                   ),
                   labelText: 'First name',
                   labelStyle: TextStyle(
-                    color: inputText,
+                    color: labelText,
                     fontFamily: 'Poppins',
                   ),
                 ),
@@ -77,14 +71,14 @@ class _RegisterPageState extends State<RegisterPage> {
             Padding(
               padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
               child: TextField(
-                style: TextStyle(color: labelText),
+                style: TextStyle(color: inputText),
                 decoration: InputDecoration(
                   enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: labelText),
+                    borderSide: BorderSide(color: inputText),
                   ),
                   labelText: 'Last Name',
                   labelStyle: TextStyle(
-                    color: inputText,
+                    color: labelText,
                     fontFamily: 'Poppins',
                   ),
                 ),
@@ -93,14 +87,14 @@ class _RegisterPageState extends State<RegisterPage> {
             Padding(
               padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
               child: TextField(
-                style: TextStyle(color: labelText),
+                style: TextStyle(color: inputText),
                 decoration: InputDecoration(
                   enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: labelText),
+                    borderSide: BorderSide(color: inputText),
                   ),
                   labelText: 'Address',
                   labelStyle: TextStyle(
-                    color: inputText,
+                    color: labelText,
                     fontFamily: 'Poppins',
                   ),
                 ),
@@ -109,14 +103,14 @@ class _RegisterPageState extends State<RegisterPage> {
             Padding(
               padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
               child: TextField(
-                style: TextStyle(color: labelText),
+                style: TextStyle(color: inputText),
                 decoration: InputDecoration(
                   enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: labelText),
+                    borderSide: BorderSide(color: inputText),
                   ),
                   labelText: 'Email',
                   labelStyle: TextStyle(
-                    color: inputText,
+                    color: labelText,
                     fontFamily: 'Poppins',
                   ),
                 ),
@@ -125,14 +119,14 @@ class _RegisterPageState extends State<RegisterPage> {
             Padding(
               padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
               child: TextField(
-                style: TextStyle(color: labelText),
+                style: TextStyle(color: inputText),
                 decoration: InputDecoration(
                   enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: labelText),
+                    borderSide: BorderSide(color: inputText),
                   ),
                   labelText: 'Mobile No',
                   labelStyle: TextStyle(
-                    color: inputText,
+                    color: labelText,
                     fontFamily: 'Poppins',
                   ),
                 ),
@@ -147,28 +141,17 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
             ),
             Center(
-              child: GestureDetector(
-                child: Container(
-                  width: 250,
-                  height: 40,
-                  child: Center(
-                    child: Text(
-                      'Continue',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15,
-                        color: Colors.white,
-                      ),
-                    ),
+                child: buttonLogin(
+              context,
+              () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SetPass(),
                   ),
-                  decoration: BoxDecoration(
-                    color: Color.fromRGBO(239, 77, 35, 1),
-                    //(#ef4d23),
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                ),
-              ),
-            ),
+                );
+              },
+            )),
             SizedBox(
               height: 100,
             ),
@@ -178,7 +161,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 Text(
                   'Already have an account ? ',
                   style: TextStyle(
-                    color: inputText,
+                    color: labelText,
                     fontFamily: 'Poppins',
                   ),
                 ),
@@ -188,7 +171,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     'Sign In',
                     style: TextStyle(
                         fontFamily: 'Poppins',
-                        color: labelText,
+                        color: inputText,
                         decoration: TextDecoration.underline,
                         fontSize: 15),
                     textAlign: TextAlign.end,

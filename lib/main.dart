@@ -3,9 +3,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vamos/locator.dart';
-import 'package:vamos/loginPages/register.dart';
-import 'package:vamos/loginPages/signUp.dart';
 import 'package:vamos/testScreen.dart';
+import 'package:vamos/ui/loginPages/setPass.dart';
+import 'package:vamos/ui/loginPages/signUp.dart';
+
+import 'ui/loginPages/register.dart';
 
 // void main() {
 //   setupLocator();
@@ -31,7 +33,7 @@ class MyApp extends StatelessWidget {
       designSize: Size(360, 690),
       builder: () => MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: RegisterPage(),
+        home: SignUpPage(),
       ),
     );
   }
