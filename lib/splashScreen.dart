@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vamos/testScreen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -11,7 +11,6 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   double width = 0;
-  bool isVisible = false;
   @override
   void initState() {
     super.initState();
@@ -21,13 +20,13 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void sizechange() {
     setState(() {
-      width = 130;
+      width = 130.w;
     });
   }
 
   void movepage() {
-    // Navigator.pushReplacement(
-    //     context, MaterialPageRoute(builder: (context) => TestScreen()));
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => TestScreen()));
   }
 
   Widget build(BuildContext context) {
@@ -44,26 +43,21 @@ class _SplashScreenState extends State<SplashScreen> {
         Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Expanded(
-              flex: 1,
-              child: Container(),
-            ),
-            AnimatedContainer(
-              width: width,
-              duration: Duration(seconds: 2),
-              curve: Curves.easeOutBack,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    "assets/logo.webp",
-                  ),
-                ],
+            Container(
+              margin: EdgeInsets.only(top: 200.h),
+              child: AnimatedContainer(
+                width: width,
+                duration: Duration(seconds: 2),
+                curve: Curves.easeOutBack,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      "assets/logo.webp",
+                    ),
+                  ],
+                ),
               ),
-            ),
-            Expanded(
-              flex: 2,
-              child: Container(),
             ),
           ],
         )
