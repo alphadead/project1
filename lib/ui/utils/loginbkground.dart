@@ -4,11 +4,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 Widget backgroundContainer() {
   return Positioned(
-    width: 500.w,
-    height: 280.h,
+    width: 600.w,
+    height: 200.h,
+    bottom: 50.h,
     child: Transform.rotate(
       angle: 5.9,
-      origin: Offset(-280.w, 120.h),
+      origin: Offset(-150.w, 120.h),
       child: Container(
         decoration: BoxDecoration(
           color: bgroundCol,

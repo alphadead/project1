@@ -25,32 +25,30 @@ class _SetPassState extends State<SetPass> {
                 children: [
                   backgroundContainer(),
                   Positioned(
-                    top: -35.h,
-                    left: 150.w,
+                    top: -10.h,
+                    left: 180.w,
                     child: Image.asset(
                       'assets/images/setPass.png',
-                      height: 340.h,
-                      width: 300.w,
+                      height: 210.h,
+                      width: 220.w,
                     ),
                   ),
                   Positioned(
-                      top: 125.h,
-                      left: 40.w,
-                      child: Text('Set Password',
-                          style: themeData().textTheme.headline1!.copyWith(
-                                color: Colors.white,
-                                fontSize: 20.sp,
-                              ))
-                      // Text(
-                      //   'Register',
-                      //   style: TextStyle(
-                      //       color: Colors.white,
-                      //       fontSize: 20.sp,
-                      //       fontWeight: FontWeight.bold),
-                      // ),
-                      ),
+                    top: 80.h,
+                    left: 30.w,
+                    child: Text(
+                      'Set Password',
+                      style: themeData().textTheme.headline1!.copyWith(
+                            color: Colors.white,
+                            fontSize: 25,
+                          ),
+                    ),
+                  ),
                 ],
               ),
+            ),
+            SizedBox(
+              height: 60,
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
@@ -114,7 +112,7 @@ class _SetPassState extends State<SetPass> {
             ),
             Center(child: buttonLogin(context, () {})),
             SizedBox(
-              height: 100,
+              height: 150,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

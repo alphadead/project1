@@ -3,26 +3,27 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vamos/locator.dart';
+import 'package:vamos/splashScreen.dart';
 import 'package:vamos/testScreen.dart';
 import 'package:vamos/ui/loginPages/setPass.dart';
 import 'package:vamos/ui/loginPages/signUp.dart';
 
 import 'ui/loginPages/register.dart';
 
-// void main() {
-//   setupLocator();
-//   runApp(MyApp());
-// }
-
 void main() {
   setupLocator();
-  runApp(
-    DevicePreview(
-      enabled: !kReleaseMode,
-      builder: (context) => MyApp(),
-    ),
-  );
+  runApp(MyApp());
 }
+
+// void main() {
+//   setupLocator();
+//   runApp(
+//     DevicePreview(
+//       enabled: !kReleaseMode,
+//       builder: (context) => MyApp(),
+//     ),
+//   );
+// }
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
       designSize: Size(360, 690),
       builder: () => MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: SignUpPage(),
+        home: SplashScreen(),
       ),
     );
   }

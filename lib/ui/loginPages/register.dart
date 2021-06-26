@@ -25,8 +25,9 @@ class _RegisterPageState extends State<RegisterPage> {
                 children: [
                   backgroundContainer(),
                   Positioned(
-                    top: 10.h,
-                    left: 100.w,
+                    top: 5.h,
+                    left: 130.w,
+                    bottom: 0.h,
                     child: Image.asset(
                       'assets/images/register.png',
                       height: 250.h,
@@ -34,21 +35,16 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
                   Positioned(
-                      top: 170.h,
-                      left: 60.w,
-                      child: Text('Register',
-                          style: themeData().textTheme.headline1!.copyWith(
-                                color: Colors.white,
-                                fontSize: 30,
-                              ))
-                      // Text(
-                      //   'Register',
-                      //   style: TextStyle(
-                      //       color: Colors.white,
-                      //       fontSize: 20.sp,
-                      //       fontWeight: FontWeight.bold),
-                      // ),
-                      ),
+                    top: 90.h,
+                    left: 40.w,
+                    child: Text(
+                      'Register',
+                      style: themeData().textTheme.headline1!.copyWith(
+                            color: Colors.white,
+                            fontSize: 25,
+                          ),
+                    ),
+                  ),
                 ],
               ),
             ),

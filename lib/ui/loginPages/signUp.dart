@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vamos/ui/loginPages/register.dart';
+import 'package:vamos/ui/loginPages/setPass.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/constants.dart';
 import 'package:vamos/ui/utils/loginbkground.dart';
@@ -26,130 +27,135 @@ class _SignUpPageState extends State<SignUpPage> {
                 children: [
                   backgroundContainer(),
                   Positioned(
-                    top: 20.h,
-                    left: 30.w,
+                    top: 5.h,
+                    left: 80.w,
+                    bottom: 0.h,
                     child: Image.asset(
                       'assets/images/group_3.png',
+                      height: 240.h,
+                      width: 370.w,
                     ),
                   ),
                   Positioned(
-                    top: 150.h,
-                    left: 30.w,
+                    top: 100.h,
+                    left: 40.w,
                     child: Text(
                       'Login',
                       style: themeData().textTheme.headline1!.copyWith(
                             color: Colors.white,
-                            fontSize: 30,
+                            fontSize: 25,
                           ),
                     ),
                   ),
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Column(
-                    children: [
-                      Container(
-                        height: 34.h,
-                        width: 34.w,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(3),
-                          color: bgroundCol,
-                        ),
-                        child: Center(
-                          child: Text(
-                            '01',
-                            style: TextStyle(color: Colors.white),
+            SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Column(
+                      children: [
+                        Container(
+                          height: 34.h,
+                          width: 34.w,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(3),
+                            color: bgroundCol,
+                          ),
+                          child: Center(
+                            child: Text(
+                              '01',
+                              style: TextStyle(color: Colors.white),
+                            ),
                           ),
                         ),
-                      ),
-                      SizedBox(height: 3.h),
-                      Text(
-                        "Sign Up",
-                        style: TextStyle(color: bgroundCol),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Container(
-                        height: 34.h,
-                        width: 34.w,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(3),
-                          color: inactiveColor,
+                        SizedBox(height: 3.h),
+                        Text(
+                          "Sign Up",
+                          style: TextStyle(color: bgroundCol),
                         ),
-                        child: Center(
-                          child: Text(
-                            '02',
-                            style: TextStyle(color: Colors.white),
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        Container(
+                          height: 34.h,
+                          width: 34.w,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(3),
+                            color: inactiveColor,
+                          ),
+                          child: Center(
+                            child: Text(
+                              '02',
+                              style: TextStyle(color: Colors.white),
+                            ),
                           ),
                         ),
-                      ),
-                      SizedBox(height: 3.h),
-                      Text(
-                        "Profile",
-                        style: TextStyle(
-                          color: inactiveColor,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Container(
-                        height: 34.h,
-                        width: 34.w,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(3),
-                          color: inactiveColor,
-                        ),
-                        child: Center(
-                          child: Text(
-                            '03',
-                            style: TextStyle(color: Colors.white),
+                        SizedBox(height: 3.h),
+                        Text(
+                          "Profile",
+                          style: TextStyle(
+                            color: inactiveColor,
                           ),
                         ),
-                      ),
-                      SizedBox(height: 3.h),
-                      Text(
-                        "Users",
-                        style: TextStyle(
-                          color: inactiveColor,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Container(
-                        height: 34.h,
-                        width: 34.w,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(3),
-                          color: inactiveColor,
-                        ),
-                        child: Center(
-                          child: Text(
-                            '04',
-                            style: TextStyle(color: Colors.white),
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        Container(
+                          height: 34.h,
+                          width: 34.w,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(3),
+                            color: inactiveColor,
+                          ),
+                          child: Center(
+                            child: Text(
+                              '03',
+                              style: TextStyle(color: Colors.white),
+                            ),
                           ),
                         ),
-                      ),
-                      SizedBox(height: 3.h),
-                      Text(
-                        "Share",
-                        style: TextStyle(
-                          color: inactiveColor,
+                        SizedBox(height: 3.h),
+                        Text(
+                          "Users",
+                          style: TextStyle(
+                            color: inactiveColor,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        Container(
+                          height: 34.h,
+                          width: 34.w,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(3),
+                            color: inactiveColor,
+                          ),
+                          child: Center(
+                            child: Text(
+                              '04',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 3.h),
+                        Text(
+                          "Share",
+                          style: TextStyle(
+                            color: inactiveColor,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
             Padding(
