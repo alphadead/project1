@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:vamos/ui/loginPages/setPass.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:vamos/ui/utils/loginbkground.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -19,6 +21,9 @@ class _RegisterPageState extends State<RegisterPage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
+              decoration: BoxDecoration(
+                border: Border.all(width: 0, color: Colors.white),
+              ),
               //clipBehavior: Clip.none,
               margin: EdgeInsets.only(bottom: 10),
               height: 250.h,
@@ -38,18 +43,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       fit: BoxFit.fitWidth,
                     ),
                   ),
-                  // Transform.rotate(
-                  //   angle: 6.0,
-                  //   //origin: Offset(-250, 0),
-                  //   child: Container(
-                  //     width: 200.w,
-                  //     height: 500.h,
-                  //     decoration: BoxDecoration(
-                  //       color: bgroundCol,
-                  //       borderRadius: BorderRadius.circular(40),
-                  //     ),
-                  //   ),
-                  // ),
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
@@ -76,6 +70,9 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
             ),
             Container(
+              decoration: BoxDecoration(
+                border: Border.all(width: 0, color: Colors.white),
+              ),
               margin: EdgeInsets.only(bottom: 10),
               height: 350.h,
               child: SingleChildScrollView(
@@ -84,14 +81,14 @@ class _RegisterPageState extends State<RegisterPage> {
                     Padding(
                       padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
                       child: TextField(
-                        style: TextStyle(color: labelText),
+                        style: TextStyle(color: inputText),
                         decoration: InputDecoration(
                           enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: labelText),
+                            borderSide: BorderSide(color: inputText),
                           ),
                           labelText: 'First name',
                           labelStyle: TextStyle(
-                            color: inputText,
+                            color: labelText,
                             fontFamily: 'Poppins',
                           ),
                         ),
@@ -100,14 +97,14 @@ class _RegisterPageState extends State<RegisterPage> {
                     Padding(
                       padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
                       child: TextField(
-                        style: TextStyle(color: labelText),
+                        style: TextStyle(color: inputText),
                         decoration: InputDecoration(
                           enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: labelText),
+                            borderSide: BorderSide(color: inputText),
                           ),
                           labelText: 'Last Name',
                           labelStyle: TextStyle(
-                            color: inputText,
+                            color: labelText,
                             fontFamily: 'Poppins',
                           ),
                         ),
@@ -116,14 +113,14 @@ class _RegisterPageState extends State<RegisterPage> {
                     Padding(
                       padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
                       child: TextField(
-                        style: TextStyle(color: labelText),
+                        style: TextStyle(color: inputText),
                         decoration: InputDecoration(
                           enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: labelText),
+                            borderSide: BorderSide(color: inputText),
                           ),
                           labelText: 'Address',
                           labelStyle: TextStyle(
-                            color: inputText,
+                            color: labelText,
                             fontFamily: 'Poppins',
                           ),
                         ),
@@ -132,14 +129,14 @@ class _RegisterPageState extends State<RegisterPage> {
                     Padding(
                       padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
                       child: TextField(
-                        style: TextStyle(color: labelText),
+                        style: TextStyle(color: inputText),
                         decoration: InputDecoration(
                           enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: labelText),
+                            borderSide: BorderSide(color: inputText),
                           ),
                           labelText: 'Email',
                           labelStyle: TextStyle(
-                            color: inputText,
+                            color: labelText,
                             fontFamily: 'Poppins',
                           ),
                         ),
@@ -148,14 +145,14 @@ class _RegisterPageState extends State<RegisterPage> {
                     Padding(
                       padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
                       child: TextField(
-                        style: TextStyle(color: labelText),
+                        style: TextStyle(color: inputText),
                         decoration: InputDecoration(
                           enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: labelText),
+                            borderSide: BorderSide(color: inputText),
                           ),
                           labelText: 'Mobile No',
                           labelStyle: TextStyle(
-                            color: inputText,
+                            color: labelText,
                             fontFamily: 'Poppins',
                           ),
                         ),
@@ -170,30 +167,19 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                     ),
                     Center(
-                      child: GestureDetector(
-                        child: Container(
-                          width: 250,
-                          height: 40,
-                          child: Center(
-                            child: Text(
-                              'Continue',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15,
-                                color: Colors.white,
-                              ),
-                            ),
+                        child: buttonLogin(
+                      context,
+                      () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SetPass(),
                           ),
-                          decoration: BoxDecoration(
-                            color: Color.fromRGBO(239, 77, 35, 1),
-                            //(#ef4d23),
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                        ),
-                      ),
-                    ),
+                        );
+                      },
+                    )),
                     SizedBox(
-                      height: 100,
+                      height: 40,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,

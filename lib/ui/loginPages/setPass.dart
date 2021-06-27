@@ -19,127 +19,125 @@ class _SetPassState extends State<SetPass> {
     return SafeArea(
       child: Scaffold(
         body: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Expanded(
+            Container(
+              //clipBehavior: Clip.none,
+              margin: EdgeInsets.only(bottom: 10),
+              height: 250.h,
               child: Stack(
+                alignment: AlignmentDirectional.bottomEnd,
+                fit: StackFit.expand,
                 children: [
-                  backgroundContainer(),
                   Positioned(
-                    top: -10.h,
-                    left: 180.w,
+                    //top: -20,
+                    left: -100.w,
                     child: Image.asset(
-                      'assets/images/setPass.png',
-                      height: 210.h,
-                      width: 220.w,
+                      "assets/images/rectangle_1.webp",
+                      width: 1.50.sw,
+                      fit: BoxFit.fitWidth,
                     ),
                   ),
                   Positioned(
-                    top: 80.h,
-                    left: 30.w,
+                    top: -15.h,
+                    left: 155.w,
+                    height: 260.h,
+                    width: 330.w,
+                    child: Image.asset(
+                      'assets/images/setPass.png',
+                    ),
+                  ),
+                  Positioned(
+                    top: 140.0.h,
+                    left: 40.0.w,
                     child: Text(
                       'Set Password',
-                      style: themeData().textTheme.headline1!.copyWith(
-                            color: Colors.white,
-                            fontSize: 25,
-                          ),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.bold),
                     ),
                   ),
                 ],
               ),
             ),
-            SizedBox(
-              height: 60,
-            ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
-              child: TextField(
-                style: TextStyle(color: inputText),
-                decoration: InputDecoration(
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: inputText),
-                  ),
-                  labelText: 'OTP',
-                  labelStyle: TextStyle(
-                    color: labelText,
-                    fontFamily: 'Poppins',
-                  ),
+            Container(
+              height: 350.h,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
+                      child: TextField(
+                        style: TextStyle(color: inputText),
+                        decoration: InputDecoration(
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: inputText),
+                          ),
+                          labelText: 'OTP',
+                          labelStyle: TextStyle(
+                            color: labelText,
+                            fontFamily: 'Poppins',
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
+                      child: TextField(
+                        obscuringCharacter: '*',
+                        obscureText: true,
+                        style: TextStyle(color: inputText),
+                        decoration: InputDecoration(
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: inputText),
+                          ),
+                          labelText: 'Set Password',
+                          labelStyle: TextStyle(
+                            color: labelText,
+                            fontFamily: 'Poppins',
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
+                      child: TextField(
+                        obscuringCharacter: '*',
+                        obscureText: true,
+                        style: TextStyle(color: inputText),
+                        decoration: InputDecoration(
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: inputText),
+                          ),
+                          labelText: 'Confirm Password',
+                          labelStyle: TextStyle(
+                            color: labelText,
+                            fontFamily: 'Poppins',
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [],
+                      ),
+                    ),
+                    Center(
+                      child: buttonLogin(
+                        context,
+                        () {},
+                      ),
+                    ),
+                    SizedBox(
+                      height: 50,
+                    ),
+                  ],
                 ),
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
-              child: TextField(
-                obscuringCharacter: '*',
-                obscureText: true,
-                style: TextStyle(color: inputText),
-                decoration: InputDecoration(
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: inputText),
-                  ),
-                  labelText: 'Set Password',
-                  labelStyle: TextStyle(
-                    color: labelText,
-                    fontFamily: 'Poppins',
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
-              child: TextField(
-                obscuringCharacter: '*',
-                obscureText: true,
-                style: TextStyle(color: inputText),
-                decoration: InputDecoration(
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: inputText),
-                  ),
-                  labelText: 'Confirm Password',
-                  labelStyle: TextStyle(
-                    color: labelText,
-                    fontFamily: 'Poppins',
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [],
-              ),
-            ),
-            Center(child: buttonLogin(context, () {})),
-            SizedBox(
-              height: 150,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Already have an account ? ',
-                  style: TextStyle(
-                    color: labelText,
-                    fontFamily: 'Poppins',
-                  ),
-                ),
-                TextButton(
-                  onPressed: () {},
-                  child: Text(
-                    'Sign In',
-                    style: TextStyle(
-                        fontFamily: 'Poppins',
-                        color: inputText,
-                        decoration: TextDecoration.underline,
-                        fontSize: 15),
-                    textAlign: TextAlign.end,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 10,
             ),
           ],
         ),
