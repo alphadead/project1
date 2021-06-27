@@ -6,7 +6,7 @@ ThemeData themeData() {
     fontFamily: 'Poppins',
     textTheme: TextTheme(
       headline1: TextStyle(
-          fontWeight: FontWeight.w800, fontSize: 36, color: kLogoColor2),
+          fontWeight: FontWeight.normal, fontSize: 15, color: titleText),
     ),
   );
 }
