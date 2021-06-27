@@ -31,224 +31,267 @@ class _SignUpPageState extends State<SignUpPage> {
       body: Consumer<AuthenticationService>(
         builder: (context, authService, _) => Form(
           key: _formKey,
-          child: Column(
-            children: [
-              Expanded(
-                child: Stack(
-                  children: [
-                    backgroundContainer(),
-                    Positioned(
-                      top: 5.h,
-                      left: 80.w,
-                      bottom: 0.h,
-                      child: Image.asset(
-                        'assets/images/group_3.png',
-                        height: 240.h,
-                        width: 370.w,
-                      ),
-                    ),
-                    Positioned(
-                      top: 100.h,
-                      left: 40.w,
-                      child: Text(
-                        'Login',
-                        style: themeData().textTheme.headline1!.copyWith(
-                              color: Colors.white,
-                              fontSize: 25,
-                            ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                  child: Column(
                     children: [
-                      Column(
-                        children: [
-                          Container(
-                            height: 34.h,
-                            width: 34.w,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(3),
-                              color: bgroundCol,
-                            ),
-                            child: Center(
-                              child: Text(
-                                '01',
-                                style: TextStyle(color: Colors.white),
+                      Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(width: 0, color: Colors.white),
+                        ),
+                        margin: EdgeInsets.only(bottom: 10),
+                        height: 250.h,
+                        child: Stack(
+                          alignment: AlignmentDirectional.bottomEnd,
+                          fit: StackFit.expand,
+                          children: [
+                            Positioned(
+                              left: -100.w,
+                              child: Image.asset(
+                                "assets/images/rectangle_1.webp",
+                                width: 1.50.sw,
+                                fit: BoxFit.fitWidth,
                               ),
                             ),
-                          ),
-                          SizedBox(height: 3.h),
-                          Text(
-                            "Sign Up",
-                            style: TextStyle(color: bgroundCol),
-                          ),
-                        ],
+                            Positioned(
+                              bottom: -50.h,
+                              left: 120.w,
+                              height: 330.h,
+                              width: 330.w,
+                              child: Image.asset(
+                                'assets/images/group_3.png',
+                              ),
+                            ),
+                            Positioned(
+                              top: 160.0.h,
+                              left: 40.0.w,
+                              child: Text(
+                                'Login',
+                                style:
+                                    themeData().textTheme.headline1!.copyWith(
+                                          fontSize: 25.sp,
+                                          color: titleText,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                      Column(
-                        children: [
-                          Container(
-                            height: 34.h,
-                            width: 34.w,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(3),
-                              color: inactiveColor,
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Column(
+                              children: [
+                                Container(
+                                  height: 34.h,
+                                  width: 34.w,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(3),
+                                    color: bgroundCol,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      '01',
+                                      style: themeData().textTheme.headline1,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: 3.h),
+                                Text(
+                                  "Sign Up",
+                                  style: themeData()
+                                      .textTheme
+                                      .headline1!
+                                      .copyWith(
+                                          color: bgroundCol, fontSize: 12),
+                                ),
+                              ],
                             ),
-                            child: Center(
-                              child: Text(
-                                '02',
-                                style: TextStyle(color: Colors.white),
-                              ),
+                            Column(
+                              children: [
+                                Container(
+                                  height: 34.h,
+                                  width: 34.w,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(3),
+                                    color: inactiveColor,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      '02',
+                                      style: themeData().textTheme.headline1,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: 3.h),
+                                Text(
+                                  "Profile",
+                                  style: themeData()
+                                      .textTheme
+                                      .headline1!
+                                      .copyWith(
+                                          color: inactiveColor, fontSize: 12),
+                                ),
+                              ],
                             ),
-                          ),
-                          SizedBox(height: 3.h),
-                          Text(
-                            "Profile",
-                            style: TextStyle(
-                              color: inactiveColor,
+                            Column(
+                              children: [
+                                Container(
+                                  height: 34.h,
+                                  width: 34.w,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(3),
+                                    color: inactiveColor,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      '03',
+                                      style: themeData().textTheme.headline1,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: 3.h),
+                                Text(
+                                  "Users",
+                                  style: themeData()
+                                      .textTheme
+                                      .headline1!
+                                      .copyWith(
+                                          color: inactiveColor, fontSize: 12),
+                                ),
+                              ],
                             ),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          Container(
-                            height: 34.h,
-                            width: 34.w,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(3),
-                              color: inactiveColor,
+                            Column(
+                              children: [
+                                Container(
+                                  height: 34.h,
+                                  width: 34.w,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(3),
+                                    color: inactiveColor,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      '04',
+                                      style: themeData().textTheme.headline1,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: 3.h),
+                                Text(
+                                  "Share",
+                                  style: themeData()
+                                      .textTheme
+                                      .headline1!
+                                      .copyWith(
+                                          color: inactiveColor, fontSize: 12),
+                                ),
+                              ],
                             ),
-                            child: Center(
-                              child: Text(
-                                '03',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 3.h),
-                          Text(
-                            "Users",
-                            style: TextStyle(
-                              color: inactiveColor,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          Container(
-                            height: 34.h,
-                            width: 34.w,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(3),
-                              color: inactiveColor,
-                            ),
-                            child: Center(
-                              child: Text(
-                                '04',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 3.h),
-                          Text(
-                            "Share",
-                            style: TextStyle(
-                              color: inactiveColor,
-                            ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ],
                   ),
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(30),
-                child: inputField("Mobile No", (value) {
-                  authService.mobileNo = value;
-                }, validate: (arg) {
-                  arg = authService.mobileNo;
-                  if (ValidateFeild().isValidatePhone(arg)) {
-                    return null;
-                  } else {
-                    return "Enter valid phone number";
-                  }
-                }, keyType: TextInputType.phone),
-              ),
-              Padding(
-                  padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
-                  child: inputPasswordField('Password', (value) {
-                    authService.password = value;
-                  }, validate: (arg) {
-                    arg = authService.password;
-                    if (ValidateFeild().isValidatePassword(arg)) {
-                      return null;
-                    } else {
-                      return "Password must be more than 6 characters";
-                    }
-                  }, keyType: TextInputType.name)),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  TextButton(
-                    onPressed: () {},
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 8, 30, 35),
-                      child: Text(
-                        'Forget Password ?',
-                        style: TextStyle(color: inputText, fontSize: 15),
-                        textAlign: TextAlign.end,
-                      ),
+                Container(
+                  height: 320.h,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
+                          child: inputField("Mobile No", (value) {
+                            authService.mobileNo = value;
+                          }, validate: (arg) {
+                            arg = authService.mobileNo;
+                            if (ValidateFeild().isValidatePhone(arg)) {
+                              return null;
+                            } else {
+                              return "Enter valid phone number";
+                            }
+                          }, keyType: TextInputType.phone),
+                        ),
+                        Padding(
+                            padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
+                            child: inputPasswordField('Password', (value) {
+                              authService.password = value;
+                            }, validate: (arg) {
+                              arg = authService.password;
+                              if (ValidateFeild().isValidatePassword(arg)) {
+                                return null;
+                              } else {
+                                return "Password must be more than 6 characters";
+                              }
+                            }, keyType: TextInputType.name)),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            TextButton(
+                              onPressed: () {},
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(0, 8, 30, 35),
+                                child: Text(
+                                  'Forget Password ?',
+                                  style:
+                                      TextStyle(color: inputText, fontSize: 15),
+                                  textAlign: TextAlign.end,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Center(
+                          child: primaryActionButton(
+                              context: context,
+                              onPressed: () {
+                                if (_formKey.currentState!.validate()) {
+                                  authService.login(context, _loginScreen);
+                                }
+                              }),
+                        ),
+                        SizedBox(
+                          height: 60.h,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Not registered yet ? ',
+                              style: TextStyle(
+                                color: labelText,
+                                fontFamily: 'Poppins',
+                              ),
+                            ),
+                            TextButton(
+                              onPressed: () {},
+                              child: Text(
+                                'Create an Account',
+                                style: TextStyle(
+                                    color: inputText,
+                                    decoration: TextDecoration.underline,
+                                    fontSize: 15),
+                                textAlign: TextAlign.end,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                      ],
                     ),
                   ),
-                ],
-              ),
-              Center(
-                child: primaryActionButton(
-                    context: context,
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        authService.login(context, _loginScreen);
-                      }
-                    }),
-              ),
-              SizedBox(
-                height: 100.h,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Not registered yet ? ',
-                    style: TextStyle(
-                      color: labelText,
-                      fontFamily: 'Poppins',
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      'Create an Account',
-                      style: TextStyle(
-                          color: inputText,
-                          decoration: TextDecoration.underline,
-                          fontSize: 15),
-                      textAlign: TextAlign.end,
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 10.h,
-              ),
-            ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
