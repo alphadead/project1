@@ -4,18 +4,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 Widget backgroundContainer() {
   return Positioned(
-    width: 600.w,
-    height: 200.h,
-    bottom: 50.h,
-    child: Transform.rotate(
-      angle: 5.9,
-      origin: Offset(-150.w, 120.h),
-      child: Container(
-        decoration: BoxDecoration(
-          color: bgroundCol,
-          borderRadius: BorderRadius.circular(40),
-        ),
-      ),
+    //top: -20,
+    left: -70.w,
+    child: Image.asset(
+      "assets/images/rectangle_1.webp",
+      width: 1.25.sw,
+      fit: BoxFit.fitWidth,
     ),
   );
 }
