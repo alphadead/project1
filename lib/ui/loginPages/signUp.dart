@@ -234,7 +234,14 @@ class _SignUpPageState extends State<SignUpPage> {
                           Padding(
                             padding: const EdgeInsets.fromLTRB(0, 8, 30, 35),
                             child: TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => SetPass(),
+                                  ),
+                                );
+                              },
                               child: Text(
                                 'Forget Password ?',
                                 style:
@@ -268,7 +275,14 @@ class _SignUpPageState extends State<SignUpPage> {
                             ),
                           ),
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => RegisterPage(),
+                                ),
+                              );
+                            },
                             child: Text(
                               'Create an Account',
                               style: TextStyle(
