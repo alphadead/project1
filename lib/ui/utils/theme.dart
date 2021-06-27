@@ -3,6 +3,14 @@ import 'package:vamos/ui/utils/color.dart';
 
 ThemeData themeData() {
   return ThemeData(
+    textSelectionTheme: TextSelectionThemeData(
+      cursorColor: Colors.green,
+    ),
+    inputDecorationTheme: InputDecorationTheme(
+      labelStyle: TextStyle(color: labelText),
+      focusedBorder:
+          UnderlineInputBorder(borderSide: BorderSide(color: Colors.green)),
+    ),
     fontFamily: 'Poppins',
     textTheme: TextTheme(
       headline1: TextStyle(

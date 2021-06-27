@@ -10,6 +10,7 @@ import 'package:vamos/splashScreen.dart';
 import 'package:vamos/testScreen.dart';
 import 'package:vamos/ui/loginPages/setPass.dart';
 import 'package:vamos/ui/loginPages/signUp.dart';
+import 'package:vamos/ui/utils/theme.dart';
 
 import 'ui/loginPages/register.dart';
 
@@ -45,6 +46,7 @@ class MyApp extends StatelessWidget {
       child: ScreenUtilInit(
         designSize: Size(360, 690),
         builder: () => MaterialApp(
+          theme: themeData(),
           debugShowCheckedModeBanner: false,
           home: SplashScreen(),
         ),

@@ -17,65 +17,65 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                border: Border.all(width: 0, color: Colors.white),
-              ),
-              //clipBehavior: Clip.none,
-              margin: EdgeInsets.only(bottom: 10),
-              height: 250.h,
-              child: Stack(
-                alignment: AlignmentDirectional.bottomEnd,
-                fit: StackFit.expand,
-                children: [
-                  // Container(
-                  //   height: 200.h,
-                  // ),
-                  Positioned(
-                    //top: -20,
-                    left: -100.w,
-                    child: Image.asset(
-                      "assets/images/rectangle_1.webp",
-                      width: 1.50.sw,
-                      fit: BoxFit.fitWidth,
-                    ),
-                  ),
-
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Container(
-                        height: 0.8.sh,
-                        child: Image.asset(
-                          'assets/images/register.png',
-                        ),
+        body: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  border: Border.all(width: 0, color: Colors.white),
+                ),
+                //clipBehavior: Clip.none,
+                margin: EdgeInsets.only(bottom: 10),
+                height: 250.h,
+                child: Stack(
+                  alignment: AlignmentDirectional.bottomEnd,
+                  fit: StackFit.expand,
+                  children: [
+                    // Container(
+                    //   height: 200.h,
+                    // ),
+                    Positioned(
+                      //top: -20,
+                      left: -100.w,
+                      child: Image.asset(
+                        "assets/images/rectangle_1.webp",
+                        width: 1.50.sw,
+                        fit: BoxFit.fitWidth,
                       ),
-                    ],
-                  ),
-                  Positioned(
-                    top: 160.0.h,
-                    left: 40.0.w,
-                    child: Text(
-                      'Register',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20.sp,
-                          fontWeight: FontWeight.bold),
                     ),
-                  ),
-                ],
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Container(
+                          height: 0.8.sh,
+                          child: Image.asset(
+                            'assets/images/register.png',
+                          ),
+                        ),
+                      ],
+                    ),
+                    Positioned(
+                      top: 160.0.h,
+                      left: 40.0.w,
+                      child: Text(
+                        'Register',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20.sp,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            Container(
-              decoration: BoxDecoration(
-                border: Border.all(width: 0, color: Colors.white),
-              ),
-              margin: EdgeInsets.only(bottom: 10),
-              height: 350.h,
-              child: SingleChildScrollView(
+              Container(
+                decoration: BoxDecoration(
+                  border: Border.all(width: 0, color: Colors.white),
+                ),
+                margin: EdgeInsets.only(bottom: 10),
+                //height: 350.h,
                 child: Column(
                   children: [
                     Padding(
@@ -208,8 +208,8 @@ class _RegisterPageState extends State<RegisterPage> {
                   ],
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

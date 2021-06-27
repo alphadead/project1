@@ -201,93 +201,89 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                 ),
                 Container(
-                  height: 320.h,
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
-                          child: inputField("Mobile No", (value) {
-                            authService.mobileNo = value;
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
+                        child: inputField("Mobile No", (value) {
+                          authService.mobileNo = value;
+                        }, validate: (arg) {
+                          arg = authService.mobileNo;
+                          if (ValidateFeild().isValidatePhone(arg)) {
+                            return null;
+                          } else {
+                            return "Enter valid phone number";
+                          }
+                        }, keyType: TextInputType.phone),
+                      ),
+                      Padding(
+                          padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
+                          child: inputPasswordField('Password', (value) {
+                            authService.password = value;
                           }, validate: (arg) {
-                            arg = authService.mobileNo;
-                            if (ValidateFeild().isValidatePhone(arg)) {
+                            arg = authService.password;
+                            if (ValidateFeild().isValidatePassword(arg)) {
                               return null;
                             } else {
-                              return "Enter valid phone number";
+                              return "Password must be more than 6 characters";
                             }
-                          }, keyType: TextInputType.phone),
-                        ),
-                        Padding(
-                            padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
-                            child: inputPasswordField('Password', (value) {
-                              authService.password = value;
-                            }, validate: (arg) {
-                              arg = authService.password;
-                              if (ValidateFeild().isValidatePassword(arg)) {
-                                return null;
-                              } else {
-                                return "Password must be more than 6 characters";
-                              }
-                            }, keyType: TextInputType.name)),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            TextButton(
-                              onPressed: () {},
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(0, 8, 30, 35),
-                                child: Text(
-                                  'Forget Password ?',
-                                  style:
-                                      TextStyle(color: inputText, fontSize: 15),
-                                  textAlign: TextAlign.end,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Center(
-                          child: primaryActionButton(
-                              context: context,
-                              onPressed: () {
-                                if (_formKey.currentState!.validate()) {
-                                  authService.login(context, _loginScreen);
-                                }
-                              }),
-                        ),
-                        SizedBox(
-                          height: 60.h,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Not registered yet ? ',
-                              style: TextStyle(
-                                color: labelText,
-                                fontFamily: 'Poppins',
-                              ),
-                            ),
-                            TextButton(
+                          }, keyType: TextInputType.name)),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 8, 30, 35),
+                            child: TextButton(
                               onPressed: () {},
                               child: Text(
-                                'Create an Account',
-                                style: TextStyle(
-                                    color: inputText,
-                                    decoration: TextDecoration.underline,
-                                    fontSize: 15),
+                                'Forget Password ?',
+                                style:
+                                    TextStyle(color: inputText, fontSize: 15),
                                 textAlign: TextAlign.end,
                               ),
                             ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 10.h,
-                        ),
-                      ],
-                    ),
+                          ),
+                        ],
+                      ),
+                      Center(
+                        child: primaryActionButton(
+                            context: context,
+                            onPressed: () {
+                              if (_formKey.currentState!.validate()) {
+                                authService.login(context, _loginScreen);
+                              }
+                            }),
+                      ),
+                      SizedBox(
+                        height: 60.h,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Not registered yet ? ',
+                            style: TextStyle(
+                              color: labelText,
+                              fontFamily: 'Poppins',
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: () {},
+                            child: Text(
+                              'Create an Account',
+                              style: TextStyle(
+                                  color: inputText,
+                                  decoration: TextDecoration.underline,
+                                  fontSize: 15),
+                              textAlign: TextAlign.end,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10.h,
+                      ),
+                    ],
                   ),
                 ),
               ],

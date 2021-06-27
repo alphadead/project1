@@ -10,13 +10,7 @@ Widget inputField(String placeholderText, Function(String)? onChange,
     keyboardType: keyType,
     style: TextStyle(color: inputText),
     decoration: InputDecoration(
-      enabledBorder: UnderlineInputBorder(
-        borderSide: BorderSide(color: inputText),
-      ),
       labelText: '$placeholderText',
-      labelStyle: TextStyle(
-        color: labelText,
-      ),
     ),
   );
 }
@@ -31,13 +25,7 @@ Widget inputPasswordField(String placeholderText, Function(String)? onChange,
     keyboardType: keyType,
     style: TextStyle(color: inputText),
     decoration: InputDecoration(
-      enabledBorder: UnderlineInputBorder(
-        borderSide: BorderSide(color: inputText),
-      ),
       labelText: '$placeholderText',
-      labelStyle: TextStyle(
-        color: labelText,
-      ),
     ),
   );
 }

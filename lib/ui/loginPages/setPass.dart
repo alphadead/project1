@@ -18,52 +18,51 @@ class _SetPassState extends State<SetPass> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-              //clipBehavior: Clip.none,
-              margin: EdgeInsets.only(bottom: 10),
-              height: 250.h,
-              child: Stack(
-                alignment: AlignmentDirectional.bottomEnd,
-                fit: StackFit.expand,
-                children: [
-                  Positioned(
-                    //top: -20,
-                    left: -100.w,
-                    child: Image.asset(
-                      "assets/images/rectangle_1.webp",
-                      width: 1.50.sw,
-                      fit: BoxFit.fitWidth,
+        body: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                //clipBehavior: Clip.none,
+                margin: EdgeInsets.only(bottom: 10),
+                height: 250.h,
+                child: Stack(
+                  alignment: AlignmentDirectional.bottomEnd,
+                  fit: StackFit.expand,
+                  children: [
+                    Positioned(
+                      //top: -20,
+                      left: -100.w,
+                      child: Image.asset(
+                        "assets/images/rectangle_1.webp",
+                        width: 1.50.sw,
+                        fit: BoxFit.fitWidth,
+                      ),
                     ),
-                  ),
-                  Positioned(
-                    top: -15.h,
-                    left: 155.w,
-                    height: 260.h,
-                    width: 330.w,
-                    child: Image.asset(
-                      'assets/images/setPass.png',
+                    Positioned(
+                      top: -15.h,
+                      left: 155.w,
+                      height: 260.h,
+                      width: 330.w,
+                      child: Image.asset(
+                        'assets/images/setPass.png',
+                      ),
                     ),
-                  ),
-                  Positioned(
-                    top: 140.0.h,
-                    left: 40.0.w,
-                    child: Text(
-                      'Set Password',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20.sp,
-                          fontWeight: FontWeight.bold),
+                    Positioned(
+                      top: 140.0.h,
+                      left: 40.0.w,
+                      child: Text(
+                        'Set Password',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20.sp,
+                            fontWeight: FontWeight.bold),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            Container(
-              height: 350.h,
-              child: SingleChildScrollView(
+              Container(
                 child: Column(
                   children: [
                     Padding(
@@ -138,8 +137,8 @@ class _SetPassState extends State<SetPass> {
                   ],
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
