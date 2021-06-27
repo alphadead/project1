@@ -136,18 +136,19 @@ class _RegisterPageState extends State<RegisterPage> {
                 children: [],
               ),
             ),
-            Center(
-                child: buttonLogin(
-              context,
-              () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => SetPass(),
-                  ),
-                );
-              },
-            )),
+            Center(child: Text("Button")
+                //     buttonLogin(
+                //   context,
+                //   () {
+                //     Navigator.push(
+                //       context,
+                //       MaterialPageRoute(
+                //         builder: (context) => SetPass(),
+                //       ),
+                //     );
+                //   },
+                // ),
+                ),
             SizedBox(
               height: 100,
             ),

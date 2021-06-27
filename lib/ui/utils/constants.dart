@@ -1,1 +1,1 @@
-const String BASE_URL = '';
+const String BASE_URL = 'http://vamos.smartshoper.co.in/api/';

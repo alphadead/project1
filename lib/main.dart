@@ -2,6 +2,9 @@ import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
+import 'package:vamos/core/service/authentication_service.dart';
+import 'package:vamos/core/service/loader.dart';
 import 'package:vamos/locator.dart';
 import 'package:vamos/splashScreen.dart';
 import 'package:vamos/testScreen.dart';
@@ -30,11 +33,21 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: Size(360, 690),
-      builder: () => MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: SplashScreen(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => AuthenticationService(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => Loader(),
+        )
+      ],
+      child: ScreenUtilInit(
+        designSize: Size(360, 690),
+        builder: () => MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: SplashScreen(),
+        ),
       ),
     );
   }

@@ -20,16 +20,10 @@ Widget backgroundContainer() {
   );
 }
 
-Widget buttonLogin(context, Function pages) {
+Widget primaryActionButton(
+    {required BuildContext context, required Function()? onPressed}) {
   return GestureDetector(
-    onTap: () {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => pages(),
-        ),
-      );
-    },
+    onTap: onPressed,
     child: Container(
       width: 250.h,
       height: 40.w,

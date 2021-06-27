@@ -110,7 +110,9 @@ class _SetPassState extends State<SetPass> {
                 children: [],
               ),
             ),
-            Center(child: buttonLogin(context, () {})),
+            Center(child: Text("Button")
+                // buttonLogin(context, () {})
+                ),
             SizedBox(
               height: 150,
             ),
