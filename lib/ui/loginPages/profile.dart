@@ -382,26 +382,37 @@ class _FitnessDetailState extends State<FitnessDetail> {
                       height: 2.h,
                     ),
                     Container(
+                      padding: EdgeInsets.all(10),
                       height: 85.h,
                       width: 285.w,
                       color: Colors.grey[200],
-                      child: SliderTheme(
-                        data: SliderThemeData(
-                          activeTrackColor: inputText,
-                          inactiveTrackColor: Colors.lightGreen,
-                          thumbColor: Color.fromRGBO(239, 77, 35, 1),
-                        ),
-                        child: Slider(
-                            label: '$sliderVal',
-                            min: 0,
-                            max: 300,
-                            divisions: 300,
-                            value: sliderVal,
-                            onChanged: (val) {
-                              setState(() {
-                                sliderVal = val;
-                              });
-                            }),
+                      child: Column(
+                        children: [
+                          Text(
+                            "$sliderVal" + "cm",
+                            style: TextStyle(
+                                color: inputText,
+                                fontSize: 20,
+                                fontWeight: FontWeight.w900),
+                          ),
+                          SliderTheme(
+                            data: SliderThemeData(
+                              activeTrackColor: inputText,
+                              inactiveTrackColor: Colors.lightGreen,
+                              thumbColor: Color.fromRGBO(239, 77, 35, 1),
+                            ),
+                            child: Slider(
+                                min: 0,
+                                max: 300,
+                                divisions: 300,
+                                value: sliderVal,
+                                onChanged: (val) {
+                                  setState(() {
+                                    sliderVal = val;
+                                  });
+                                }),
+                          ),
+                        ],
                       ),
                     )
                   ],
