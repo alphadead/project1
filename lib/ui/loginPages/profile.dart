@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vamos/ui/utils/color.dart';
+import 'package:vamos/ui/utils/loginbkground.dart';
 import 'package:vamos/ui/utils/theme.dart';
 import 'package:vamos/widget/loginpageStack.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -58,6 +59,34 @@ class ProfilePage extends StatelessWidget {
                   children: [
                     PlayerTypeRadioList(),
                     PositionRadioList(),
+                    FitnessDetail(),
+                    Nationality(),
+                    ProfilePhoto(),
+                    SkillVideo(),
+                    Center(
+                      child: GestureDetector(
+                        onTap: () {},
+                        child: Container(
+                          width: 250.h,
+                          height: 40.w,
+                          child: Center(
+                            child: Text(
+                              'View Profile',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                          decoration: BoxDecoration(
+                            color: Color.fromRGBO(239, 77, 35, 1),
+                            //(#ef4d23),
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                        ),
+                      ),
+                    )
                   ],
                 ),
               ),
@@ -310,6 +339,198 @@ class _PositionRadioListState extends State<PositionRadioList> {
               ],
             ),
           ),
+        ],
+      ),
+    );
+  }
+}
+
+class FitnessDetail extends StatefulWidget {
+  const FitnessDetail({Key? key}) : super(key: key);
+
+  @override
+  _FitnessDetailState createState() => _FitnessDetailState();
+}
+
+class _FitnessDetailState extends State<FitnessDetail> {
+  double sliderVal = 180;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(top: 30),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ProfileContainer(title: "Fitness Detail"),
+          Container(
+            padding: EdgeInsets.fromLTRB(30, 15, 0, 0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [],
+                    ),
+                    Text(
+                      "Height",
+                      style: TextStyle(color: inputText, fontSize: 20.h),
+                    ),
+                    SizedBox(
+                      height: 2.h,
+                    ),
+                    Container(
+                      height: 85.h,
+                      width: 285.w,
+                      color: Colors.grey[200],
+                      child: SliderTheme(
+                        data: SliderThemeData(
+                          activeTrackColor: inputText,
+                          inactiveTrackColor: Colors.lightGreen,
+                          thumbColor: Color.fromRGBO(239, 77, 35, 1),
+                        ),
+                        child: Slider(
+                            label: '$sliderVal',
+                            min: 0,
+                            max: 300,
+                            divisions: 300,
+                            value: sliderVal,
+                            onChanged: (val) {
+                              setState(() {
+                                sliderVal = val;
+                              });
+                            }),
+                      ),
+                    )
+                  ],
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class Nationality extends StatefulWidget {
+  const Nationality({Key? key}) : super(key: key);
+
+  @override
+  _NationalityState createState() => _NationalityState();
+}
+
+class _NationalityState extends State<Nationality> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(top: 30),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ProfileContainer(title: "Nationality"),
+          Container(
+            padding: EdgeInsets.fromLTRB(30, 15, 0, 0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [DropdownMenuItem(child: Center())],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class ProfilePhoto extends StatefulWidget {
+  const ProfilePhoto({Key? key}) : super(key: key);
+
+  @override
+  _ProfilePhotoState createState() => _ProfilePhotoState();
+}
+
+class _ProfilePhotoState extends State<ProfilePhoto> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(top: 30),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ProfileContainer(title: "Profile Photo"),
+          Container(
+            padding: EdgeInsets.fromLTRB(30.w, 15, 0, 0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                  height: 86.h,
+                  width: 130.w,
+                  color: Colors.grey[200],
+                  child: Center(
+                    child: Icon(
+                      Icons.add_a_photo,
+                      color: Colors.blue[300],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class SkillVideo extends StatefulWidget {
+  const SkillVideo({Key? key}) : super(key: key);
+
+  @override
+  _SkillVideoState createState() => _SkillVideoState();
+}
+
+class _SkillVideoState extends State<SkillVideo> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(top: 30),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ProfileContainer(title: "Skill Videos"),
+          Container(
+            padding: EdgeInsets.fromLTRB(10.w, 15, 30, 30),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                  height: 86.h,
+                  width: 130.w,
+                  color: Colors.grey[200],
+                  child: Center(
+                    child: Icon(
+                      Icons.video_label,
+                      color: Colors.blue[300],
+                    ),
+                  ),
+                ),
+                Container(
+                  height: 86.h,
+                  width: 130.w,
+                  color: Colors.grey[200],
+                  child: Center(
+                    child: Icon(
+                      Icons.video_label,
+                      color: Colors.blue[300],
+                    ),
+                  ),
+                )
+              ],
+            ),
+          )
         ],
       ),
     );
