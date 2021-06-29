@@ -72,6 +72,10 @@ flutter:
     - family: Poppins
       fonts:
         - asset: fonts/Poppins-Light.ttf
+        - asset: fonts/Poppins-Light.ttf
+          weight: 500
+        - asset: fonts/Poppins-Bold.ttf
+          weight: 900
   # fonts:
   #   - family: Schyler
   #     fonts:

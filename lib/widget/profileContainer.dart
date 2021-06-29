@@ -15,11 +15,18 @@ class ProfileContainer extends StatelessWidget {
           borderRadius: BorderRadius.only(
               topRight: Radius.circular(20), bottomRight: Radius.circular(20)),
           color: profileContainerColor),
-      child: Center(
-        child: Text(
-          title,
-          style: TextStyle(color: Colors.white, fontSize: 17.5),
-        ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            padding: EdgeInsets.only(left: 20.w),
+            child: Text(
+              title,
+              style: TextStyle(color: Colors.white, fontSize: 17.5.sp),
+            ),
+          ),
+        ],
       ),
     );
   }

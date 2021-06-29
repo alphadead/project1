@@ -10,3 +10,5 @@ const titleText = Color.fromRGBO(255, 255, 255, 1);
 const profileContainerColor = Color(0xff94ca61);
 const lightGrey = Color(0xffc0c1bf);
 const headAndIcon = Color.fromRGBO(5, 73, 98, 1);
+const sliderGreenActive = Color(0xff67bb46);
+const sliderGreenInactive = Color(0xff9fce60);

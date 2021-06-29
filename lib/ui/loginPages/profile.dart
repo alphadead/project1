@@ -4,6 +4,7 @@ import 'package:vamos/ui/utils/loginbkground.dart';
 import 'package:vamos/ui/utils/theme.dart';
 import 'package:vamos/widget/loginpageStack.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:vamos/widget/numvalueContainer.dart';
 import 'package:vamos/widget/profileContainer.dart';
 
 enum playerTypeenum { player, goalkeeper, refree, photographer }
@@ -56,7 +57,7 @@ class ProfilePage extends StatelessWidget {
                 ),
                 margin: EdgeInsets.only(bottom: 10),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     PlayerTypeRadioList(),
                     PositionRadioList(),
@@ -68,6 +69,7 @@ class ProfilePage extends StatelessWidget {
                       child: GestureDetector(
                         onTap: () {},
                         child: Container(
+                          margin: EdgeInsets.only(bottom: 20),
                           width: 250.h,
                           height: 40.w,
                           child: Center(
@@ -365,59 +367,66 @@ class _FitnessDetailState extends State<FitnessDetail> {
           ProfileContainer(title: "Fitness Detail"),
           Container(
             padding: EdgeInsets.fromLTRB(30, 15, 0, 0),
-            child: Row(
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                Row(
                   children: [
-                    Row(
-                      children: [],
-                    ),
-                    Text(
-                      "Height",
-                      style: TextStyle(color: inputText, fontSize: 18.h),
+                    NumValueContainer(
+                      title: "Age",
                     ),
                     SizedBox(
-                      height: 2.h,
+                      width: 30,
                     ),
-                    Container(
-                      padding: EdgeInsets.all(10),
-                      height: 85.h,
-                      width: 285.w,
-                      color: Color.fromRGBO(249, 249, 249, 1),
-                      child: Column(
-                        children: [
-                          Text(
-                            "$sliderVal" + " cm",
-                            style: TextStyle(
-                                color: headAndIcon,
-                                fontSize: 20,
-                                fontWeight: FontWeight.w900),
-                          ),
-                          SliderTheme(
-                            data: SliderThemeData(
-                              activeTrackColor: inputText,
-                              inactiveTrackColor: Colors.lightGreen,
-                              thumbColor: Color.fromRGBO(239, 77, 35, 1),
-                            ),
-                            child: Slider(
-                              min: 0,
-                              max: 300,
-                              divisions: 300,
-                              value: sliderVal,
-                              onChanged: (val) {
-                                setState(() {
-                                  sliderVal = val;
-                                });
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
+                    NumValueContainer(
+                      title: "Weight",
+                    ),
                   ],
+                ),
+                Text(
+                  "Height",
+                  style: TextStyle(color: inputText, fontSize: 18.h),
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 10),
+                  width: 285.w,
+                  color: Color.fromRGBO(249, 249, 249, 1),
+                  child: Column(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(top: 10),
+                        child: Text(
+                          sliderVal.toInt().toString() + " cm",
+                          style: TextStyle(
+                            color: headAndIcon,
+                            fontSize: 20.sp,
+                            fontWeight: FontWeight.w900,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(bottom: 5),
+                        child: SliderTheme(
+                          data: SliderThemeData(
+                            activeTrackColor: sliderGreenActive,
+                            inactiveTrackColor: sliderGreenInactive,
+                            thumbColor: Color(0xfff05627),
+                          ),
+                          child: Slider(
+                            min: 0,
+                            max: 300,
+                            value: sliderVal,
+                            onChanged: (val) {
+                              setState(() {
+                                sliderVal = val;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -436,7 +445,7 @@ class Nationality extends StatefulWidget {
 }
 
 class _NationalityState extends State<Nationality> {
-  String dropdownValue = 'India';
+  String? dropdownValue;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -447,38 +456,43 @@ class _NationalityState extends State<Nationality> {
           ProfileContainer(title: "Nationality"),
           Container(
             padding: EdgeInsets.fromLTRB(30, 15, 0, 0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                  padding: EdgeInsets.all(12),
-                  color: Color.fromRGBO(249, 249, 249, 1),
-                  width: 285.w,
-                  height: 41.h,
-                  child: DropdownButton<String>(
-                    underline: Container(
-                      height: 0,
-                      color: Colors.transparent,
-                    ),
-                    value: dropdownValue,
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        dropdownValue = newValue!;
-                      });
-                    },
-                    items: <String>['Florida', 'India', 'England', 'Santorini']
-                        .map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(
-                          value,
-                          style: TextStyle(color: inputText, fontSize: 16),
-                        ),
-                      );
-                    }).toList(),
+            child: Container(
+              padding: EdgeInsets.all(12),
+              color: Color.fromRGBO(249, 249, 249, 1),
+              child: DropdownButton<String>(
+                isDense: true,
+                icon: Image.asset(
+                  "assets/images/down_arrow_3.webp",
+                  width: 16.sp,
+                ),
+                underline: SizedBox(),
+                value: dropdownValue,
+                hint: Container(
+                  margin: EdgeInsets.only(right: 200.w),
+                  child: Text(
+                    "Select",
+                    style: TextStyle(
+                        color: inputText,
+                        fontSize: 15.sp,
+                        fontWeight: FontWeight.w500),
                   ),
-                )
-              ],
+                ),
+                onChanged: (String? newValue) {
+                  setState(() {
+                    dropdownValue = newValue!;
+                  });
+                },
+                items: <String>['Florida', 'India', 'England', 'Santorini']
+                    .map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(
+                      value,
+                      style: TextStyle(color: inputText, fontSize: 16),
+                    ),
+                  );
+                }).toList(),
+              ),
             ),
           )
         ],
