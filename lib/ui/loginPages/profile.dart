@@ -423,6 +423,7 @@ class Nationality extends StatefulWidget {
 }
 
 class _NationalityState extends State<Nationality> {
+  String dropdownValue = 'India';
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -435,7 +436,36 @@ class _NationalityState extends State<Nationality> {
             padding: EdgeInsets.fromLTRB(30, 15, 0, 0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
-              children: [DropdownMenuItem(child: Center())],
+              children: [
+                Container(
+                  padding: EdgeInsets.all(12),
+                  color: Colors.grey[200],
+                  width: 285.w,
+                  height: 41.h,
+                  child: DropdownButton<String>(
+                    underline: Container(
+                      height: 0,
+                      color: Colors.transparent,
+                    ),
+                    value: dropdownValue,
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        dropdownValue = newValue!;
+                      });
+                    },
+                    items: <String>['Florida', 'India', 'England', 'Santorini']
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(
+                          value,
+                          style: TextStyle(color: inputText, fontSize: 16),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                )
+              ],
             ),
           )
         ],
