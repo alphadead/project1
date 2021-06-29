@@ -30,6 +30,7 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.white,
         body: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -376,7 +377,7 @@ class _FitnessDetailState extends State<FitnessDetail> {
                     ),
                     Text(
                       "Height",
-                      style: TextStyle(color: inputText, fontSize: 20.h),
+                      style: TextStyle(color: inputText, fontSize: 18.h),
                     ),
                     SizedBox(
                       height: 2.h,
@@ -385,13 +386,13 @@ class _FitnessDetailState extends State<FitnessDetail> {
                       padding: EdgeInsets.all(10),
                       height: 85.h,
                       width: 285.w,
-                      color: Colors.grey[200],
+                      color: Color.fromRGBO(249, 249, 249, 1),
                       child: Column(
                         children: [
                           Text(
-                            "$sliderVal" + "cm",
+                            "$sliderVal" + " cm",
                             style: TextStyle(
-                                color: inputText,
+                                color: headAndIcon,
                                 fontSize: 20,
                                 fontWeight: FontWeight.w900),
                           ),
@@ -402,15 +403,16 @@ class _FitnessDetailState extends State<FitnessDetail> {
                               thumbColor: Color.fromRGBO(239, 77, 35, 1),
                             ),
                             child: Slider(
-                                min: 0,
-                                max: 300,
-                                divisions: 300,
-                                value: sliderVal,
-                                onChanged: (val) {
-                                  setState(() {
-                                    sliderVal = val;
-                                  });
-                                }),
+                              min: 0,
+                              max: 300,
+                              divisions: 300,
+                              value: sliderVal,
+                              onChanged: (val) {
+                                setState(() {
+                                  sliderVal = val;
+                                });
+                              },
+                            ),
                           ),
                         ],
                       ),
@@ -450,7 +452,7 @@ class _NationalityState extends State<Nationality> {
               children: [
                 Container(
                   padding: EdgeInsets.all(12),
-                  color: Colors.grey[200],
+                  color: Color.fromRGBO(249, 249, 249, 1),
                   width: 285.w,
                   height: 41.h,
                   child: DropdownButton<String>(
@@ -509,13 +511,13 @@ class _ProfilePhotoState extends State<ProfilePhoto> {
                 Container(
                   height: 86.h,
                   width: 130.w,
-                  color: Colors.grey[200],
+                  color: Color.fromRGBO(249, 249, 249, 1),
                   child: Center(
-                    child: Icon(
-                      Icons.add_a_photo,
-                      color: Colors.blue[300],
-                    ),
-                  ),
+                      child: Image.asset(
+                    "assets/images/add_image_1.webp",
+                    height: 28.h,
+                    width: 34.w,
+                  )),
                 ),
               ],
             ),
@@ -545,33 +547,32 @@ class _SkillVideoState extends State<SkillVideo> {
           Container(
             padding: EdgeInsets.fromLTRB(10.w, 15, 30, 30),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Container(
-                  height: 86.h,
-                  width: 130.w,
-                  color: Colors.grey[200],
-                  child: Center(
-                    child: Icon(
-                      Icons.video_label,
-                      color: Colors.blue[300],
-                    ),
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Container(
+                    height: 86.h,
+                    width: 130.w,
+                    color: Color.fromRGBO(249, 249, 249, 1),
+                    child: Center(
+                        child: Image.asset(
+                      "assets/images/add_video_copy.webp",
+                      height: 28.h,
+                      width: 34.w,
+                    )),
                   ),
-                ),
-                Container(
-                  height: 86.h,
-                  width: 130.w,
-                  color: Colors.grey[200],
-                  child: Center(
-                    child: Icon(
-                      Icons.video_label,
-                      color: Colors.blue[300],
-                    ),
+                  Container(
+                    height: 86.h,
+                    width: 130.w,
+                    color: Color.fromRGBO(249, 249, 249, 1),
+                    child: Center(
+                        child: Image.asset(
+                      "assets/images/add_video_copy.webp",
+                      height: 28.h,
+                      width: 34.w,
+                    )),
                   ),
-                )
-              ],
-            ),
-          )
+                ]),
+          ),
         ],
       ),
     );
