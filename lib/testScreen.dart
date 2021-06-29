@@ -12,13 +12,13 @@ class _TestScreenState extends State<TestScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Vamos'),
-      ),
-      body: Container(
-        height: 200.h,
-        child: Text('Text'),
-      ),
-    );
+        appBar: AppBar(
+          title: Text('Vamos'),
+        ),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [Text("data")],
+        ));
   }
 }

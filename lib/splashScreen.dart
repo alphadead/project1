@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vamos/testScreen.dart';
+import 'package:vamos/ui/loginPages/signUp.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -26,7 +27,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void movepage() {
     Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => TestScreen()));
+        context, MaterialPageRoute(builder: (context) => SignUpPage()));
   }
 
   Widget build(BuildContext context) {

@@ -3,10 +3,18 @@ import 'package:vamos/ui/utils/color.dart';
 
 ThemeData themeData() {
   return ThemeData(
-    fontFamily: 'Helvetica',
+    textSelectionTheme: TextSelectionThemeData(
+      cursorColor: Colors.green,
+    ),
+    inputDecorationTheme: InputDecorationTheme(
+      labelStyle: TextStyle(color: labelText),
+      focusedBorder:
+          UnderlineInputBorder(borderSide: BorderSide(color: Colors.green)),
+    ),
+    fontFamily: 'Poppins',
     textTheme: TextTheme(
       headline1: TextStyle(
-          fontWeight: FontWeight.w800, fontSize: 36, color: kLogoColor2),
+          fontWeight: FontWeight.normal, fontSize: 15, color: titleText),
     ),
   );
 }
