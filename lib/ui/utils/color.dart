@@ -7,3 +7,4 @@ const labelText = Color.fromRGBO(192, 193, 191, 1);
 const bgroundCol = Color.fromRGBO(99, 186, 70, 1);
 const inactiveColor = Color.fromRGBO(99, 186, 70, 0.5);
 const titleText = Color.fromRGBO(255, 255, 255, 1);
+const profileContainerColor = Color(0xff94ca61);
