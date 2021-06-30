@@ -5,6 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vamos/testScreen.dart';
 import 'package:vamos/ui/loginPages/signUp.dart';
 
+import 'core/service/routes/routeManagement.dart';
+
 class SplashScreen extends StatefulWidget {
   @override
   _SplashScreenState createState() => _SplashScreenState();
@@ -26,8 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void movepage() {
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => SignUpPage()));
+    RouteManagement().goToLoginScreen();
   }
 
   Widget build(BuildContext context) {

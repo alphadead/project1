@@ -2,9 +2,9 @@ import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/route_manager.dart';
 import 'package:provider/provider.dart';
-import 'package:vamos/core/service/authentication_service.dart';
-import 'package:vamos/core/service/loader.dart';
+
 import 'package:vamos/locator.dart';
 import 'package:vamos/splashScreen.dart';
 import 'package:vamos/testScreen.dart';
@@ -12,6 +12,7 @@ import 'package:vamos/ui/loginPages/setPass.dart';
 import 'package:vamos/ui/loginPages/signUp.dart';
 import 'package:vamos/ui/utils/theme.dart';
 
+import 'core/service/routes/appPage.dart';
 import 'ui/loginPages/register.dart';
 
 void main() {
@@ -34,22 +35,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (context) => AuthenticationService(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => Loader(),
-        )
-      ],
-      child: ScreenUtilInit(
-        designSize: Size(360, 690),
-        builder: () => MaterialApp(
-          theme: themeData(),
-          debugShowCheckedModeBanner: false,
-          home: SplashScreen(),
-        ),
+    return ScreenUtilInit(
+      designSize: Size(360, 690),
+      builder: () => GetMaterialApp(
+        theme: themeData(),
+        debugShowCheckedModeBanner: false,
+        initialRoute: "/splashScreen",
+        getPages: AppPages.pages,
       ),
     );
   }
