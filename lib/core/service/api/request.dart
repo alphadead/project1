@@ -20,17 +20,19 @@ Future<Map<String, dynamic>> postRequest(url, body) async {
   });
   print("BODY ${response.body}");
   print("STATUS CODE ${response.statusCode}");
-  if (response.statusCode < 300 && response.statusCode >= 200) {
-    Map<String, dynamic> responseBody = json.decode(response.body);
+  // if (response.statusCode < 300 && response.statusCode >= 200) {
+  Map<String, dynamic> responseBody = json.decode(response.body);
 
-    if (responseBody['status'] == 'success' ||
-        responseBody['status'] == 'error') {
-      responseBody.putIfAbsent("success", () => true);
-    }
-    return responseBody;
-  } else {
-    return errorResponse();
+  if (responseBody['status'] == 'success' ||
+      responseBody['status'] == 'error') {
+    responseBody.putIfAbsent("success", () => true);
   }
+  return responseBody;
+  // }
+  // else {
+  //   return responseBody;
+  //   //errorResponse();
+  // }
 }
 
 Map<String, dynamic> timeoutResponse() {
@@ -41,7 +43,10 @@ Map<String, dynamic> timeoutResponse() {
 }
 
 Map<String, dynamic> errorResponse() {
-  return {"success": false, "msg": "Something went wrong, please try again."};
+  return {
+    "success": false,
+    "message": "Something went wrong, please try again."
+  };
 }
 
 Future<Map<String, String>> getHeaders() async {
