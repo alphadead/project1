@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:vamos/ui/loginPages/setPass.dart';
 import 'package:vamos/ui/loginPages/signUp.dart';
 import 'package:vamos/ui/utils/color.dart';
@@ -160,6 +161,22 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                     ),
                     Padding(
+                      padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
+                      child: TextField(
+                        style: TextStyle(color: inputText),
+                        decoration: InputDecoration(
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: inputText),
+                          ),
+                          labelText: 'Cvil id',
+                          labelStyle: TextStyle(
+                            color: labelText,
+                            fontFamily: 'Poppins',
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -194,12 +211,13 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                         TextButton(
                           onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => SignUpPage(),
-                              ),
-                            );
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //     builder: (context) => SignUpPage(),
+                            //   ),
+                            // );
+                            Get.offNamed("/login");
                           },
                           child: Text(
                             'Sign In',

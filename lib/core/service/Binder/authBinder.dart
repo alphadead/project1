@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:vamos/core/service/controller/authController.dart';
 
-class AuthBinder extends Bindings {
+class AllBinder extends Bindings {
   @override
   void dependencies() {
     // TODO: implement dependencies

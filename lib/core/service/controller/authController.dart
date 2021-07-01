@@ -10,7 +10,7 @@ import '../../../locator.dart';
 class AuthController extends GetxController {
   String mobileNo = '';
   String password = '';
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   Api api = locator<Api>();
 
@@ -18,12 +18,14 @@ class AuthController extends GetxController {
     Utility.showLoadingDialog();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     LoginResponse response = await api.loginUser(mobileNo, password);
-    if (response.status == 'Success') {
+    if (response.data != null) {
       Utility.closeDialog();
-      Utility.showError("Login DOne");
-      // Get.offNamed("/testScreen");
+      Utility.showError("${response.message}");
+
+      Get.offNamed("/testScreen");
     } else {
-      print("==============");
+      Utility.closeDialog();
+      Utility.showError("${response.message}");
     }
   }
 }

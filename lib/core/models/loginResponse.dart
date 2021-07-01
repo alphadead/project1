@@ -1,79 +1,81 @@
-// To parse this JSON data, do
-//
-//     final loginResponse = loginResponseFromJson(jsonString);
-
 import 'dart:convert';
 
-LoginResponse loginResponseFromJson(String str) =>
-    LoginResponse.fromJson(json.decode(str));
+List<LoginResponse> loginResponseFromJson(String str) =>
+    List<LoginResponse>.from(
+        json.decode(str).map((x) => LoginResponse.fromJson(x)));
 
-String loginResponseToJson(LoginResponse data) => json.encode(data.toJson());
+String loginResponseToJson(List<LoginResponse> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class LoginResponse {
   LoginResponse({
-    required this.status,
-    required this.message,
-    required this.data,
-    required this.accessToken,
+    this.data,
+    this.message,
+    this.errors,
+    this.status,
+    this.accessToken,
   });
 
-  String status;
-  String message;
-  Data data;
-  String accessToken;
+  Data? data;
+  String? message;
+  Errors? errors;
+  String? status;
+  String? accessToken;
 
   factory LoginResponse.fromJson(Map<String, dynamic> json) => LoginResponse(
-        status: json["status"],
+        data: json["data"] == null ? null : Data.fromJson(json["data"]),
         message: json["message"],
-        data: Data.fromJson(json["data"]),
-        accessToken: json["access_token"],
+        errors: json["errors"] == null ? null : Errors.fromJson(json["errors"]),
+        status: json["status"] == null ? null : json["status"],
+        accessToken: json["access_token"] == null ? null : json["access_token"],
       );
 
   Map<String, dynamic> toJson() => {
-        "status": status,
+        "data": data == null ? null : data!.toJson(),
         "message": message,
-        "data": data.toJson(),
-        "access_token": accessToken,
+        "errors": errors == null ? null : errors!.toJson(),
+        "status": status == null ? null : status,
+        "access_token": accessToken == null ? null : accessToken,
       };
 }
 
 class Data {
   Data({
-    required this.id,
-    required this.type,
-    required this.firstName,
+    this.id,
+    this.type,
+    this.firstName,
     this.lastName,
-    required this.email,
+    this.email,
     this.emailVerifiedAt,
-    required this.phone,
-    required this.deviceId,
-    required this.deviceToken,
-    required this.street1,
-    required this.street2,
-    required this.city,
-    required this.state,
-    required this.pincode,
+    this.phone,
+    this.deviceId,
+    this.deviceToken,
+    this.street1,
+    this.street2,
+    this.city,
+    this.state,
+    this.pincode,
     this.createdAt,
-    required this.updatedAt,
+    this.updatedAt,
     this.deletedAt,
   });
 
-  int id;
-  String type;
-  String firstName;
+  int? id;
+  String? type;
+  String? firstName;
   dynamic lastName;
-  String email;
+  String? email;
   dynamic emailVerifiedAt;
-  String phone;
-  String deviceId;
-  String deviceToken;
-  String street1;
-  String street2;
-  String city;
-  String state;
-  String pincode;
+  String? phone;
+  String? deviceId;
+  String? deviceToken;
+  String? street1;
+  String? street2;
+  String? city;
+  String? state;
+  String? pincode;
   dynamic createdAt;
-  DateTime updatedAt;
+  DateTime? updatedAt;
   dynamic deletedAt;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
@@ -112,23 +114,23 @@ class Data {
         "state": state,
         "pincode": pincode,
         "created_at": createdAt,
-        "updated_at": updatedAt.toIso8601String(),
+        "updated_at": updatedAt!.toIso8601String(),
         "deleted_at": deletedAt,
       };
 }
 
 class Errors {
   Errors({
-    required this.password,
+    this.password,
   });
 
-  List<String> password;
+  List<String>? password;
 
   factory Errors.fromJson(Map<String, dynamic> json) => Errors(
         password: List<String>.from(json["password"].map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
-        "password": List<dynamic>.from(password.map((x) => x)),
+        "password": List<dynamic>.from(password!.map((x) => x)),
       };
 }

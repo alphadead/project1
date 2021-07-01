@@ -267,12 +267,13 @@ class SignUpPage extends StatelessWidget {
                           ),
                           TextButton(
                             onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => RegisterPage(),
-                                ),
-                              );
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //     builder: (context) => RegisterPage(),
+                              //   ),
+                              // );
+                              Get.offNamed('/registerScreen');
                             },
                             child: Text(
                               'Create an Account',

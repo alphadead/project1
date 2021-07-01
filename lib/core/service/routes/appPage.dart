@@ -21,7 +21,7 @@ abstract class AppPages {
       name: '/login',
       transitionDuration: transitionDuration,
       page: () => SignUpPage(),
-      binding: AuthBinder(),
+      binding: AllBinder(),
 
       // transition: Transition.downToUp,
     ),
