@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:vamos/core/service/authentication_service.dart';
+import 'package:vamos/core/service/controller/authController.dart';
 import 'package:vamos/ui/loginPages/register.dart';
 import 'package:vamos/ui/loginPages/setPass.dart';
 import 'package:vamos/widget/loginpageIndicator.dart';
@@ -14,25 +15,14 @@ import 'package:vamos/ui/utils/theme.dart';
 import 'package:vamos/ui/utils/validator.dart';
 import 'package:vamos/widget/inputField.dart';
 
-class SignUpPage extends StatefulWidget {
-  const SignUpPage({Key? key}) : super(key: key);
-
-  @override
-  _SignUpPageState createState() => _SignUpPageState();
-}
-
-class _SignUpPageState extends State<SignUpPage> {
-  GlobalKey<ScaffoldState> _loginScreen = GlobalKey<ScaffoldState>();
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
+class SignUpPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-      key: _loginScreen,
-      body: Consumer<AuthenticationService>(
-        builder: (context, authService, _) => Form(
-          key: _formKey,
+        child: GetBuilder<AuthController>(
+      builder: (_authService) => Scaffold(
+        body: Form(
+          key: _authService.formKey,
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -89,9 +79,9 @@ class _SignUpPageState extends State<SignUpPage> {
                       Padding(
                         padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
                         child: inputField("Mobile No", (value) {
-                          authService.mobileNo = value;
+                          _authService.mobileNo = value;
                         }, validate: (arg) {
-                          arg = authService.mobileNo;
+                          arg = _authService.mobileNo;
                           if (ValidateFeild().isValidatePhone(arg)) {
                             return null;
                           } else {
@@ -102,9 +92,9 @@ class _SignUpPageState extends State<SignUpPage> {
                       Padding(
                           padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
                           child: inputPasswordField('Password', (value) {
-                            authService.password = value;
+                            _authService.password = value;
                           }, validate: (arg) {
-                            arg = authService.password;
+                            arg = _authService.password;
                             if (ValidateFeild().isValidatePassword(arg)) {
                               return null;
                             } else {
@@ -139,8 +129,9 @@ class _SignUpPageState extends State<SignUpPage> {
                         child: primaryActionButton(
                             context: context,
                             onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                authService.login(context, _loginScreen);
+                              if (_authService.formKey.currentState!
+                                  .validate()) {
+                                _authService.login();
                               }
                             }),
                       ),
@@ -159,12 +150,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                           TextButton(
                             onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => RegisterPage(),
-                                ),
-                              );
+                              Get.offNamed('/registerScreen');
                             },
                             child: Text(
                               'Create an Account',
