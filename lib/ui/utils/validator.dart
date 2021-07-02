@@ -22,4 +22,12 @@ class ValidateFeild {
       return true;
     }
   }
+
+  bool isValidateName(String arg) {
+    if (arg.length == 0) {
+      return false;
+    } else {
+      return true;
+    }
+  }
 }
