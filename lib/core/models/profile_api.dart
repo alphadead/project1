@@ -6,12 +6,12 @@ String profileToJson(Profile data) => json.encode(data.toJson());
 
 class Profile {
   Profile({
-    this.success,
+    required this.success,
     this.message,
     this.data,
   });
 
-  bool? success;
+  bool success;
   String? message;
   Data? data;
 
@@ -38,12 +38,12 @@ class Data {
     this.weight,
     this.height,
     this.nationality,
-    this.skillVideos,
+    //this.skillVideos,
     this.createdAt,
     this.updatedAt,
     this.deletedAt,
-    this.photo,
-    this.media,
+    //this.photo,
+    //this.media,
   });
 
   int? id;
@@ -54,12 +54,12 @@ class Data {
   String? weight;
   String? height;
   String? nationality;
-  dynamic skillVideos;
+  //dynamic skillVideos;
   DateTime? createdAt;
   DateTime? updatedAt;
   dynamic deletedAt;
-  dynamic photo;
-  List<dynamic>? media;
+  //dynamic photo;
+  //List<dynamic>? media;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         id: json["id"],
@@ -70,12 +70,12 @@ class Data {
         weight: json["weight"],
         height: json["height"],
         nationality: json["nationality"],
-        skillVideos: json["skill_videos"],
+        // skillVideos: json["skill_videos"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
         deletedAt: json["deleted_at"],
-        photo: json["photo"],
-        media: List<dynamic>.from(json["media"].map((x) => x)),
+        //photo: json["photo"],
+        //media: List<dynamic>.from(json["media"].map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
@@ -87,11 +87,11 @@ class Data {
         "weight": weight,
         "height": height,
         "nationality": nationality,
-        "skill_videos": skillVideos,
+        //"skill_videos": skillVideos,
         "created_at": createdAt!.toIso8601String(),
         "updated_at": updatedAt!.toIso8601String(),
         "deleted_at": deletedAt,
-        "photo": photo,
-        "media": List<dynamic>.from(media!.map((x) => x)),
+        //"photo": photo,
+        //"media": List<dynamic>.from(media!.map((x) => x)),
       };
 }

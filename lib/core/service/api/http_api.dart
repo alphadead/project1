@@ -1,4 +1,5 @@
 import 'package:vamos/core/models/loginResponse.dart';
+import 'package:vamos/core/models/profile_api.dart';
 import 'package:vamos/core/models/registerResponse.dart';
 import 'package:vamos/core/service/api/api.dart';
 import 'package:vamos/core/service/api/request.dart';
@@ -22,5 +23,29 @@ class HTTPApi extends Api {
     };
     Map<String, dynamic> response = await postRequest("register-step-1", body);
     return RegisterResponse.fromJson(response);
+  }
+
+  Future<Profile> profileResponse(
+    int id,
+    String userId,
+    String typeOfPlayer,
+    String position,
+    String age,
+    String weight,
+    String height,
+    String nationality,
+  ) async {
+    Map<String, dynamic> body = {
+      "id": id,
+      "userId": userId,
+      "typeOfPlayer": typeOfPlayer,
+      "position": position,
+      "age": age,
+      "weight": weight,
+      "height": height,
+      "nationality": nationality,
+    };
+    Map<String, dynamic> reponse = await postRequest("profile", body);
+    return Profile.fromJson(reponse);
   }
 }

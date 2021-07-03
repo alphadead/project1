@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vamos/core/models/loginResponse.dart';
+import 'package:vamos/core/models/profile_api.dart';
 import 'package:vamos/core/models/registerResponse.dart';
 import 'package:vamos/core/service/api/api.dart';
 import 'package:vamos/ui/utils/utility.dart';
@@ -16,6 +17,15 @@ class AuthController extends GetxController {
   String email = '';
   String civilId = '';
   String address = '';
+  int id = 0;
+  String userId = '';
+  String typeOfPlayer = '';
+  String position = '';
+  String age = '';
+  String weight = '';
+  String height = '';
+  String nationality = '';
+  dynamic deletedAt;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   GlobalKey<FormState> formKey2 = GlobalKey<FormState>();
 
@@ -40,6 +50,19 @@ class AuthController extends GetxController {
     Utility.showLoadingDialog();
     RegisterResponse response = await api.registerStep(
         firstName, lastName, email, mobileNo, civilId, "Player");
+    if (response.success) {
+      Utility.closeDialog();
+      Utility.showError("${response.message}");
+    } else {
+      Utility.closeDialog();
+      Utility.showError("${response.message}");
+    }
+  }
+
+  void profile() async {
+    Utility.showLoadingDialog();
+    Profile response = await api.profileResponse(
+        id, userId, typeOfPlayer, position, age, weight, height, nationality);
     if (response.success) {
       Utility.closeDialog();
       Utility.showError("${response.message}");
