@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:vamos/core/service/controller/authController.dart';
@@ -12,6 +13,10 @@ import 'package:vamos/ui/utils/loginbkground.dart';
 import 'package:vamos/ui/utils/validator.dart';
 import 'package:vamos/widget/inputField.dart';
 
+enum typeenum { player, ground }
+
+final typeValue = {typeenum.ground: "Ground", typeenum.player: "Player"};
+
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
 
@@ -21,6 +26,7 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   String radioItem = '';
+  typeenum? _type;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -160,7 +166,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           _authService.civilId = value;
                         }, validate: (arg) {
                           arg = _authService.civilId;
-                          if (ValidateFeild().isValidateName(arg)) {
+                          if (ValidateFeild().isValidateID(arg)) {
                             return null;
                           } else {
                             return "Enter valid Civil Id";
@@ -168,10 +174,69 @@ class _RegisterPageState extends State<RegisterPage> {
                         }, keyType: TextInputType.name),
                       ),
                       Padding(
-                        padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
+                        padding: EdgeInsets.fromLTRB(30, 20, 30, 30),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [Text("data")],
+                          children: [
+                            Container(
+                              child: Row(
+                                children: [
+                                  Transform.scale(
+                                    scale: 1.35,
+                                    child: Radio(
+                                      visualDensity: VisualDensity.compact,
+                                      splashRadius: 15,
+                                      fillColor: MaterialStateProperty.all(
+                                          profileContainerColor),
+                                      value: typeenum.player,
+                                      groupValue: _type,
+                                      onChanged: (typeenum? value) {
+                                        setState(() {
+                                          _type = value;
+                                          _authService.type =
+                                              typeValue[_type].toString();
+                                        });
+                                      },
+                                    ),
+                                  ),
+                                  Text(
+                                    "Player",
+                                    style: TextStyle(
+                                        fontSize: 15, color: lightGrey),
+                                  )
+                                ],
+                              ),
+                            ),
+                            Container(
+                              child: Row(
+                                children: [
+                                  Transform.scale(
+                                    scale: 1.35,
+                                    child: Radio(
+                                      visualDensity: VisualDensity.compact,
+                                      splashRadius: 15,
+                                      fillColor: MaterialStateProperty.all(
+                                          profileContainerColor),
+                                      value: typeenum.ground,
+                                      groupValue: _type,
+                                      onChanged: (typeenum? value) {
+                                        setState(() {
+                                          _type = value;
+                                          _authService.type =
+                                              typeValue[_type].toString();
+                                        });
+                                      },
+                                    ),
+                                  ),
+                                  Text(
+                                    "Ground",
+                                    style: TextStyle(
+                                        fontSize: 15, color: lightGrey),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                       Center(
