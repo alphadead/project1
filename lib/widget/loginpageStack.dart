@@ -30,12 +30,16 @@ class LoginPageStack extends StatelessWidget {
           Positioned(
             top: 160.0.h,
             left: 40.0.w,
-            child: Text(
-              heading,
-              style: TextStyle(
+            child: Container(
+              width: 150.w,
+              child: Text(
+                heading,
+                style: TextStyle(
                   color: Colors.white,
                   fontSize: 20.sp,
-                  fontWeight: FontWeight.bold),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ),
         ],
