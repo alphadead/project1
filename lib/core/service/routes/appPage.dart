@@ -5,6 +5,7 @@ import 'package:vamos/testScreen.dart';
 import 'package:vamos/ui/loginPages/register.dart';
 import 'package:vamos/ui/loginPages/registeredteams.dart';
 import 'package:vamos/ui/loginPages/signUp.dart';
+import 'package:vamos/ui/pages/inviteScreen.dart';
 
 /// Contains the list of pages or routes taken across the whole application.
 /// This will prevent us in using context for navigation. And also providing
@@ -47,6 +48,12 @@ abstract class AppPages {
       name: '/registeredTeamScreen',
       transitionDuration: transitionDuration,
       page: () => RegisteredTeamPage(),
+      transition: Transition.downToUp,
+    ),
+    GetPage(
+      name: '/inviteScreen',
+      transitionDuration: transitionDuration,
+      page: () => InviteScreen(),
       transition: Transition.downToUp,
     ),
   ];

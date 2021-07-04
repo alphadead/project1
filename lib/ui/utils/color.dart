@@ -13,3 +13,6 @@ const headAndIcon = Color.fromRGBO(5, 73, 98, 1);
 const sliderGreenActive = Color(0xff67bb46);
 const sliderGreenInactive = Color(0xff9fce60);
 const containerGreen = Color(0xff6bbc46);
+const moneyBox = Color(0xff054861);
+const KColorBlack = Color(0xff000000);
+const KLightGrey = Color(0xffc0c1bf);
