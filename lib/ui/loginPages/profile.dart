@@ -414,7 +414,7 @@ class _FitnessDetailState extends State<FitnessDetail> {
                             SizedBox(
                               width: 30,
                             ),
-                            NumValueContainer(
+                            WeightValueContainer(
                               title: "Weight",
                             ),
                           ],

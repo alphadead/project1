@@ -4,15 +4,15 @@ import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:vamos/core/service/controller/authController.dart';
 import 'package:vamos/ui/utils/color.dart';
 
-class NumValueContainer extends StatefulWidget {
+class WeightValueContainer extends StatefulWidget {
   final String title;
-  const NumValueContainer({Key? key, required this.title}) : super(key: key);
+  const WeightValueContainer({Key? key, required this.title}) : super(key: key);
 
   @override
-  _NumValueContainerState createState() => _NumValueContainerState();
+  _WeightValueContainerState createState() => _WeightValueContainerState();
 }
 
-class _NumValueContainerState extends State<NumValueContainer> {
+class _WeightValueContainerState extends State<WeightValueContainer> {
   int val = 18;
 
   @override
