@@ -17,7 +17,6 @@ class AuthController extends GetxController {
   String email = '';
   String civilId = '';
   String address = '';
-  int id = 0;
   String userId = '';
   String typeOfPlayer = '';
   String position = '';
@@ -25,7 +24,7 @@ class AuthController extends GetxController {
   String weight = '';
   String height = '';
   String nationality = '';
-  dynamic deletedAt;
+
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   GlobalKey<FormState> formKey2 = GlobalKey<FormState>();
 
@@ -62,10 +61,11 @@ class AuthController extends GetxController {
   void profile() async {
     Utility.showLoadingDialog();
     Profile response = await api.profileResponse(
-        id, userId, typeOfPlayer, position, age, weight, height, nationality);
+        '10', typeOfPlayer, position, age, weight, height, nationality);
     if (response.success) {
       Utility.closeDialog();
       Utility.showError("${response.message}");
+      print(response);
     } else {
       Utility.closeDialog();
       Utility.showError("${response.message}");

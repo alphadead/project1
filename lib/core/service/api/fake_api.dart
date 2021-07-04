@@ -14,7 +14,6 @@ class FakeApi extends Api {
   }
 
   Future<Profile> profileResponse(
-    int id,
     String userId,
     String typeOfPlayer,
     String position,

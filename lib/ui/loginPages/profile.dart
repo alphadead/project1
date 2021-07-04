@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:vamos/core/service/controller/authController.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/loginbkground.dart';
 import 'package:vamos/ui/utils/theme.dart';
@@ -6,6 +8,7 @@ import 'package:vamos/widget/loginpageStack.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vamos/widget/numvalueContainer.dart';
 import 'package:vamos/widget/profileContainer.dart';
+import 'package:country_picker/country_picker.dart';
 
 enum playerTypeenum { player, goalkeeper, refree, photographer }
 enum positionenum { goalkeeper, defender, midfielder, attacker }
@@ -30,7 +33,8 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
+        child: GetBuilder<AuthController>(
+      builder: (_authService) => Scaffold(
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
           child: Column(
@@ -67,7 +71,9 @@ class ProfilePage extends StatelessWidget {
                     SkillVideo(),
                     Center(
                       child: GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          _authService.profile();
+                        },
                         child: Container(
                           margin: EdgeInsets.only(bottom: 20),
                           width: 250.h,
@@ -97,7 +103,7 @@ class ProfilePage extends StatelessWidget {
           ),
         ),
       ),
-    );
+    ));
   }
 }
 
@@ -112,113 +118,127 @@ class _PlayerTypeRadioListState extends State<PlayerTypeRadioList> {
   playerTypeenum? _player;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(top: 30),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ProfileContainer(title: "Type of Player"),
-          Container(
-            padding: EdgeInsets.only(left: 10),
-            child: Row(
-              children: [
-                Transform.scale(
-                  scale: 1.35,
-                  child: Radio(
-                    splashRadius: 15,
-                    fillColor: MaterialStateProperty.all(profileContainerColor),
-                    value: playerTypeenum.player,
-                    groupValue: _player,
-                    onChanged: (playerTypeenum? value) {
-                      setState(() {
-                        _player = value;
-                      });
-                    },
+    return GetBuilder<AuthController>(
+      builder: (_authService) => Container(
+        padding: EdgeInsets.only(top: 30),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ProfileContainer(title: "Type of Player"),
+            Container(
+              padding: EdgeInsets.only(left: 10),
+              child: Row(
+                children: [
+                  Transform.scale(
+                    scale: 1.35,
+                    child: Radio(
+                      splashRadius: 15,
+                      fillColor:
+                          MaterialStateProperty.all(profileContainerColor),
+                      value: playerTypeenum.player,
+                      groupValue: _player,
+                      onChanged: (playerTypeenum? value) {
+                        setState(() {
+                          _player = value;
+                          _authService.typeOfPlayer =
+                              playerTypeValues[_player].toString();
+                        });
+                      },
+                    ),
                   ),
-                ),
-                Text(
-                  "Player",
-                  style: TextStyle(fontSize: 15, color: lightGrey),
-                )
-              ],
+                  Text(
+                    "Player",
+                    style: TextStyle(fontSize: 15, color: lightGrey),
+                  )
+                ],
+              ),
             ),
-          ),
-          Container(
-            padding: EdgeInsets.only(left: 10),
-            child: Row(
-              children: [
-                Transform.scale(
-                  scale: 1.35,
-                  child: Radio(
-                    splashRadius: 10,
-                    fillColor: MaterialStateProperty.all(profileContainerColor),
-                    value: playerTypeenum.goalkeeper,
-                    groupValue: _player,
-                    onChanged: (playerTypeenum? value) {
-                      setState(() {
-                        _player = value;
-                      });
-                    },
+            Container(
+              padding: EdgeInsets.only(left: 10),
+              child: Row(
+                children: [
+                  Transform.scale(
+                    scale: 1.35,
+                    child: Radio(
+                      splashRadius: 10,
+                      fillColor:
+                          MaterialStateProperty.all(profileContainerColor),
+                      value: playerTypeenum.goalkeeper,
+                      groupValue: _player,
+                      onChanged: (playerTypeenum? value) {
+                        setState(() {
+                          _player = value;
+                          _authService.typeOfPlayer =
+                              playerTypeValues[_player].toString();
+                        });
+                      },
+                    ),
                   ),
-                ),
-                Text(
-                  "Goal Keeper",
-                  style: TextStyle(fontSize: 15, color: lightGrey),
-                )
-              ],
+                  Text(
+                    "Goal Keeper",
+                    style: TextStyle(fontSize: 15, color: lightGrey),
+                  )
+                ],
+              ),
             ),
-          ),
-          Container(
-            padding: EdgeInsets.only(left: 10),
-            child: Row(
-              children: [
-                Transform.scale(
-                  scale: 1.35,
-                  child: Radio(
-                    splashRadius: 15,
-                    fillColor: MaterialStateProperty.all(profileContainerColor),
-                    value: playerTypeenum.refree,
-                    groupValue: _player,
-                    onChanged: (playerTypeenum? value) {
-                      setState(() {
-                        _player = value;
-                      });
-                    },
+            Container(
+              padding: EdgeInsets.only(left: 10),
+              child: Row(
+                children: [
+                  Transform.scale(
+                    scale: 1.35,
+                    child: Radio(
+                      splashRadius: 15,
+                      fillColor:
+                          MaterialStateProperty.all(profileContainerColor),
+                      value: playerTypeenum.refree,
+                      groupValue: _player,
+                      onChanged: (playerTypeenum? value) {
+                        setState(() {
+                          _player = value;
+                          _authService.typeOfPlayer =
+                              playerTypeValues[_player].toString();
+                        });
+                      },
+                    ),
                   ),
-                ),
-                Text(
-                  "Referee",
-                  style: TextStyle(fontSize: 15, color: lightGrey),
-                )
-              ],
+                  Text(
+                    "Referee",
+                    style: TextStyle(fontSize: 15, color: lightGrey),
+                  )
+                ],
+              ),
             ),
-          ),
-          Container(
-            padding: EdgeInsets.only(left: 10),
-            child: Row(
-              children: [
-                Transform.scale(
-                  scale: 1.35,
-                  child: Radio(
-                    splashRadius: 15,
-                    fillColor: MaterialStateProperty.all(profileContainerColor),
-                    value: playerTypeenum.photographer,
-                    groupValue: _player,
-                    onChanged: (playerTypeenum? value) {
-                      setState(() {
-                        _player = value;
-                      });
-                    },
+            Container(
+              padding: EdgeInsets.only(left: 10),
+              child: Row(
+                children: [
+                  Transform.scale(
+                    scale: 1.35,
+                    child: Radio(
+                      splashRadius: 15,
+                      fillColor:
+                          MaterialStateProperty.all(profileContainerColor),
+                      value: playerTypeenum.photographer,
+                      groupValue: _player,
+                      onChanged: (playerTypeenum? value) {
+                        setState(() {
+                          _player = value;
+                          _authService.typeOfPlayer =
+                              playerTypeValues[_player].toString();
+                        });
+                      },
+                    ),
                   ),
-                ),
-                Text(
-                  "Football Photographer",
-                  style: TextStyle(fontSize: 15, color: lightGrey),
-                )
-              ],
+                  Text(
+                    "Football Photographer",
+                    style: TextStyle(fontSize: 15, color: lightGrey),
+                  )
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -236,113 +256,127 @@ class _PositionRadioListState extends State<PositionRadioList> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(top: 30),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ProfileContainer(title: "Position"),
-          Container(
-            padding: EdgeInsets.only(left: 10),
-            child: Row(
-              children: [
-                Transform.scale(
-                  scale: 1.35,
-                  child: Radio(
-                    splashRadius: 15,
-                    fillColor: MaterialStateProperty.all(profileContainerColor),
-                    value: positionenum.goalkeeper,
-                    groupValue: _position,
-                    onChanged: (positionenum? value) {
-                      setState(() {
-                        _position = value;
-                      });
-                    },
+    return GetBuilder<AuthController>(
+      builder: (_authService) => Container(
+        padding: EdgeInsets.only(top: 30),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ProfileContainer(title: "Position"),
+            Container(
+              padding: EdgeInsets.only(left: 10),
+              child: Row(
+                children: [
+                  Transform.scale(
+                    scale: 1.35,
+                    child: Radio(
+                      splashRadius: 15,
+                      fillColor:
+                          MaterialStateProperty.all(profileContainerColor),
+                      value: positionenum.goalkeeper,
+                      groupValue: _position,
+                      onChanged: (positionenum? value) {
+                        setState(() {
+                          _position = value;
+                          _authService.position =
+                              positionValues[_position].toString();
+                        });
+                      },
+                    ),
                   ),
-                ),
-                Text(
-                  "Goal Keeper",
-                  style: TextStyle(fontSize: 15, color: lightGrey),
-                )
-              ],
+                  Text(
+                    "Goal Keeper",
+                    style: TextStyle(fontSize: 15, color: lightGrey),
+                  )
+                ],
+              ),
             ),
-          ),
-          Container(
-            padding: EdgeInsets.only(left: 10),
-            child: Row(
-              children: [
-                Transform.scale(
-                  scale: 1.35,
-                  child: Radio(
-                    splashRadius: 15,
-                    fillColor: MaterialStateProperty.all(profileContainerColor),
-                    value: positionenum.defender,
-                    groupValue: _position,
-                    onChanged: (positionenum? value) {
-                      setState(() {
-                        _position = value;
-                      });
-                    },
+            Container(
+              padding: EdgeInsets.only(left: 10),
+              child: Row(
+                children: [
+                  Transform.scale(
+                    scale: 1.35,
+                    child: Radio(
+                      splashRadius: 15,
+                      fillColor:
+                          MaterialStateProperty.all(profileContainerColor),
+                      value: positionenum.defender,
+                      groupValue: _position,
+                      onChanged: (positionenum? value) {
+                        setState(() {
+                          _position = value;
+                          _authService.position =
+                              positionValues[_position].toString();
+                        });
+                      },
+                    ),
                   ),
-                ),
-                Text(
-                  "Defender",
-                  style: TextStyle(fontSize: 15, color: lightGrey),
-                )
-              ],
+                  Text(
+                    "Defender",
+                    style: TextStyle(fontSize: 15, color: lightGrey),
+                  )
+                ],
+              ),
             ),
-          ),
-          Container(
-            padding: EdgeInsets.only(left: 10),
-            child: Row(
-              children: [
-                Transform.scale(
-                  scale: 1.35,
-                  child: Radio(
-                    splashRadius: 15,
-                    fillColor: MaterialStateProperty.all(profileContainerColor),
-                    value: positionenum.midfielder,
-                    groupValue: _position,
-                    onChanged: (positionenum? value) {
-                      setState(() {
-                        _position = value;
-                      });
-                    },
+            Container(
+              padding: EdgeInsets.only(left: 10),
+              child: Row(
+                children: [
+                  Transform.scale(
+                    scale: 1.35,
+                    child: Radio(
+                      splashRadius: 15,
+                      fillColor:
+                          MaterialStateProperty.all(profileContainerColor),
+                      value: positionenum.midfielder,
+                      groupValue: _position,
+                      onChanged: (positionenum? value) {
+                        setState(() {
+                          _position = value;
+                          _authService.position =
+                              positionValues[_position].toString();
+                        });
+                      },
+                    ),
                   ),
-                ),
-                Text(
-                  "Mid Fielder",
-                  style: TextStyle(fontSize: 15, color: lightGrey),
-                )
-              ],
+                  Text(
+                    "Mid Fielder",
+                    style: TextStyle(fontSize: 15, color: lightGrey),
+                  )
+                ],
+              ),
             ),
-          ),
-          Container(
-            padding: EdgeInsets.only(left: 10),
-            child: Row(
-              children: [
-                Transform.scale(
-                  scale: 1.35,
-                  child: Radio(
-                    splashRadius: 15,
-                    fillColor: MaterialStateProperty.all(profileContainerColor),
-                    value: positionenum.attacker,
-                    groupValue: _position,
-                    onChanged: (positionenum? value) {
-                      setState(() {
-                        _position = value;
-                      });
-                    },
+            Container(
+              padding: EdgeInsets.only(left: 10),
+              child: Row(
+                children: [
+                  Transform.scale(
+                    scale: 1.35,
+                    child: Radio(
+                      splashRadius: 15,
+                      fillColor:
+                          MaterialStateProperty.all(profileContainerColor),
+                      value: positionenum.attacker,
+                      groupValue: _position,
+                      onChanged: (positionenum? value) {
+                        setState(() {
+                          _position = value;
+                          _authService.position =
+                              positionValues[_position].toString();
+                        });
+                      },
+                    ),
                   ),
-                ),
-                Text(
-                  "Attacker",
-                  style: TextStyle(fontSize: 15, color: lightGrey),
-                )
-              ],
+                  Text(
+                    "Attacker",
+                    style: TextStyle(fontSize: 15, color: lightGrey),
+                  )
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -359,81 +393,84 @@ class _FitnessDetailState extends State<FitnessDetail> {
   double sliderVal = 180;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(top: 30),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ProfileContainer(title: "Fitness Detail"),
-          Container(
-            padding: EdgeInsets.fromLTRB(30, 15, 0, 0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    NumValueContainer(
-                      title: "Age",
-                    ),
-                    SizedBox(
-                      width: 30,
-                    ),
-                    NumValueContainer(
-                      title: "Weight",
-                    ),
-                  ],
-                ),
-                Text(
-                  "Height",
-                  style: TextStyle(color: inputText, fontSize: 18.h),
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 10),
-                  width: 285.w,
-                  color: Color.fromRGBO(249, 249, 249, 1),
-                  child: Column(
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(top: 10),
-                        child: Text(
-                          sliderVal.toInt().toString() + " cm",
-                          style: TextStyle(
-                            color: headAndIcon,
-                            fontSize: 20.sp,
-                            fontWeight: FontWeight.w900,
+    return GetBuilder<AuthController>(
+        builder: (_authService) => Container(
+              padding: EdgeInsets.only(top: 30),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ProfileContainer(title: "Fitness Detail"),
+                  Container(
+                    padding: EdgeInsets.fromLTRB(30, 15, 0, 0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            AgeValueContainer(
+                              title: "Age",
+                            ),
+                            SizedBox(
+                              width: 30,
+                            ),
+                            NumValueContainer(
+                              title: "Weight",
+                            ),
+                          ],
+                        ),
+                        Text(
+                          "Height",
+                          style: TextStyle(color: inputText, fontSize: 18.h),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(top: 10),
+                          width: 285.w,
+                          color: Color.fromRGBO(249, 249, 249, 1),
+                          child: Column(
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(top: 10),
+                                child: Text(
+                                  sliderVal.toInt().toString() + " cm",
+                                  style: TextStyle(
+                                    color: headAndIcon,
+                                    fontSize: 20.sp,
+                                    fontWeight: FontWeight.w900,
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                padding: EdgeInsets.only(bottom: 5),
+                                child: SliderTheme(
+                                  data: SliderThemeData(
+                                    activeTrackColor: sliderGreenActive,
+                                    inactiveTrackColor: sliderGreenInactive,
+                                    thumbColor: Color(0xfff05627),
+                                  ),
+                                  child: Slider(
+                                    min: 0,
+                                    max: 300,
+                                    value: sliderVal,
+                                    onChanged: (val) {
+                                      setState(() {
+                                        sliderVal = val;
+                                        _authService.height =
+                                            val.toInt().toString();
+                                      });
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.only(bottom: 5),
-                        child: SliderTheme(
-                          data: SliderThemeData(
-                            activeTrackColor: sliderGreenActive,
-                            inactiveTrackColor: sliderGreenInactive,
-                            thumbColor: Color(0xfff05627),
-                          ),
-                          child: Slider(
-                            min: 0,
-                            max: 300,
-                            value: sliderVal,
-                            onChanged: (val) {
-                              setState(() {
-                                sliderVal = val;
-                              });
-                            },
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          )
-        ],
-      ),
-    );
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ));
   }
 }
 
@@ -448,56 +485,62 @@ class _NationalityState extends State<Nationality> {
   String? dropdownValue;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(top: 30),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ProfileContainer(title: "Nationality"),
-          Container(
-            padding: EdgeInsets.fromLTRB(30, 15, 0, 0),
-            child: Container(
-              padding: EdgeInsets.all(12),
-              color: Color.fromRGBO(249, 249, 249, 1),
-              child: DropdownButton<String>(
-                isDense: true,
-                icon: Image.asset(
-                  "assets/images/down_arrow_3.webp",
-                  width: 16.sp,
-                ),
-                underline: SizedBox(),
-                value: dropdownValue,
-                hint: Container(
-                  margin: EdgeInsets.only(right: 200.w),
-                  child: Text(
-                    "Select",
-                    style: TextStyle(
-                        color: inputText,
-                        fontSize: 15.sp,
-                        fontWeight: FontWeight.w500),
-                  ),
-                ),
-                onChanged: (String? newValue) {
-                  setState(() {
-                    dropdownValue = newValue!;
-                  });
-                },
-                items: <String>['Florida', 'India', 'England', 'Santorini']
-                    .map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(
-                      value,
-                      style: TextStyle(color: inputText, fontSize: 16),
+    return GetBuilder<AuthController>(
+        builder: (_authService) => Container(
+              padding: EdgeInsets.only(top: 30),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ProfileContainer(title: "Nationality"),
+                  Container(
+                    padding: EdgeInsets.fromLTRB(30, 15, 0, 0),
+                    child: Container(
+                      padding: EdgeInsets.all(12),
+                      color: Color.fromRGBO(249, 249, 249, 1),
+                      child: DropdownButton<String>(
+                        isDense: true,
+                        icon: Image.asset(
+                          "assets/images/down_arrow_3.webp",
+                          width: 16.sp,
+                        ),
+                        underline: SizedBox(),
+                        value: dropdownValue,
+                        hint: Container(
+                          margin: EdgeInsets.only(right: 200.w),
+                          child: Text(
+                            "Select",
+                            style: TextStyle(
+                                color: inputText,
+                                fontSize: 15.sp,
+                                fontWeight: FontWeight.w500),
+                          ),
+                        ),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            dropdownValue = newValue;
+                            _authService.nationality = newValue.toString();
+                          });
+                        },
+                        items: <String>[
+                          'Florida',
+                          'India',
+                          'England',
+                          'Santorini'
+                        ].map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(
+                              value,
+                              style: TextStyle(color: inputText, fontSize: 16),
+                            ),
+                          );
+                        }).toList(),
+                      ),
                     ),
-                  );
-                }).toList(),
+                  )
+                ],
               ),
-            ),
-          )
-        ],
-      ),
-    );
+            ));
   }
 }
 
@@ -511,34 +554,35 @@ class ProfilePhoto extends StatefulWidget {
 class _ProfilePhotoState extends State<ProfilePhoto> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(top: 30),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ProfileContainer(title: "Profile Photo"),
-          Container(
-            padding: EdgeInsets.fromLTRB(30.w, 15, 0, 0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                  height: 86.h,
-                  width: 130.w,
-                  color: Color.fromRGBO(249, 249, 249, 1),
-                  child: Center(
-                      child: Image.asset(
-                    "assets/images/add_image_1.webp",
-                    height: 28.h,
-                    width: 34.w,
-                  )),
-                ),
-              ],
-            ),
-          )
-        ],
-      ),
-    );
+    return GetBuilder<AuthController>(
+        builder: (_authService) => Container(
+              padding: EdgeInsets.only(top: 30),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ProfileContainer(title: "Profile Photo"),
+                  Container(
+                    padding: EdgeInsets.fromLTRB(30.w, 15, 0, 0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Container(
+                          height: 86.h,
+                          width: 130.w,
+                          color: Color.fromRGBO(249, 249, 249, 1),
+                          child: Center(
+                              child: Image.asset(
+                            "assets/images/add_image_1.webp",
+                            height: 28.h,
+                            width: 34.w,
+                          )),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ));
   }
 }
 
@@ -552,43 +596,44 @@ class SkillVideo extends StatefulWidget {
 class _SkillVideoState extends State<SkillVideo> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(top: 30),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ProfileContainer(title: "Skill Videos"),
-          Container(
-            padding: EdgeInsets.fromLTRB(10.w, 15, 30, 30),
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    return GetBuilder<AuthController>(
+        builder: (_authService) => Container(
+              padding: EdgeInsets.only(top: 30),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  ProfileContainer(title: "Skill Videos"),
                   Container(
-                    height: 86.h,
-                    width: 130.w,
-                    color: Color.fromRGBO(249, 249, 249, 1),
-                    child: Center(
-                        child: Image.asset(
-                      "assets/images/add_video_copy.webp",
-                      height: 28.h,
-                      width: 34.w,
-                    )),
+                    padding: EdgeInsets.fromLTRB(10.w, 15, 30, 30),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Container(
+                            height: 86.h,
+                            width: 130.w,
+                            color: Color.fromRGBO(249, 249, 249, 1),
+                            child: Center(
+                                child: Image.asset(
+                              "assets/images/add_video_copy.webp",
+                              height: 28.h,
+                              width: 34.w,
+                            )),
+                          ),
+                          Container(
+                            height: 86.h,
+                            width: 130.w,
+                            color: Color.fromRGBO(249, 249, 249, 1),
+                            child: Center(
+                                child: Image.asset(
+                              "assets/images/add_video_copy.webp",
+                              height: 28.h,
+                              width: 34.w,
+                            )),
+                          ),
+                        ]),
                   ),
-                  Container(
-                    height: 86.h,
-                    width: 130.w,
-                    color: Color.fromRGBO(249, 249, 249, 1),
-                    child: Center(
-                        child: Image.asset(
-                      "assets/images/add_video_copy.webp",
-                      height: 28.h,
-                      width: 34.w,
-                    )),
-                  ),
-                ]),
-          ),
-        ],
-      ),
-    );
+                ],
+              ),
+            ));
   }
 }

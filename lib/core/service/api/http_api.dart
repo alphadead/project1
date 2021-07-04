@@ -26,7 +26,6 @@ class HTTPApi extends Api {
   }
 
   Future<Profile> profileResponse(
-    int id,
     String userId,
     String typeOfPlayer,
     String position,
@@ -36,7 +35,6 @@ class HTTPApi extends Api {
     String nationality,
   ) async {
     Map<String, dynamic> body = {
-      "id": id,
       "userId": userId,
       "typeOfPlayer": typeOfPlayer,
       "position": position,

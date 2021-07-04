@@ -7,7 +7,6 @@ abstract class Api {
   Future<RegisterResponse> registerStep(String firstName, String lastName,
       String email, String mobileNo, String civilId, String type);
   Future<Profile> profileResponse(
-      int id,
       String userId,
       String typeOfPlayer,
       String position,
