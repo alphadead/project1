@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:vamos/core/service/Binder/authBinder.dart';
 import 'package:vamos/splashScreen.dart';
 import 'package:vamos/testScreen.dart';
+import 'package:vamos/ui/loginPages/profile.dart';
 import 'package:vamos/ui/loginPages/register.dart';
 import 'package:vamos/ui/loginPages/registeredteams.dart';
 import 'package:vamos/ui/loginPages/signUp.dart';
@@ -42,6 +43,11 @@ abstract class AppPages {
       transitionDuration: transitionDuration,
       page: () => RegisterPage(),
       transition: Transition.downToUp,
+    ),
+    GetPage(
+      name: '/profileScreen',
+      transitionDuration: transitionDuration,
+      page: () => ProfilePage(),
     ),
     GetPage(
       name: '/registeredTeamScreen',

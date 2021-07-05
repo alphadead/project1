@@ -15,7 +15,9 @@ Widget backgroundContainer() {
 }
 
 Widget primaryActionButton(
-    {required BuildContext context, required Function()? onPressed}) {
+    {required BuildContext context,
+    required Function()? onPressed,
+    String text = 'continue'}) {
   return GestureDetector(
     onTap: onPressed,
     child: Container(
@@ -23,7 +25,7 @@ Widget primaryActionButton(
       height: 40.w,
       child: Center(
         child: Text(
-          'Continue',
+          text,
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 15,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:vamos/ui/loginPages/profile.dart';
 import 'package:vamos/ui/loginPages/signUp.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -61,7 +62,14 @@ class _SetPassState extends State<SetPass> {
                     Center(
                       child: primaryActionButton(
                         context: context,
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ProfilePage(),
+                            ),
+                          );
+                        },
                       ),
                     ),
                     SizedBox(
