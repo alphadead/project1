@@ -171,7 +171,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [Text("data")],
+                          children: [Text("")],
                         ),
                       ),
                       Center(
