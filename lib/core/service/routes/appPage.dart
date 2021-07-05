@@ -3,6 +3,7 @@ import 'package:vamos/core/service/Binder/authBinder.dart';
 import 'package:vamos/splashScreen.dart';
 import 'package:vamos/testScreen.dart';
 import 'package:vamos/ui/loginPages/register.dart';
+import 'package:vamos/ui/loginPages/registeredteams.dart';
 import 'package:vamos/ui/loginPages/signUp.dart';
 
 /// Contains the list of pages or routes taken across the whole application.
@@ -40,6 +41,12 @@ abstract class AppPages {
       name: '/registerScreen',
       transitionDuration: transitionDuration,
       page: () => RegisterPage(),
+      transition: Transition.downToUp,
+    ),
+    GetPage(
+      name: '/registeredTeamScreen',
+      transitionDuration: transitionDuration,
+      page: () => RegisteredTeamPage(),
       transition: Transition.downToUp,
     ),
   ];
