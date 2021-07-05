@@ -30,4 +30,12 @@ class ValidateFeild {
       return true;
     }
   }
+
+  bool isValidateID(String id) {
+    if (id.length == 12) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

@@ -25,6 +25,7 @@ class AuthController extends GetxController {
   String height = '';
   String nationality = '';
 
+  String type = '';
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   GlobalKey<FormState> formKey2 = GlobalKey<FormState>();
 
@@ -50,7 +51,7 @@ class AuthController extends GetxController {
   void registerStep() async {
     Utility.showLoadingDialog();
     RegisterResponse response = await api.registerStep(
-        firstName, lastName, email, mobileNo, civilId, "Player");
+        firstName, lastName, email, mobileNo, civilId, type);
     if (response.success) {
       Utility.closeDialog();
       Utility.showError("${response.message}");
