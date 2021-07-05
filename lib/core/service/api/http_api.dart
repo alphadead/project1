@@ -25,7 +25,7 @@ class HTTPApi extends Api {
     return RegisterResponse.fromJson(response);
   }
 
-  Future<Profile> profileResponse(
+  Future<ProfileResponse> profileResponse(
     String userId,
     String typeOfPlayer,
     String position,
@@ -35,15 +35,15 @@ class HTTPApi extends Api {
     String nationality,
   ) async {
     Map<String, dynamic> body = {
-      "userId": userId,
-      "typeOfPlayer": typeOfPlayer,
+      "user_id": userId,
+      "type_of_player": typeOfPlayer,
       "position": position,
       "age": age,
       "weight": weight,
       "height": height,
       "nationality": nationality,
     };
-    Map<String, dynamic> reponse = await postRequest("profile", body);
-    return Profile.fromJson(reponse);
+    Map<String, dynamic> reponse = await postRequest("profile/update", body);
+    return ProfileResponse.fromJson(reponse);
   }
 }

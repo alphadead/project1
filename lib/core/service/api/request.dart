@@ -38,7 +38,7 @@ Future<Map<String, dynamic>> postRequest(url, body) async {
 Map<String, dynamic> timeoutResponse() {
   return {
     "success": false,
-    "msg": "Please check your network connection and try again.",
+    "message": "Please check your network connection and try again.",
   };
 }
 

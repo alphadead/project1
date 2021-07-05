@@ -13,7 +13,7 @@ class FakeApi extends Api {
     throw UnimplementedError();
   }
 
-  Future<Profile> profileResponse(
+  Future<ProfileResponse> profileResponse(
     String userId,
     String typeOfPlayer,
     String position,

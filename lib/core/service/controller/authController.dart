@@ -35,10 +35,12 @@ class AuthController extends GetxController {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     LoginResponse response = await api.loginUser(mobileNo, password);
     if (response.data != null) {
+      prefs.setString('token', 'Bearer ${response.accessToken}');
+      prefs.setString('userId', '${response.data!.id}');
       Utility.closeDialog();
       Utility.showError("${response.message}");
 
-      Get.offNamed("/testScreen");
+      Get.offNamed("/profileScreen");
     } else {
       Utility.closeDialog();
       Utility.showError("${response.message}");
@@ -60,12 +62,14 @@ class AuthController extends GetxController {
 
   void profile() async {
     Utility.showLoadingDialog();
-    Profile response = await api.profileResponse(
-        '10', typeOfPlayer, position, age, weight, height, nationality);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    userId = prefs.getString("userId")!;
+
+    ProfileResponse response = await api.profileResponse(
+        userId, typeOfPlayer, position, age, weight, height, nationality);
     if (response.success) {
       Utility.closeDialog();
       Utility.showError("${response.message}");
-      print(response);
     } else {
       Utility.closeDialog();
       Utility.showError("${response.message}");
