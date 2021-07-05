@@ -30,7 +30,7 @@ class AuthController extends GetxController {
       Utility.closeDialog();
       Utility.showError("${response.message}");
 
-      Get.offNamed("/testScreen");
+      Get.offNamed("/registeredTeamScreen");
     } else {
       Utility.closeDialog();
       Utility.showError("${response.message}");
