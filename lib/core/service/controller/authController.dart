@@ -41,7 +41,7 @@ class AuthController extends GetxController {
       Utility.closeDialog();
       Utility.showError("${response.message}");
 
-      Get.offNamed("/registeredTeamScreen");
+      Get.offNamed("/profileScreen");
     } else {
       Utility.closeDialog();
       Utility.showError("${response.message}");
@@ -55,6 +55,7 @@ class AuthController extends GetxController {
     if (response.success) {
       Utility.closeDialog();
       Utility.showError("${response.message}");
+      Get.toNamed("/registeredTeamScreen");
     } else {
       Utility.closeDialog();
       Utility.showError("${response.message}");
@@ -71,6 +72,7 @@ class AuthController extends GetxController {
     if (response.success) {
       Utility.closeDialog();
       Utility.showError("${response.message}");
+      Get.toNamed("/testScreen");
     } else {
       Utility.closeDialog();
       Utility.showError("${response.message}");

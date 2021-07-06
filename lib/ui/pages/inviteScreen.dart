@@ -161,7 +161,8 @@ class InviteScreen extends StatelessWidget {
             ),
             Container(
               margin: EdgeInsets.only(top: 20.h),
-              child: primaryActionButton(context: context, onPressed: () {}),
+              child: primaryActionButton(
+                  context: context, onPressed: () {}, text: "Refer Now"),
             ),
             SizedBox(
               height: 30.h,

@@ -127,7 +127,7 @@ class RegisteredTeamContainer extends StatelessWidget {
                   onTap: () {},
                   child: Center(
                     child: Text(
-                      "Login",
+                      "Join",
                       style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.w900,

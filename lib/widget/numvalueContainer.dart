@@ -13,7 +13,7 @@ class WeightValueContainer extends StatefulWidget {
 }
 
 class _WeightValueContainerState extends State<WeightValueContainer> {
-  int val = 18;
+  int val = 60;
 
   @override
   Widget build(BuildContext context) {
