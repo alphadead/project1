@@ -4,6 +4,7 @@ import 'package:vamos/splashScreen.dart';
 import 'package:vamos/testScreen.dart';
 import 'package:vamos/ui/loginPages/register.dart';
 import 'package:vamos/ui/loginPages/signUp.dart';
+import 'package:vamos/ui/loginPages/upcomingMatches.dart';
 
 /// Contains the list of pages or routes taken across the whole application.
 /// This will prevent us in using context for navigation. And also providing
@@ -24,6 +25,11 @@ abstract class AppPages {
       binding: AllBinder(),
 
       // transition: Transition.downToUp,
+    ),
+    GetPage(
+      name: '/upcomingmatches',
+      transitionDuration: transitionDuration,
+      page: () => UpcomingMatchesPage(),
     ),
     GetPage(
       name: '/splashScreen',
