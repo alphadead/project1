@@ -29,3 +29,24 @@ Widget inputPasswordField(String placeholderText, Function(String)? onChange,
     ),
   );
 }
+
+class RegisterPageTextField extends StatelessWidget {
+  final label;
+  final obscureText;
+  RegisterPageTextField({@required this.label, this.obscureText = false});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
+      child: TextField(
+        obscureText: obscureText,
+        obscuringCharacter: "*",
+        style: TextStyle(color: inputText),
+        decoration: InputDecoration(
+          labelText: label,
+        ),
+      ),
+    );
+  }
+}

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:vamos/ui/loginPages/profile.dart';
 import 'package:vamos/ui/loginPages/signUp.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vamos/ui/utils/loginbkground.dart';
 import 'package:vamos/ui/utils/theme.dart';
+import 'package:vamos/widget/inputField.dart';
+import 'package:vamos/widget/loginpageStack.dart';
 
 class SetPass extends StatefulWidget {
   const SetPass({Key? key}) : super(key: key);
@@ -22,100 +25,31 @@ class _SetPassState extends State<SetPass> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                //clipBehavior: Clip.none,
-                margin: EdgeInsets.only(bottom: 10),
-                height: 250.h,
-                child: Stack(
-                  alignment: AlignmentDirectional.bottomEnd,
-                  fit: StackFit.expand,
-                  children: [
-                    Positioned(
-                      //top: -20,
-                      left: -100.w,
-                      child: Image.asset(
-                        "assets/images/rectangle_1.webp",
-                        width: 1.50.sw,
-                        fit: BoxFit.fitWidth,
-                      ),
-                    ),
-                    Positioned(
-                      top: -15.h,
-                      left: 155.w,
-                      height: 260.h,
-                      width: 330.w,
-                      child: Image.asset(
-                        'assets/images/setPass.png',
-                      ),
-                    ),
-                    Positioned(
-                      top: 140.0.h,
-                      left: 40.0.w,
-                      child: Text(
-                        'Set Password',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20.sp,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ],
+              LoginPageStack(
+                heading: "Set Password",
+                imageWidget: Positioned(
+                  top: -15.h,
+                  left: 155.w,
+                  height: 260.h,
+                  width: 330.w,
+                  child: Image.asset(
+                    'assets/images/setPass.png',
+                  ),
                 ),
               ),
               Container(
                 child: Column(
                   children: [
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
-                      child: TextField(
-                        style: TextStyle(color: inputText),
-                        decoration: InputDecoration(
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: inputText),
-                          ),
-                          labelText: 'OTP',
-                          labelStyle: TextStyle(
-                            color: labelText,
-                            fontFamily: 'Poppins',
-                          ),
-                        ),
-                      ),
+                    RegisterPageTextField(
+                      label: "OTP",
                     ),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
-                      child: TextField(
-                        obscuringCharacter: '*',
-                        obscureText: true,
-                        style: TextStyle(color: inputText),
-                        decoration: InputDecoration(
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: inputText),
-                          ),
-                          labelText: 'Set Password',
-                          labelStyle: TextStyle(
-                            color: labelText,
-                            fontFamily: 'Poppins',
-                          ),
-                        ),
-                      ),
+                    RegisterPageTextField(
+                      label: "Set Password",
+                      obscureText: true,
                     ),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
-                      child: TextField(
-                        obscuringCharacter: '*',
-                        obscureText: true,
-                        style: TextStyle(color: inputText),
-                        decoration: InputDecoration(
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: inputText),
-                          ),
-                          labelText: 'Confirm Password',
-                          labelStyle: TextStyle(
-                            color: labelText,
-                            fontFamily: 'Poppins',
-                          ),
-                        ),
-                      ),
+                    RegisterPageTextField(
+                      label: "Confirm Password",
+                      obscureText: true,
                     ),
                     Padding(
                       padding: const EdgeInsets.all(20.0),
@@ -128,7 +62,14 @@ class _SetPassState extends State<SetPass> {
                     Center(
                       child: primaryActionButton(
                         context: context,
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ProfilePage(),
+                            ),
+                          );
+                        },
                       ),
                     ),
                     SizedBox(
