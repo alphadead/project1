@@ -38,7 +38,7 @@ ThemeData themeData() {
     textTheme: TextTheme(
         headline1: TextStyle(
             fontWeight: FontWeight.normal, fontSize: 15, color: titleText),
-        headline2: TextStyle(
+        headline3: TextStyle(
             color: Colors.white, fontSize: 8.sp, fontWeight: FontWeight.bold)),
   );
 }
