@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vamos/ui/utils/color.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 ThemeData themeData() {
   return ThemeData(
@@ -13,8 +14,11 @@ ThemeData themeData() {
     ),
     fontFamily: 'Poppins',
     textTheme: TextTheme(
-      headline1: TextStyle(
-          fontWeight: FontWeight.normal, fontSize: 15, color: titleText),
-    ),
+        headline1: TextStyle(
+            fontWeight: FontWeight.normal, fontSize: 15.sp, color: titleText),
+        headline2: TextStyle(
+            fontWeight: FontWeight.normal,
+            fontSize: 11.sp,
+            color: Colors.white)),
   );
 }
