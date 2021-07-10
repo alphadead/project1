@@ -36,7 +36,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                 ),
                 child: Text(
                   "05",
-                  style: themeData().textTheme.headline2,
+                  style: themeData().textTheme.headline3,
                 ),
               ),
             )
