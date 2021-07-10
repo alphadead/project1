@@ -38,6 +38,7 @@ abstract class AppPages {
       transitionDuration: transitionDuration,
       page: () => TestScreen(),
       transition: Transition.downToUp,
+      binding: AllBinder(),
     ),
     GetPage(
       name: '/registerScreen',

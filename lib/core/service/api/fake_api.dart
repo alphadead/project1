@@ -1,3 +1,4 @@
+import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:vamos/core/models/loginResponse.dart';
 import 'package:vamos/core/models/profile_api.dart';
 import 'package:vamos/core/models/registerResponse.dart';
@@ -14,14 +15,14 @@ class FakeApi extends Api {
   }
 
   Future<ProfileResponse> profileResponse(
-    String userId,
-    String typeOfPlayer,
-    String position,
-    String age,
-    String weight,
-    String height,
-    String nationality,
-  ) {
+      String userId,
+      String typeOfPlayer,
+      String position,
+      String age,
+      String weight,
+      String height,
+      String nationality,
+      List<Asset> images) {
     throw UnimplementedError();
   }
 }

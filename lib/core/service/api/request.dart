@@ -1,6 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
+import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
+import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vamos/ui/utils/constants.dart';
 
@@ -91,5 +95,60 @@ Future postDataRequest(url, body) async {
     return responseBody;
   } else {
     return errorResponse();
+  }
+}
+
+Future<Map<String, dynamic>> postProfileData(String url, userId, typeOfPlayer,
+    position, age, weight, height, nationality, images) async {
+  print(images.length);
+
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  List<MultipartFile> multipartImageList = [];
+  if (images != null) {
+    for (Asset asset in images) {
+      ByteData byteData = await asset.getByteData();
+      List<int> imageData = byteData.buffer.asUint8List();
+      MultipartFile multipartFile =
+          new MultipartFile.fromBytes(imageData, filename: asset.name);
+      multipartImageList.add(multipartFile);
+    }
+  }
+  Dio dio = new Dio(BaseOptions(
+    connectTimeout: 15000,
+    receiveTimeout: 16000,
+    headers: {
+      HttpHeaders.contentTypeHeader: 'application/json',
+      HttpHeaders.authorizationHeader: prefs.getString('token')
+    },
+    validateStatus: (_) => true,
+  ));
+
+  try {
+    FormData formData = new FormData.fromMap({
+      "user_id": userId,
+      "type_of_player": typeOfPlayer,
+      "position": position,
+      "age": age,
+      "weight": weight,
+      "height": height,
+      "nationality": nationality,
+      "photo[]": multipartImageList,
+    });
+    Response response = await dio.post(BASE_URL + url, data: formData,
+        onSendProgress: (int sent, int total) {
+      print("$sent $total");
+    });
+    if (response.statusCode! < 300 && response.statusCode! >= 200) {
+      print(response.data);
+      return response.data;
+    }
+
+    return response.data;
+  } on DioError catch (e) {
+    if (e.type == DioErrorType.connectTimeout) {
+      return timeoutResponse();
+    } else {
+      return errorResponse();
+    }
   }
 }
