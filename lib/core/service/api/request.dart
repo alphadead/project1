@@ -100,11 +100,9 @@ Future postDataRequest(url, body) async {
 
 Future<Map<String, dynamic>> postProfileData(String url, userId, typeOfPlayer,
     position, age, weight, height, nationality, images) async {
-  print(images.length);
-
   SharedPreferences prefs = await SharedPreferences.getInstance();
   List<MultipartFile> multipartImageList = [];
-  if (images != null) {
+  if (images.length > 0) {
     for (Asset asset in images) {
       ByteData byteData = await asset.getByteData();
       List<int> imageData = byteData.buffer.asUint8List();

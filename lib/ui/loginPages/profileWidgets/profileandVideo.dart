@@ -40,10 +40,9 @@ class _ProfilePhotoState extends State<ProfilePhoto> {
                                   color: containerGreen,
                                 ))
                             : IconButton(
-                                onPressed: () {},
+                                onPressed: null,
                                 icon: Icon(
                                   Icons.add,
-                                  color: KLightGrey,
                                 )),
                       )
                     ],
@@ -54,16 +53,21 @@ class _ProfilePhotoState extends State<ProfilePhoto> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         _authService.images.length == 0
-                            ? Container(
-                                height: 86.h,
-                                width: 130.w,
-                                color: Color.fromRGBO(249, 249, 249, 1),
-                                child: Center(
-                                    child: Image.asset(
-                                  "assets/images/add_image_1.webp",
-                                  height: 28.h,
-                                  width: 34.w,
-                                )),
+                            ? GestureDetector(
+                                onTap: () {
+                                  _authService.loadAssets();
+                                },
+                                child: Container(
+                                  height: 86.h,
+                                  width: 130.w,
+                                  color: Color.fromRGBO(249, 249, 249, 1),
+                                  child: Center(
+                                      child: Image.asset(
+                                    "assets/images/add_image_1.webp",
+                                    height: 28.h,
+                                    width: 34.w,
+                                  )),
+                                ),
                               )
                             : SizedBox(
                                 // height: 150,

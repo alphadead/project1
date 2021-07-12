@@ -104,8 +104,8 @@ class AuthController extends GetxController {
         enableCamera: true,
         selectedAssets: selectedImage,
         cupertinoOptions: CupertinoOptions(
-          takePhotoIcon: "chat",
-          doneButtonTitle: "Fatto",
+          takePhotoIcon: "Vamos",
+          doneButtonTitle: "Done",
         ),
         materialOptions: MaterialOptions(
           actionBarTitle: "Vamos App",
@@ -113,7 +113,7 @@ class AuthController extends GetxController {
         ),
       );
     } on Exception catch (e) {
-      error = e.toString();
+      Utility.showError(e.toString());
     }
 
     images.addAll(resultList);
