@@ -1,3 +1,4 @@
+import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:vamos/core/models/loginResponse.dart';
 import 'package:vamos/core/models/profile_api.dart';
 import 'package:vamos/core/models/registerResponse.dart';
@@ -13,5 +14,6 @@ abstract class Api {
       String age,
       String weight,
       String height,
-      String nationality);
+      String nationality,
+      List<Asset> images);
 }

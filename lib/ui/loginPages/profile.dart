@@ -43,30 +43,19 @@ class ProfilePage extends StatelessWidget {
                   ],
                 ),
               ),
-              Container(
-                decoration: BoxDecoration(
-                  border: Border.all(width: 0, color: Colors.white),
-                ),
-                margin: EdgeInsets.only(bottom: 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    PlayerTypeRadioList(),
-                    PositionRadioList(),
-                    FitnessDetail(),
-                    Nationality(),
-                    ProfilePhoto(),
-                    SkillVideo(),
-                    Center(
-                      child: primaryActionButton(
-                          context: context,
-                          onPressed: () {
-                            _authService.profile();
-                          },
-                          text: 'View Profile'),
-                    )
-                  ],
-                ),
+              PlayerTypeRadioList(),
+              PositionRadioList(),
+              FitnessDetail(),
+              Nationality(),
+              ProfilePhoto(),
+              SkillVideo(),
+              Center(
+                child: primaryActionButton(
+                    context: context,
+                    onPressed: () {
+                      _authService.profile();
+                    },
+                    text: 'View Profile'),
               ),
             ],
           ),

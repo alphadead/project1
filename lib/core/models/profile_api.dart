@@ -21,7 +21,7 @@ class ProfileResponse {
       ProfileResponse(
         success: json["success"],
         message: json["message"],
-        data: Data.fromJson(json["data"]),
+        data: json["data"] == null ? null : Data.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -42,11 +42,7 @@ class Data {
     this.height,
     this.nationality,
     this.skillVideos,
-    this.createdAt,
-    this.updatedAt,
-    this.deletedAt,
     this.photo,
-    this.media,
   });
 
   int? id;
@@ -58,11 +54,8 @@ class Data {
   String? height;
   String? nationality;
   dynamic skillVideos;
-  DateTime? createdAt;
-  DateTime? updatedAt;
-  dynamic deletedAt;
+
   dynamic photo;
-  List<dynamic>? media;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         id: json["id"],
@@ -74,11 +67,7 @@ class Data {
         height: json["height"],
         nationality: json["nationality"],
         skillVideos: json["skill_videos"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
-        deletedAt: json["deleted_at"],
         photo: json["photo"],
-        media: List<dynamic>.from(json["media"].map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
@@ -91,10 +80,6 @@ class Data {
         "height": height,
         "nationality": nationality,
         "skill_videos": skillVideos,
-        "created_at": createdAt!.toIso8601String(),
-        "updated_at": updatedAt!.toIso8601String(),
-        "deleted_at": deletedAt,
         "photo": photo,
-        "media": List<dynamic>.from(media!.map((x) => x)),
       };
 }

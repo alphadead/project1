@@ -38,29 +38,34 @@ abstract class AppPages {
       transitionDuration: transitionDuration,
       page: () => TestScreen(),
       transition: Transition.downToUp,
+      binding: AllBinder(),
     ),
     GetPage(
       name: '/registerScreen',
       transitionDuration: transitionDuration,
       page: () => RegisterPage(),
       transition: Transition.downToUp,
+      binding: AllBinder(),
     ),
     GetPage(
       name: '/profileScreen',
       transitionDuration: transitionDuration,
       page: () => ProfilePage(),
+      binding: AllBinder(),
     ),
     GetPage(
       name: '/registeredTeamScreen',
       transitionDuration: transitionDuration,
       page: () => RegisteredTeamPage(),
       transition: Transition.downToUp,
+      binding: AllBinder(),
     ),
     GetPage(
       name: '/inviteScreen',
       transitionDuration: transitionDuration,
       page: () => InviteScreen(),
       transition: Transition.downToUp,
+      binding: AllBinder(),
     ),
   ];
 }
