@@ -18,22 +18,27 @@ class UpcomingMatchesPage extends StatelessWidget {
           floatingActionButtonLocation:
               FloatingActionButtonLocation.miniCenterDocked,
           floatingActionButton: Container(
-            width: 65,
+            width: 60.w,
             child: FittedBox(
               child: FloatingActionButton(
                 elevation: 0,
                 onPressed: () {},
                 backgroundColor: KRed,
-                child: Image.asset(
-                  "assets/images/FloatingActionButton.png",
-                  width: 30,
+                child: SizedBox(
+                  height: 30,
+                  child: Image.asset(
+                    "assets/images/FloatingActionButton.png",
+                    // scale: 30,
+                  ),
                 ),
               ),
             ),
           ),
-          bottomNavigationBar: CustomBottomNavBar(),
+          bottomNavigationBar: CustomBottomAppBar(
+            height: 50.h,
+          ),
           appBar: PreferredSize(
-            preferredSize: const Size.fromHeight(60),
+            preferredSize: Size.fromHeight(60.h),
             child: CustomAppBar(),
           ),
         ),

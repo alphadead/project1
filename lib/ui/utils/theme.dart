@@ -36,13 +36,16 @@ ThemeData themeData() {
     ),
     fontFamily: 'Poppins',
     textTheme: TextTheme(
-        headline1: TextStyle(
-            fontWeight: FontWeight.normal, fontSize: 15.sp, color: titleText),
-        headline3: TextStyle(
-            color: Colors.white, fontSize: 8.sp, fontWeight: FontWeight.bold)),
-        headline2: TextStyle(
-            fontWeight: FontWeight.normal,
-            fontSize: 11.sp,
-            color: Colors.white)),
+      headline1: TextStyle(
+          fontWeight: FontWeight.normal, fontSize: 15.sp, color: titleText),
+      headline3: TextStyle(
+          color: Colors.white, fontSize: 8.sp, fontWeight: FontWeight.bold),
+      headline2: TextStyle(
+          fontWeight: FontWeight.normal, fontSize: 11.sp, color: Colors.white),
+      headline4: TextStyle(
+        fontSize: 8.8.sp,
+        fontWeight: FontWeight.bold,
+      ),
+    ),
   );
 }
