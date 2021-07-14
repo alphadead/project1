@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/theme.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomAppBar extends StatefulWidget {
   const CustomAppBar({Key? key}) : super(key: key);
@@ -46,7 +47,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
       automaticallyImplyLeading: false,
       leading: CustomSwitch(),
       title: Container(
-        width: 50,
+        width: 50.w,
         child: Image.asset(
           "assets/logo.webp",
         ),
