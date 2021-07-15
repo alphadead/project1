@@ -24,7 +24,7 @@ class SignUpPage extends StatelessWidget {
       builder: (_authService) => Scaffold(
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            if (Get.deviceLocale == Locale('en')) {
+            if (Get.locale!.languageCode == Locale('en').languageCode) {
               Get.updateLocale(Locale('ar'));
             } else {
               Get.updateLocale(Locale('en'));

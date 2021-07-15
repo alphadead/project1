@@ -49,6 +49,7 @@ class MyApp extends StatelessWidget {
           Locale('en', ''), // English, no country code
           Locale('ar', ''), // Spanish, no country code
         ],
+        locale: Get.deviceLocale,
         debugShowCheckedModeBanner: false,
         initialRoute: "/splashScreen",
         getPages: AppPages.pages,
