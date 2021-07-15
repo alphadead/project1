@@ -99,9 +99,11 @@ Future postDataRequest(url, body) async {
 }
 
 Future<Map<String, dynamic>> postProfileData(String url, userId, typeOfPlayer,
-    position, age, weight, height, nationality, images) async {
+    position, age, weight, height, nationality, images, files) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   List<MultipartFile> multipartImageList = [];
+  List<MultipartFile> multipartVideoList = [];
+
   if (images.length > 0) {
     for (Asset asset in images) {
       ByteData byteData = await asset.getByteData();
@@ -109,6 +111,13 @@ Future<Map<String, dynamic>> postProfileData(String url, userId, typeOfPlayer,
       MultipartFile multipartFile =
           new MultipartFile.fromBytes(imageData, filename: asset.name);
       multipartImageList.add(multipartFile);
+    }
+  }
+  if (files.length > 0) {
+    for (int i = 0; i < files.length; i++) {
+      MultipartFile multipartFile = await MultipartFile.fromFile(files[i].path,
+          filename: files[0].path.split('/').last);
+      multipartVideoList.add(multipartFile);
     }
   }
   Dio dio = new Dio(BaseOptions(
@@ -131,6 +140,7 @@ Future<Map<String, dynamic>> postProfileData(String url, userId, typeOfPlayer,
       "height": height,
       "nationality": nationality,
       "photo[]": multipartImageList,
+      "skill_video[]": multipartVideoList
     });
     Response response = await dio.post(BASE_URL + url, data: formData,
         onSendProgress: (int sent, int total) {

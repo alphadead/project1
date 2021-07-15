@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:get/get_connect/http/src/multipart/multipart_file.dart';
@@ -37,7 +38,8 @@ class HTTPApi extends Api {
       String weight,
       String height,
       String nationality,
-      List<Asset> images) async {
+      List<Asset> images,
+      List<File> files) async {
     Map<String, dynamic> reponse = await postProfileData(
         "profile/update",
         userId,
@@ -47,7 +49,8 @@ class HTTPApi extends Api {
         weight,
         height,
         nationality,
-        images);
+        images,
+        files);
     return ProfileResponse.fromJson(reponse);
   }
 }

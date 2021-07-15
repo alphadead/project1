@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:vamos/core/models/loginResponse.dart';
 import 'package:vamos/core/models/profile_api.dart';
@@ -22,7 +24,8 @@ class FakeApi extends Api {
       String weight,
       String height,
       String nationality,
-      List<Asset> images) {
+      List<Asset> images,
+      List<File> files) {
     throw UnimplementedError();
   }
 }
