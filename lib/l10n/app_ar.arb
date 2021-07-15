@@ -1,0 +1,13 @@
+{
+    "signUpPage_title": "تسجيل الدخول",
+    "signUpPage_signup": "اشتراك",
+    "signUpPage_profile": "الملف الشخصي",
+    "signUpPage_users": "المستخدمون",
+    "signUpPage_share": "يشارك",
+    "signUpPage_mobileNo": "رقم المحمول",
+    "signUpPage_password": "كلمه السر",
+    "signUpPage_forgotPassword": "هل نسيت كلمة السر؟",
+    "signUpPage_notRegisteredYet": "لم يتم تسجيلة بعد؟",
+    "signUpPage_createAccount": "إنشاء حساب",
+    "primaryActionButton": "يكمل"
+}

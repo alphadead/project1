@@ -14,6 +14,7 @@ import 'package:vamos/ui/utils/loginbkground.dart';
 import 'package:vamos/ui/utils/theme.dart';
 import 'package:vamos/ui/utils/validator.dart';
 import 'package:vamos/widget/inputField.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SignUpPage extends StatelessWidget {
   @override
@@ -31,7 +32,7 @@ class SignUpPage extends StatelessWidget {
                   child: Column(
                     children: [
                       LoginPageStack(
-                        heading: "Login",
+                        heading: AppLocalizations.of(context)!.signUpPage_title,
                         imageWidget: Positioned(
                           bottom: -50.h,
                           left: 120.w,
@@ -49,22 +50,26 @@ class SignUpPage extends StatelessWidget {
                           children: [
                             LoginPageIndicator(
                               count: "01",
-                              page: "Sign Up",
+                              page: AppLocalizations.of(context)!
+                                  .signUpPage_signup,
                               active: true,
                             ),
                             LoginPageIndicator(
                               count: "02",
-                              page: "Profile",
+                              page: AppLocalizations.of(context)!
+                                  .signUpPage_profile,
                               active: false,
                             ),
                             LoginPageIndicator(
                               count: "03",
-                              page: "Users",
+                              page: AppLocalizations.of(context)!
+                                  .signUpPage_users,
                               active: false,
                             ),
                             LoginPageIndicator(
                               count: "04",
-                              page: "Share",
+                              page: AppLocalizations.of(context)!
+                                  .signUpPage_share,
                               active: false,
                             ),
                           ],
@@ -78,7 +83,9 @@ class SignUpPage extends StatelessWidget {
                     children: [
                       Padding(
                         padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
-                        child: inputField("Mobile No", (value) {
+                        child: inputField(
+                            AppLocalizations.of(context)!.signUpPage_mobileNo,
+                            (value) {
                           _authService.mobileNo = value;
                         }, validate: (arg) {
                           arg = _authService.mobileNo;
@@ -91,7 +98,9 @@ class SignUpPage extends StatelessWidget {
                       ),
                       Padding(
                           padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
-                          child: inputPasswordField('Password', (value) {
+                          child: inputPasswordField(
+                              AppLocalizations.of(context)!.signUpPage_password,
+                              (value) {
                             _authService.password = value;
                           }, validate: (arg) {
                             arg = _authService.password;
@@ -116,7 +125,8 @@ class SignUpPage extends StatelessWidget {
                                 );
                               },
                               child: Text(
-                                'Forget Password ?',
+                                AppLocalizations.of(context)!
+                                    .signUpPage_forgotPassword,
                                 style:
                                     TextStyle(color: inputText, fontSize: 15),
                                 textAlign: TextAlign.end,
@@ -142,7 +152,8 @@ class SignUpPage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'Not registered yet ? ',
+                            AppLocalizations.of(context)!
+                                .signUpPage_notRegisteredYet,
                             style: TextStyle(
                               color: labelText,
                               fontFamily: 'Poppins',
@@ -153,7 +164,8 @@ class SignUpPage extends StatelessWidget {
                               Get.offNamed('/registerScreen');
                             },
                             child: Text(
-                              'Create an Account',
+                              AppLocalizations.of(context)!
+                                  .signUpPage_createAccount,
                               style: TextStyle(
                                   color: inputText,
                                   decoration: TextDecoration.underline,

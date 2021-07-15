@@ -1,0 +1,16 @@
+{
+    "signUpPage_title": "Login",
+    "signUpPage_signup": "Sign Up",
+    "signUpPage_profile": "Profile",
+    "signUpPage_users": "Users",
+    "signUpPage_share": "Share",
+    "signUpPage_mobileNo": "Mobile No",
+    "signUpPage_password": "Password",
+    "signUpPage_forgotPassword": "Forgot Password?",
+    "signUpPage_notRegisteredYet": "Not registered yet?",
+    "signUpPage_createAccount": "Create an Account",
+    "primaryActionButton": "Continue",
+    "@signUpPage_title":{
+      "description": "Dummy value"
+    }
+}
