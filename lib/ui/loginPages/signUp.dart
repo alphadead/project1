@@ -22,6 +22,16 @@ class SignUpPage extends StatelessWidget {
     return SafeArea(
         child: GetBuilder<AuthController>(
       builder: (_authService) => Scaffold(
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            if (Get.locale!.languageCode == Locale('en').languageCode) {
+              Get.updateLocale(Locale('ar'));
+            } else {
+              Get.updateLocale(Locale('en'));
+            }
+          },
+          child: Icon(Icons.language),
+        ),
         body: Form(
           key: _authService.formKey,
           child: SingleChildScrollView(
