@@ -38,7 +38,7 @@ Widget primaryActionButton(
         ),
       ),
       decoration: BoxDecoration(
-        color: Color.fromRGBO(239, 77, 35, 1),
+        color: KRed,
         //(#ef4d23),
         borderRadius: BorderRadius.circular(30),
       ),
