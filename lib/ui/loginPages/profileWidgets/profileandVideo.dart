@@ -30,22 +30,19 @@ class _ProfilePhotoState extends State<ProfilePhoto> {
                     children: [
                       ProfileContainer(title: "Profile Photo"),
                       Padding(
-                        padding: EdgeInsets.only(left: 10.w),
-                        child: _authService.addImageButton
-                            ? IconButton(
-                                onPressed: () {
-                                  _authService.loadAssets();
-                                },
-                                icon: Icon(
-                                  Icons.add,
-                                  color: containerGreen,
-                                ))
-                            : IconButton(
-                                onPressed: null,
-                                icon: Icon(
-                                  Icons.add,
-                                )),
-                      )
+                          padding: EdgeInsets.only(left: 10.w),
+                          child: IconButton(
+                            onPressed: _authService.addImageButton
+                                ? () {
+                                    _authService.loadAssets();
+                                  }
+                                : null,
+                            icon: Icon(
+                              Icons.add,
+                            ),
+                            color: containerGreen,
+                            disabledColor: KLightGrey,
+                          ))
                     ],
                   ),
                   Container(

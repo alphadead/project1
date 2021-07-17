@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 Widget backgroundContainer() {
   return Positioned(
@@ -17,7 +18,10 @@ Widget backgroundContainer() {
 Widget primaryActionButton(
     {required BuildContext context,
     required Function()? onPressed,
-    String text = 'continue'}) {
+    String text = "Continue"}) {
+  text == "Continue"
+      ? text = AppLocalizations.of(context)!.primaryActionButton
+      : text = text;
   return GestureDetector(
     onTap: onPressed,
     child: Container(
@@ -34,7 +38,7 @@ Widget primaryActionButton(
         ),
       ),
       decoration: BoxDecoration(
-        color: Color.fromRGBO(239, 77, 35, 1),
+        color: KRed,
         //(#ef4d23),
         borderRadius: BorderRadius.circular(30),
       ),

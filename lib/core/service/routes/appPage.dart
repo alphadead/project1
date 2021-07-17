@@ -6,6 +6,7 @@ import 'package:vamos/ui/loginPages/profile.dart';
 import 'package:vamos/ui/loginPages/register.dart';
 import 'package:vamos/ui/loginPages/registeredteams.dart';
 import 'package:vamos/ui/loginPages/signUp.dart';
+import 'package:vamos/ui/loginPages/upcomingMatches.dart';
 import 'package:vamos/ui/pages/inviteScreen.dart';
 import 'package:vamos/widget/videoPlayer.dart';
 
@@ -28,6 +29,11 @@ abstract class AppPages {
       binding: AllBinder(),
 
       // transition: Transition.downToUp,
+    ),
+    GetPage(
+      name: '/upcomingmatches',
+      transitionDuration: transitionDuration,
+      page: () => UpcomingMatchesPage(),
     ),
     GetPage(
       name: '/splashScreen',
