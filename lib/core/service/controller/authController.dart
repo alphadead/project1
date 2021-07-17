@@ -39,6 +39,7 @@ class AuthController extends GetxController {
   bool addVideoButton = true;
   int maxImage = 4;
   String _error = 'No Error Dectected';
+  int selectedVideo = 0;
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   GlobalKey<FormState> formKey2 = GlobalKey<FormState>();
@@ -143,7 +144,6 @@ class AuthController extends GetxController {
     if (result != null) {
       tempVideo = result.paths.map((path) => File(path!)).toList();
     } else {
-      print("user delete that picker");
       // User canceled the picker
     }
 
@@ -157,10 +157,6 @@ class AuthController extends GetxController {
       Utility.showError("Select only 2 videos");
     }
 
-    print("++++++++++++++++++++++");
-    print(files[0].path);
-    print(files[0].path.split('/').last);
-    print(files.length);
     update();
   }
 
