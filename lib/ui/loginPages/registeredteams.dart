@@ -6,8 +6,10 @@ import 'package:vamos/core/service/controller/authController.dart';
 import 'package:vamos/ui/pages/inviteScreen.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/loginbkground.dart';
+import 'package:vamos/widget/localeFloatingActionButtonDebug.dart';
 import 'package:vamos/widget/loginpageStack.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RegisteredTeamPage extends StatelessWidget {
   const RegisteredTeamPage({Key? key}) : super(key: key);
@@ -17,6 +19,7 @@ class RegisteredTeamPage extends StatelessWidget {
     return SafeArea(
         child: GetBuilder<AuthController>(
       builder: (_authService) => Scaffold(
+        floatingActionButton: LocaleFloatingActionButton(),
         body: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -25,7 +28,8 @@ class RegisteredTeamPage extends StatelessWidget {
                 child: Column(
                   children: [
                     LoginPageStack(
-                      heading: "Registered Teams",
+                      heading: AppLocalizations.of(context)!
+                          .registeredTeamsPage_registeredTeams,
                       imageWidget: Positioned(
                         bottom: -50.h,
                         left: 120.w,

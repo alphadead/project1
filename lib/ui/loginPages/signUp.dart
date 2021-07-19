@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:vamos/core/service/controller/authController.dart';
 import 'package:vamos/ui/loginPages/register.dart';
 import 'package:vamos/ui/loginPages/setPass.dart';
+import 'package:vamos/widget/localeFloatingActionButtonDebug.dart';
 import 'package:vamos/widget/loginpageIndicator.dart';
 import 'package:vamos/widget/loginpageStack.dart';
 import 'package:vamos/ui/utils/color.dart';
@@ -22,16 +23,7 @@ class SignUpPage extends StatelessWidget {
     return SafeArea(
         child: GetBuilder<AuthController>(
       builder: (_authService) => Scaffold(
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            if (Get.locale!.languageCode == Locale('en').languageCode) {
-              Get.updateLocale(Locale('ar'));
-            } else {
-              Get.updateLocale(Locale('en'));
-            }
-          },
-          child: Icon(Icons.language),
-        ),
+        floatingActionButton: LocaleFloatingActionButton(),
         body: Form(
           key: _authService.formKey,
           child: SingleChildScrollView(

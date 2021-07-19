@@ -9,6 +9,7 @@
     "signUpPage_forgotPassword": "Forgot Password?",
     "signUpPage_notRegisteredYet": "Not registered yet?",
     "signUpPage_createAccount": "Create an Account",
+    "registeredTeamsPage_registeredTeams": "Registered Teams",
     "primaryActionButton": "Continue",
     "@signUpPage_title":{
       "description": "Dummy value"
