@@ -6,12 +6,14 @@ import 'package:vamos/core/service/controller/authController.dart';
 import 'package:vamos/ui/loginPages/setPass.dart';
 import 'package:vamos/ui/loginPages/signUp.dart';
 import 'package:vamos/widget/inputField.dart';
+import 'package:vamos/widget/localeFloatingActionButtonDebug.dart';
 import 'package:vamos/widget/loginpageStack.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vamos/ui/utils/loginbkground.dart';
 import 'package:vamos/ui/utils/validator.dart';
 import 'package:vamos/widget/inputField.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 enum typeenum { player, ground }
 
@@ -32,6 +34,7 @@ class _RegisterPageState extends State<RegisterPage> {
     return SafeArea(
         child: GetBuilder<AuthController>(
       builder: (_authService) => Scaffold(
+        floatingActionButton: LocaleFloatingActionButton(),
         body: SingleChildScrollView(
           child: Form(
             key: _authService.formKey2,
@@ -77,7 +80,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         top: 160.0.h,
                         left: 40.0.w,
                         child: Text(
-                          'Register',
+                          AppLocalizations.of(context)!.registerPage_title,
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 20.sp,
@@ -97,7 +100,9 @@ class _RegisterPageState extends State<RegisterPage> {
                     children: [
                       Padding(
                         padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
-                        child: inputField("First Name", (value) {
+                        child: inputField(
+                            AppLocalizations.of(context)!
+                                .registerPage_firstName, (value) {
                           _authService.firstName = value;
                         }, validate: (arg) {
                           arg = _authService.firstName;
@@ -110,7 +115,9 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                       Padding(
                         padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
-                        child: inputField("Last Name", (value) {
+                        child: inputField(
+                            AppLocalizations.of(context)!.registerPage_lastName,
+                            (value) {
                           _authService.lastName = value;
                         }, validate: (arg) {
                           arg = _authService.lastName;
@@ -123,7 +130,9 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                       Padding(
                         padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
-                        child: inputField("Address", (value) {
+                        child: inputField(
+                            AppLocalizations.of(context)!.registerPage_address,
+                            (value) {
                           _authService.address = value;
                         }, validate: (arg) {
                           arg = _authService.address;
@@ -136,7 +145,9 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                       Padding(
                         padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
-                        child: inputField("Email", (value) {
+                        child: inputField(
+                            AppLocalizations.of(context)!.registerPage_email,
+                            (value) {
                           _authService.email = value;
                         }, validate: (arg) {
                           arg = _authService.email;
@@ -149,7 +160,9 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                       Padding(
                         padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
-                        child: inputField("Mobile", (value) {
+                        child: inputField(
+                            AppLocalizations.of(context)!.registerPage_mobile,
+                            (value) {
                           _authService.mobileNo = value;
                         }, validate: (arg) {
                           arg = _authService.mobileNo;
@@ -162,7 +175,9 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                       Padding(
                         padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
-                        child: inputField("Civil Id", (value) {
+                        child: inputField(
+                            AppLocalizations.of(context)!.registerPage_civilID,
+                            (value) {
                           _authService.civilId = value;
                         }, validate: (arg) {
                           arg = _authService.civilId;
@@ -200,7 +215,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                     ),
                                   ),
                                   Text(
-                                    "Player",
+                                    AppLocalizations.of(context)!
+                                        .profilePage_player,
                                     style: TextStyle(
                                         fontSize: 15, color: lightGrey),
                                   )
@@ -229,7 +245,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                     ),
                                   ),
                                   Text(
-                                    "Ground",
+                                    AppLocalizations.of(context)!
+                                        .registerPage_ground,
                                     style: TextStyle(
                                         fontSize: 15, color: lightGrey),
                                   )
@@ -255,7 +272,8 @@ class _RegisterPageState extends State<RegisterPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'Already have an account ? ',
+                            AppLocalizations.of(context)!
+                                .registerPage_alreadyhaveAccount,
                             style: TextStyle(
                               color: inputText,
                               fontFamily: 'Poppins',
@@ -266,7 +284,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               Get.offNamed("/login");
                             },
                             child: Text(
-                              'Sign In',
+                              AppLocalizations.of(context)!.registerPage_signIn,
                               style: TextStyle(
                                   fontFamily: 'Poppins',
                                   color: labelText,

@@ -7,7 +7,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vamos/ui/utils/loginbkground.dart';
 import 'package:vamos/ui/utils/theme.dart';
 import 'package:vamos/widget/inputField.dart';
+import 'package:vamos/widget/localeFloatingActionButtonDebug.dart';
 import 'package:vamos/widget/loginpageStack.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SetPass extends StatefulWidget {
   const SetPass({Key? key}) : super(key: key);
@@ -21,12 +23,13 @@ class _SetPassState extends State<SetPass> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        floatingActionButton: LocaleFloatingActionButton(),
         body: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               LoginPageStack(
-                heading: "Set Password",
+                heading: AppLocalizations.of(context)!.setPasswordPage_title,
                 imageWidget: Positioned(
                   top: -15.h,
                   left: 155.w,
@@ -41,14 +44,16 @@ class _SetPassState extends State<SetPass> {
                 child: Column(
                   children: [
                     RegisterPageTextField(
-                      label: "OTP",
+                      label: AppLocalizations.of(context)!.setPasswordPage_otp,
                     ),
                     RegisterPageTextField(
-                      label: "Set Password",
+                      label:
+                          AppLocalizations.of(context)!.setPasswordPage_title,
                       obscureText: true,
                     ),
                     RegisterPageTextField(
-                      label: "Confirm Password",
+                      label: AppLocalizations.of(context)!
+                          .setPasswordPage_confirmPass,
                       obscureText: true,
                     ),
                     Padding(

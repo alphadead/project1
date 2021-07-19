@@ -9,11 +9,13 @@ import 'package:vamos/ui/loginPages/profileWidgets/profileandVideo.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/loginbkground.dart';
 import 'package:vamos/ui/utils/theme.dart';
+import 'package:vamos/widget/localeFloatingActionButtonDebug.dart';
 import 'package:vamos/widget/loginpageStack.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vamos/widget/numvalueContainer.dart';
 import 'package:vamos/widget/profileContainer.dart';
 import 'package:country_picker/country_picker.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -23,6 +25,7 @@ class ProfilePage extends StatelessWidget {
     return SafeArea(
         child: GetBuilder<AuthController>(
       builder: (_authService) => Scaffold(
+        floatingActionButton: LocaleFloatingActionButton(),
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
           child: Column(
@@ -30,7 +33,7 @@ class ProfilePage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               LoginPageStack(
-                heading: "Profile",
+                heading: AppLocalizations.of(context)!.profilePage_title,
                 imageWidget: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -49,13 +52,17 @@ class ProfilePage extends StatelessWidget {
               Nationality(),
               ProfilePhoto(),
               SkillVideo(),
-              Center(
-                child: primaryActionButton(
-                    context: context,
-                    onPressed: () {
-                      _authService.profile();
-                    },
-                    text: 'View Profile'),
+              Container(
+                padding: EdgeInsets.only(bottom: 37.h),
+                child: Center(
+                  child: primaryActionButton(
+                      context: context,
+                      onPressed: () {
+                        _authService.profile();
+                      },
+                      text: AppLocalizations.of(context)!
+                          .profilePage_navButtonText),
+                ),
               ),
             ],
           ),

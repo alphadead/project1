@@ -5,6 +5,7 @@ import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/widget/numvalueContainer.dart';
 import 'package:vamos/widget/profileContainer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class FitnessDetail extends StatefulWidget {
   const FitnessDetail({Key? key}) : super(key: key);
@@ -23,7 +24,9 @@ class _FitnessDetailState extends State<FitnessDetail> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ProfileContainer(title: "Fitness Detail"),
+                  ProfileContainer(
+                      title: AppLocalizations.of(context)!
+                          .profilePage_fitnessDetail),
                   Container(
                     padding: EdgeInsets.fromLTRB(30, 15, 0, 0),
                     child: Column(
@@ -33,18 +36,20 @@ class _FitnessDetailState extends State<FitnessDetail> {
                         Row(
                           children: [
                             AgeValueContainer(
-                              title: "Age",
+                              title:
+                                  AppLocalizations.of(context)!.profilePage_age,
                             ),
                             SizedBox(
                               width: 30,
                             ),
                             WeightValueContainer(
-                              title: "Weight",
+                              title: AppLocalizations.of(context)!
+                                  .profilePage_weight,
                             ),
                           ],
                         ),
                         Text(
-                          "Height",
+                          AppLocalizations.of(context)!.profilePage_height,
                           style: TextStyle(color: inputText, fontSize: 18.h),
                         ),
                         Container(

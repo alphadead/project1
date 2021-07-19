@@ -99,7 +99,8 @@ class RegisteredTeamContainer extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Wind City Rampage",
+                    AppLocalizations.of(context)!
+                        .registeredTeamsPage_demoTeamName,
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.w600,
@@ -107,7 +108,8 @@ class RegisteredTeamContainer extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "Lorem Ipsum Text",
+                    AppLocalizations.of(context)!
+                        .registeredTeamsPage_demoTeamName,
                     style: TextStyle(
                       fontWeight: FontWeight.w400,
                       fontSize: 8.8.sp,
@@ -131,7 +133,8 @@ class RegisteredTeamContainer extends StatelessWidget {
                   onTap: () {},
                   child: Center(
                     child: Text(
-                      "Join",
+                      AppLocalizations.of(context)!
+                          .registeredTeamsPage_joinButtonText,
                       style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.w900,

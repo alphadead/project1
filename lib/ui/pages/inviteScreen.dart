@@ -9,6 +9,7 @@ import 'package:vamos/ui/utils/utility.dart';
 import 'package:vamos/widget/invitePageWidget.dart';
 import 'package:vamos/widget/loginpageStack.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class InviteScreen extends StatelessWidget {
   const InviteScreen({Key? key}) : super(key: key);

@@ -4,6 +4,7 @@ import 'package:vamos/core/service/controller/authController.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/widget/profileContainer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Nationality extends StatefulWidget {
   const Nationality({Key? key}) : super(key: key);
@@ -22,7 +23,9 @@ class _NationalityState extends State<Nationality> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ProfileContainer(title: "Nationality"),
+                  ProfileContainer(
+                      title: AppLocalizations.of(context)!
+                          .profilePage_nationality),
                   Container(
                     padding: EdgeInsets.fromLTRB(30, 15, 0, 0),
                     child: Container(
@@ -39,7 +42,7 @@ class _NationalityState extends State<Nationality> {
                         hint: Container(
                           margin: EdgeInsets.only(right: 200.w),
                           child: Text(
-                            "Select",
+                            AppLocalizations.of(context)!.profilePage_select,
                             style: TextStyle(
                                 color: inputText,
                                 fontSize: 15.sp,

@@ -51,25 +51,25 @@ class SignUpPage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             LoginPageIndicator(
-                              count: "01",
+                              count: AppLocalizations.of(context)!.signUpPage_1,
                               page: AppLocalizations.of(context)!
                                   .signUpPage_signup,
                               active: true,
                             ),
                             LoginPageIndicator(
-                              count: "02",
+                              count: AppLocalizations.of(context)!.signUpPage_2,
                               page: AppLocalizations.of(context)!
                                   .signUpPage_profile,
                               active: false,
                             ),
                             LoginPageIndicator(
-                              count: "03",
+                              count: AppLocalizations.of(context)!.signUpPage_2,
                               page: AppLocalizations.of(context)!
                                   .signUpPage_users,
                               active: false,
                             ),
                             LoginPageIndicator(
-                              count: "04",
+                              count: AppLocalizations.of(context)!.signUpPage_3,
                               page: AppLocalizations.of(context)!
                                   .signUpPage_share,
                               active: false,

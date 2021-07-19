@@ -7,6 +7,7 @@ import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/widget/numvalueContainer.dart';
 import 'package:vamos/widget/profileContainer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProfilePhoto extends StatefulWidget {
   const ProfilePhoto({Key? key}) : super(key: key);
@@ -27,7 +28,9 @@ class _ProfilePhotoState extends State<ProfilePhoto> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      ProfileContainer(title: "Profile Photo"),
+                      ProfileContainer(
+                          title: AppLocalizations.of(context)!
+                              .profilePage_profilePhoto),
                       Padding(
                           padding: EdgeInsets.only(left: 10.w),
                           child: IconButton(
@@ -140,7 +143,9 @@ class _SkillVideoState extends State<SkillVideo> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ProfileContainer(title: "Skill Videos"),
+                  ProfileContainer(
+                      title: AppLocalizations.of(context)!
+                          .profilePage_skillVideos),
                   Container(
                     padding: EdgeInsets.fromLTRB(10.w, 15, 30, 30),
                     child: Row(
