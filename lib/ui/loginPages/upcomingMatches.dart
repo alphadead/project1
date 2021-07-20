@@ -14,32 +14,35 @@ class UpcomingMatchesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: GetBuilder<AuthController>(
-        builder: (_authService) => Scaffold(
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.miniCenterDocked,
-          floatingActionButton: Container(
-            width: 60.w,
-            child: FittedBox(
-              child: FloatingActionButton(
-                elevation: 0,
-                onPressed: () {},
-                backgroundColor: KRed,
-                child: SizedBox(
-                  height: 30,
-                  child: Image.asset(
-                    "assets/images/FloatingActionButton.png",
-                    // scale: 30,
+        builder: (_authService) => Directionality(
+          textDirection: TextDirection.ltr,
+          child: Scaffold(
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.miniCenterDocked,
+            floatingActionButton: Container(
+              width: 60.w,
+              child: FittedBox(
+                child: FloatingActionButton(
+                  elevation: 0,
+                  onPressed: () {},
+                  backgroundColor: KRed,
+                  child: SizedBox(
+                    height: 30,
+                    child: Image.asset(
+                      "assets/images/FloatingActionButton.png",
+                      // scale: 30,
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          bottomNavigationBar: CustomBottomAppBar(
-            height: 50.h,
-          ),
-          appBar: PreferredSize(
-            preferredSize: Size.fromHeight(60.h),
-            child: CustomAppBar(),
+            bottomNavigationBar: CustomBottomAppBar(
+              height: 50.h,
+            ),
+            appBar: PreferredSize(
+              preferredSize: Size.fromHeight(60.h),
+              child: CustomAppBar(),
+            ),
           ),
         ),
       ),

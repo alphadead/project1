@@ -18,53 +18,56 @@ class RegisteredTeamPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: GetBuilder<AuthController>(
-      builder: (_authService) => Scaffold(
-        floatingActionButton: LocaleFloatingActionButton(),
-        body: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Container(
-                child: Column(
-                  children: [
-                    LoginPageStack(
-                      heading: AppLocalizations.of(context)!
-                          .registeredTeamsPage_registeredTeams,
-                      imageWidget: Positioned(
-                        bottom: -50.h,
-                        left: 120.w,
-                        height: 330.h,
-                        width: 330.w,
-                        child: Image.asset(
-                          'assets/images/group_3.png',
+      builder: (_authService) => Directionality(
+        textDirection: TextDirection.ltr,
+        child: Scaffold(
+          floatingActionButton: LocaleFloatingActionButton(),
+          body: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                  child: Column(
+                    children: [
+                      LoginPageStack(
+                        heading: AppLocalizations.of(context)!
+                            .registeredTeamsPage_registeredTeams,
+                        imageWidget: Positioned(
+                          bottom: -50.h,
+                          left: 120.w,
+                          height: 330.h,
+                          width: 330.w,
+                          child: Image.asset(
+                            'assets/images/group_3.png',
+                          ),
                         ),
                       ),
-                    ),
-                    Container(
-                      height: 20,
-                    ),
-                    ListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: 7,
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          title: RegisteredTeamContainer(),
-                        );
-                      },
-                    ),
-                    Container(
-                      padding: EdgeInsets.symmetric(vertical: 30),
-                      child: primaryActionButton(
-                          context: context,
-                          onPressed: () {
-                            Get.toNamed("/inviteScreen");
-                          }),
-                    )
-                  ],
-                ),
-              )
-            ],
+                      Container(
+                        height: 20,
+                      ),
+                      ListView.builder(
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: 7,
+                        itemBuilder: (context, index) {
+                          return ListTile(
+                            title: RegisteredTeamContainer(),
+                          );
+                        },
+                      ),
+                      Container(
+                        padding: EdgeInsets.symmetric(vertical: 30),
+                        child: primaryActionButton(
+                            context: context,
+                            onPressed: () {
+                              Get.toNamed("/inviteScreen");
+                            }),
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),

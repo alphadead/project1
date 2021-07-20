@@ -24,47 +24,50 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: GetBuilder<AuthController>(
-      builder: (_authService) => Scaffold(
-        floatingActionButton: LocaleFloatingActionButton(),
-        backgroundColor: Colors.white,
-        body: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              LoginPageStack(
-                heading: AppLocalizations.of(context)!.profilePage_title,
-                imageWidget: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Container(
-                      height: 0.8.sh,
-                      child: Image.asset(
-                        'assets/images/register.png',
+      builder: (_authService) => Directionality(
+        textDirection: TextDirection.ltr,
+        child: Scaffold(
+          floatingActionButton: LocaleFloatingActionButton(),
+          backgroundColor: Colors.white,
+          body: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                LoginPageStack(
+                  heading: AppLocalizations.of(context)!.profilePage_title,
+                  imageWidget: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Container(
+                        height: 0.8.sh,
+                        child: Image.asset(
+                          'assets/images/register.png',
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              PlayerTypeRadioList(),
-              PositionRadioList(),
-              FitnessDetail(),
-              Nationality(),
-              ProfilePhoto(),
-              SkillVideo(),
-              Container(
-                padding: EdgeInsets.only(bottom: 37.h),
-                child: Center(
-                  child: primaryActionButton(
-                      context: context,
-                      onPressed: () {
-                        _authService.profile();
-                      },
-                      text: AppLocalizations.of(context)!
-                          .profilePage_navButtonText),
+                PlayerTypeRadioList(),
+                PositionRadioList(),
+                FitnessDetail(),
+                Nationality(),
+                ProfilePhoto(),
+                SkillVideo(),
+                Container(
+                  padding: EdgeInsets.only(bottom: 37.h),
+                  child: Center(
+                    child: primaryActionButton(
+                        context: context,
+                        onPressed: () {
+                          _authService.profile();
+                        },
+                        text: AppLocalizations.of(context)!
+                            .profilePage_navButtonText),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
