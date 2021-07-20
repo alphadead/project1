@@ -23,7 +23,6 @@ class AuthController extends GetxController {
   String firstName = '';
   String lastName = '';
   String email = '';
-  String civilId = '';
   String address = '';
   String userId = '';
   String typeOfPlayer = '';
@@ -65,8 +64,8 @@ class AuthController extends GetxController {
 
   void registerStep() async {
     Utility.showLoadingDialog();
-    RegisterResponse response = await api.registerStep(
-        firstName, lastName, email, mobileNo, civilId, type);
+    RegisterResponse response =
+        await api.registerStep(firstName, lastName, email, mobileNo, type);
     if (response.success) {
       Utility.closeDialog();
       Utility.showError("${response.message}");

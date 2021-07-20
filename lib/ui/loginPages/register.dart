@@ -161,19 +161,6 @@ class _RegisterPageState extends State<RegisterPage> {
                         }, keyType: TextInputType.phone),
                       ),
                       Padding(
-                        padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
-                        child: inputField("Civil Id", (value) {
-                          _authService.civilId = value;
-                        }, validate: (arg) {
-                          arg = _authService.civilId;
-                          if (ValidateFeild().isValidateID(arg)) {
-                            return null;
-                          } else {
-                            return "Enter valid Civil Id";
-                          }
-                        }, keyType: TextInputType.name),
-                      ),
-                      Padding(
                         padding: EdgeInsets.fromLTRB(30, 20, 30, 30),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
