@@ -1,6 +1,8 @@
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -34,8 +36,10 @@ class AuthController extends GetxController {
   String type = '';
   List<Asset> images = [];
   bool addImageButton = true;
+  bool addVideoButton = true;
   int maxImage = 4;
   String _error = 'No Error Dectected';
+  int selectedVideo = 0;
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   GlobalKey<FormState> formKey2 = GlobalKey<FormState>();
@@ -81,7 +85,7 @@ class AuthController extends GetxController {
     // postProfile(images);
 
     ProfileResponse response = await api.profileResponse(userId, typeOfPlayer,
-        position, age, weight, height, nationality, images);
+        position, age, weight, height, nationality, images, files);
     if (response.success) {
       Utility.closeDialog();
       Utility.showError("${response.message}");
@@ -128,6 +132,37 @@ class AuthController extends GetxController {
   Future<void> deleteFile(int index) async {
     images.removeAt(index);
     addImageButton = true;
+    update();
+  }
+
+  List<File> files = [];
+  FilePickerResult? result;
+  Future<void> loadVideo() async {
+    List<File> tempVideo = [];
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+        allowMultiple: true, type: FileType.custom, allowedExtensions: ['mp4']);
+    if (result != null) {
+      tempVideo = result.paths.map((path) => File(path!)).toList();
+    } else {
+      // User canceled the picker
+    }
+
+    if (files.length + tempVideo.length <= 2) {
+      files.addAll(tempVideo);
+      if (files.length >= 2) {
+        addVideoButton = false;
+      }
+    } else {
+      tempVideo = [];
+      Utility.showError("Select only 2 videos");
+    }
+
+    update();
+  }
+
+  Future<void> deleteVideoFile(int index) async {
+    files.removeAt(index);
+    addVideoButton = true;
     update();
   }
 }

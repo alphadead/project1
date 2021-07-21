@@ -7,6 +7,7 @@ import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/widget/numvalueContainer.dart';
 import 'package:vamos/widget/profileContainer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class ProfilePhoto extends StatefulWidget {
   const ProfilePhoto({Key? key}) : super(key: key);
@@ -67,7 +68,6 @@ class _ProfilePhotoState extends State<ProfilePhoto> {
                                 ),
                               )
                             : SizedBox(
-                                // height: 150,
                                 child: buildGridView(),
                               ),
                       ],
@@ -140,38 +140,113 @@ class _SkillVideoState extends State<SkillVideo> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ProfileContainer(title: "Skill Videos"),
-                  Container(
-                    padding: EdgeInsets.fromLTRB(10.w, 15, 30, 30),
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Container(
-                            height: 86.h,
-                            width: 130.w,
-                            color: Color.fromRGBO(249, 249, 249, 1),
-                            child: Center(
-                                child: Image.asset(
-                              "assets/images/add_video_copy.webp",
-                              height: 28.h,
-                              width: 34.w,
-                            )),
-                          ),
-                          Container(
-                            height: 86.h,
-                            width: 130.w,
-                            color: Color.fromRGBO(249, 249, 249, 1),
-                            child: Center(
-                                child: Image.asset(
-                              "assets/images/add_video_copy.webp",
-                              height: 28.h,
-                              width: 34.w,
-                            )),
-                          ),
-                        ]),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      ProfileContainer(title: "Skill Videos"),
+                      Padding(
+                          padding: EdgeInsets.only(left: 10.w),
+                          child: IconButton(
+                            onPressed: _authService.addVideoButton
+                                ? () {
+                                    _authService.loadVideo();
+                                  }
+                                : null,
+                            icon: Icon(
+                              Icons.add,
+                            ),
+                            color: containerGreen,
+                            disabledColor: KLightGrey,
+                          )),
+                    ],
                   ),
+                  Container(
+                    padding: EdgeInsets.fromLTRB(30.w, 15, 0, 0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        _authService.files.length == 0
+                            ? GestureDetector(
+                                onTap: () {
+                                  _authService.loadVideo();
+                                },
+                                child: Container(
+                                  height: 86.h,
+                                  width: 130.w,
+                                  color: Color.fromRGBO(249, 249, 249, 1),
+                                  child: Center(
+                                      child: Image.asset(
+                                    "assets/images/add_video_copy.webp",
+                                    height: 28.h,
+                                    width: 34.w,
+                                  )),
+                                ),
+                              )
+                            : SizedBox(
+                                child: buildVideoGridView(),
+                              ),
+                      ],
+                    ),
+                  )
                 ],
               ),
             ));
   }
+}
+
+Widget buildVideoGridView() {
+  return GetBuilder<AuthController>(builder: (_authService) {
+    return SingleChildScrollView(
+      physics: NeverScrollableScrollPhysics(),
+      child: GridView.count(
+        crossAxisCount: 2,
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
+        crossAxisSpacing: 10,
+        mainAxisSpacing: 10,
+        children: List.generate(
+          _authService.files.length,
+          (index) {
+            return Stack(
+              children: [
+                InkWell(
+                  onTap: () {
+                    _authService.selectedVideo = index;
+                    Get.toNamed("/videoScreen");
+                  },
+                  child: Container(
+                    height: 130.h,
+                    width: 130.w,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8.0),
+                        border: Border.all(color: bgroundCol)),
+                    child: Center(
+                      child: Icon(
+                        Icons.video_collection_outlined,
+                        color: kLogoColor2,
+                        size: 30,
+                      ),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  top: -5,
+                  right: 15,
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.delete,
+                      color: kLogoColor2,
+                    ),
+                    onPressed: () {
+                      _authService.deleteVideoFile(index);
+                    },
+                  ),
+                ),
+              ],
+            );
+          },
+        ),
+      ),
+    );
+  });
 }
