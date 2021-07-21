@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:get/get_connect/http/src/multipart/multipart_file.dart';
@@ -16,13 +17,12 @@ class HTTPApi extends Api {
   }
 
   Future<RegisterResponse> registerStep(String firstName, String lastName,
-      String email, String mobileNo, String civilId, String type) async {
+      String email, String mobileNo, String type) async {
     Map<String, dynamic> body = {
       "phone": mobileNo,
       "first_name": firstName,
       "last_name": lastName,
       "email": email,
-      "civil_id": civilId,
       "type": type
     };
     Map<String, dynamic> response = await postRequest("register-step-1", body);
@@ -37,7 +37,8 @@ class HTTPApi extends Api {
       String weight,
       String height,
       String nationality,
-      List<Asset> images) async {
+      List<Asset> images,
+      List<File> files) async {
     Map<String, dynamic> reponse = await postProfileData(
         "profile/update",
         userId,
@@ -47,7 +48,8 @@ class HTTPApi extends Api {
         weight,
         height,
         nationality,
-        images);
+        images,
+        files);
     return ProfileResponse.fromJson(reponse);
   }
 }

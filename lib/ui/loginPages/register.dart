@@ -92,129 +92,99 @@ class _RegisterPageState extends State<RegisterPage> {
                       ],
                     ),
                   ),
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(width: 0, color: Colors.white),
-                    ),
-                    margin: EdgeInsets.only(bottom: 10),
-                    //height: 350.h,
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
-                          child: inputField(
-                              AppLocalizations.of(context)!
-                                  .registerPage_firstName, (value) {
-                            _authService.firstName = value;
-                          }, validate: (arg) {
-                            arg = _authService.firstName;
-                            if (ValidateFeild().isValidateName(arg)) {
-                              return null;
-                            } else {
-                              return "Fill with characters";
-                            }
-                          }, keyType: TextInputType.name),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
-                          child: inputField(
-                              AppLocalizations.of(context)!
-                                  .registerPage_lastName, (value) {
-                            _authService.lastName = value;
-                          }, validate: (arg) {
-                            arg = _authService.lastName;
-                            if (ValidateFeild().isValidateName(arg)) {
-                              return null;
-                            } else {
-                              return "Fill with characters";
-                            }
-                          }, keyType: TextInputType.name),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
-                          child: inputField(
-                              AppLocalizations.of(context)!
-                                  .registerPage_address, (value) {
-                            _authService.address = value;
-                          }, validate: (arg) {
-                            arg = _authService.address;
-                            if (ValidateFeild().isValidateName(arg)) {
-                              return null;
-                            } else {
-                              return "Fill with characters";
-                            }
-                          }, keyType: TextInputType.name),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
-                          child: inputField(
-                              AppLocalizations.of(context)!.registerPage_email,
-                              (value) {
-                            _authService.email = value;
-                          }, validate: (arg) {
-                            arg = _authService.email;
-                            if (ValidateFeild().isEmailValid(arg)) {
-                              return null;
-                            } else {
-                              return "Enter valid email";
-                            }
-                          }, keyType: TextInputType.emailAddress),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
-                          child: inputField(
-                              AppLocalizations.of(context)!.registerPage_mobile,
-                              (value) {
-                            _authService.mobileNo = value;
-                          }, validate: (arg) {
-                            arg = _authService.mobileNo;
-                            if (ValidateFeild().isValidatePhone(arg)) {
-                              return null;
-                            } else {
-                              return "Enter valid phone number";
-                            }
-                          }, keyType: TextInputType.phone),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
-                          child: inputField(
-                              AppLocalizations.of(context)!
-                                  .registerPage_civilID, (value) {
-                            _authService.civilId = value;
-                          }, validate: (arg) {
-                            arg = _authService.civilId;
-                            if (ValidateFeild().isValidateID(arg)) {
-                              return null;
-                            } else {
-                              return "Enter valid Civil Id";
-                            }
-                          }, keyType: TextInputType.name),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(30, 20, 30, 30),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                child: Row(
-                                  children: [
-                                    Transform.scale(
-                                      scale: 1.35,
-                                      child: Radio(
-                                        visualDensity: VisualDensity.compact,
-                                        splashRadius: 15,
-                                        fillColor: MaterialStateProperty.all(
-                                            profileContainerColor),
-                                        value: typeenum.player,
-                                        groupValue: _type,
-                                        onChanged: (typeenum? value) {
-                                          setState(() {
-                                            _type = value;
-                                            _authService.type =
-                                                typeValue[_type].toString();
-                                          });
-                                        },
-                                      ),
+                  margin: EdgeInsets.only(bottom: 10),
+                  //height: 350.h,
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
+                        child: inputField(AppLocalizations.of(context)!.registerPage_firstName, (value) {
+                          _authService.firstName = value;
+                        }, validate: (arg) {
+                          arg = _authService.firstName;
+                          if (ValidateFeild().isValidateName(arg)) {
+                            return null;
+                          } else {
+                            return "Fill with characters";
+                          }
+                        }, keyType: TextInputType.name),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
+                        child: inputField(AppLocalizations.of(context)!.registerPage_lastName, (value) {
+                          _authService.lastName = value;
+                        }, validate: (arg) {
+                          arg = _authService.lastName;
+                          if (ValidateFeild().isValidateName(arg)) {
+                            return null;
+                          } else {
+                            return "Fill with characters";
+                          }
+                        }, keyType: TextInputType.name),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
+                        child: inputField(AppLocalizations.of(context)!.registerPage_address, (value) {
+                          _authService.address = value;
+                        }, validate: (arg) {
+                          arg = _authService.address;
+                          if (ValidateFeild().isValidateName(arg)) {
+                            return null;
+                          } else {
+                            return "Fill with characters";
+                          }
+                        }, keyType: TextInputType.name),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
+                        child: inputField(AppLocalizations.of(context)!.registerPage_email, (value) {
+                          _authService.email = value;
+                        }, validate: (arg) {
+                          arg = _authService.email;
+                          if (ValidateFeild().isEmailValid(arg)) {
+                            return null;
+                          } else {
+                            return "Enter valid email";
+                          }
+                        }, keyType: TextInputType.emailAddress),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
+                        child: inputField(AppLocalizations.of(context)!.registerPage_mobile, (value) {
+                          _authService.mobileNo = value;
+                        }, validate: (arg) {
+                          arg = _authService.mobileNo;
+                          if (ValidateFeild().isValidatePhone(arg)) {
+                            return null;
+                          } else {
+                            return "Enter valid phone number";
+                          }
+                        }, keyType: TextInputType.phone),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(30, 20, 30, 30),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              child: Row(
+                                children: [
+                                  Transform.scale(
+                                    scale: 1.35,
+                                    child: Radio(
+                                      visualDensity: VisualDensity.compact,
+                                      splashRadius: 15,
+                                      fillColor: MaterialStateProperty.all(
+                                          profileContainerColor),
+                                      value: typeenum.player,
+                                      groupValue: _type,
+                                      onChanged: (typeenum? value) {
+                                        setState(() {
+                                          _type = value;
+                                          _authService.type =
+                                              typeValue[_type].toString();
+                                        });
+                                      },
                                     ),
                                     Text(
                                       AppLocalizations.of(context)!
