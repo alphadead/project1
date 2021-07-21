@@ -145,22 +145,19 @@ class _SkillVideoState extends State<SkillVideo> {
                     children: [
                       ProfileContainer(title: "Skill Videos"),
                       Padding(
-                        padding: EdgeInsets.only(left: 10.w),
-                        child: _authService.addVideoButton
-                            ? IconButton(
-                                onPressed: () {
-                                  _authService.loadVideo();
-                                },
-                                icon: Icon(
-                                  Icons.add,
-                                  color: containerGreen,
-                                ))
-                            : IconButton(
-                                onPressed: null,
-                                icon: Icon(
-                                  Icons.add,
-                                )),
-                      )
+                          padding: EdgeInsets.only(left: 10.w),
+                          child: IconButton(
+                            onPressed: _authService.addVideoButton
+                                ? () {
+                                    _authService.loadVideo();
+                                  }
+                                : null,
+                            icon: Icon(
+                              Icons.add,
+                            ),
+                            color: containerGreen,
+                            disabledColor: KLightGrey,
+                          )),
                     ],
                   ),
                   Container(

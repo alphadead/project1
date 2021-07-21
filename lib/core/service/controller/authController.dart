@@ -149,7 +149,7 @@ class AuthController extends GetxController {
 
     if (files.length + tempVideo.length <= 2) {
       files.addAll(tempVideo);
-      if (files.length == 2) {
+      if (files.length >= 2) {
         addVideoButton = false;
       }
     } else {
