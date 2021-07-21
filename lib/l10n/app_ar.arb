@@ -13,6 +13,8 @@
     "signUpPage_2": "٢",
     "signUpPage_3": "٣",
     "signUpPage_4": "٤",
+    "signUpPage_validNumberErrorMessage": "أدخل رقم هاتف صالحًا",
+    "signUpPage_validPasswordErrorMessage": "يجب أن تكون كلمة المرور أكثر من ٦ أحرف",
     "registeredTeamsPage_registeredTeams": "الفريق المسجل",
     "registeredTeamsPage_demoTeamName": "هيجان مدينة الرياح",
     "registeredTeamsPage_demoTeamDescription": "نص لوريم إيبسوم",

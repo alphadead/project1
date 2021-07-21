@@ -13,6 +13,8 @@
     "signUpPage_2": "02",
     "signUpPage_3": "03",
     "signUpPage_4": "04",
+    "signUpPage_validNumberErrorMessage": "Enter valid phone number",
+    "signUpPage_validPasswordErrorMessage": "Password must be more than 6 characters",
     "registeredTeamsPage_registeredTeams": "Registered Teams",
     "registeredTeamsPage_demoTeamName": "Wind City Rampage",
     "registeredTeamsPage_demoTeamDescription": "Lorem Ipsum Text",
