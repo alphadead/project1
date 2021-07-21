@@ -17,13 +17,12 @@ class HTTPApi extends Api {
   }
 
   Future<RegisterResponse> registerStep(String firstName, String lastName,
-      String email, String mobileNo, String civilId, String type) async {
+      String email, String mobileNo, String type) async {
     Map<String, dynamic> body = {
       "phone": mobileNo,
       "first_name": firstName,
       "last_name": lastName,
       "email": email,
-      "civil_id": civilId,
       "type": type
     };
     Map<String, dynamic> response = await postRequest("register-step-1", body);
