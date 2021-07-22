@@ -3,6 +3,7 @@ import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:vamos/core/service/controller/authController.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/widget/profileContainer.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 enum playerTypeenum { player, goalkeeper, refree, photographer }
 
@@ -30,7 +31,8 @@ class _PlayerTypeRadioListState extends State<PlayerTypeRadioList> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ProfileContainer(title: "Type of Player"),
+            ProfileContainer(
+                title: AppLocalizations.of(context)!.profilePage_typeOfPlayer),
             Container(
               padding: EdgeInsets.only(left: 10),
               child: Row(
@@ -53,7 +55,7 @@ class _PlayerTypeRadioListState extends State<PlayerTypeRadioList> {
                     ),
                   ),
                   Text(
-                    "Player",
+                    AppLocalizations.of(context)!.profilePage_player,
                     style: TextStyle(fontSize: 15, color: lightGrey),
                   )
                 ],
@@ -81,7 +83,7 @@ class _PlayerTypeRadioListState extends State<PlayerTypeRadioList> {
                     ),
                   ),
                   Text(
-                    "Goal Keeper",
+                    AppLocalizations.of(context)!.profilePage_goalKeeper,
                     style: TextStyle(fontSize: 15, color: lightGrey),
                   )
                 ],
@@ -109,7 +111,7 @@ class _PlayerTypeRadioListState extends State<PlayerTypeRadioList> {
                     ),
                   ),
                   Text(
-                    "Referee",
+                    AppLocalizations.of(context)!.profilePage_referee,
                     style: TextStyle(fontSize: 15, color: lightGrey),
                   )
                 ],
@@ -137,7 +139,7 @@ class _PlayerTypeRadioListState extends State<PlayerTypeRadioList> {
                     ),
                   ),
                   Text(
-                    "Football Photographer",
+                    AppLocalizations.of(context)!.profilePage_footballPhoto,
                     style: TextStyle(fontSize: 15, color: lightGrey),
                   )
                 ],

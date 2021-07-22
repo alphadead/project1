@@ -6,8 +6,10 @@ import 'package:vamos/core/service/controller/authController.dart';
 import 'package:vamos/ui/pages/inviteScreen.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/loginbkground.dart';
+import 'package:vamos/widget/localeFloatingActionButtonDebug.dart';
 import 'package:vamos/widget/loginpageStack.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RegisteredTeamPage extends StatelessWidget {
   const RegisteredTeamPage({Key? key}) : super(key: key);
@@ -16,51 +18,56 @@ class RegisteredTeamPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: GetBuilder<AuthController>(
-      builder: (_authService) => Scaffold(
-        body: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Container(
-                child: Column(
-                  children: [
-                    LoginPageStack(
-                      heading: "Registered Teams",
-                      imageWidget: Positioned(
-                        bottom: -50.h,
-                        left: 120.w,
-                        height: 330.h,
-                        width: 330.w,
-                        child: Image.asset(
-                          'assets/images/group_3.png',
+      builder: (_authService) => Directionality(
+        textDirection: TextDirection.ltr,
+        child: Scaffold(
+          floatingActionButton: LocaleFloatingActionButton(),
+          body: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                  child: Column(
+                    children: [
+                      LoginPageStack(
+                        heading: AppLocalizations.of(context)!
+                            .registeredTeamsPage_registeredTeams,
+                        imageWidget: Positioned(
+                          bottom: -50.h,
+                          left: 120.w,
+                          height: 330.h,
+                          width: 330.w,
+                          child: Image.asset(
+                            'assets/images/group_3.png',
+                          ),
                         ),
                       ),
-                    ),
-                    Container(
-                      height: 20,
-                    ),
-                    ListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: 7,
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          title: RegisteredTeamContainer(),
-                        );
-                      },
-                    ),
-                    Container(
-                      padding: EdgeInsets.symmetric(vertical: 30),
-                      child: primaryActionButton(
-                          context: context,
-                          onPressed: () {
-                            Get.toNamed("/inviteScreen");
-                          }),
-                    )
-                  ],
-                ),
-              )
-            ],
+                      Container(
+                        height: 20,
+                      ),
+                      ListView.builder(
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: 7,
+                        itemBuilder: (context, index) {
+                          return ListTile(
+                            title: RegisteredTeamContainer(),
+                          );
+                        },
+                      ),
+                      Container(
+                        padding: EdgeInsets.symmetric(vertical: 30),
+                        child: primaryActionButton(
+                            context: context,
+                            onPressed: () {
+                              Get.toNamed("/inviteScreen");
+                            }),
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -95,7 +102,8 @@ class RegisteredTeamContainer extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Wind City Rampage",
+                    AppLocalizations.of(context)!
+                        .registeredTeamsPage_demoTeamName,
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.w600,
@@ -103,7 +111,8 @@ class RegisteredTeamContainer extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "Lorem Ipsum Text",
+                    AppLocalizations.of(context)!
+                        .registeredTeamsPage_demoTeamName,
                     style: TextStyle(
                       fontWeight: FontWeight.w400,
                       fontSize: 8.8.sp,
@@ -127,7 +136,8 @@ class RegisteredTeamContainer extends StatelessWidget {
                   onTap: () {},
                   child: Center(
                     child: Text(
-                      "Join",
+                      AppLocalizations.of(context)!
+                          .registeredTeamsPage_joinButtonText,
                       style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.w900,

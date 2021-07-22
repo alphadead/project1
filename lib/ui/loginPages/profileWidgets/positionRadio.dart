@@ -3,6 +3,7 @@ import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:vamos/core/service/controller/authController.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/widget/profileContainer.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 enum positionenum { goalkeeper, defender, midfielder, attacker }
 
@@ -31,7 +32,8 @@ class _PositionRadioListState extends State<PositionRadioList> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ProfileContainer(title: "Position"),
+            ProfileContainer(
+                title: AppLocalizations.of(context)!.profilePage_position),
             Container(
               padding: EdgeInsets.only(left: 10),
               child: Row(
@@ -54,7 +56,7 @@ class _PositionRadioListState extends State<PositionRadioList> {
                     ),
                   ),
                   Text(
-                    "Goal Keeper",
+                    AppLocalizations.of(context)!.profilePage_goalKeeper,
                     style: TextStyle(fontSize: 15, color: lightGrey),
                   )
                 ],
@@ -82,7 +84,7 @@ class _PositionRadioListState extends State<PositionRadioList> {
                     ),
                   ),
                   Text(
-                    "Defender",
+                    AppLocalizations.of(context)!.profilePage_defender,
                     style: TextStyle(fontSize: 15, color: lightGrey),
                   )
                 ],
@@ -110,7 +112,7 @@ class _PositionRadioListState extends State<PositionRadioList> {
                     ),
                   ),
                   Text(
-                    "Mid Fielder",
+                    AppLocalizations.of(context)!.profilePage_midfielder,
                     style: TextStyle(fontSize: 15, color: lightGrey),
                   )
                 ],
@@ -138,7 +140,7 @@ class _PositionRadioListState extends State<PositionRadioList> {
                     ),
                   ),
                   Text(
-                    "Attacker",
+                    AppLocalizations.of(context)!.profilePage_attacker,
                     style: TextStyle(fontSize: 15, color: lightGrey),
                   )
                 ],
