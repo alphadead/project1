@@ -25,7 +25,7 @@ class _VideoPlayerState extends State<VideoPlayer> {
     _chewieController = ChewieController(
       videoPlayerController:
           VideoPlayerController.file(File(files[selectedVideoIndex].path)),
-      aspectRatio: 16 / 9,
+      aspectRatio: 1 / 2,
       autoInitialize: true,
       autoPlay: true,
       looping: true,
