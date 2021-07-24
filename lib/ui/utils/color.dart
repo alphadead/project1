@@ -17,3 +17,5 @@ const containerGreen = Color(0xff6bbc46);
 const moneyBox = Color(0xff054861);
 const KColorBlack = Color(0xff000000);
 const KLightGrey = Color(0xffc0c1bf);
+const logoNamebackground = Color.fromRGBO(4, 70, 97, 1);
+const borderCol = Color(0xFFEEEEEE);
