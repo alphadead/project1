@@ -3,14 +3,17 @@ import 'package:vamos/ui/utils/color.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProfileContainer extends StatelessWidget {
-  final title;
-  const ProfileContainer({this.title});
+  final String? title;
+  final double? height;
+  final double? width;
+  final double? fontSize;
+  const ProfileContainer({this.title, this.height, this.width, this.fontSize});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 150.w,
-      height: 40.h,
+      width: width == null ? 150.w : width,
+      height: height == null ? 40.h : height,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
               topRight: Radius.circular(20), bottomRight: Radius.circular(20)),
@@ -22,8 +25,10 @@ class ProfileContainer extends StatelessWidget {
           Container(
             padding: EdgeInsets.only(left: 20.w),
             child: Text(
-              title,
-              style: TextStyle(color: Colors.white, fontSize: 17.5.sp),
+              title.toString(),
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: fontSize == null ? 17.5.sp : fontSize),
             ),
           ),
         ],
