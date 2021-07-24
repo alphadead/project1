@@ -88,7 +88,7 @@ class AuthController extends GetxController {
     if (response.success) {
       Utility.closeDialog();
       Utility.showError("${response.message}");
-      Get.toNamed("/upcomingmatches");
+      Get.toNamed("/addandOptions");
     } else {
       Utility.closeDialog();
       Utility.showError("${response.message}");

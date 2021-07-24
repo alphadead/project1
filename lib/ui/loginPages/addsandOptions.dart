@@ -72,17 +72,17 @@ class AddandOptions extends StatelessWidget {
                       shrinkWrap: true,
                       crossAxisCount: 2,
                       children: [
-                        logoContainer('assets/images/team_logo.png', 'Team'),
+                        logoContainer('assets/images/team_logo.webp', 'Team'),
                         logoContainer(
-                            'assets/images/player_logo.png', 'Player'),
+                            'assets/images/player_logo.webp', 'Player'),
+                        logoContainer('assets/images/create_logo.webp',
+                            'Create Own Team'),
                         logoContainer(
-                            'assets/images/create_team.png', 'Create Own Team'),
-                        logoContainer(
-                            'assets/images/ground_logo.png', 'Ground'),
-                        logoContainer('assets/images/upcoming_logo.png',
+                            'assets/images/ground_logo.webp', 'Ground'),
+                        logoContainer('assets/images/upcoming_logo.webp',
                             'Upcoming Matches'),
-                        logoContainer(
-                            'assets/images/tournaments_logo.png', 'Tournaments')
+                        logoContainer('assets/images/tournaments_logo.webp',
+                            'Tournaments')
                       ],
                     ),
                   )

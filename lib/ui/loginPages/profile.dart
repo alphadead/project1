@@ -55,7 +55,7 @@ class ProfilePage extends StatelessWidget {
                 ProfilePhoto(),
                 SkillVideo(),
                 Container(
-                  padding: EdgeInsets.only(bottom: 37.h),
+                  padding: EdgeInsets.only(top: 15.h, bottom: 37.h),
                   child: Center(
                     child: primaryActionButton(
                         context: context,
