@@ -9,19 +9,20 @@ Widget registeredTeamContainer(
   return Container(
     margin: EdgeInsets.only(bottom: 12),
     child: Ink(
-      width: 333.w,
       height: 65.h,
       decoration: BoxDecoration(
         color: containerGreen,
         borderRadius: BorderRadius.circular(2.5),
       ),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
             margin: EdgeInsets.symmetric(vertical: 5.h, horizontal: 10),
             child: Image.asset('assets/images/placeholder_team_icon.png'),
           ),
           Container(
+            width: .4.sw,
             padding: EdgeInsets.only(left: 5),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -34,15 +35,10 @@ Widget registeredTeamContainer(
                     fontWeight: FontWeight.w600,
                     fontSize: 12.sp,
                   ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  softWrap: false,
                 ),
-                // Text(
-                //   AppLocalizations.of(context)!
-                //       .registeredTeamsPage_demoTeamName,
-                //   style: TextStyle(
-                //     fontWeight: FontWeight.w400,
-                //     fontSize: 8.8.sp,
-                //   ),
-                // ),
               ],
             ),
           ),
@@ -50,7 +46,7 @@ Widget registeredTeamContainer(
           Container(
             margin: EdgeInsets.only(right: 10),
             child: Ink(
-              width: 75.w,
+              width: 70.w,
               height: 25.h,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
