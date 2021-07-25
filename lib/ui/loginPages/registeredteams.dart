@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get_core/get_core.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:http/http.dart';
 import 'package:vamos/core/service/controller/authController.dart';
+import 'package:vamos/core/service/controller/teamListingController.dart';
 import 'package:vamos/ui/pages/inviteScreen.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/loginbkground.dart';
@@ -10,6 +12,7 @@ import 'package:vamos/widget/localeFloatingActionButtonDebug.dart';
 import 'package:vamos/widget/loginpageStack.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:vamos/widget/registeredTeamCard.dart';
 
 class RegisteredTeamPage extends StatelessWidget {
   const RegisteredTeamPage({Key? key}) : super(key: key);
@@ -17,7 +20,7 @@ class RegisteredTeamPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: GetBuilder<AuthController>(
+        child: GetBuilder<TeamListController>(
       builder: (_authService) => Directionality(
         textDirection: TextDirection.ltr,
         child: Scaffold(
@@ -48,10 +51,17 @@ class RegisteredTeamPage extends StatelessWidget {
                       ListView.builder(
                         physics: NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
-                        itemCount: 7,
+                        itemCount: _authService.teamList.length,
                         itemBuilder: (context, index) {
-                          return ListTile(
-                            title: RegisteredTeamContainer(),
+                          return GestureDetector(
+                            onTap: () {
+                              _authService.getteamlist();
+                            },
+                            child: ListTile(
+                                title: registeredTeamContainer(
+                                    context: context,
+                                    name: _authService.teamList[index].name
+                                        .toString())),
                           );
                         },
                       ),
@@ -60,7 +70,7 @@ class RegisteredTeamPage extends StatelessWidget {
                         child: primaryActionButton(
                             context: context,
                             onPressed: () {
-                              Get.toNamed("/inviteScreen");
+                              Get.offNamed("/upcomingmatches");
                             }),
                       )
                     ],
@@ -72,84 +82,5 @@ class RegisteredTeamPage extends StatelessWidget {
         ),
       ),
     ));
-  }
-}
-
-class RegisteredTeamContainer extends StatelessWidget {
-  const RegisteredTeamContainer({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 12),
-      child: Ink(
-        width: 333.w,
-        height: 65.h,
-        decoration: BoxDecoration(
-          color: containerGreen,
-          borderRadius: BorderRadius.circular(2.5),
-        ),
-        child: Row(
-          children: [
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 5.h, horizontal: 10),
-              child: Image.asset('assets/images/placeholder_team_icon.png'),
-            ),
-            Container(
-              padding: EdgeInsets.only(left: 5),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    AppLocalizations.of(context)!
-                        .registeredTeamsPage_demoTeamName,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 12.sp,
-                    ),
-                  ),
-                  Text(
-                    AppLocalizations.of(context)!
-                        .registeredTeamsPage_demoTeamName,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 8.8.sp,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Expanded(child: Container()),
-            Container(
-              margin: EdgeInsets.only(right: 10),
-              child: Ink(
-                width: 75.w,
-                height: 25.h,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  color: Colors.red,
-                ),
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(12),
-                  onTap: () {},
-                  child: Center(
-                    child: Text(
-                      AppLocalizations.of(context)!
-                          .registeredTeamsPage_joinButtonText,
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w900,
-                          fontSize: 10.sp),
-                    ),
-                  ),
-                ),
-              ),
-            )
-          ],
-        ),
-      ),
-    );
   }
 }
