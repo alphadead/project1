@@ -17,3 +17,5 @@ const containerGreen = Color(0xff6bbc46);
 const moneyBox = Color(0xff054861);
 const KColorBlack = Color(0xff000000);
 const KLightGrey = Color(0xffc0c1bf);
+const KBlueContainerUpcomingmatches = Color(0xff044660);
+const KGreyTextUpcomingmatches = Color(0xff939090);

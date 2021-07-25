@@ -2,38 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/theme.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-class TeamInfoCircularCard extends StatelessWidget {
-  final String? title;
-  final String? image;
-  const TeamInfoCircularCard({Key? key, this.image, this.title})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(25),
-          ),
-          child: Container(
-            height: 50,
-            width: 50,
-            child: Image.asset(image.toString()),
-          ),
-        ),
-        Text(
-          title.toString(),
-          style: themeData()
-              .textTheme
-              .headline4!
-              .copyWith(color: KRed, fontSize: 10.sp),
-        )
-      ],
-    );
-  }
-}
+import 'package:vamos/widget/teamInfoCircularCard.dart';
 
 class MatchInfoCard extends StatelessWidget {
   const MatchInfoCard({Key? key}) : super(key: key);
@@ -86,7 +55,7 @@ class MatchInfoCard extends StatelessWidget {
                       "Tournament live Streaming Old Trafford, United Kingdom.",
                       textAlign: TextAlign.center,
                       style: themeData().textTheme.headline1!.copyWith(
-                          color: Color(0xff939090),
+                          color: KGreyTextUpcomingmatches,
                           fontSize: 10.sp,
                           fontWeight: FontWeight.w400),
                     ),
@@ -97,7 +66,7 @@ class MatchInfoCard extends StatelessWidget {
             Container(
               height: 30.h,
               width: 300.w,
-              color: Color(0xff044660),
+              color: KBlueContainerUpcomingmatches,
               child: Center(
                 child: Text(
                   "Tap on the team for more information of team",

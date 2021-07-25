@@ -21,7 +21,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
           alignment: Alignment.center,
           children: [
             Container(
-              margin: EdgeInsets.only(right: 30),
+              margin: EdgeInsets.only(right: 30.w),
               child: Image.asset(
                 "assets/images/notifications.png",
                 scale: 3.5,
@@ -47,7 +47,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
       ],
       automaticallyImplyLeading: false,
       leading: Container(
-        margin: EdgeInsets.only(left: 30),
+        margin: EdgeInsets.only(left: 30.w),
         child: CustomSwitch(),
       ),
       title: Container(

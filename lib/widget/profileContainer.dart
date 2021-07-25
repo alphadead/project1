@@ -12,8 +12,8 @@ class ProfileContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: width == null ? 150.w : width,
-      height: height == null ? 40.h : height,
+      width: width ?? 150.w,
+      height: height ?? 40.h,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
               topRight: Radius.circular(20), bottomRight: Radius.circular(20)),
@@ -26,9 +26,8 @@ class ProfileContainer extends StatelessWidget {
             padding: EdgeInsets.only(left: 20.w),
             child: Text(
               title.toString(),
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: fontSize == null ? 17.5.sp : fontSize),
+              style:
+                  TextStyle(color: Colors.white, fontSize: fontSize ?? 17.5.sp),
             ),
           ),
         ],
