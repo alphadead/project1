@@ -90,7 +90,7 @@ class AuthController extends GetxController {
     if (response.success) {
       Utility.closeDialog();
       Utility.showError("${response.message}");
-      Get.offNamed("/registeredTeamScreen");
+      Get.toNamed("/upcomingmatches");
     } else {
       Utility.closeDialog();
       Utility.showError("${response.message}");

@@ -21,7 +21,11 @@ class _CustomAppBarState extends State<CustomAppBar> {
           alignment: Alignment.center,
           children: [
             Container(
+
+              
+
               margin: EdgeInsets.only(right: 30.w),
+
               child: Image.asset(
                 "assets/images/notifications.png",
                 scale: 3.5,
@@ -30,7 +34,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
             Transform.translate(
               offset: Offset(-2, -13),
               child: Container(
-                //padding: EdgeInsets,
+                //padding: EdgeInsets
                 padding: EdgeInsets.all(5),
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
@@ -71,17 +75,20 @@ class _CustomSwitchState extends State<CustomSwitch> {
   bool check = true;
   @override
   Widget build(BuildContext context) {
-    return Transform.scale(
-      scale: .75,
-      child: CupertinoSwitch(
-        trackColor: Colors.white,
-        activeColor: KRed,
-        onChanged: (_value) {
-          setState(() {
-            check = _value;
-          });
-        },
-        value: check,
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
+      child: Transform.scale(
+        scale: .75,
+        child: CupertinoSwitch(
+          trackColor: Colors.white,
+          activeColor: KRed,
+          onChanged: (_value) {
+            setState(() {
+              check = _value;
+            });
+          },
+          value: check,
+        ),
       ),
     );
   }
