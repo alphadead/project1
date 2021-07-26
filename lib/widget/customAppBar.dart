@@ -21,16 +21,20 @@ class _CustomAppBarState extends State<CustomAppBar> {
           alignment: Alignment.center,
           children: [
             Container(
-              margin: EdgeInsets.only(right: 20.w),
+
+              
+
+              margin: EdgeInsets.only(right: 30.w),
+
               child: Image.asset(
                 "assets/images/notifications.png",
                 scale: 3.5,
               ),
             ),
             Transform.translate(
-              offset: Offset(4, -13),
+              offset: Offset(-2, -13),
               child: Container(
-                //padding: EdgeInsets,
+                //padding: EdgeInsets
                 padding: EdgeInsets.all(5),
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
@@ -46,7 +50,10 @@ class _CustomAppBarState extends State<CustomAppBar> {
         ),
       ],
       automaticallyImplyLeading: false,
-      leading: CustomSwitch(),
+      leading: Container(
+        margin: EdgeInsets.only(left: 30.w),
+        child: CustomSwitch(),
+      ),
       title: Container(
         width: 50.w,
         child: Image.asset(
