@@ -17,8 +17,8 @@ class AddandOptions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: GetBuilder<Controller>(
-        builder: (_authService) => Directionality(
+      child: GetBuilder<AddsController>(
+        builder: (_addService) => Directionality(
           textDirection: TextDirection.ltr,
           child: Scaffold(
             floatingActionButtonLocation:
@@ -51,7 +51,7 @@ class AddandOptions extends StatelessWidget {
               child: Column(
                 children: [
                   CarouselSlider(
-                    items: _authService.listAdds
+                    items: _addService.listAdds
                         .map((item) => Container(
                               child: Center(child: item),
                             ))
