@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vamos/ui/utils/theme.dart';
 import 'package:vamos/widget/customBottomNavBar.dart';
 import 'package:vamos/widget/inputField.dart';
+import 'package:vamos/widget/createteamContainer.dart';
 
 class CreateTeams extends StatefulWidget {
   const CreateTeams({Key? key}) : super(key: key);
@@ -49,7 +50,7 @@ class _CreateTeamsState extends State<CreateTeams> {
         child: Column(
           children: [
             Container(
-              margin: EdgeInsets.only(bottom: 10),
+              margin: EdgeInsets.only(bottom: 10.h),
               height: 250.h,
               child: Stack(
                 alignment: AlignmentDirectional.bottomEnd,
@@ -94,7 +95,6 @@ class _CreateTeamsState extends State<CreateTeams> {
             Container(
               decoration: BoxDecoration(
                   color: Colors.white, borderRadius: BorderRadius.circular(3)),
-              //height: 490.h,
               width: 300.w,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -195,7 +195,6 @@ class _CreateTeamsState extends State<CreateTeams> {
                             ),
                             decoration: BoxDecoration(
                               color: KRed,
-                              //(#ef4d23),
                               borderRadius: BorderRadius.circular(30),
                             ),
                           ),
@@ -215,20 +214,6 @@ class _CreateTeamsState extends State<CreateTeams> {
           ],
         ),
       ),
-    );
-  }
-
-  Widget conttxt(String text) {
-    return Container(
-      decoration: BoxDecoration(
-          color: moneyBox, borderRadius: BorderRadius.circular(3)),
-      width: 125.w,
-      height: 20.h,
-      child: Center(
-          child: Text(
-        text,
-        style: themeData().textTheme.headline3,
-      )),
     );
   }
 }
