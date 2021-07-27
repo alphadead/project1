@@ -94,7 +94,7 @@ class _CreateTeamsState extends State<CreateTeams> {
             Container(
               decoration: BoxDecoration(
                   color: Colors.white, borderRadius: BorderRadius.circular(3)),
-              height: 490.h,
+              //height: 490.h,
               width: 300.w,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -200,6 +200,9 @@ class _CreateTeamsState extends State<CreateTeams> {
                             ),
                           ),
                         ),
+                        SizedBox(
+                          height: 20.h,
+                        )
                       ],
                     ),
                   ],
