@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/loginbkground.dart';
 import 'package:vamos/widget/customAppBar.dart';
@@ -179,7 +180,9 @@ class _CreateTeamsState extends State<CreateTeams> {
                           height: 25.h,
                         ),
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            Get.toNamed("/addandOptions");
+                          },
                           child: Container(
                             width: 85.h,
                             height: 40.w,

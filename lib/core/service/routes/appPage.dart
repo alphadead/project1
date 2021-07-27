@@ -41,11 +41,13 @@ abstract class AppPages {
       name: '/createTeam',
       transitionDuration: transitionDuration,
       page: () => CreateTeams(),
+      binding: AllBinder(),
     ),
     GetPage(
       name: '/addandOptions',
       transitionDuration: transitionDuration,
       page: () => AddandOptions(),
+      binding: AllBinder(),
     ),
     GetPage(
       name: '/splashScreen',
