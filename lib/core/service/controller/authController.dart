@@ -90,7 +90,7 @@ class AuthController extends GetxController {
     if (response.success) {
       Utility.closeDialog();
       Utility.showError("${response.message}");
-      Get.toNamed("/createTeam");
+      Get.toNamed("/addandOptions");
     } else {
       Utility.closeDialog();
       Utility.showError("${response.message}");

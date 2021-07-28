@@ -181,7 +181,7 @@ class _CreateTeamsState extends State<CreateTeams> {
                         ),
                         GestureDetector(
                           onTap: () {
-                            Get.toNamed("/addandOptions");
+                            
                           },
                           child: Container(
                             width: 85.h,

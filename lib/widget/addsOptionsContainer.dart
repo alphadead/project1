@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vamos/ui/utils/theme.dart';
@@ -6,25 +7,30 @@ import 'package:vamos/ui/utils/theme.dart';
 Widget logoContainer(String image, String logoName) {
   return Stack(children: [
     Positioned(
-      child: Container(
-        height: 110.h,
-        width: 160.w,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(3),
-          border: Border.all(color: borderCol),
-        ),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Image.asset(
-                image,
-                height: 65.h,
-              ),
-              SizedBox(
-                height: 28.h,
-              ),
-            ],
+      child: InkWell(
+        onTap: () {
+          Get.toNamed("/createTeam");
+        },
+        child: Container(
+          height: 110.h,
+          width: 160.w,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(3),
+            border: Border.all(color: borderCol),
+          ),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Image.asset(
+                  image,
+                  height: 65.h,
+                ),
+                SizedBox(
+                  height: 28.h,
+                ),
+              ],
+            ),
           ),
         ),
       ),
