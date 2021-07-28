@@ -3,6 +3,7 @@ import 'package:vamos/core/service/Binder/authBinder.dart';
 import 'package:vamos/splashScreen.dart';
 import 'package:vamos/testScreen.dart';
 import 'package:vamos/ui/loginPages/addsandOptions.dart';
+import 'package:vamos/ui/loginPages/createTeam.dart';
 import 'package:vamos/ui/loginPages/profile.dart';
 import 'package:vamos/ui/loginPages/register.dart';
 import 'package:vamos/ui/loginPages/registeredteams.dart';
@@ -37,9 +38,16 @@ abstract class AppPages {
       page: () => UpcomingMatchesPage(),
     ),
     GetPage(
+      name: '/createTeam',
+      transitionDuration: transitionDuration,
+      page: () => CreateTeams(),
+      binding: AllBinder(),
+    ),
+    GetPage(
       name: '/addandOptions',
       transitionDuration: transitionDuration,
       page: () => AddandOptions(),
+      binding: AllBinder(),
     ),
     GetPage(
       name: '/splashScreen',
