@@ -7,6 +7,7 @@ import 'package:vamos/core/models/loginResponse.dart';
 import 'package:vamos/core/models/profile_api.dart';
 import 'package:vamos/core/models/registerResponse.dart';
 import 'package:vamos/core/models/teamListingResponse.dart';
+import 'package:vamos/core/models/verifyOtpResponse.dart';
 import 'package:vamos/core/service/api/api.dart';
 import 'package:vamos/core/service/api/request.dart';
 
@@ -17,16 +18,23 @@ class HTTPApi extends Api {
     return LoginResponse.fromJson(response);
   }
 
-  Future<RegisterResponse> registerStep(String firstName, String lastName,
-      String email, String mobileNo, String type) async {
+  Future<RegisterResponse> registerStep(
+      String firstName,
+      String lastName,
+      String email,
+      String mobileNo,
+      String type,
+      String password,
+      String address) async {
     Map<String, dynamic> body = {
       "phone": mobileNo,
       "first_name": firstName,
       "last_name": lastName,
       "email": email,
-      "type": type
+      "type": type,
+      "password": password
     };
-    Map<String, dynamic> response = await postRequest("register-step-1", body);
+    Map<String, dynamic> response = await postRequest("register", body);
     return RegisterResponse.fromJson(response);
   }
 
@@ -57,5 +65,15 @@ class HTTPApi extends Api {
   Future<TeamListResponse> getteamlist() async {
     Map<String, dynamic> response = await getRequest('team');
     return TeamListResponse.fromJson(response);
+  }
+
+  Future<VerifyOtpResponse> verifyOtp(userId, mobileNo, otp) async {
+    Map<String, dynamic> body = {
+      "phone": mobileNo,
+      "user_id": userId,
+      "otp": otp,
+    };
+    Map<String, dynamic> response = await postRequest("verify-otp", body);
+    return VerifyOtpResponse.fromJson(response);
   }
 }

@@ -70,7 +70,7 @@ class RegisteredTeamPage extends StatelessWidget {
                         child: primaryActionButton(
                             context: context,
                             onPressed: () {
-                              Get.offNamed("/upcomingmatches");
+                              Get.offNamed("/createTeam");
                             }),
                       )
                     ],

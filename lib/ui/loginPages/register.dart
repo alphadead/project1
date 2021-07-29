@@ -173,6 +173,20 @@ class _RegisterPageState extends State<RegisterPage> {
                           }, keyType: TextInputType.phone),
                         ),
                         Padding(
+                            padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
+                            child: inputPasswordField(
+                                AppLocalizations.of(context)!
+                                    .setPasswordPage_title, (value) {
+                              _authService.password = value;
+                            }, validate: (arg) {
+                              arg = _authService.password;
+                              if (ValidateFeild().isValidatePassword(arg)) {
+                                return null;
+                              } else {
+                                return "Password must be more than 6 characters";
+                              }
+                            }, keyType: TextInputType.name)),
+                        Padding(
                           padding: EdgeInsets.fromLTRB(30, 20, 30, 30),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,

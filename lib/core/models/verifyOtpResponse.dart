@@ -1,46 +1,37 @@
+// To parse this JSON data, do
+//
+//     final verifyOtpResponse = verifyOtpResponseFromJson(jsonString);
+
 import 'dart:convert';
 
-List<LoginResponse> loginResponseFromJson(String str) =>
-    List<LoginResponse>.from(
-        json.decode(str).map((x) => LoginResponse.fromJson(x)));
+VerifyOtpResponse verifyOtpResponseFromJson(String str) =>
+    VerifyOtpResponse.fromJson(json.decode(str));
 
-String loginResponseToJson(List<LoginResponse> data) =>
-    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String verifyOtpResponseToJson(VerifyOtpResponse data) =>
+    json.encode(data.toJson());
 
-class LoginResponse {
-  LoginResponse({
-    this.data,
+class VerifyOtpResponse {
+  VerifyOtpResponse({
+    this.success,
     this.message,
-    this.errors,
-    this.status,
-    this.accessToken,
-    this.completedStep,
+    this.data,
   });
 
-  Data? data;
+  bool? success;
   String? message;
-  Errors? errors;
-  String? status;
-  String? accessToken;
-  int? completedStep;
+  Data? data;
 
-  factory LoginResponse.fromJson(Map<String, dynamic> json) => LoginResponse(
+  factory VerifyOtpResponse.fromJson(Map<String, dynamic> json) =>
+      VerifyOtpResponse(
+        success: json["success"] == null ? null : json["success"],
+        message: json["message"] == null ? null : json["message"],
         data: json["data"] == null ? null : Data.fromJson(json["data"]),
-        message: json["message"],
-        errors: json["errors"] == null ? null : Errors.fromJson(json["errors"]),
-        status: json["status"] == null ? null : json["status"],
-        accessToken: json["access_token"] == null ? null : json["access_token"],
-        completedStep:
-            json["completed_step"] == null ? null : json["completed_step"],
       );
 
   Map<String, dynamic> toJson() => {
+        "success": success == null ? null : success,
+        "message": message == null ? null : message,
         "data": data == null ? null : data!.toJson(),
-        "message": message,
-        "errors": errors == null ? null : errors!.toJson(),
-        "status": status == null ? null : status,
-        "access_token": accessToken == null ? null : accessToken,
-        "completed_step": completedStep == null ? null : completedStep,
       };
 }
 
@@ -82,7 +73,7 @@ class Data {
   String? state;
   String? pincode;
   String? otp;
-  String? isVerified;
+  int? isVerified;
   dynamic createdAt;
   DateTime? updatedAt;
   dynamic deletedAt;
@@ -129,21 +120,5 @@ class Data {
         "created_at": createdAt,
         "updated_at": updatedAt!.toIso8601String(),
         "deleted_at": deletedAt,
-      };
-}
-
-class Errors {
-  Errors({
-    this.password,
-  });
-
-  List<String>? password;
-
-  factory Errors.fromJson(Map<String, dynamic> json) => Errors(
-        password: List<String>.from(json["password"].map((x) => x)),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "password": List<dynamic>.from(password!.map((x) => x)),
       };
 }

@@ -33,14 +33,20 @@ Widget inputPasswordField(String placeholderText, Function(String)? onChange,
 class RegisterPageTextField extends StatelessWidget {
   final label;
   final obscureText;
-  RegisterPageTextField({@required this.label, this.obscureText = false});
+  final otpvalue;
+  RegisterPageTextField(
+      {@required this.label, this.obscureText = false, this.otpvalue});
 
   @override
   Widget build(BuildContext context) {
+    print("+++++++++++++++++");
+    print(otpvalue);
+    print("++++++++++++++++++++++");
     return Padding(
       padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
       child: TextField(
         obscureText: obscureText,
+        controller: TextEditingController(text: otpvalue),
         obscuringCharacter: "*",
         style: TextStyle(color: inputText),
         decoration: InputDecoration(
