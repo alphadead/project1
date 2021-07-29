@@ -78,28 +78,24 @@ class AuthController extends GetxController {
 
   void registerStep() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    //  Utility.showLoadingDialog();
-    // RegisterResponse response = await api.registerStep(
-    //     firstName, lastName, email, mobileNo, type, password, address);
-    // if (response.success) {
-    //   Utility.closeDialog();
-    //   Utility.showError("${response.message}");
-    //   prefs.setString('token', 'Bearer ${response.accessToken}');
-    //   prefs.setString('userId', '${response.data!.id}');
+    Utility.showLoadingDialog();
+    RegisterResponse response = await api.registerStep(
+        firstName, lastName, email, mobileNo, type, password, address);
+    if (response.success) {
+      Utility.closeDialog();
+      Utility.showError("${response.message}");
+      prefs.setString('token', 'Bearer ${response.accessToken}');
+      prefs.setString('userId', '${response.data!.id}');
 
-    //   otp = response.data!.otp.toString();
-    //   update();
-    //   print(otp);
-    //   print(otp.runtimeType);
-    //   Get.offNamed('/setPass');
-    // } else {
-    //   Utility.closeDialog();
-    //   Utility.showError("${response.message}");
-    // }
-
-    otp = "123";
-    update();
-    Get.offNamed('/setPass');
+      otp = response.data!.otp.toString();
+      update();
+      print(otp);
+      print(otp.runtimeType);
+      Get.offNamed('/setPass');
+    } else {
+      Utility.closeDialog();
+      Utility.showError("${response.message}");
+    }
   }
 
   void profile() async {
