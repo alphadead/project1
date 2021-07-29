@@ -6,6 +6,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vamos/core/models/createTeamResponse.dart';
 import 'package:vamos/core/models/loginResponse.dart';
 import 'package:vamos/core/models/profile_api.dart';
 import 'package:vamos/core/models/registerResponse.dart';
@@ -42,6 +43,10 @@ class AuthController extends GetxController {
   String _error = 'No Error Dectected';
   int selectedVideo = 0;
 
+  String teamName = '';
+  Asset? teamLogo;
+  String teamSize = '';
+
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   GlobalKey<FormState> formKey2 = GlobalKey<FormState>();
 
@@ -58,6 +63,21 @@ class AuthController extends GetxController {
       Utility.showError("${response.message}");
 
       Get.offNamed("/profileScreen");
+    } else {
+      Utility.closeDialog();
+      Utility.showError("${response.message}");
+    }
+  }
+
+  void createTeam() async {
+    Utility.showLoadingDialog();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    CreateTeamResponse response =
+        await api.createTeam(teamName, teamLogo, teamSize);
+    if (response.success) {
+      Utility.closeDialog();
+      Utility.showError("${response.message}");
+      Get.toNamed("/addandOptions");
     } else {
       Utility.closeDialog();
       Utility.showError("${response.message}");

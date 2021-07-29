@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:multi_image_picker2/multi_image_picker2.dart';
+import 'package:vamos/core/models/createTeamResponse.dart';
 import 'package:vamos/core/models/loginResponse.dart';
 import 'package:vamos/core/models/profile_api.dart';
 import 'package:vamos/core/models/registerResponse.dart';
@@ -10,6 +11,8 @@ abstract class Api {
   Future<LoginResponse> loginUser(String mobileNo, String password);
   Future<RegisterResponse> registerStep(String firstName, String lastName,
       String email, String mobileNo, String type);
+  Future<CreateTeamResponse> createTeam(
+      String name, Asset? logo, String teamSize);
   Future<ProfileResponse> profileResponse(
       String userId,
       String typeOfPlayer,
