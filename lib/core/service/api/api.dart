@@ -12,7 +12,7 @@ abstract class Api {
   Future<RegisterResponse> registerStep(String firstName, String lastName,
       String email, String mobileNo, String type);
   Future<CreateTeamResponse> createTeam(
-      String name, Asset? logo, String teamSize);
+      String name, Asset logo, String teamSize);
   Future<ProfileResponse> profileResponse(
       String userId,
       String typeOfPlayer,

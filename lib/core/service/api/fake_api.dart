@@ -19,7 +19,7 @@ class FakeApi extends Api {
   }
 
   Future<CreateTeamResponse> createTeam(
-      String name, Asset? logo, String teamSize) {
+      String name, Asset logo, String teamSize) {
     throw UnimplementedError();
   }
 

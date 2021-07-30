@@ -19,7 +19,7 @@ class HTTPApi extends Api {
   }
 
   Future<CreateTeamResponse> createTeam(
-      String name, Asset? logo, String teamSize) async {
+      String name, Asset logo, String teamSize) async {
     Map<String, dynamic> response =
         await createTeamRequest("team/store", name, logo, teamSize);
     return CreateTeamResponse.fromJson(response);

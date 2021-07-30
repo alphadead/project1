@@ -192,14 +192,13 @@ Future<Map<String, dynamic>> postProfileData(String url, userId, typeOfPlayer,
 }
 
 Future<Map<String, dynamic>> createTeamRequest(
-    String url, String name, Asset? logo, String teamSize) async {
+    String url, String name, Asset logo, String teamSize) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  MultipartFile _logo;
 
-  // ByteData byteData = await logo.getByteData();
-  // List<int> imageData = byteData.buffer.asUint8List();
-  // _logo = new MultipartFile.fromBytes(imageData, filename: logo.name);
-  //_logo = null;
+  MultipartFile _logo;
+  ByteData byteData = await logo.getByteData();
+  List<int> imageData = byteData.buffer.asUint8List();
+  _logo = new MultipartFile.fromBytes(imageData, filename: logo.name);
 
   Dio dio = new Dio(
     BaseOptions(
@@ -214,8 +213,8 @@ Future<Map<String, dynamic>> createTeamRequest(
   );
 
   try {
-    FormData formData =
-        new FormData.fromMap({"name": name, "team_size": teamSize});
+    FormData formData = new FormData.fromMap(
+        {"name": name, "logo": _logo, "team_size": teamSize});
     Response response = await dio.post(BASE_URL + url, data: formData,
         onSendProgress: (int sent, int total) {
       print("$sent $total");

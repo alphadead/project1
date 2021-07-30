@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:vamos/core/service/controller/authController.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/loginbkground.dart';
@@ -129,16 +130,27 @@ class _CreateTeamsState extends State<CreateTeams> {
                               .copyWith(color: Colors.grey[400]),
                         ),
                       ),
-                      Container(
-                        height: 86.h,
-                        width: 270.w,
-                        color: Color.fromRGBO(249, 249, 249, 1),
-                        child: Center(
-                            child: Image.asset(
-                          "assets/images/add_image_1.webp",
-                          height: 28.h,
-                          width: 34.w,
-                        )),
+                      GestureDetector(
+                        onTap: () {
+                          _authService.loadAssets(isSingleImage: true);
+                        },
+                        child: Container(
+                          height: 86.h,
+                          width: 270.w,
+                          color: Color.fromRGBO(249, 249, 249, 1),
+                          child: Center(
+                            child: _authService.teamLogo.isEmpty
+                                ? Image.asset(
+                                    "assets/images/add_image_1.webp",
+                                    height: 28.h,
+                                    width: 34.w,
+                                  )
+                                : AssetThumb(
+                                    asset: _authService.teamLogo[0],
+                                    width: 130,
+                                    height: 130),
+                          ),
+                        ),
                       ),
                       Padding(
                         padding: const EdgeInsets.fromLTRB(0, 15, 0, 5),
