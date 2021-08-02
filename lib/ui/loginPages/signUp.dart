@@ -170,7 +170,7 @@ class SignUpPage extends StatelessWidget {
                             ),
                             TextButton(
                               onPressed: () {
-                                Get.offNamed('/registerScreen');
+                                Get.toNamed('/registerScreen');
                               },
                               child: Text(
                                 AppLocalizations.of(context)!
