@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:get/get_connect/http/src/multipart/multipart_file.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
+import 'package:vamos/core/models/createTeamResponse.dart';
 import 'package:vamos/core/models/loginResponse.dart';
 import 'package:vamos/core/models/profile_api.dart';
 import 'package:vamos/core/models/registerResponse.dart';
@@ -15,6 +16,13 @@ class HTTPApi extends Api {
     Map<String, dynamic> body = {"phone": mobileNo, "password": password};
     Map<String, dynamic> response = await postRequest("login", body);
     return LoginResponse.fromJson(response);
+  }
+
+  Future<CreateTeamResponse> createTeam(
+      String name, Asset logo, String teamSize) async {
+    Map<String, dynamic> response =
+        await createTeamRequest("team/store", name, logo, teamSize);
+    return CreateTeamResponse.fromJson(response);
   }
 
   Future<RegisterResponse> registerStep(String firstName, String lastName,
