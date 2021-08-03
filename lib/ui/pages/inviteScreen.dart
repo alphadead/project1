@@ -2,6 +2,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:share/share.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/loginbkground.dart';
 import 'package:vamos/ui/utils/theme.dart';
@@ -170,7 +171,9 @@ class InviteScreen extends StatelessWidget {
                 margin: EdgeInsets.only(top: 20.h),
                 child: primaryActionButton(
                     context: context,
-                    onPressed: () {},
+                    onPressed: () {
+                      _onShare(context);
+                    },
                     text: AppLocalizations.of(context)!
                         .invitePage_referNowButtonText),
               ),
@@ -182,5 +185,9 @@ class InviteScreen extends StatelessWidget {
         )),
       ),
     );
+  }
+
+  _onShare(BuildContext context) async {
+    await Share.share("MJ0251");
   }
 }
