@@ -7,6 +7,7 @@ import 'package:vamos/ui/loginPages/createTeam.dart';
 import 'package:vamos/ui/loginPages/profile.dart';
 import 'package:vamos/ui/loginPages/register.dart';
 import 'package:vamos/ui/loginPages/registeredteams.dart';
+import 'package:vamos/ui/loginPages/setPass.dart';
 import 'package:vamos/ui/loginPages/signUp.dart';
 import 'package:vamos/ui/loginPages/upcomingMatches.dart';
 import 'package:vamos/ui/pages/inviteScreen.dart';
@@ -92,6 +93,13 @@ abstract class AppPages {
       name: '/videoScreen',
       transitionDuration: transitionDuration,
       page: () => VideoPlayer(),
+      transition: Transition.downToUp,
+      binding: AllBinder(),
+    ),
+    GetPage(
+      name: '/setPass',
+      transitionDuration: transitionDuration,
+      page: () => SetPass(),
       transition: Transition.downToUp,
       binding: AllBinder(),
     ),

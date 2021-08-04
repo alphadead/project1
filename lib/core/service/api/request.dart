@@ -190,3 +190,46 @@ Future<Map<String, dynamic>> postProfileData(String url, userId, typeOfPlayer,
     }
   }
 }
+
+Future<Map<String, dynamic>> createTeamRequest(
+    String url, String name, Asset logo, String teamSize) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+
+  MultipartFile _logo;
+  ByteData byteData = await logo.getByteData();
+  List<int> imageData = byteData.buffer.asUint8List();
+  _logo = new MultipartFile.fromBytes(imageData, filename: logo.name);
+
+  Dio dio = new Dio(
+    BaseOptions(
+      connectTimeout: 15000,
+      receiveTimeout: 16000,
+      headers: {
+        HttpHeaders.contentTypeHeader: 'application/json',
+        HttpHeaders.authorizationHeader: prefs.getString('token')
+      },
+      validateStatus: (_) => true,
+    ),
+  );
+
+  try {
+    FormData formData = new FormData.fromMap(
+        {"name": name, "logo": _logo, "team_size": teamSize});
+    Response response = await dio.post(BASE_URL + url, data: formData,
+        onSendProgress: (int sent, int total) {
+      print("$sent $total");
+    });
+    if (response.statusCode! < 300 && response.statusCode! >= 200) {
+      print(response.data);
+      return response.data;
+    }
+
+    return response.data;
+  } on DioError catch (e) {
+    if (e.type == DioErrorType.connectTimeout) {
+      return timeoutResponse();
+    } else {
+      return errorResponse();
+    }
+  }
+}

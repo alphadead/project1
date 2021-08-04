@@ -6,10 +6,12 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vamos/core/models/createTeamResponse.dart';
 import 'package:vamos/core/models/loginResponse.dart';
 import 'package:vamos/core/models/profile_api.dart';
 import 'package:vamos/core/models/registerResponse.dart';
 import 'package:vamos/core/models/teamListingResponse.dart';
+import 'package:vamos/core/models/verifyOtpResponse.dart';
 import 'package:vamos/core/service/api/api.dart';
 import 'package:vamos/core/service/api/request.dart';
 import 'package:vamos/ui/loginPages/profile.dart';
@@ -33,6 +35,7 @@ class AuthController extends GetxController {
   String weight = '';
   String height = '';
   String nationality = '';
+  String otp = '';
 
   String type = '';
   List<Asset> images = [];
@@ -41,6 +44,10 @@ class AuthController extends GetxController {
   int maxImage = 4;
   String _error = 'No Error Dectected';
   int selectedVideo = 0;
+
+  String teamName = '';
+  List<Asset> teamLogo = [];
+  String teamSize = '';
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   GlobalKey<FormState> formKey2 = GlobalKey<FormState>();
@@ -55,9 +62,34 @@ class AuthController extends GetxController {
       prefs.setString('token', 'Bearer ${response.accessToken}');
       prefs.setString('userId', '${response.data!.id}');
       Utility.closeDialog();
+      otp = response.data!.otp!;
+      mobileNo = response.data!.phone!;
+      update();
       Utility.showError("${response.message}");
+      if (response.data!.isVerified == "0") {
+        Get.offNamed('/setPass');
+      } else {
+        if (response.completedStep == 1) {
+          Get.offNamed('/profileScreen');
+        } else {
+          Get.offNamed("/registeredTeamScreen");
+        }
+      }
+    } else {
+      Utility.closeDialog();
+      Utility.showError("${response.message}");
+    }
+  }
 
-      Get.offNamed("/profileScreen");
+  void createTeam() async {
+    Utility.showLoadingDialog();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    CreateTeamResponse response =
+        await api.createTeam(teamName, teamLogo[0], teamSize);
+    if (response.success) {
+      Utility.closeDialog();
+      Utility.showError("${response.message}");
+      Get.toNamed("/addandOptions");
     } else {
       Utility.closeDialog();
       Utility.showError("${response.message}");
@@ -65,13 +97,19 @@ class AuthController extends GetxController {
   }
 
   void registerStep() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     Utility.showLoadingDialog();
-    RegisterResponse response =
-        await api.registerStep(firstName, lastName, email, mobileNo, type);
+    RegisterResponse response = await api.registerStep(
+        firstName, lastName, email, mobileNo, type, password, address);
     if (response.success) {
       Utility.closeDialog();
       Utility.showError("${response.message}");
-      Get.toNamed("/registeredTeamScreen");
+      prefs.setString('token', 'Bearer ${response.accessToken}');
+      prefs.setString('userId', '${response.data!.id}');
+
+      otp = response.data!.otp.toString();
+      update();
+      Get.offNamed('/setPass');
     } else {
       Utility.closeDialog();
       Utility.showError("${response.message}");
@@ -90,14 +128,14 @@ class AuthController extends GetxController {
     if (response.success) {
       Utility.closeDialog();
       Utility.showError("${response.message}");
-      Get.toNamed("/inviteScreen");
+      Get.toNamed("/registeredTeamScreen");
     } else {
       Utility.closeDialog();
       Utility.showError("${response.message}");
     }
   }
 
-  Future<void> loadAssets() async {
+  Future<void> loadAssets({bool isSingleImage = false}) async {
     List<Asset> resultList = <Asset>[];
     List<Asset> selectedImage = <Asset>[];
 
@@ -105,7 +143,7 @@ class AuthController extends GetxController {
 
     try {
       resultList = await MultiImagePicker.pickImages(
-        maxImages: maxImage - images.length,
+        maxImages: !isSingleImage ? maxImage - images.length : 1,
         enableCamera: true,
         selectedAssets: selectedImage,
         cupertinoOptions: CupertinoOptions(
@@ -121,9 +159,10 @@ class AuthController extends GetxController {
       Utility.showError(e.toString());
     }
 
-    images.addAll(resultList);
+    !isSingleImage ? images.addAll(resultList) : teamLogo = resultList;
     update();
     _error = error;
+
     if (images.length == maxImage) {
       addImageButton = false;
       update();
@@ -165,5 +204,20 @@ class AuthController extends GetxController {
     files.removeAt(index);
     addVideoButton = true;
     update();
+  }
+
+  void verifyOtp() async {
+    Utility.showLoadingDialog();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    userId = prefs.getString("userId")!;
+    VerifyOtpResponse response = await api.verifyOtp(userId, mobileNo, otp);
+    if (response.success!) {
+      Utility.closeDialog();
+      Utility.showError("${response.message}");
+      Get.offNamed("/profileScreen");
+    } else {
+      Utility.closeDialog();
+      Utility.showError("${response.message}");
+    }
   }
 }

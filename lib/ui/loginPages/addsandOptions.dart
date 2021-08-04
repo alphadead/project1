@@ -70,9 +70,12 @@ class AddandOptions extends StatelessWidget {
                         logoContainer('assets/images/team_logo.webp', 'Team'),
                         logoContainer(
                             'assets/images/player_logo.webp', 'Player'),
-                        logoContainer(
-                          'assets/images/create_logo.webp',
-                          'Create Own Team',
+                        GestureDetector(
+                          onTap: () {
+                            Get.toNamed('/createTeam');
+                          },
+                          child: logoContainer('assets/images/create_logo.webp',
+                              'Create Own Team'),
                         ),
                         logoContainer(
                             'assets/images/ground_logo.webp', 'Ground'),
