@@ -89,8 +89,6 @@ class AuthController extends GetxController {
 
       otp = response.data!.otp.toString();
       update();
-      print(otp);
-      print(otp.runtimeType);
       Get.offNamed('/setPass');
     } else {
       Utility.closeDialog();

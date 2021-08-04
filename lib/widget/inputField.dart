@@ -39,9 +39,6 @@ class RegisterPageTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("+++++++++++++++++");
-    print(otpvalue);
-    print("++++++++++++++++++++++");
     return Padding(
       padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
       child: TextField(
