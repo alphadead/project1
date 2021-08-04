@@ -11,6 +11,7 @@ import 'package:vamos/core/models/loginResponse.dart';
 import 'package:vamos/core/models/profile_api.dart';
 import 'package:vamos/core/models/registerResponse.dart';
 import 'package:vamos/core/models/teamListingResponse.dart';
+import 'package:vamos/core/models/verifyOtpResponse.dart';
 import 'package:vamos/core/service/api/api.dart';
 import 'package:vamos/core/service/api/request.dart';
 import 'package:vamos/ui/loginPages/profile.dart';
@@ -34,6 +35,7 @@ class AuthController extends GetxController {
   String weight = '';
   String height = '';
   String nationality = '';
+  String otp = '';
 
   String type = '';
   List<Asset> images = [];
@@ -60,9 +62,19 @@ class AuthController extends GetxController {
       prefs.setString('token', 'Bearer ${response.accessToken}');
       prefs.setString('userId', '${response.data!.id}');
       Utility.closeDialog();
+      otp = response.data!.otp!;
+      mobileNo = response.data!.phone!;
+      update();
       Utility.showError("${response.message}");
-
-      Get.offNamed("/profileScreen");
+      if (response.data!.isVerified == "0") {
+        Get.offNamed('/setPass');
+      } else {
+        if (response.completedStep == 1) {
+          Get.offNamed('/profileScreen');
+        } else {
+          Get.offNamed("/registeredTeamScreen");
+        }
+      }
     } else {
       Utility.closeDialog();
       Utility.showError("${response.message}");
@@ -85,13 +97,19 @@ class AuthController extends GetxController {
   }
 
   void registerStep() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     Utility.showLoadingDialog();
-    RegisterResponse response =
-        await api.registerStep(firstName, lastName, email, mobileNo, type);
+    RegisterResponse response = await api.registerStep(
+        firstName, lastName, email, mobileNo, type, password, address);
     if (response.success) {
       Utility.closeDialog();
       Utility.showError("${response.message}");
-      Get.toNamed("/registeredTeamScreen");
+      prefs.setString('token', 'Bearer ${response.accessToken}');
+      prefs.setString('userId', '${response.data!.id}');
+
+      otp = response.data!.otp.toString();
+      update();
+      Get.offNamed('/setPass');
     } else {
       Utility.closeDialog();
       Utility.showError("${response.message}");
@@ -110,7 +128,7 @@ class AuthController extends GetxController {
     if (response.success) {
       Utility.closeDialog();
       Utility.showError("${response.message}");
-      Get.toNamed("/addandOptions");
+      Get.toNamed("/registeredTeamScreen");
     } else {
       Utility.closeDialog();
       Utility.showError("${response.message}");
@@ -186,5 +204,20 @@ class AuthController extends GetxController {
     files.removeAt(index);
     addVideoButton = true;
     update();
+  }
+
+  void verifyOtp() async {
+    Utility.showLoadingDialog();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    userId = prefs.getString("userId")!;
+    VerifyOtpResponse response = await api.verifyOtp(userId, mobileNo, otp);
+    if (response.success!) {
+      Utility.closeDialog();
+      Utility.showError("${response.message}");
+      Get.offNamed("/profileScreen");
+    } else {
+      Utility.closeDialog();
+      Utility.showError("${response.message}");
+    }
   }
 }
