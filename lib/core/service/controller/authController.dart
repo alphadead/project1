@@ -36,6 +36,7 @@ class AuthController extends GetxController {
   String height = '';
   String nationality = '';
   String otp = '';
+  String inviteCode = '';
 
   String type = '';
   List<Asset> images = [];
@@ -61,6 +62,7 @@ class AuthController extends GetxController {
     if (response.data != null) {
       prefs.setString('token', 'Bearer ${response.accessToken}');
       prefs.setString('userId', '${response.data!.id}');
+      prefs.setString('invite_code', '${response.data!.inviteCode}');
       Utility.closeDialog();
       otp = response.data!.otp!;
       mobileNo = response.data!.phone!;
