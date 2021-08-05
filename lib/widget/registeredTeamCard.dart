@@ -5,7 +5,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 Widget registeredTeamContainer(
-    {required BuildContext context, required String name}) {
+    {required BuildContext context,
+    required String name,
+    required String buttonText}) {
   return Container(
     margin: EdgeInsets.only(bottom: 12),
     child: Ink(
@@ -57,8 +59,7 @@ Widget registeredTeamContainer(
                 onTap: () {},
                 child: Center(
                   child: Text(
-                    AppLocalizations.of(context)!
-                        .registeredTeamsPage_joinButtonText,
+                    buttonText,
                     style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w900,

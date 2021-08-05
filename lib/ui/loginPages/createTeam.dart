@@ -162,17 +162,22 @@ class _CreateTeamsState extends State<CreateTeams> {
                               .copyWith(color: Colors.grey[400]),
                         ),
                       ),
-                      Container(
-                        height: 86.h,
-                        width: 270.w,
-                        color: Color.fromRGBO(249, 249, 249, 1),
-                        child: Center(
-                            child: Image.asset(
-                          "assets/images/football_player.webp",
-                          color: moneyBox,
-                          height: 28.h,
-                          width: 34.w,
-                        )),
+                      GestureDetector(
+                        onTap: () {
+                          Get.offNamed('/playerListingScreen');
+                        },
+                        child: Container(
+                          height: 86.h,
+                          width: 270.w,
+                          color: Color.fromRGBO(249, 249, 249, 1),
+                          child: Center(
+                              child: Image.asset(
+                            "assets/images/football_player.webp",
+                            color: moneyBox,
+                            height: 28.h,
+                            width: 34.w,
+                          )),
+                        ),
                       ),
                       Padding(
                         padding: const EdgeInsets.fromLTRB(0, 15, 0, 5),

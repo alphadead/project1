@@ -58,10 +58,14 @@ class RegisteredTeamPage extends StatelessWidget {
                               _authService.getteamlist();
                             },
                             child: ListTile(
-                                title: registeredTeamContainer(
-                                    context: context,
-                                    name: _authService.teamList[index].name
-                                        .toString())),
+                              title: registeredTeamContainer(
+                                context: context,
+                                name: _authService.teamList[index].name
+                                    .toString(),
+                                buttonText: AppLocalizations.of(context)!
+                                    .registeredTeamsPage_joinButtonText,
+                              ),
+                            ),
                           );
                         },
                       ),

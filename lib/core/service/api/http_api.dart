@@ -5,6 +5,7 @@ import 'package:get/get_connect/http/src/multipart/multipart_file.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:vamos/core/models/createTeamResponse.dart';
 import 'package:vamos/core/models/loginResponse.dart';
+import 'package:vamos/core/models/playerListResponse.dart';
 import 'package:vamos/core/models/profile_api.dart';
 import 'package:vamos/core/models/registerResponse.dart';
 import 'package:vamos/core/models/teamListingResponse.dart';
@@ -83,5 +84,10 @@ class HTTPApi extends Api {
     };
     Map<String, dynamic> response = await postRequest("verify-otp", body);
     return VerifyOtpResponse.fromJson(response);
+  }
+
+  Future<PlayerListResponse> getPlayerlist() async {
+    Map<String, dynamic> response = await getRequest('players');
+    return PlayerListResponse.fromJson(response);
   }
 }

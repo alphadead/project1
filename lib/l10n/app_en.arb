@@ -64,6 +64,7 @@
     "invitePage_tapToCopy": "Tap to Copy",
     "invitePage_referNowButtonText": "Refer Now",
     "invitePage_textCopied": "Text Copied",
+    "playerListingPage_requestButtonText":"Request",
     "@signUpPage_title":{
       "description": "Dummy value"
     }

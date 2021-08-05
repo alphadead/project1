@@ -63,5 +63,6 @@
     "invitePage_tapToCopy": "انقر للنسخ",
     "invitePage_referNowButtonText": "الرجوع الآن",
     "invitePage_textCopied": "تم نسخ النص",
-    "primaryActionButton": "يكمل"
+    "primaryActionButton": "يكمل",
+    "playerListingPage_requestButtonText":"طلب"
 }
