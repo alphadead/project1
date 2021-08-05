@@ -10,7 +10,9 @@ class InviteController extends GetxController {
 
   String inviteCode = '';
   onShare() async {
-    await Share.share(inviteCode);
+    await Share.share(
+        "Invite your friends to join this app using the code below and you'll receive benefits " +
+            inviteCode);
   }
 
   setInviteCode() async {

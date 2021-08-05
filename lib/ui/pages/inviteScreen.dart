@@ -21,7 +21,6 @@ class InviteScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // SharedPreferences prefs = await SharedPreferences.getInstance();
     return GetBuilder<InviteController>(
         builder: (_inviteController) => Directionality(
               textDirection: TextDirection.ltr,
@@ -158,7 +157,9 @@ class InviteScreen extends StatelessWidget {
                         onTap: () {
                           Utility.showError(AppLocalizations.of(context)!
                               .invitePage_textCopied);
-                          Clipboard.setData(ClipboardData(text: "MJ0251"));
+                          Clipboard.setData(ClipboardData(
+                            text: _inviteController.inviteCode,
+                          ));
                         },
                         child: Container(
                           margin: EdgeInsets.only(top: 10.h),
@@ -172,8 +173,6 @@ class InviteScreen extends StatelessWidget {
                                     right: 40.w,
                                     bottom: 10.h),
                                 child: Text(
-                                  //"MJ0251",
-                                  //getText().toString(),
                                   _inviteController.inviteCode,
                                   style: themeData()
                                       .textTheme
