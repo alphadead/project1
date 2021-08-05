@@ -65,6 +65,7 @@ class Data {
     this.createdAt,
     this.updatedAt,
     this.deletedAt,
+    this.inviteCode,
   });
 
   int? id;
@@ -86,6 +87,7 @@ class Data {
   dynamic createdAt;
   DateTime? updatedAt;
   dynamic deletedAt;
+  String? inviteCode;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         id: json["id"],
@@ -107,6 +109,7 @@ class Data {
         createdAt: json["created_at"],
         updatedAt: DateTime.parse(json["updated_at"]),
         deletedAt: json["deleted_at"],
+        inviteCode: json["invite_code"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -129,6 +132,7 @@ class Data {
         "created_at": createdAt,
         "updated_at": updatedAt!.toIso8601String(),
         "deleted_at": deletedAt,
+        "invite_code": inviteCode,
       };
 }
 
