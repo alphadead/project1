@@ -91,7 +91,7 @@ class AuthController extends GetxController {
     if (response.success) {
       Utility.closeDialog();
       Utility.showError("${response.message}");
-      Get.toNamed("/addandOptions");
+      Get.offNamed('/playerListingScreen');
     } else {
       Utility.closeDialog();
       Utility.showError("${response.message}");

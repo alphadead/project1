@@ -152,32 +152,8 @@ class _CreateTeamsState extends State<CreateTeams> {
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 15, 0, 5),
-                        child: Text(
-                          'Request Player',
-                          style: themeData()
-                              .textTheme
-                              .headline3!
-                              .copyWith(color: Colors.grey[400]),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Get.offNamed('/playerListingScreen');
-                        },
-                        child: Container(
-                          height: 86.h,
-                          width: 270.w,
-                          color: Color.fromRGBO(249, 249, 249, 1),
-                          child: Center(
-                              child: Image.asset(
-                            "assets/images/football_player.webp",
-                            color: moneyBox,
-                            height: 28.h,
-                            width: 34.w,
-                          )),
-                        ),
+                      SizedBox(
+                        height: 86.h,
                       ),
                       Padding(
                         padding: const EdgeInsets.fromLTRB(0, 15, 0, 5),

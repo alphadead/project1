@@ -72,8 +72,11 @@ class _PlayerListingScreenState extends State<PlayerListingScreen> {
                   ),
                   Container(
                     padding: EdgeInsets.symmetric(vertical: 30),
-                    child:
-                        primaryActionButton(context: context, onPressed: () {}),
+                    child: primaryActionButton(
+                        context: context,
+                        onPressed: () {
+                          Get.toNamed("/addandOptions");
+                        }),
                   )
                 ],
               ),

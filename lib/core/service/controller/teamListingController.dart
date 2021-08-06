@@ -20,7 +20,6 @@ class TeamListController extends GetxController {
     if (response.data != null) {
       Utility.closeDialog();
       teamList = response.data!;
-      Utility.showError("${response.message}");
     } else {
       Utility.closeDialog();
       Utility.showError("${response.message}");
