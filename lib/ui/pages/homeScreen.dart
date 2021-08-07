@@ -5,13 +5,12 @@ import 'package:get/get.dart';
 import 'package:vamos/core/service/controller/addsController.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:vamos/ui/utils/theme.dart';
 import 'package:vamos/widget/addsOptionsContainer.dart';
 import 'package:vamos/widget/customAppBar.dart';
 import 'package:vamos/widget/customBottomNavBar.dart';
 
-class AddandOptions extends StatelessWidget {
-  const AddandOptions({Key? key}) : super(key: key);
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

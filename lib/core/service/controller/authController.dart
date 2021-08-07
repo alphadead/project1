@@ -1,20 +1,16 @@
 import 'dart:io';
-import 'dart:typed_data';
 
-import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vamos/core/models/completeStepResponse.dart';
 import 'package:vamos/core/models/createTeamResponse.dart';
 import 'package:vamos/core/models/loginResponse.dart';
 import 'package:vamos/core/models/profile_api.dart';
 import 'package:vamos/core/models/registerResponse.dart';
-import 'package:vamos/core/models/teamListingResponse.dart';
 import 'package:vamos/core/models/verifyOtpResponse.dart';
 import 'package:vamos/core/service/api/api.dart';
-import 'package:vamos/core/service/api/request.dart';
-import 'package:vamos/ui/loginPages/profile.dart';
 import 'package:vamos/ui/utils/utility.dart';
 
 import '../../../locator.dart';
@@ -89,7 +85,7 @@ class AuthController extends GetxController {
         await api.createTeam(teamName, teamLogo[0], teamSize);
     if (response.success) {
       Utility.showSnackbar("${response.message}");
-      Get.toNamed("/addandOptions");
+      Get.toNamed("/homeScreen");
     } else {
       Utility.showSnackbar("${response.message}");
     }
@@ -124,7 +120,18 @@ class AuthController extends GetxController {
         position, age, weight, height, nationality, images, files);
     if (response.success) {
       Utility.showSnackbar("${response.message}");
-      Get.toNamed("/registeredTeamScreen");
+      completedStep("2", "/registeredTeamScreen");
+    } else {
+      Utility.showSnackbar("${response.message}");
+    }
+  }
+
+  void completedStep(String step, String nextRoute) async {
+    Utility.showLoadingDialog();
+    CompletedStepResponse response = await api.completedtep(step);
+    if (response.success!) {
+      Utility.showSnackbar("${response.message}");
+      Get.toNamed(nextRoute);
     } else {
       Utility.showSnackbar("${response.message}");
     }
