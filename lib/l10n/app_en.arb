@@ -65,6 +65,8 @@
     "invitePage_referNowButtonText": "Refer Now",
     "invitePage_textCopied": "Text Copied",
     "playerListingPage_requestButtonText":"Request",
+    "invitePage_skip":"Skip",
+    "searchBar_search":"Search",
     "@signUpPage_title":{
       "description": "Dummy value"
     }

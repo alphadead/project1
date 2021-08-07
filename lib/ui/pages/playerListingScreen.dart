@@ -46,21 +46,23 @@ class _PlayerListingScreenState extends State<PlayerListingScreen> {
                         _playerListController.playerListDisplay.length + 1,
                     itemBuilder: (context, index) {
                       return index == 0
-                          ? searchBar(onchanged: (value) {
-                              String text = value.toLowerCase();
-                              setState(() {
-                                _playerListController.playerListDisplay =
-                                    _playerListController.playerList
-                                        .where((element) {
-                                  var playerTitle =
-                                      element.firstName!.toLowerCase();
-                                  var playerLastName =
-                                      element.lastName!.toLowerCase();
-                                  return playerTitle.contains(text) ||
-                                      playerLastName.contains(text);
-                                }).toList();
-                              });
-                            })
+                          ? searchBar(
+                              context: context,
+                              onchanged: (value) {
+                                String text = value.toLowerCase();
+                                setState(() {
+                                  _playerListController.playerListDisplay =
+                                      _playerListController.playerList
+                                          .where((element) {
+                                    var playerTitle =
+                                        element.firstName!.toLowerCase();
+                                    var playerLastName =
+                                        element.lastName!.toLowerCase();
+                                    return playerTitle.contains(text) ||
+                                        playerLastName.contains(text);
+                                  }).toList();
+                                });
+                              })
                           : listItem(
                               index - 1,
                               context,

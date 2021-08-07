@@ -64,5 +64,7 @@
     "invitePage_referNowButtonText": "الرجوع الآن",
     "invitePage_textCopied": "تم نسخ النص",
     "primaryActionButton": "يكمل",
-    "playerListingPage_requestButtonText":"طلب"
+    "playerListingPage_requestButtonText":"طلب",
+    "invitePage_skip":"تخطى",
+    "searchBar_search":"بحث"
 }

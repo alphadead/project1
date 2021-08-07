@@ -211,7 +211,7 @@ class InviteScreen extends StatelessWidget {
                         child: Container(
                           margin: EdgeInsets.only(top: 20.h),
                           child: Text(
-                            "Skip",
+                            AppLocalizations.of(context)!.invitePage_skip,
                             style: themeData().textTheme.headline2!.copyWith(
                                 color: sliderGreenActive, fontSize: 20),
                           ),
