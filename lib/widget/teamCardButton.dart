@@ -3,9 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:vamos/core/service/controller/teamListingController.dart';
+import 'package:vamos/ui/utils/utility.dart';
 
 class TeamButton extends StatefulWidget {
-  int? id;
+  final int? id;
   TeamButton({this.id, Key? key}) : super(key: key);
 
   @override
@@ -17,13 +18,18 @@ class _TeamButtonState extends State<TeamButton> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<TeamListController>(
-      builder: (_authService) => InkWell(
+      builder: (_teamService) => InkWell(
         borderRadius: BorderRadius.circular(12),
         onTap: () {
-          _authService.joinTeam(widget.id!);
-          setState(() {
-            pressed = !pressed;
-          });
+          if (!pressed) {
+            _teamService.joinTeam(widget.id!);
+            setState(() {
+              pressed = !pressed;
+            });
+          } else {
+            Utility.showSnackbar(AppLocalizations.of(context)!
+                .registeredTeamsPage_alreadyPresentSnackbar);
+          }
         },
         child: Center(
           child: pressed == true
