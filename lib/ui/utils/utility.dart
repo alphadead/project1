@@ -28,7 +28,7 @@ abstract class Utility {
     if (Get.isDialogOpen ?? false) Get.back<void>();
   }
 
-  static void showError(String message) {
+  static void showSnackbar(String message) {
     closeSnackBar();
     closeDialog();
 

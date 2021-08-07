@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:vamos/core/models/createTeamResponse.dart';
+import 'package:vamos/core/models/joinTeam.dart';
 import 'package:vamos/core/models/loginResponse.dart';
 import 'package:vamos/core/models/profile_api.dart';
 import 'package:vamos/core/models/registerResponse.dart';
@@ -44,6 +45,12 @@ class FakeApi extends Api {
   }
 
   Future<TeamListResponse> getteamlist() {
+    throw UnimplementedError();
+  }
+
+  Future<JoinTeamResponse> joinTeam(
+    int teamId,
+  ) {
     throw UnimplementedError();
   }
 
