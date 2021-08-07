@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:vamos/core/models/teamListingResponse.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:vamos/widget/teamCardButton.dart';
 
 Widget registeredTeamContainer(
-    {required BuildContext context, required String name}) {
+    {required BuildContext context, required TeamData team}) {
   return Container(
     margin: EdgeInsets.only(bottom: 12),
     child: Ink(
@@ -29,7 +31,7 @@ Widget registeredTeamContainer(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  name,
+                  team.name.toString(),
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w600,
@@ -46,27 +48,13 @@ Widget registeredTeamContainer(
           Container(
             margin: EdgeInsets.only(right: 10),
             child: Ink(
-              width: 70.w,
-              height: 25.h,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                color: Colors.red,
-              ),
-              child: InkWell(
-                borderRadius: BorderRadius.circular(12),
-                onTap: () {},
-                child: Center(
-                  child: Text(
-                    AppLocalizations.of(context)!
-                        .registeredTeamsPage_joinButtonText,
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w900,
-                        fontSize: 10.sp),
-                  ),
+                width: 70.w,
+                height: 25.h,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  color: Colors.red,
                 ),
-              ),
-            ),
+                child: TeamButton(id: team.id!)),
           )
         ],
       ),

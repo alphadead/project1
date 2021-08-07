@@ -60,8 +60,7 @@ class RegisteredTeamPage extends StatelessWidget {
                             child: ListTile(
                                 title: registeredTeamContainer(
                                     context: context,
-                                    name: _authService.teamList[index].name
-                                        .toString())),
+                                    team: _authService.teamList[index])),
                           );
                         },
                       ),
