@@ -1,8 +1,7 @@
 import 'dart:io';
-import 'dart:typed_data';
 
-import 'package:get/get_connect/http/src/multipart/multipart_file.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
+import 'package:vamos/core/models/completeStepResponse.dart';
 import 'package:vamos/core/models/createTeamResponse.dart';
 import 'package:vamos/core/models/joinTeam.dart';
 import 'package:vamos/core/models/loginResponse.dart';
@@ -92,5 +91,12 @@ class HTTPApi extends Api {
     };
     Map<String, dynamic> response = await postRequest("verify-otp", body);
     return VerifyOtpResponse.fromJson(response);
+  }
+
+  @override
+  Future<CompletedStepResponse> completedtep(String step) async {
+    Map<String, dynamic> body = {"completed_step": step};
+    Map<String, dynamic> response = await postRequest("completed-step", body);
+    return CompletedStepResponse.fromJson(response);
   }
 }

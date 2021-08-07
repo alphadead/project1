@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:multi_image_picker2/multi_image_picker2.dart';
+import 'package:vamos/core/models/completeStepResponse.dart';
 import 'package:vamos/core/models/createTeamResponse.dart';
 import 'package:vamos/core/models/joinTeam.dart';
 import 'package:vamos/core/models/loginResponse.dart';
@@ -39,4 +40,5 @@ abstract class Api {
     int teamId,
   );
   Future<VerifyOtpResponse> verifyOtp(userId, mobileNo, otp);
+  Future<CompletedStepResponse> completedtep(String step);
 }
