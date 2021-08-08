@@ -1,20 +1,16 @@
 import 'dart:io';
-import 'dart:typed_data';
 
-import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vamos/core/models/completeStepResponse.dart';
 import 'package:vamos/core/models/createTeamResponse.dart';
 import 'package:vamos/core/models/loginResponse.dart';
 import 'package:vamos/core/models/profile_api.dart';
 import 'package:vamos/core/models/registerResponse.dart';
-import 'package:vamos/core/models/teamListingResponse.dart';
 import 'package:vamos/core/models/verifyOtpResponse.dart';
 import 'package:vamos/core/service/api/api.dart';
-import 'package:vamos/core/service/api/request.dart';
-import 'package:vamos/ui/loginPages/profile.dart';
 import 'package:vamos/ui/utils/utility.dart';
 
 import '../../../locator.dart';
@@ -67,7 +63,7 @@ class AuthController extends GetxController {
       otp = response.data!.otp!;
       mobileNo = response.data!.phone!;
       update();
-      Utility.showError("${response.message}");
+      Utility.showSnackbar("${response.message}");
       if (response.data!.isVerified == "0") {
         Get.offNamed('/setPass');
       } else {
@@ -78,8 +74,7 @@ class AuthController extends GetxController {
         }
       }
     } else {
-      Utility.closeDialog();
-      Utility.showError("${response.message}");
+      Utility.showSnackbar("${response.message}");
     }
   }
 
@@ -89,12 +84,10 @@ class AuthController extends GetxController {
     CreateTeamResponse response =
         await api.createTeam(teamName, teamLogo[0], teamSize);
     if (response.success) {
-      Utility.closeDialog();
-      Utility.showError("${response.message}");
-      Get.offNamed('/playerListingScreen');
+      Utility.showSnackbar("${response.message}");
+      Get.toNamed("/homeScreen");
     } else {
-      Utility.closeDialog();
-      Utility.showError("${response.message}");
+      Utility.showSnackbar("${response.message}");
     }
   }
 
@@ -104,8 +97,7 @@ class AuthController extends GetxController {
     RegisterResponse response = await api.registerStep(
         firstName, lastName, email, mobileNo, type, password, address);
     if (response.success) {
-      Utility.closeDialog();
-      Utility.showError("${response.message}");
+      Utility.showSnackbar("${response.message}");
       prefs.setString('token', 'Bearer ${response.accessToken}');
       prefs.setString('userId', '${response.data!.id}');
 
@@ -113,8 +105,7 @@ class AuthController extends GetxController {
       update();
       Get.offNamed('/setPass');
     } else {
-      Utility.closeDialog();
-      Utility.showError("${response.message}");
+      Utility.showSnackbar("${response.message}");
     }
   }
 
@@ -128,12 +119,21 @@ class AuthController extends GetxController {
     ProfileResponse response = await api.profileResponse(userId, typeOfPlayer,
         position, age, weight, height, nationality, images, files);
     if (response.success) {
-      Utility.closeDialog();
-      Utility.showError("${response.message}");
-      Get.toNamed("/registeredTeamScreen");
+      Utility.showSnackbar("${response.message}");
+      completedStep("2", "/registeredTeamScreen");
     } else {
-      Utility.closeDialog();
-      Utility.showError("${response.message}");
+      Utility.showSnackbar("${response.message}");
+    }
+  }
+
+  void completedStep(String step, String nextRoute) async {
+    Utility.showLoadingDialog();
+    CompletedStepResponse response = await api.completedtep(step);
+    if (response.success!) {
+      Utility.showSnackbar("${response.message}");
+      Get.toNamed(nextRoute);
+    } else {
+      Utility.showSnackbar("${response.message}");
     }
   }
 
@@ -158,7 +158,7 @@ class AuthController extends GetxController {
         ),
       );
     } on Exception catch (e) {
-      Utility.showError(e.toString());
+      Utility.showSnackbar(e.toString());
     }
 
     !isSingleImage ? images.addAll(resultList) : teamLogo = resultList;
@@ -196,7 +196,7 @@ class AuthController extends GetxController {
       }
     } else {
       tempVideo = [];
-      Utility.showError("Select only 2 videos");
+      Utility.showSnackbar("Select only 2 videos");
     }
 
     update();
@@ -214,12 +214,10 @@ class AuthController extends GetxController {
     userId = prefs.getString("userId")!;
     VerifyOtpResponse response = await api.verifyOtp(userId, mobileNo, otp);
     if (response.success!) {
-      Utility.closeDialog();
-      Utility.showError("${response.message}");
+      Utility.showSnackbar("${response.message}");
       Get.offNamed("/profileScreen");
     } else {
-      Utility.closeDialog();
-      Utility.showError("${response.message}");
+      Utility.showSnackbar("${response.message}");
     }
   }
 }

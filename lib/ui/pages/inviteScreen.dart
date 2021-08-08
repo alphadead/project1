@@ -155,7 +155,7 @@ class InviteScreen extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                          Utility.showError(AppLocalizations.of(context)!
+                          Utility.showSnackbar(AppLocalizations.of(context)!
                               .invitePage_textCopied);
                           Clipboard.setData(ClipboardData(
                             text: _inviteController.inviteCode,

@@ -26,7 +26,7 @@ class PlayerListController extends GetxController {
       playerListDisplay = playerList;
     } else {
       Utility.closeDialog();
-      Utility.showError("${response.message}");
+      Utility.showSnackbar("${response.message}");
     }
     update();
   }

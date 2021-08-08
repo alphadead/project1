@@ -92,17 +92,21 @@ class _PlayerListingScreenState extends State<PlayerListingScreen> {
   Widget listItem(index, context, firstname, lastname) {
     String fullName = firstname + " " + lastname ?? "";
     return GestureDetector(
-      onTap: () {
-        // _authService.getteamlist();
-      },
-      child: ListTile(
-        title: registeredTeamContainer(
-          context: context,
-          name: fullName.toString(),
-          buttonText:
-              AppLocalizations.of(context)!.playerListingPage_requestButtonText,
-        ),
-      ),
-    );
+        onTap: () {
+          // _authService.getteamlist();
+        },
+        child: Container(
+          height: 200,
+          color: Colors.red,
+        )
+        // ListTile(
+        //   title: registeredTeamContainer(
+        //     context: context,
+        //     name: fullName.toString(),
+        //     buttonText:
+        //         AppLocalizations.of(context)!.playerListingPage_requestButtonText,
+        //   ),
+        // ),
+        );
   }
 }

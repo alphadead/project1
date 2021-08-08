@@ -1,7 +1,9 @@
 import 'dart:io';
 
 import 'package:multi_image_picker2/multi_image_picker2.dart';
+import 'package:vamos/core/models/completeStepResponse.dart';
 import 'package:vamos/core/models/createTeamResponse.dart';
+import 'package:vamos/core/models/joinTeam.dart';
 import 'package:vamos/core/models/loginResponse.dart';
 import 'package:vamos/core/models/playerListResponse.dart';
 import 'package:vamos/core/models/profile_api.dart';
@@ -48,11 +50,23 @@ class FakeApi extends Api {
     throw UnimplementedError();
   }
 
+  Future<JoinTeamResponse> joinTeam(
+    int teamId,
+  ) {
+    throw UnimplementedError();
+  }
+
   Future<VerifyOtpResponse> verifyOtp(userId, mobileNo, otp) {
     throw UnimplementedError();
   }
 
   Future<PlayerListResponse> getPlayerlist() {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<CompletedStepResponse> completedtep(String step) {
+    // TODO: implement completedtep
     throw UnimplementedError();
   }
 }

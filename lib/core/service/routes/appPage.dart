@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import 'package:vamos/core/service/Binder/authBinder.dart';
 import 'package:vamos/splashScreen.dart';
 import 'package:vamos/testScreen.dart';
-import 'package:vamos/ui/loginPages/addsandOptions.dart';
+import 'package:vamos/ui/pages/homeScreen.dart';
 import 'package:vamos/ui/loginPages/createTeam.dart';
 import 'package:vamos/ui/loginPages/profile.dart';
 import 'package:vamos/ui/loginPages/register.dart';
@@ -46,9 +46,9 @@ abstract class AppPages {
       binding: AllBinder(),
     ),
     GetPage(
-      name: '/addandOptions',
+      name: '/homeScreen',
       transitionDuration: transitionDuration,
-      page: () => AddandOptions(),
+      page: () => HomeScreen(),
       binding: AllBinder(),
     ),
     GetPage(
