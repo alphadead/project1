@@ -54,6 +54,7 @@ class PlayerData {
     this.pincode,
     this.createdAt,
     this.updatedAt,
+    this.isJoined,
   });
 
   int? id;
@@ -68,25 +69,26 @@ class PlayerData {
   dynamic pincode;
   DateTime? createdAt;
   DateTime? updatedAt;
+  bool? isJoined = false;
 
   factory PlayerData.fromJson(Map<String, dynamic> json) => PlayerData(
-        id: json["id"] == null ? null : json["id"],
-        firstName: json["first_name"] == null ? null : json["first_name"],
-        lastName: json["last_name"] == null ? null : json["last_name"],
-        email: json["email"] == null ? null : json["email"],
-        phone: json["phone"] == null ? null : json["phone"],
-        address: json["address"] == null ? null : json["address"],
-        street2: json["street_2"],
-        city: json["city"],
-        state: json["state"],
-        pincode: json["pincode"],
-        createdAt: json["created_at"] == null
-            ? null
-            : DateTime.parse(json["created_at"]),
-        updatedAt: json["updated_at"] == null
-            ? null
-            : DateTime.parse(json["updated_at"]),
-      );
+      id: json["id"] == null ? null : json["id"],
+      firstName: json["first_name"] == null ? null : json["first_name"],
+      lastName: json["last_name"] == null ? null : json["last_name"],
+      email: json["email"] == null ? null : json["email"],
+      phone: json["phone"] == null ? null : json["phone"],
+      address: json["address"] == null ? null : json["address"],
+      street2: json["street_2"],
+      city: json["city"],
+      state: json["state"],
+      pincode: json["pincode"],
+      createdAt: json["created_at"] == null
+          ? null
+          : DateTime.parse(json["created_at"]),
+      updatedAt: json["updated_at"] == null
+          ? null
+          : DateTime.parse(json["updated_at"]),
+      isJoined: json["isJoined"] == null ? false : true);
 
   Map<String, dynamic> toJson() => {
         "id": id == null ? null : id,

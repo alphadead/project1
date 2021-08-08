@@ -6,11 +6,11 @@ import 'package:vamos/core/service/controller/teamListingController.dart';
 import 'package:vamos/ui/utils/utility.dart';
 
 class TeamButton extends StatefulWidget {
-  final int? id;
+  // final int? id;
   final String? buttonText;
   final VoidCallback? onPressed;
   final bool? pressed;
-  TeamButton({this.id, this.buttonText, this.onPressed, this.pressed, Key? key})
+  TeamButton({this.buttonText, this.onPressed, this.pressed, Key? key})
       : super(key: key);
 
   @override

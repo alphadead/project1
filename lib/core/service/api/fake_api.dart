@@ -69,4 +69,11 @@ class FakeApi extends Api {
     // TODO: implement completedtep
     throw UnimplementedError();
   }
+
+  Future<JoinTeamResponse> requestPlayer(
+    String userId,
+    int teamId,
+  ) {
+    throw UnimplementedError();
+  }
 }

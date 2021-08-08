@@ -105,4 +105,13 @@ class HTTPApi extends Api {
     Map<String, dynamic> response = await postRequest("completed-step", body);
     return CompletedStepResponse.fromJson(response);
   }
+
+  Future<JoinTeamResponse> requestPlayer(String userId, int teamId) async {
+    Map<String, dynamic> body = {
+      "user_id": userId,
+      "team_id": teamId,
+    };
+    Map<String, dynamic> response = await postRequest('player/request', body);
+    return JoinTeamResponse.fromJson(response);
+  }
 }

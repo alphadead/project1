@@ -4,6 +4,7 @@ import 'package:vamos/core/service/controller/playerListingController.dart';
 import 'package:vamos/core/service/controller/teamListingController.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/loginbkground.dart';
+import 'package:vamos/ui/utils/utility.dart';
 import 'package:vamos/widget/customAppBar.dart';
 import 'package:vamos/widget/customBottomNavBar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -67,9 +68,26 @@ class _PlayerListingScreenState extends State<PlayerListingScreen> {
                               index - 1,
                               context,
                               _playerListController
-                                  .playerListDisplay[index - 1].firstName,
+                                  .playerListDisplay[index - 1], () {
+                              if (!_playerListController
+                                  .playerListDisplay[index - 1].isJoined!) {
+                                _playerListController.requestPlayer(
+                                    _playerListController
+                                        .playerListDisplay[index - 1].id!);
+
+                                setState(() {
+                                  _playerListController
+                                      .playerListDisplay[index - 1]
+                                      .isJoined = true;
+                                });
+                              } else {
+                                Utility.showSnackbar(AppLocalizations.of(
+                                        context)!
+                                    .registeredTeamsPage_alreadyPresentSnackbar);
+                              }
+                            },
                               _playerListController
-                                  .playerListDisplay[index - 1].lastName);
+                                  .playerListDisplay[index - 1].isJoined);
                     },
                   ),
                   Container(
@@ -89,24 +107,14 @@ class _PlayerListingScreenState extends State<PlayerListingScreen> {
     );
   }
 
-  Widget listItem(index, context, firstname, lastname) {
-    String fullName = firstname + " " + lastname ?? "";
-    return GestureDetector(
-        onTap: () {
-          // _authService.getteamlist();
-        },
-        child: Container(
-          height: 200,
-          color: Colors.red,
-        )
-        // ListTile(
-        //   title: registeredTeamContainer(
-        //     context: context,
-        //     name: fullName.toString(),
-        //     buttonText:
-        //         AppLocalizations.of(context)!.playerListingPage_requestButtonText,
-        //   ),
-        // ),
-        );
+  Widget listItem(index, context, player, onPressed, pressed) {
+    return ListTile(
+        title: registeredTeamContainer(
+            context: context,
+            player: player,
+            buttonText: AppLocalizations.of(context)!
+                .playerListingPage_requestButtonText,
+            onPressed: onPressed,
+            pressed: pressed));
   }
 }

@@ -43,4 +43,8 @@ abstract class Api {
   Future<VerifyOtpResponse> verifyOtp(userId, mobileNo, otp);
   Future<PlayerListResponse> getPlayerlist();
   Future<CompletedStepResponse> completedtep(String step);
+  Future<JoinTeamResponse> requestPlayer(
+    String userId,
+    int teamId,
+  );
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vamos/core/models/joinTeam.dart';
 import 'package:vamos/core/models/playerListResponse.dart';
 import 'package:vamos/core/models/teamListingResponse.dart';
@@ -11,6 +12,7 @@ import '../../../locator.dart';
 class PlayerListController extends GetxController {
   List<PlayerData> playerList = [];
   List<PlayerData> playerListDisplay = [];
+  late bool apiCall;
 
   Api api = locator<Api>();
 
@@ -32,8 +34,12 @@ class PlayerListController extends GetxController {
     update();
   }
 
-  void joinTeam(int teamId) async {
-    JoinTeamResponse response = await api.joinTeam(teamId);
+  void requestPlayer(int teamId) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String userId = prefs.getString("userId")!;
+
+    JoinTeamResponse response = await api.requestPlayer(userId, teamId);
+
     if (!response.success) {
       Utility.showSnackbar("${response.message}");
     }
