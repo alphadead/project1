@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:vamos/core/models/joinTeam.dart';
 import 'package:vamos/core/models/playerListResponse.dart';
 import 'package:vamos/core/models/teamListingResponse.dart';
 import 'package:vamos/core/service/api/api.dart';
@@ -29,5 +30,12 @@ class PlayerListController extends GetxController {
       Utility.showSnackbar("${response.message}");
     }
     update();
+  }
+
+  void joinTeam(int teamId) async {
+    JoinTeamResponse response = await api.joinTeam(teamId);
+    if (!response.success) {
+      Utility.showSnackbar("${response.message}");
+    }
   }
 }

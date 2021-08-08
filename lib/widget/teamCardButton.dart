@@ -7,39 +7,32 @@ import 'package:vamos/ui/utils/utility.dart';
 
 class TeamButton extends StatefulWidget {
   final int? id;
-  TeamButton({this.id, Key? key}) : super(key: key);
+  final String? buttonText;
+  final VoidCallback? onPressed;
+  final bool? pressed;
+  TeamButton({this.id, this.buttonText, this.onPressed, this.pressed, Key? key})
+      : super(key: key);
 
   @override
   _TeamButtonState createState() => _TeamButtonState();
 }
 
 class _TeamButtonState extends State<TeamButton> {
-  bool pressed = false;
+  // bool pressed = false;
   @override
   Widget build(BuildContext context) {
     return GetBuilder<TeamListController>(
       builder: (_teamService) => InkWell(
         borderRadius: BorderRadius.circular(12),
-        onTap: () {
-          if (!pressed) {
-            _teamService.joinTeam(widget.id!);
-            setState(() {
-              pressed = !pressed;
-            });
-          } else {
-            Utility.showSnackbar(AppLocalizations.of(context)!
-                .registeredTeamsPage_alreadyPresentSnackbar);
-          }
-        },
+        onTap: widget.onPressed!,
         child: Center(
-          child: pressed == true
+          child: widget.pressed! == true
               ? Icon(
                   Icons.check,
                   color: Colors.white,
                 )
               : Text(
-                  AppLocalizations.of(context)!
-                      .registeredTeamsPage_joinButtonText,
+                  widget.buttonText!,
                   style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.w900,

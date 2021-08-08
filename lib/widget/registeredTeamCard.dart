@@ -7,7 +7,11 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:vamos/widget/teamCardButton.dart';
 
 Widget registeredTeamContainer(
-    {required BuildContext context, required TeamData team}) {
+    {required BuildContext context,
+    TeamData? team,
+    required String buttonText,
+    required VoidCallback onPressed,
+    bool? pressed}) {
   return Container(
     margin: EdgeInsets.only(bottom: 12),
     child: Ink(
@@ -31,7 +35,7 @@ Widget registeredTeamContainer(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  team.name.toString(),
+                  team!.name.toString(),
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w600,
@@ -54,7 +58,12 @@ Widget registeredTeamContainer(
                   borderRadius: BorderRadius.circular(12),
                   color: Colors.red,
                 ),
-                child: TeamButton(id: team.id!)),
+                child: TeamButton(
+                  id: team.id!,
+                  buttonText: buttonText,
+                  onPressed: onPressed,
+                  pressed: pressed,
+                )),
           )
         ],
       ),
