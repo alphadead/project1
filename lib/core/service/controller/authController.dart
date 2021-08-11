@@ -59,6 +59,8 @@ class AuthController extends GetxController {
       prefs.setString('token', 'Bearer ${response.accessToken}');
       prefs.setString('userId', '${response.data!.id}');
       prefs.setString('invite_code', '${response.data!.inviteCode}');
+      prefs.setString("completedStep", '${response.data!.completedStep}');
+      prefs.setBool('isAuthenticated', true);
       Utility.closeDialog();
       otp = response.data!.otp!;
       mobileNo = response.data!.phone!;
@@ -67,10 +69,16 @@ class AuthController extends GetxController {
       if (response.data!.isVerified == "0") {
         Get.offNamed('/setPass');
       } else {
-        if (response.completedStep == 1) {
+        if (response.data!.completedStep == "1") {
           Get.offNamed('/profileScreen');
-        } else {
+        } else if (response.data!.completedStep == "2") {
           Get.offNamed("/registeredTeamScreen");
+        } else if (response.data!.completedStep == "3") {
+          Get.offNamed("/inviteScreen");
+        } else if (response.data!.completedStep == "4") {
+          Get.offNamed("/homeScreen");
+        } else {
+          Get.offNamed("/login");
         }
       }
     } else {
@@ -128,10 +136,12 @@ class AuthController extends GetxController {
   }
 
   void completedStep(String step, String nextRoute) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     Utility.showLoadingDialog();
     CompletedStepResponse response = await api.completedtep(step);
     if (response.success!) {
       Utility.showSnackbar("${response.message}");
+      prefs.setString("completedStep", step);
       Get.toNamed(nextRoute);
     } else {
       Utility.showSnackbar("${response.message}");

@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vamos/core/service/controller/authController.dart';
 import 'package:vamos/core/service/controller/inviteController.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/loginbkground.dart';
@@ -206,7 +207,8 @@ class InviteScreen extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                          Get.offNamed('/createTeam');
+                          Get.find<AuthController>()
+                              .completedStep("4", "/homeScreen");
                         },
                         child: Container(
                           margin: EdgeInsets.only(top: 20.h),
