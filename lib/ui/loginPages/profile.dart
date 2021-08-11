@@ -62,8 +62,8 @@ class ProfilePage extends StatelessWidget {
                         onPressed: () {
                           _authService.profile();
                         },
-                        text: AppLocalizations.of(context)!
-                            .profilePage_navButtonText),
+                        text:
+                            AppLocalizations.of(context)!.primaryActionButton),
                   ),
                 ),
               ],
