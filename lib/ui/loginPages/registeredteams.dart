@@ -58,34 +58,27 @@ class _RegisteredTeamPageState extends State<RegisteredTeamPage> {
                         shrinkWrap: true,
                         itemCount: _authService.teamList.length,
                         itemBuilder: (context, index) {
-                          return GestureDetector(
-                            onTap: () {
-                              _authService.getteamlist();
-                            },
-                            child: ListTile(
-                              title: registeredTeamContainer(
-                                  context: context,
-                                  team: _authService.teamList[index],
-                                  buttonText: AppLocalizations.of(context)!
-                                      .registeredTeamsPage_joinButtonText,
-                                  onPressed: () {
-                                    if (!_authService
-                                        .teamList[index].isJoined!) {
-                                      _authService.joinTeam(
-                                          _authService.teamList[index].id!);
-                                      setState(() {
-                                        _authService.teamList[index].isJoined =
-                                            true;
-                                      });
-                                    } else {
-                                      Utility.showSnackbar(AppLocalizations.of(
-                                              context)!
-                                          .registeredTeamsPage_alreadyPresentSnackbar);
-                                    }
-                                  },
-                                  pressed:
-                                      _authService.teamList[index].isJoined),
-                            ),
+                          return ListTile(
+                            title: registeredTeamContainer(
+                                context: context,
+                                team: _authService.teamList[index],
+                                buttonText: AppLocalizations.of(context)!
+                                    .registeredTeamsPage_joinButtonText,
+                                onPressed: () {
+                                  if (!_authService.teamList[index].isJoined!) {
+                                    _authService.joinTeam(
+                                        _authService.teamList[index].id!);
+                                    setState(() {
+                                      _authService.teamList[index].isJoined =
+                                          true;
+                                    });
+                                  } else {
+                                    Utility.showSnackbar(AppLocalizations.of(
+                                            context)!
+                                        .registeredTeamsPage_alreadyPresentSnackbar);
+                                  }
+                                },
+                                pressed: _authService.teamList[index].isJoined),
                           );
                         },
                       ),
