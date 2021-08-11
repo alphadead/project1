@@ -93,21 +93,24 @@ class _PlayerInfoState extends State<PlayerInfo> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(12.0),
-                      child: RatingBar.builder(
-                        initialRating: 3,
-                        minRating: 1,
-                        direction: Axis.horizontal,
-                        allowHalfRating: true,
-                        itemCount: 5,
-                        itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                        itemBuilder: (context, _) => Icon(
-                          Icons.star,
-                          color: iconColStar,
-                          size: 2.h,
+                      child: Center(
+                        child: RatingBar.builder(
+                          initialRating: 3,
+                          minRating: 1,
+                          direction: Axis.horizontal,
+                          allowHalfRating: true,
+                          itemCount: 5,
+                          itemBuilder: (context, _) => Transform.scale(
+                            scale: 0.8,
+                            child: Icon(
+                              Icons.star_rounded,
+                              color: iconColStar,
+                            ),
+                          ),
+                          onRatingUpdate: (rating) {
+                            //print(rating);
+                          },
                         ),
-                        onRatingUpdate: (rating) {
-                          //print(rating);
-                        },
                       ),
                     ),
                     Padding(
