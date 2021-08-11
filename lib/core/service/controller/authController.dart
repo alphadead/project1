@@ -85,7 +85,8 @@ class AuthController extends GetxController {
         await api.createTeam(teamName, teamLogo[0], teamSize);
     if (response.success) {
       Utility.showSnackbar("${response.message}");
-      Get.toNamed("/homeScreen");
+
+      Get.offNamed('/playerListingScreen');
     } else {
       Utility.showSnackbar("${response.message}");
     }

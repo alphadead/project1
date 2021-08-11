@@ -204,9 +204,22 @@ class InviteScreen extends StatelessWidget {
                             text: AppLocalizations.of(context)!
                                 .invitePage_referNowButtonText),
                       ),
+                      GestureDetector(
+                        onTap: () {
+                          Get.offNamed('/createTeam');
+                        },
+                        child: Container(
+                          margin: EdgeInsets.only(top: 20.h),
+                          child: Text(
+                            AppLocalizations.of(context)!.invitePage_skip,
+                            style: themeData().textTheme.headline2!.copyWith(
+                                color: sliderGreenActive, fontSize: 20),
+                          ),
+                        ),
+                      ),
                       SizedBox(
                         height: 30.h,
-                      )
+                      ),
                     ],
                   ),
                 )),

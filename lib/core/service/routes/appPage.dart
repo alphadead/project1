@@ -11,6 +11,7 @@ import 'package:vamos/ui/loginPages/setPass.dart';
 import 'package:vamos/ui/loginPages/signUp.dart';
 import 'package:vamos/ui/loginPages/upcomingMatches.dart';
 import 'package:vamos/ui/pages/inviteScreen.dart';
+import 'package:vamos/ui/pages/playerListingScreen.dart';
 import 'package:vamos/widget/videoPlayer.dart';
 
 /// Contains the list of pages or routes taken across the whole application.
@@ -100,6 +101,13 @@ abstract class AppPages {
       name: '/setPass',
       transitionDuration: transitionDuration,
       page: () => SetPass(),
+      transition: Transition.downToUp,
+      binding: AllBinder(),
+    ),
+    GetPage(
+      name: '/playerListingScreen',
+      transitionDuration: transitionDuration,
+      page: () => PlayerListingScreen(),
       transition: Transition.downToUp,
       binding: AllBinder(),
     ),
