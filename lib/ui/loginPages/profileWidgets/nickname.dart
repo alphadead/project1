@@ -4,6 +4,7 @@ import 'package:vamos/core/service/controller/authController.dart';
 import 'package:vamos/widget/inputField.dart';
 import 'package:vamos/widget/profileContainer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NickName extends StatelessWidget {
   const NickName({Key? key}) : super(key: key);
@@ -16,7 +17,8 @@ class NickName extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ProfileContainer(title: "Nick Name"),
+            ProfileContainer(
+                title: AppLocalizations.of(context)!.profilePage_nickname),
             Container(
               height: 50.h,
               width: 270.w,
@@ -24,7 +26,9 @@ class NickName extends StatelessWidget {
               child: Container(
                 padding: EdgeInsets.all(12),
                 color: Color.fromRGBO(249, 249, 249, 1),
-                child: inputField("Enter nick name here", (value) {}),
+                child: inputField(
+                    AppLocalizations.of(context)!.profilePage_nicknamePrompt,
+                    (value) {}),
               ),
             )
           ],

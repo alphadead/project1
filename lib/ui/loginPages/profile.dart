@@ -51,7 +51,7 @@ class ProfilePage extends StatelessWidget {
                       Container(
                         margin: EdgeInsets.only(left: 30.w),
                         child: Text(
-                          "Edit Profile",
+                          AppLocalizations.of(context)!.profilePage_title,
                           style: TextStyle(
                             color: profileContainerColor,
                             fontSize: 20.sp,
@@ -84,12 +84,14 @@ class ProfilePage extends StatelessWidget {
                         padding: EdgeInsets.only(top: 15.h, bottom: 37.h),
                         child: Center(
                           child: primaryActionButton(
-                              width: 120.w,
-                              height: 40.h,
-                              color: moneyBox,
-                              context: context,
-                              onPressed: () {},
-                              text: "Cancel"),
+                            width: 120.w,
+                            height: 40.h,
+                            color: moneyBox,
+                            context: context,
+                            onPressed: () {},
+                            text: AppLocalizations.of(context)!
+                                .profilePage_cancel,
+                          ),
                         ),
                       ),
                       SizedBox(
@@ -99,13 +101,15 @@ class ProfilePage extends StatelessWidget {
                         padding: EdgeInsets.only(top: 15.h, bottom: 37.h),
                         child: Center(
                           child: primaryActionButton(
-                              width: 120.w,
-                              height: 40.h,
-                              context: context,
-                              onPressed: () {
-                                _authService.profile();
-                              },
-                              text: "Update"),
+                            width: 120.w,
+                            height: 40.h,
+                            context: context,
+                            onPressed: () {
+                              _authService.profile();
+                            },
+                            text: AppLocalizations.of(context)!
+                                .profilePage_update,
+                          ),
                         ),
                       ),
                     ],
