@@ -40,7 +40,7 @@ class _FitnessDetailState extends State<FitnessDetail> {
                                   AppLocalizations.of(context)!.profilePage_age,
                             ),
                             SizedBox(
-                              width: 30,
+                              width: 30.w,
                             ),
                             WeightValueContainer(
                               title: AppLocalizations.of(context)!

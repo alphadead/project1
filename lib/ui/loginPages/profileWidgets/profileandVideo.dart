@@ -146,8 +146,9 @@ class _SkillVideoState extends State<SkillVideo> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      ProfileContainer(title: AppLocalizations.of(context)!
-                          .profilePage_skillVideos),
+                      ProfileContainer(
+                          title: AppLocalizations.of(context)!
+                              .profilePage_skillVideos),
                       Padding(
                           padding: EdgeInsets.only(left: 10.w),
                           child: IconButton(
@@ -170,21 +171,42 @@ class _SkillVideoState extends State<SkillVideo> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         _authService.files.length == 0
-                            ? GestureDetector(
-                                onTap: () {
-                                  _authService.loadVideo();
-                                },
-                                child: Container(
-                                  height: 86.h,
-                                  width: 130.w,
-                                  color: Color.fromRGBO(249, 249, 249, 1),
-                                  child: Center(
-                                      child: Image.asset(
-                                    "assets/images/add_video_copy.webp",
-                                    height: 28.h,
-                                    width: 34.w,
-                                  )),
-                                ),
+                            ? Row(
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      _authService.loadVideo();
+                                    },
+                                    child: Container(
+                                      height: 86.h,
+                                      width: 130.w,
+                                      color: Color.fromRGBO(249, 249, 249, 1),
+                                      child: Center(
+                                          child: Image.asset(
+                                        "assets/images/add_video_copy.webp",
+                                        height: 28.h,
+                                        width: 34.w,
+                                      )),
+                                    ),
+                                  ),
+                                  SizedBox(width: 30.w),
+                                  GestureDetector(
+                                    onTap: () {
+                                      _authService.loadVideo();
+                                    },
+                                    child: Container(
+                                      height: 86.h,
+                                      width: 130.w,
+                                      color: Color.fromRGBO(249, 249, 249, 1),
+                                      child: Center(
+                                          child: Image.asset(
+                                        "assets/images/add_video_copy.webp",
+                                        height: 28.h,
+                                        width: 34.w,
+                                      )),
+                                    ),
+                                  ),
+                                ],
                               )
                             : SizedBox(
                                 child: buildVideoGridView(),

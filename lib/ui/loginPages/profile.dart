@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:vamos/core/service/controller/authController.dart';
 import 'package:vamos/ui/loginPages/profileWidgets/fitness.dart';
 import 'package:vamos/ui/loginPages/profileWidgets/nationality.dart';
+import 'package:vamos/ui/loginPages/profileWidgets/nickname.dart';
 import 'package:vamos/ui/loginPages/profileWidgets/playertypeRadio.dart';
 import 'package:vamos/ui/loginPages/profileWidgets/positionRadio.dart';
 import 'package:vamos/ui/loginPages/profileWidgets/profileandVideo.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/loginbkground.dart';
 import 'package:vamos/ui/utils/theme.dart';
+import 'package:vamos/widget/customAppBar.dart';
+import 'package:vamos/widget/inputField.dart';
 import 'package:vamos/widget/localeFloatingActionButtonDebug.dart';
 import 'package:vamos/widget/loginpageStack.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -27,6 +31,10 @@ class ProfilePage extends StatelessWidget {
       builder: (_authService) => Directionality(
         textDirection: TextDirection.ltr,
         child: Scaffold(
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(60.h),
+            child: CustomAppBar(),
+          ),
           floatingActionButton: LocaleFloatingActionButton(),
           backgroundColor: Colors.white,
           body: SingleChildScrollView(
@@ -34,13 +42,25 @@ class ProfilePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                LoginPageStack(
-                  heading: AppLocalizations.of(context)!.profilePage_title,
-                  imageWidget: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                Container(
+                  height: 200.h,
+                  margin: EdgeInsets.only(top: 10.h),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
-                        height: 0.8.sh,
+                        margin: EdgeInsets.only(left: 30.w),
+                        child: Text(
+                          "Edit Profile",
+                          style: TextStyle(
+                            color: profileContainerColor,
+                            fontSize: 20.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        height: 180.h,
                         child: Image.asset(
                           'assets/images/register.png',
                         ),
@@ -53,17 +73,42 @@ class ProfilePage extends StatelessWidget {
                 FitnessDetail(),
                 Nationality(),
                 ProfilePhoto(),
+                NickName(),
                 SkillVideo(),
                 Container(
-                  padding: EdgeInsets.only(top: 15.h, bottom: 37.h),
-                  child: Center(
-                    child: primaryActionButton(
-                        context: context,
-                        onPressed: () {
-                          _authService.profile();
-                        },
-                        text: AppLocalizations.of(context)!
-                            .profilePage_navButtonText),
+                  padding: EdgeInsets.only(top: 30),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        padding: EdgeInsets.only(top: 15.h, bottom: 37.h),
+                        child: Center(
+                          child: primaryActionButton(
+                              width: 120.w,
+                              height: 40.h,
+                              color: moneyBox,
+                              context: context,
+                              onPressed: () {},
+                              text: "Cancel"),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(top: 15.h, bottom: 37.h),
+                        child: Center(
+                          child: primaryActionButton(
+                              width: 120.w,
+                              height: 40.h,
+                              context: context,
+                              onPressed: () {
+                                _authService.profile();
+                              },
+                              text: "Update"),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
