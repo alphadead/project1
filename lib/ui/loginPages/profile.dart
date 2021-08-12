@@ -52,11 +52,11 @@ class ProfilePage extends StatelessWidget {
                         margin: EdgeInsets.only(left: 30.w),
                         child: Text(
                           AppLocalizations.of(context)!.profilePage_title,
-                          style: TextStyle(
-                            color: profileContainerColor,
-                            fontSize: 20.sp,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: themeData().textTheme.bodyText1!.copyWith(
+                                color: profileContainerColor,
+                                fontSize: 20.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
                         ),
                       ),
                       Container(

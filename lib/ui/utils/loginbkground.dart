@@ -29,21 +29,20 @@ Widget primaryActionButton(
   return GestureDetector(
     onTap: onPressed,
     child: Container(
-      width: width == null ? 250.h : width,
-      height: height == null ? 40.w : height,
+      width: width ?? 250.w,
+      height: height ?? 40.h,
       child: Center(
         child: Text(
           text,
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            fontSize: fontSize == null ? 15 : fontSize,
+            fontSize: fontSize ?? 15,
             color: Colors.white,
           ),
         ),
       ),
       decoration: BoxDecoration(
-        color: color == null ? KRed : color,
-        //(#ef4d23),
+        color: color ?? KRed,
         borderRadius: BorderRadius.circular(30),
       ),
     ),
