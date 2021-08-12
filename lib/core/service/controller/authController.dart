@@ -109,7 +109,7 @@ class AuthController extends GetxController {
       Utility.showSnackbar("${response.message}");
       prefs.setString('token', 'Bearer ${response.accessToken}');
       prefs.setString('userId', '${response.data!.id}');
-
+      prefs.setString('invite_code', '${response.data!.inviteCode}');
       otp = response.data!.otp.toString();
       update();
       Get.offNamed('/setPass');
