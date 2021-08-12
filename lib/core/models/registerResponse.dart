@@ -52,6 +52,7 @@ class Data {
     this.updatedAt,
     this.createdAt,
     this.id,
+    this.inviteCode
   });
 
   String? firstName;
@@ -64,6 +65,7 @@ class Data {
   DateTime? updatedAt;
   DateTime? createdAt;
   int? id;
+  String? inviteCode;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         firstName: json["first_name"],
@@ -76,6 +78,7 @@ class Data {
         updatedAt: DateTime.parse(json["updated_at"]),
         createdAt: DateTime.parse(json["created_at"]),
         id: json["id"],
+        inviteCode: json["invite_code"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -89,5 +92,6 @@ class Data {
         "updated_at": updatedAt!.toIso8601String(),
         "created_at": createdAt!.toIso8601String(),
         "id": id,
+        "invite_code": inviteCode,
       };
 }

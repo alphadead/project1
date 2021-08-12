@@ -69,14 +69,14 @@ class SignUpPage extends StatelessWidget {
                               ),
                               LoginPageIndicator(
                                 count:
-                                    AppLocalizations.of(context)!.signUpPage_2,
+                                    AppLocalizations.of(context)!.signUpPage_3,
                                 page: AppLocalizations.of(context)!
                                     .signUpPage_users,
                                 active: false,
                               ),
                               LoginPageIndicator(
                                 count:
-                                    AppLocalizations.of(context)!.signUpPage_3,
+                                    AppLocalizations.of(context)!.signUpPage_4,
                                 page: AppLocalizations.of(context)!
                                     .signUpPage_share,
                                 active: false,

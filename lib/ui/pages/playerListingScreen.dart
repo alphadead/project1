@@ -95,7 +95,7 @@ class _PlayerListingScreenState extends State<PlayerListingScreen> {
                     child: primaryActionButton(
                         context: context,
                         onPressed: () {
-                          Get.toNamed("/addandOptions");
+                          Get.toNamed("/homeScreen");
                         }),
                   )
                 ],

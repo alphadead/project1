@@ -2,8 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vamos/testScreen.dart';
 import 'package:vamos/ui/loginPages/signUp.dart';
+import 'package:get/get.dart';
 
 import 'core/service/routes/routeManagement.dart';
 
@@ -27,8 +29,24 @@ class _SplashScreenState extends State<SplashScreen> {
     });
   }
 
-  void movepage() {
-    RouteManagement().goToLoginScreen();
+  void movepage() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (prefs.getString('token') != null &&
+        prefs.getBool('isAuthenticated') != false) {
+      if (prefs.getString("completedStep") == "1") {
+        Get.offNamed('/profileScreen');
+      } else if (prefs.getString("completedStep") == "2") {
+        Get.offNamed("/registeredTeamScreen");
+      } else if (prefs.getString("completedStep") == "3") {
+        Get.offNamed("/inviteScreen");
+      } else if (prefs.getString("completedStep") == "4") {
+        Get.offNamed("/homeScreen");
+      } else {
+        Get.offNamed("/login");
+      }
+    } else {
+      RouteManagement().goToLoginScreen();
+    }
   }
 
   Widget build(BuildContext context) {

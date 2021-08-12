@@ -56,7 +56,7 @@
     "setPasswordPage_otp": "OTP",
     "setPasswordPage_confirmPass": "تأكيد كلمة المرور",
     "invitePage_title": "اعزم أصحابك",
-    "invitePage_rewardInfo": "ستتم مكافأتك إذا قام ٥ أصدقاء بالتسجيل من الرمز الخاص بك",
+    "invitePage_rewardInfo": "ستتم مكافأتك إذا قام الأصدقاء بالتسجيل باستخدام الرمز الخاص بك",
     "invitePage_inviteYourFriends": "قم بدعوة أصدقائك للتسجيل",
     "invitePage_getRewarded": "تحصل أنت وأصدقاؤك على المكافآت",
     "invitePage_yourReferralCode": "رمز الإحالة الخاص بك",
