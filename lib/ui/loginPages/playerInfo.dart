@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vamos/core/service/controller/authController.dart';
+import 'package:vamos/core/service/routes/routeManagement.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/loginbkground.dart';
 import 'package:vamos/ui/utils/validator.dart';
@@ -298,8 +300,20 @@ class _PlayerInfoState extends State<PlayerInfo> {
                 ),
               ),
               SizedBox(
-                height: 60.h,
-              )
+                height: 10.h,
+              ),
+              primaryActionButton(
+                  context: context,
+                  onPressed: () async {
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    prefs.clear();
+                    Get.offAllNamed("/login");
+                  },
+                  text: "Logout"),
+              SizedBox(
+                height: 50.h,
+              ),
             ],
           ),
         ),
