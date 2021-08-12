@@ -19,8 +19,9 @@ class TeamListController extends GetxController {
     Utility.showLoadingDialog();
     TeamListResponse response = await api.getteamlist();
     if (response.data != null) {
+      Utility.closeDialog();
+
       teamList = response.data!;
-      Utility.showSnackbar("${response.message}");
     } else {
       Utility.showSnackbar("${response.message}");
     }

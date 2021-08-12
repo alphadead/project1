@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:vamos/core/models/playerListResponse.dart';
 import 'package:vamos/core/models/teamListingResponse.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,7 +8,18 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:vamos/widget/teamCardButton.dart';
 
 Widget registeredTeamContainer(
-    {required BuildContext context, required TeamData team}) {
+    {required BuildContext context,
+    TeamData? team,
+    PlayerData? player,
+    required String buttonText,
+    required VoidCallback onPressed,
+    bool? pressed}) {
+  String fullName;
+  if (team == null) {
+    fullName = player!.firstName.toString() + " " + player.lastName.toString();
+  } else {
+    fullName = team.name.toString();
+  }
   return Container(
     margin: EdgeInsets.only(bottom: 12),
     child: Ink(
@@ -31,7 +43,8 @@ Widget registeredTeamContainer(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  team.name.toString(),
+                  fullName,
+                  // team!.name.toString(),
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w600,
@@ -54,7 +67,12 @@ Widget registeredTeamContainer(
                   borderRadius: BorderRadius.circular(12),
                   color: Colors.red,
                 ),
-                child: TeamButton(id: team.id!)),
+                child: TeamButton(
+                  // id: team.id!,
+                  buttonText: buttonText,
+                  onPressed: onPressed,
+                  pressed: pressed,
+                )),
           )
         ],
       ),

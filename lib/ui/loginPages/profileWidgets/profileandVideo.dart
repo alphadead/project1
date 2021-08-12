@@ -107,7 +107,7 @@ Widget buildGridView() {
                 ),
                 Positioned(
                   top: -5,
-                  right: 15,
+                  right: 25.w,
                   child: IconButton(
                     icon: Icon(
                       Icons.delete,

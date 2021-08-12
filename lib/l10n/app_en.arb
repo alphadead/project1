@@ -61,13 +61,16 @@
     "setPasswordPage_confirmPass": "Confirm Password",
     "primaryActionButton": "Continue",
     "invitePage_title": "Invite your Friends",
-    "invitePage_rewardInfo": "You will be rewarded if 5 friends will sign up from your code",
+    "invitePage_rewardInfo": "You will be rewarded if friends will sign up from your code",
     "invitePage_inviteYourFriends": "Invite Your Friends to Signup",
     "invitePage_getRewarded": "You and Your Friends Get Rewarded",
     "invitePage_yourReferralCode": "Your Referral Code",
     "invitePage_tapToCopy": "Tap to Copy",
     "invitePage_referNowButtonText": "Refer Now",
     "invitePage_textCopied": "Text Copied",
+    "playerListingPage_requestButtonText":"Request",
+    "invitePage_skip":"Skip",
+    "searchBar_search":"Search",
     "@signUpPage_title":{
       "description": "Dummy value"
     }
