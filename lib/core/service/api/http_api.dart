@@ -1,11 +1,11 @@
 import 'dart:io';
-import 'dart:typed_data';
 
-import 'package:get/get_connect/http/src/multipart/multipart_file.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
+import 'package:vamos/core/models/completeStepResponse.dart';
 import 'package:vamos/core/models/createTeamResponse.dart';
 import 'package:vamos/core/models/joinTeam.dart';
 import 'package:vamos/core/models/loginResponse.dart';
+import 'package:vamos/core/models/playerListResponse.dart';
 import 'package:vamos/core/models/profile_api.dart';
 import 'package:vamos/core/models/registerResponse.dart';
 import 'package:vamos/core/models/teamListingResponse.dart';
@@ -92,5 +92,26 @@ class HTTPApi extends Api {
     };
     Map<String, dynamic> response = await postRequest("verify-otp", body);
     return VerifyOtpResponse.fromJson(response);
+  }
+
+  Future<PlayerListResponse> getPlayerlist() async {
+    Map<String, dynamic> response = await getRequest('players');
+    return PlayerListResponse.fromJson(response);
+  }
+
+  @override
+  Future<CompletedStepResponse> completedtep(String step) async {
+    Map<String, dynamic> body = {"completed_step": step};
+    Map<String, dynamic> response = await postRequest("completed-step", body);
+    return CompletedStepResponse.fromJson(response);
+  }
+
+  Future<JoinTeamResponse> requestPlayer(String userId, int teamId) async {
+    Map<String, dynamic> body = {
+      "user_id": userId,
+      "team_id": teamId,
+    };
+    Map<String, dynamic> response = await postRequest('player/request', body);
+    return JoinTeamResponse.fromJson(response);
   }
 }

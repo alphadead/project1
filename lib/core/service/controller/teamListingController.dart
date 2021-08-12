@@ -20,24 +20,18 @@ class TeamListController extends GetxController {
     TeamListResponse response = await api.getteamlist();
     if (response.data != null) {
       Utility.closeDialog();
+
       teamList = response.data!;
-      Utility.showError("${response.message}");
     } else {
-      Utility.closeDialog();
-      Utility.showError("${response.message}");
+      Utility.showSnackbar("${response.message}");
     }
     update();
   }
 
   void joinTeam(int teamId) async {
     JoinTeamResponse response = await api.joinTeam(teamId);
-    if (response.success) {
-      Utility.closeDialog();
-      Utility.showError("${response.message}");
-      Get.offNamed("/inviteScreen");
-    } else {
-      Utility.closeDialog();
-      Utility.showError("${response.message}");
+    if (!response.success) {
+      Utility.showSnackbar("${response.message}");
     }
   }
 }

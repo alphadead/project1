@@ -27,7 +27,7 @@ Future<Map<String, dynamic>> postRequest(url, body) async {
   // if (response.statusCode < 300 && response.statusCode >= 200) {
   Map<String, dynamic> responseBody = json.decode(response.body);
 
-  if (responseBody['status'] == 'success' ||
+  if (responseBody['status'].toString().toLowerCase() == 'success' ||
       responseBody['status'] == 'error') {
     responseBody.putIfAbsent("success", () => true);
   }

@@ -17,8 +17,8 @@
     "signUpPage_validPasswordErrorMessage": "يجب أن تكون كلمة المرور أكثر من ٦ أحرف",
     "registeredTeamsPage_registeredTeams": "الفريق المسجل",
     "registeredTeamsPage_demoTeamName": "هيجان مدينة الرياح",
-    "registeredTeamsPage_demoTeamDescription": "نص لوريم إيبسوم",
     "registeredTeamsPage_joinButtonText": "انضم",
+    "registeredTeamsPage_alreadyPresentSnackbar": "تم إرسال الدعوة مسبقا!",
     "profilePage_title": "الملف الشخصي",
     "profilePage_typeOfPlayer": "نوع اللاعب",
     "profilePage_player": "لاعب",
@@ -56,12 +56,15 @@
     "setPasswordPage_otp": "OTP",
     "setPasswordPage_confirmPass": "تأكيد كلمة المرور",
     "invitePage_title": "اعزم أصحابك",
-    "invitePage_rewardInfo": "ستتم مكافأتك إذا قام ٥ أصدقاء بالتسجيل من الرمز الخاص بك",
+    "invitePage_rewardInfo": "ستتم مكافأتك إذا قام الأصدقاء بالتسجيل باستخدام الرمز الخاص بك",
     "invitePage_inviteYourFriends": "قم بدعوة أصدقائك للتسجيل",
     "invitePage_getRewarded": "تحصل أنت وأصدقاؤك على المكافآت",
     "invitePage_yourReferralCode": "رمز الإحالة الخاص بك",
     "invitePage_tapToCopy": "انقر للنسخ",
     "invitePage_referNowButtonText": "الرجوع الآن",
     "invitePage_textCopied": "تم نسخ النص",
-    "primaryActionButton": "يكمل"
+    "primaryActionButton": "يكمل",
+    "playerListingPage_requestButtonText":"طلب",
+    "invitePage_skip":"تخطى",
+    "searchBar_search":"بحث"
 }

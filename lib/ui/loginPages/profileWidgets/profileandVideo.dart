@@ -107,7 +107,7 @@ Widget buildGridView() {
                 ),
                 Positioned(
                   top: -5,
-                  right: 15,
+                  right: 25.w,
                   child: IconButton(
                     icon: Icon(
                       Icons.delete,
@@ -146,8 +146,9 @@ class _SkillVideoState extends State<SkillVideo> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      ProfileContainer(title: AppLocalizations.of(context)!
-                          .profilePage_skillVideos),
+                      ProfileContainer(
+                          title: AppLocalizations.of(context)!
+                              .profilePage_skillVideos),
                       Padding(
                           padding: EdgeInsets.only(left: 10.w),
                           child: IconButton(

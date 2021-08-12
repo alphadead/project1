@@ -2,20 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:get/get_core/get_core.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:http/http.dart';
 import 'package:vamos/core/service/controller/authController.dart';
 import 'package:vamos/core/service/controller/teamListingController.dart';
-import 'package:vamos/ui/pages/inviteScreen.dart';
-import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/loginbkground.dart';
+import 'package:vamos/ui/utils/utility.dart';
 import 'package:vamos/widget/localeFloatingActionButtonDebug.dart';
 import 'package:vamos/widget/loginpageStack.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:vamos/widget/registeredTeamCard.dart';
 
-class RegisteredTeamPage extends StatelessWidget {
+class RegisteredTeamPage extends StatefulWidget {
   const RegisteredTeamPage({Key? key}) : super(key: key);
+
+  @override
+  _RegisteredTeamPageState createState() => _RegisteredTeamPageState();
+}
+
+class _RegisteredTeamPageState extends State<RegisteredTeamPage> {
+  bool pressed = false;
 
   @override
   Widget build(BuildContext context) {
@@ -53,14 +58,27 @@ class RegisteredTeamPage extends StatelessWidget {
                         shrinkWrap: true,
                         itemCount: _authService.teamList.length,
                         itemBuilder: (context, index) {
-                          return GestureDetector(
-                            onTap: () {
-                              _authService.getteamlist();
-                            },
-                            child: ListTile(
-                                title: registeredTeamContainer(
-                                    context: context,
-                                    team: _authService.teamList[index])),
+                          return ListTile(
+                            title: registeredTeamContainer(
+                                context: context,
+                                team: _authService.teamList[index],
+                                buttonText: AppLocalizations.of(context)!
+                                    .registeredTeamsPage_joinButtonText,
+                                onPressed: () {
+                                  if (!_authService.teamList[index].isJoined!) {
+                                    _authService.joinTeam(
+                                        _authService.teamList[index].id!);
+                                    setState(() {
+                                      _authService.teamList[index].isJoined =
+                                          true;
+                                    });
+                                  } else {
+                                    Utility.showSnackbar(AppLocalizations.of(
+                                            context)!
+                                        .registeredTeamsPage_alreadyPresentSnackbar);
+                                  }
+                                },
+                                pressed: _authService.teamList[index].isJoined),
                           );
                         },
                       ),
@@ -69,7 +87,8 @@ class RegisteredTeamPage extends StatelessWidget {
                         child: primaryActionButton(
                             context: context,
                             onPressed: () {
-                              Get.offNamed("/inviteScreen");
+                              Get.find<AuthController>()
+                                  .completedStep("3", "/inviteScreen");
                             }),
                       )
                     ],

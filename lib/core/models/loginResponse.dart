@@ -14,7 +14,6 @@ class LoginResponse {
     this.errors,
     this.status,
     this.accessToken,
-    this.completedStep,
   });
 
   Data? data;
@@ -22,7 +21,6 @@ class LoginResponse {
   Errors? errors;
   String? status;
   String? accessToken;
-  int? completedStep;
 
   factory LoginResponse.fromJson(Map<String, dynamic> json) => LoginResponse(
         data: json["data"] == null ? null : Data.fromJson(json["data"]),
@@ -30,8 +28,6 @@ class LoginResponse {
         errors: json["errors"] == null ? null : Errors.fromJson(json["errors"]),
         status: json["status"] == null ? null : json["status"],
         accessToken: json["access_token"] == null ? null : json["access_token"],
-        completedStep:
-            json["completed_step"] == null ? null : json["completed_step"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -40,7 +36,6 @@ class LoginResponse {
         "errors": errors == null ? null : errors!.toJson(),
         "status": status == null ? null : status,
         "access_token": accessToken == null ? null : accessToken,
-        "completed_step": completedStep == null ? null : completedStep,
       };
 }
 
@@ -62,6 +57,7 @@ class Data {
     this.pincode,
     this.otp,
     this.isVerified,
+    this.completedStep,
     this.createdAt,
     this.updatedAt,
     this.deletedAt,
@@ -84,6 +80,7 @@ class Data {
   String? pincode;
   String? otp;
   String? isVerified;
+  String? completedStep;
   dynamic createdAt;
   DateTime? updatedAt;
   dynamic deletedAt;
@@ -106,6 +103,8 @@ class Data {
         pincode: json["pincode"],
         otp: json["otp"] == null ? null : json["otp"],
         isVerified: json["is_verified"] == null ? null : json["is_verified"],
+        completedStep:
+            json["completed_step"] == null ? null : json["completed_step"],
         createdAt: json["created_at"],
         updatedAt: DateTime.parse(json["updated_at"]),
         deletedAt: json["deleted_at"],
@@ -129,6 +128,7 @@ class Data {
         "pincode": pincode,
         "otp": otp == null ? null : otp,
         "is_verified": isVerified == null ? null : isVerified,
+        "completed_step": completedStep == null ? null : completedStep,
         "created_at": createdAt,
         "updated_at": updatedAt!.toIso8601String(),
         "deleted_at": deletedAt,

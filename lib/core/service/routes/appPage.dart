@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import 'package:vamos/core/service/Binder/authBinder.dart';
 import 'package:vamos/splashScreen.dart';
 import 'package:vamos/testScreen.dart';
-import 'package:vamos/ui/loginPages/addsandOptions.dart';
+import 'package:vamos/ui/pages/homeScreen.dart';
 import 'package:vamos/ui/loginPages/createTeam.dart';
 import 'package:vamos/ui/loginPages/profile.dart';
 import 'package:vamos/ui/loginPages/register.dart';
@@ -11,6 +11,7 @@ import 'package:vamos/ui/loginPages/setPass.dart';
 import 'package:vamos/ui/loginPages/signUp.dart';
 import 'package:vamos/ui/loginPages/upcomingMatches.dart';
 import 'package:vamos/ui/pages/inviteScreen.dart';
+import 'package:vamos/ui/pages/playerListingScreen.dart';
 import 'package:vamos/widget/videoPlayer.dart';
 import 'package:vamos/ui/loginPages/playerInfo.dart';
 
@@ -46,9 +47,9 @@ abstract class AppPages {
       binding: AllBinder(),
     ),
     GetPage(
-      name: '/addandOptions',
+      name: '/homeScreen',
       transitionDuration: transitionDuration,
-      page: () => AddandOptions(),
+      page: () => HomeScreen(),
       binding: AllBinder(),
     ),
     GetPage(
@@ -108,6 +109,13 @@ abstract class AppPages {
       name: '/setPass',
       transitionDuration: transitionDuration,
       page: () => SetPass(),
+      transition: Transition.downToUp,
+      binding: AllBinder(),
+    ),
+    GetPage(
+      name: '/playerListingScreen',
+      transitionDuration: transitionDuration,
+      page: () => PlayerListingScreen(),
       transition: Transition.downToUp,
       binding: AllBinder(),
     ),

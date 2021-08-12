@@ -5,6 +5,7 @@ import 'package:vamos/core/service/controller/authController.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/loginbkground.dart';
 import 'package:vamos/ui/utils/validator.dart';
+
 import 'package:vamos/widget/customAppBar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vamos/ui/utils/theme.dart';
@@ -32,7 +33,9 @@ class _PlayerInfoState extends State<PlayerInfo> {
           child: FittedBox(
             child: FloatingActionButton(
               elevation: 0,
-              onPressed: () {},
+              onPressed: () {
+                Get.toNamed('/homeScreen');
+              },
               backgroundColor: KRed,
               child: SizedBox(
                 height: 30,
@@ -49,13 +52,15 @@ class _PlayerInfoState extends State<PlayerInfo> {
         ),
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(60.h),
-          child: CustomAppBar(),
+          child: CustomAppBar(
+            isPencil: true,
+          ),
         ),
         body: SingleChildScrollView(
           child: Column(
             children: [
               Container(
-                margin: EdgeInsets.only(bottom: 10.h),
+                //margin: EdgeInsets.only(bottom: 10.h),
                 height: 300.h,
                 child: Stack(
                   alignment: AlignmentDirectional.bottomEnd,
@@ -92,7 +97,7 @@ class _PlayerInfoState extends State<PlayerInfo> {
                 child: Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(12.0),
+                      padding: EdgeInsets.fromLTRB(10, 12, 10, 0),
                       child: Center(
                         child: RatingBar.builder(
                           initialRating: 3,
@@ -101,7 +106,7 @@ class _PlayerInfoState extends State<PlayerInfo> {
                           allowHalfRating: true,
                           itemCount: 5,
                           itemBuilder: (context, _) => Transform.scale(
-                            scale: 0.8,
+                            scale: 0.8.h,
                             child: Icon(
                               Icons.star_rounded,
                               color: iconColStar,
@@ -114,7 +119,7 @@ class _PlayerInfoState extends State<PlayerInfo> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(10.0),
+                      padding: EdgeInsets.all(8.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
@@ -132,7 +137,7 @@ class _PlayerInfoState extends State<PlayerInfo> {
                                     themeData().textTheme.headline1!.copyWith(
                                           color: containerGreen,
                                           fontWeight: FontWeight.w600,
-                                          fontSize: 20.sp,
+                                          fontSize: 18.sp,
                                         ),
                               ),
                               Text(
@@ -141,7 +146,7 @@ class _PlayerInfoState extends State<PlayerInfo> {
                                     themeData().textTheme.headline1!.copyWith(
                                           color: KColorBlack,
                                           fontWeight: FontWeight.w600,
-                                          fontSize: 15.sp,
+                                          fontSize: 12.sp,
                                         ),
                               )
                             ],
@@ -169,7 +174,7 @@ class _PlayerInfoState extends State<PlayerInfo> {
                                     themeData().textTheme.headline1!.copyWith(
                                           color: containerGreen,
                                           fontWeight: FontWeight.w600,
-                                          fontSize: 15.sp,
+                                          fontSize: 12.sp,
                                         ),
                               ),
                               Text(
@@ -178,7 +183,7 @@ class _PlayerInfoState extends State<PlayerInfo> {
                                     themeData().textTheme.headline1!.copyWith(
                                           color: KColorBlack,
                                           fontWeight: FontWeight.w600,
-                                          fontSize: 15.sp,
+                                          fontSize: 12.sp,
                                         ),
                               )
                             ],
@@ -193,7 +198,7 @@ class _PlayerInfoState extends State<PlayerInfo> {
                                     themeData().textTheme.headline1!.copyWith(
                                           color: containerGreen,
                                           fontWeight: FontWeight.w600,
-                                          fontSize: 15.sp,
+                                          fontSize: 12.sp,
                                         ),
                               ),
                               Text(
@@ -202,7 +207,7 @@ class _PlayerInfoState extends State<PlayerInfo> {
                                     themeData().textTheme.headline1!.copyWith(
                                           color: KColorBlack,
                                           fontWeight: FontWeight.w600,
-                                          fontSize: 15.sp,
+                                          fontSize: 12.sp,
                                         ),
                               )
                             ],
@@ -217,7 +222,7 @@ class _PlayerInfoState extends State<PlayerInfo> {
                                     themeData().textTheme.headline1!.copyWith(
                                           color: containerGreen,
                                           fontWeight: FontWeight.w600,
-                                          fontSize: 15.sp,
+                                          fontSize: 12.sp,
                                         ),
                               ),
                               Text(
@@ -226,7 +231,7 @@ class _PlayerInfoState extends State<PlayerInfo> {
                                     themeData().textTheme.headline1!.copyWith(
                                           color: KColorBlack,
                                           fontWeight: FontWeight.w600,
-                                          fontSize: 15.sp,
+                                          fontSize: 12.sp,
                                         ),
                               )
                             ],
@@ -240,7 +245,7 @@ class _PlayerInfoState extends State<PlayerInfo> {
                       thickness: 1,
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(12.0),
+                      padding: const EdgeInsets.fromLTRB(10, 8, 10, 12),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
@@ -254,7 +259,7 @@ class _PlayerInfoState extends State<PlayerInfo> {
                                     themeData().textTheme.headline1!.copyWith(
                                           color: containerGreen,
                                           fontWeight: FontWeight.w600,
-                                          fontSize: 15.sp,
+                                          fontSize: 12.sp,
                                         ),
                               ),
                               Text(
@@ -263,20 +268,20 @@ class _PlayerInfoState extends State<PlayerInfo> {
                                     themeData().textTheme.headline1!.copyWith(
                                           color: KColorBlack,
                                           fontWeight: FontWeight.w600,
-                                          fontSize: 15.sp,
+                                          fontSize: 12.sp,
                                         ),
                               ),
                             ],
                           ),
                           Container(
-                            width: 130.h,
-                            height: 40.w,
+                            width: 120.h,
+                            height: 30.w,
                             child: Center(
                               child: Text(
                                 'Joined team',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 13.sp,
+                                  fontSize: 12.sp,
                                   color: Colors.white,
                                 ),
                               ),
