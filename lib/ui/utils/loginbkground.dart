@@ -18,6 +18,10 @@ Widget backgroundContainer() {
 Widget primaryActionButton(
     {required BuildContext context,
     required Function()? onPressed,
+    double? width,
+    double? height,
+    double? fontSize,
+    Color? color,
     String text = "Continue"}) {
   text == "Continue"
       ? text = AppLocalizations.of(context)!.primaryActionButton
@@ -25,21 +29,20 @@ Widget primaryActionButton(
   return GestureDetector(
     onTap: onPressed,
     child: Container(
-      width: 250.h,
-      height: 40.w,
+      width: width ?? 250.w,
+      height: height ?? 40.h,
       child: Center(
         child: Text(
           text,
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            fontSize: 15,
+            fontSize: fontSize ?? 15,
             color: Colors.white,
           ),
         ),
       ),
       decoration: BoxDecoration(
-        color: KRed,
-        //(#ef4d23),
+        color: color ?? KRed,
         borderRadius: BorderRadius.circular(30),
       ),
     ),
