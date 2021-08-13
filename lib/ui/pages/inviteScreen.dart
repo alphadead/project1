@@ -215,7 +215,10 @@ class InviteScreen extends StatelessWidget {
                           child: Text(
                             AppLocalizations.of(context)!.invitePage_skip,
                             style: themeData().textTheme.headline2!.copyWith(
-                                color: sliderGreenActive, fontSize: 20),
+                                color: sliderGreenActive,
+                                fontSize: 15,
+                                decoration: TextDecoration.underline,
+                                decorationColor: sliderGreenActive),
                           ),
                         ),
                       ),
