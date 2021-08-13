@@ -118,23 +118,6 @@ class AuthController extends GetxController {
     }
   }
 
-  void profile() async {
-    Utility.showLoadingDialog();
-
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    userId = prefs.getString("userId")!;
-    // postProfile(images);
-
-    ProfileResponse response = await api.profileResponse(userId, typeOfPlayer,
-        position, age, weight, height, nationality, images, files);
-    if (response.success) {
-      Utility.showSnackbar("${response.message}");
-      completedStep("2", "/registeredTeamScreen");
-    } else {
-      Utility.showSnackbar("${response.message}");
-    }
-  }
-
   void completedStep(String step, String nextRoute) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     Utility.showLoadingDialog();

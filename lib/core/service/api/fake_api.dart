@@ -6,6 +6,7 @@ import 'package:vamos/core/models/createTeamResponse.dart';
 import 'package:vamos/core/models/joinTeam.dart';
 import 'package:vamos/core/models/loginResponse.dart';
 import 'package:vamos/core/models/playerListResponse.dart';
+import 'package:vamos/core/models/profileDataResponse.dart';
 import 'package:vamos/core/models/profile_api.dart';
 import 'package:vamos/core/models/registerResponse.dart';
 import 'package:vamos/core/models/teamListingResponse.dart';
@@ -25,6 +26,10 @@ class FakeApi extends Api {
       String type,
       String password,
       String address) {
+    throw UnimplementedError();
+  }
+
+  Future<ProfileDataResponse> getProfile(String userId) {
     throw UnimplementedError();
   }
 

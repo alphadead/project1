@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vamos/core/service/controller/authController.dart';
+import 'package:vamos/core/service/controller/profileController.dart';
 import 'package:vamos/ui/loginPages/profileWidgets/fitness.dart';
 import 'package:vamos/ui/loginPages/profileWidgets/nationality.dart';
 import 'package:vamos/ui/loginPages/profileWidgets/nickname.dart';
@@ -27,7 +29,7 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: GetBuilder<AuthController>(
+        child: GetBuilder<ProfileController>(
       builder: (_authService) => Directionality(
         textDirection: TextDirection.ltr,
         child: Scaffold(

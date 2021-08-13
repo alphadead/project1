@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:vamos/core/service/controller/profileController.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/theme.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:vamos/widget/profileContainer.dart';
 
 class CustomAppBar extends StatefulWidget {
   final bool isPencil;
@@ -47,11 +50,16 @@ class _CustomAppBarState extends State<CustomAppBar> {
                   )
                 ],
               )
-            : Container(
-                margin: EdgeInsets.only(right: 30.w),
-                child: Image.asset(
-                  "assets/images/pencil.png",
-                  scale: 3.5,
+            : GestureDetector(
+                onTap: () async {
+                  Get.offNamed("/profileScreen");
+                },
+                child: Container(
+                  margin: EdgeInsets.only(right: 30.w),
+                  child: Image.asset(
+                    "assets/images/pencil.png",
+                    scale: 3.5,
+                  ),
                 ),
               ),
       ],

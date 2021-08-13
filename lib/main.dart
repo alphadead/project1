@@ -15,20 +15,20 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'core/service/routes/appPage.dart';
 import 'ui/loginPages/register.dart';
 
-// void main() {
-//   setupLocator();
-//   runApp(MyApp());
-// }
-
 void main() {
   setupLocator();
-  runApp(
-    DevicePreview(
-      enabled: !kReleaseMode,
-      builder: (context) => MyApp(),
-    ),
-  );
+  runApp(MyApp());
 }
+
+// void main() {
+//   setupLocator();
+//   runApp(
+//     DevicePreview(
+//       enabled: !kReleaseMode,
+//       builder: (context) => MyApp(),
+//     ),
+//   );
+// }
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
