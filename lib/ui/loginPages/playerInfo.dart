@@ -5,6 +5,7 @@ import 'package:vamos/core/service/controller/authController.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/loginbkground.dart';
 import 'package:vamos/ui/utils/validator.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:vamos/widget/customAppBar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -60,7 +61,6 @@ class _PlayerInfoState extends State<PlayerInfo> {
           child: Column(
             children: [
               Container(
-                //margin: EdgeInsets.only(bottom: 10.h),
                 height: 300.h,
                 child: Stack(
                   alignment: AlignmentDirectional.bottomEnd,
@@ -141,7 +141,9 @@ class _PlayerInfoState extends State<PlayerInfo> {
                                         ),
                               ),
                               Text(
-                                'Nationality: Argentinian',
+                                AppLocalizations.of(context)!
+                                        .profilePage_nationality +
+                                    ': Argentanian',
                                 style:
                                     themeData().textTheme.headline1!.copyWith(
                                           color: KColorBlack,
@@ -169,7 +171,9 @@ class _PlayerInfoState extends State<PlayerInfo> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Weight:',
+                                AppLocalizations.of(context)!
+                                        .profilePage_weight +
+                                    ":",
                                 style:
                                     themeData().textTheme.headline1!.copyWith(
                                           color: containerGreen,
@@ -193,7 +197,8 @@ class _PlayerInfoState extends State<PlayerInfo> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Age:',
+                                AppLocalizations.of(context)!.profilePage_age +
+                                    ':',
                                 style:
                                     themeData().textTheme.headline1!.copyWith(
                                           color: containerGreen,
@@ -217,7 +222,9 @@ class _PlayerInfoState extends State<PlayerInfo> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Height:',
+                                AppLocalizations.of(context)!
+                                        .profilePage_height +
+                                    ':',
                                 style:
                                     themeData().textTheme.headline1!.copyWith(
                                           color: containerGreen,
@@ -254,7 +261,8 @@ class _PlayerInfoState extends State<PlayerInfo> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Matches\nPlayed:',
+                                AppLocalizations.of(context)!.matches_played +
+                                    ':',
                                 style:
                                     themeData().textTheme.headline1!.copyWith(
                                           color: containerGreen,
@@ -278,7 +286,7 @@ class _PlayerInfoState extends State<PlayerInfo> {
                             height: 30.w,
                             child: Center(
                               child: Text(
-                                'Joined team',
+                                AppLocalizations.of(context)!.joined_team,
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 12.sp,

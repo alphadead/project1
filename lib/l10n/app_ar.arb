@@ -66,5 +66,7 @@
     "primaryActionButton": "يكمل",
     "playerListingPage_requestButtonText":"طلب",
     "invitePage_skip":"تخطى",
-    "searchBar_search":"بحث"
+    "searchBar_search":"بحث",
+    "joined_team":"انضم للفريق",
+    "matches_played":"المباريات الملعوبة"
 }
