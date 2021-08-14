@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:vamos/core/service/controller/authController.dart';
+import 'package:vamos/core/service/controller/profileController.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/widget/profileContainer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,6 +17,19 @@ class Nationality extends StatefulWidget {
 
 class _NationalityState extends State<Nationality> {
   String? dropdownValue;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback(
+      (_) => setState(
+        () {
+          dropdownValue = Get.find<ProfileController>().profile?.nationality;
+        },
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AuthController>(

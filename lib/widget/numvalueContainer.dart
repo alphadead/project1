@@ -15,15 +15,14 @@ class WeightValueContainer extends StatefulWidget {
 }
 
 class _WeightValueContainerState extends State<WeightValueContainer> {
-  ProfileController _controller = Get.find();
   int val = 60;
 
   @override
   void initState() {
-    // TODO: implement initState
-    print("heloooooooooooooo");
-    val = _controller.getWeight() ?? 60;
     super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((_) => setState(() {
+          val = int.parse(Get.find<ProfileController>().profile?.weight ?? "60");
+        }));
   }
 
   @override
@@ -131,6 +130,15 @@ class AgeValueContainer extends StatefulWidget {
 
 class _AgeValueContainerState extends State<AgeValueContainer> {
   int val = 18;
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance!.addPostFrameCallback((_) => setState(() {
+          val = int.parse(Get.find<ProfileController>().profile?.age ?? "18");
+        }));
+  }
 
   @override
   Widget build(BuildContext context) {

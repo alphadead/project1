@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:vamos/core/service/controller/authController.dart';
+import 'package:vamos/core/service/controller/profileController.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/widget/profileContainer.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -14,6 +16,13 @@ const positionValues = {
   positionenum.defender: "Defender",
 };
 
+const positionEnum = {
+  "Attacker": positionenum.attacker,
+  "Goal Keeper": positionenum.goalkeeper,
+  "Mid Fielder": positionenum.midfielder,
+  "Defender": positionenum.defender,
+};
+
 class PositionRadioList extends StatefulWidget {
   const PositionRadioList({Key? key}) : super(key: key);
 
@@ -23,6 +32,16 @@ class PositionRadioList extends StatefulWidget {
 
 class _PositionRadioListState extends State<PositionRadioList> {
   positionenum? _position;
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance!.addPostFrameCallback((_) => setState(() {
+          _position =
+              positionEnum[Get.find<ProfileController>().profile?.position];
+        }));
+  }
 
   @override
   Widget build(BuildContext context) {

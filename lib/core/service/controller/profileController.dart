@@ -10,29 +10,29 @@ import 'package:vamos/core/service/api/api.dart';
 import 'package:vamos/core/models/teamListingResponse.dart';
 
 class ProfileController extends GetxController {
-  String? weight;
+  ProfileData? profile;
 
   Api api = locator<Api>();
   void onInit() async {
+    super.onInit();
     WidgetsBinding.instance!.addPostFrameCallback((_) => getProfileData());
   }
 
-  int? getWeight() {
-    print("Weiaght" + weight.toString());
-    return weight == null ? null : int.parse(weight.toString());
+  String? getWeight() {
+    print("weight ${profile?.weight!}");
+    return profile?.weight;
   }
 
   void getProfileData() async {
     Utility.showLoadingDialog();
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    print("ID" + prefs.getString("userId").toString());
     ProfileDataResponse response =
         await api.getProfile(prefs.getString("userId").toString());
     if (response.data != null) {
+      print("SAVING DATA!!!!");
+      profile = response.data;
+      update();
       Utility.closeDialog();
-      weight = response.data?.weight;
-      print("BBBBBBBBBBBBB");
-      print(weight);
       //Copy to controller variables
     } else {
       if (prefs.getString("completedStep") == "2") {
@@ -44,8 +44,8 @@ class ProfileController extends GetxController {
     update();
   }
 
-  void profile() async {
-    AuthController controller = Get.find();
+  void updateProfile() async {
+    AuthController controller = Get.find<AuthController>();
     Utility.showLoadingDialog();
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -64,7 +64,7 @@ class ProfileController extends GetxController {
         controller.files);
     if (response.success) {
       Utility.showSnackbar("${response.message}");
-      controller.completedStep("2", "/registeredTeamScreen");
+      Get.offAllNamed("/homeScreen");
     } else {
       Utility.showSnackbar("${response.message}");
     }

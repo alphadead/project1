@@ -71,12 +71,12 @@ class ProfileData {
   List? photo;
 
   factory ProfileData.fromJson(Map<String, dynamic> json) => ProfileData(
-        user_id: json["id"],
-        first_name: json["name"],
-        last_name: json["logo"],
-        email: json["created_at"],
-        phone: json["updated_at"],
-        address: json["isJoined"],
+        user_id: json["user_id"],
+        first_name: json["first_name"],
+        last_name: json["last_name"],
+        email: json["email"],
+        phone: json["phone"],
+        address: json["address"],
         type_of_player: json["type_of_player"],
         nick_name: json["nick_name"],
         position: json["position"],

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vamos/core/models/profileDataResponse.dart';
 import 'package:vamos/core/service/controller/authController.dart';
 import 'package:vamos/core/service/controller/profileController.dart';
 import 'package:vamos/ui/loginPages/profileWidgets/fitness.dart';
@@ -30,7 +31,7 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: GetBuilder<ProfileController>(
-      builder: (_authService) => Directionality(
+      builder: (_profileService) => Directionality(
         textDirection: TextDirection.ltr,
         child: Scaffold(
           appBar: PreferredSize(
@@ -107,7 +108,7 @@ class ProfilePage extends StatelessWidget {
                             height: 40.h,
                             context: context,
                             onPressed: () {
-                              _authService.profile();
+                              _profileService.updateProfile();
                             },
                             text: AppLocalizations.of(context)!
                                 .profilePage_update,
