@@ -33,7 +33,6 @@ class ProfileController extends GetxController {
       profile = response.data;
       update();
       Utility.closeDialog();
-      //Copy to controller variables
     } else {
       if (prefs.getString("completedStep") == "2") {
         Utility.showSnackbar("${response.message}");
@@ -60,6 +59,7 @@ class ProfileController extends GetxController {
         controller.weight,
         controller.height,
         controller.nationality,
+        controller.nickName,
         controller.images,
         controller.files);
     if (response.success) {

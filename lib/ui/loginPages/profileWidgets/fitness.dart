@@ -25,6 +25,9 @@ class _FitnessDetailState extends State<FitnessDetail> {
           sliderVal = double.parse(
               Get.find<ProfileController>().profile?.height ?? "180");
         }));
+    WidgetsBinding.instance!.addPostFrameCallback((_) => setState(() {
+          Get.find<AuthController>().height = sliderVal.toInt().toString();
+        }));
   }
 
   @override

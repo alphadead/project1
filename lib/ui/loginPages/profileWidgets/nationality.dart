@@ -28,6 +28,9 @@ class _NationalityState extends State<Nationality> {
         },
       ),
     );
+    WidgetsBinding.instance!.addPostFrameCallback((_) => setState(() {
+          Get.find<AuthController>().nationality = dropdownValue.toString();
+        }));
   }
 
   @override

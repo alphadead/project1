@@ -40,6 +40,10 @@ class _PlayerTypeRadioListState extends State<PlayerTypeRadioList> {
           _player = playerTypeEnum[
               Get.find<ProfileController>().profile?.type_of_player];
         }));
+    WidgetsBinding.instance!.addPostFrameCallback((_) => setState(() {
+          Get.find<AuthController>().typeOfPlayer =
+              playerTypeValues[_player].toString();
+        }));
   }
 
   playerTypeenum? _player;

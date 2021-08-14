@@ -33,6 +33,7 @@ class AuthController extends GetxController {
   String nationality = '';
   String otp = '';
   String inviteCode = '';
+  String? nickName;
 
   String type = '';
   List<Asset> images = [];

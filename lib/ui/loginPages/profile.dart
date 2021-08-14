@@ -91,7 +91,9 @@ class ProfilePage extends StatelessWidget {
                             height: 40.h,
                             color: moneyBox,
                             context: context,
-                            onPressed: () {},
+                            onPressed: () {
+                              Get.back();
+                            },
                             text: AppLocalizations.of(context)!
                                 .profilePage_cancel,
                           ),

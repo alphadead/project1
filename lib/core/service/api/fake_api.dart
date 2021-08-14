@@ -46,6 +46,7 @@ class FakeApi extends Api {
       String weight,
       String height,
       String nationality,
+      String? nickName,
       List<Asset> images,
       List<File> files) {
     throw UnimplementedError();

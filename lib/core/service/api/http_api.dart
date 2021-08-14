@@ -56,6 +56,7 @@ class HTTPApi extends Api {
       String weight,
       String height,
       String nationality,
+      String? nickName,
       List<Asset> images,
       List<File> files) async {
     Map<String, dynamic> reponse = await postProfileData(
@@ -67,6 +68,7 @@ class HTTPApi extends Api {
         weight,
         height,
         nationality,
+        nickName,
         images,
         files);
     return ProfileResponse.fromJson(reponse);
@@ -80,8 +82,6 @@ class HTTPApi extends Api {
   Future<ProfileDataResponse> getProfile(String userId) async {
     Map<String, dynamic> response =
         await getRequest('profile?user_id=' + userId);
-    print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-    print(response);
     return ProfileDataResponse.fromJson(response);
   }
 

@@ -129,7 +129,7 @@ Future postDataRequest(url, body) async {
 }
 
 Future<Map<String, dynamic>> postProfileData(String url, userId, typeOfPlayer,
-    position, age, weight, height, nationality, images, files) async {
+    position, age, weight, height, nationality, nickName, images, files) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   List<MultipartFile> multipartImageList = [];
   List<MultipartFile> multipartVideoList = [];
@@ -169,6 +169,7 @@ Future<Map<String, dynamic>> postProfileData(String url, userId, typeOfPlayer,
       "weight": weight,
       "height": height,
       "nationality": nationality,
+      "nick_name": nickName,
       "photo[]": multipartImageList,
       "skill_video[]": multipartVideoList
     });

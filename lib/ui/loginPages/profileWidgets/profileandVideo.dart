@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:vamos/core/service/controller/authController.dart';
+import 'package:vamos/core/service/controller/profileController.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/widget/numvalueContainer.dart';
 import 'package:vamos/widget/profileContainer.dart';
@@ -18,6 +19,17 @@ class ProfilePhoto extends StatefulWidget {
 }
 
 class _ProfilePhotoState extends State<ProfilePhoto> {
+  List? networkImages;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((_) => setState(() {
+          networkImages = Get.find<ProfileController>().profile?.photo;
+        }));
+  }
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AuthController>(
@@ -53,7 +65,7 @@ class _ProfilePhotoState extends State<ProfilePhoto> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        _authService.images.length == 0
+                        networkImages?.length == 0
                             ? GestureDetector(
                                 onTap: () {
                                   _authService.loadAssets();
@@ -71,8 +83,31 @@ class _ProfilePhotoState extends State<ProfilePhoto> {
                                 ),
                               )
                             : SizedBox(
-                                child: buildGridView(),
+                                child: buildGridView(networkImages),
                               ),
+                        _authService.images.length == 0 &&
+                                networkImages?.length == 0
+                            ? GestureDetector(
+                                onTap: () {
+                                  _authService.loadAssets();
+                                },
+                                child: Container(
+                                  height: 86.h,
+                                  width: 130.w,
+                                  color: Color.fromRGBO(249, 249, 249, 1),
+                                  child: Center(
+                                      child: Image.asset(
+                                    "assets/images/add_image_1.webp",
+                                    height: 28.h,
+                                    width: 34.w,
+                                  )),
+                                ),
+                              )
+                            : _authService.images.length != 0
+                                ? SizedBox(
+                                    child: buildGridView([]),
+                                  )
+                                : SizedBox(),
                       ],
                     ),
                   )
@@ -82,7 +117,7 @@ class _ProfilePhotoState extends State<ProfilePhoto> {
   }
 }
 
-Widget buildGridView() {
+Widget buildGridView(List? _networkImages) {
   return GetBuilder<AuthController>(builder: (_authService) {
     return SingleChildScrollView(
       physics: NeverScrollableScrollPhysics(),
@@ -92,36 +127,61 @@ Widget buildGridView() {
         physics: NeverScrollableScrollPhysics(),
         crossAxisSpacing: 10,
         mainAxisSpacing: 10,
-        children: List.generate(
-          _authService.images.length,
-          (index) {
-            return Stack(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(8.0),
-                  child: AssetThumb(
-                    asset: _authService.images[index],
-                    width: 130,
-                    height: 130,
-                  ),
-                ),
-                Positioned(
-                  top: -5,
-                  right: 25.w,
-                  child: IconButton(
-                    icon: Icon(
-                      Icons.delete,
-                      color: kLogoColor2,
-                    ),
-                    onPressed: () {
-                      _authService.deleteFile(index);
-                    },
-                  ),
-                ),
-              ],
-            );
-          },
-        ),
+        children: _networkImages?.length == 0
+            ? List.generate(
+                _authService.images.length,
+                (index) {
+                  return Stack(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(8.0),
+                        child: AssetThumb(
+                          asset: _authService.images[index],
+                          width: 130,
+                          height: 130,
+                        ),
+                      ),
+                      Positioned(
+                        top: -5,
+                        right: 25.w,
+                        child: IconButton(
+                          icon: Icon(
+                            Icons.delete,
+                            color: kLogoColor2,
+                          ),
+                          onPressed: () {
+                            _authService.deleteFile(index);
+                          },
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              )
+            : List.generate(
+                _networkImages!.length,
+                (index) => Stack(
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(8.0),
+                          child: Image.network(_networkImages[index],
+                              width: 130, height: 130),
+                        ),
+                        Positioned(
+                          top: -5,
+                          right: 25.w,
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.delete,
+                              color: kLogoColor2,
+                            ),
+                            onPressed: () {
+                              // _authService.deleteFile(index);
+                            },
+                          ),
+                        ),
+                      ],
+                    )),
       ),
     );
   });
@@ -135,6 +195,17 @@ class SkillVideo extends StatefulWidget {
 }
 
 class _SkillVideoState extends State<SkillVideo> {
+  List? networkVideos;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((_) => setState(() {
+          networkVideos = Get.find<ProfileController>().profile?.skill_video;
+        }));
+  }
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AuthController>(
@@ -170,7 +241,7 @@ class _SkillVideoState extends State<SkillVideo> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        _authService.files.length == 0
+                        networkVideos?.length == 0
                             ? Row(
                                 children: [
                                   GestureDetector(
@@ -209,8 +280,52 @@ class _SkillVideoState extends State<SkillVideo> {
                                 ],
                               )
                             : SizedBox(
-                                child: buildVideoGridView(),
+                                child: buildVideoGridView([]),
                               ),
+                        _authService.files.length == 0 &&
+                                networkVideos?.length == 0
+                            ? Row(
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      _authService.loadVideo();
+                                    },
+                                    child: Container(
+                                      height: 86.h,
+                                      width: 130.w,
+                                      color: Color.fromRGBO(249, 249, 249, 1),
+                                      child: Center(
+                                          child: Image.asset(
+                                        "assets/images/add_video_copy.webp",
+                                        height: 28.h,
+                                        width: 34.w,
+                                      )),
+                                    ),
+                                  ),
+                                  SizedBox(width: 30.w),
+                                  GestureDetector(
+                                    onTap: () {
+                                      _authService.loadVideo();
+                                    },
+                                    child: Container(
+                                      height: 86.h,
+                                      width: 130.w,
+                                      color: Color.fromRGBO(249, 249, 249, 1),
+                                      child: Center(
+                                          child: Image.asset(
+                                        "assets/images/add_video_copy.webp",
+                                        height: 28.h,
+                                        width: 34.w,
+                                      )),
+                                    ),
+                                  ),
+                                ],
+                              )
+                            : _authService.files.length != 0
+                                ? SizedBox(
+                                    child: buildVideoGridView(networkVideos),
+                                  )
+                                : SizedBox(),
                       ],
                     ),
                   )
@@ -220,7 +335,8 @@ class _SkillVideoState extends State<SkillVideo> {
   }
 }
 
-Widget buildVideoGridView() {
+Widget buildVideoGridView(List? _networkVideos) {
+  //print(_networkVideos?.length);
   return GetBuilder<AuthController>(builder: (_authService) {
     return SingleChildScrollView(
       physics: NeverScrollableScrollPhysics(),
@@ -230,48 +346,91 @@ Widget buildVideoGridView() {
         physics: NeverScrollableScrollPhysics(),
         crossAxisSpacing: 10,
         mainAxisSpacing: 10,
-        children: List.generate(
-          _authService.files.length,
-          (index) {
-            return Stack(
-              children: [
-                InkWell(
-                  onTap: () {
-                    _authService.selectedVideo = index;
-                    Get.toNamed("/videoScreen");
-                  },
-                  child: Container(
-                    height: 130.h,
-                    width: 130.w,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8.0),
-                        border: Border.all(color: bgroundCol)),
-                    child: Center(
-                      child: Icon(
-                        Icons.video_collection_outlined,
-                        color: kLogoColor2,
-                        size: 30,
+        children: _networkVideos?.length == 0
+            ? List.generate(
+                _authService.files.length,
+                (index) {
+                  return Stack(
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          _authService.selectedVideo = index;
+                          Get.toNamed("/videoScreen");
+                        },
+                        child: Container(
+                          height: 130.h,
+                          width: 130.w,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8.0),
+                              border: Border.all(color: bgroundCol)),
+                          child: Center(
+                            child: Icon(
+                              Icons.video_collection_outlined,
+                              color: kLogoColor2,
+                              size: 30,
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  top: -5,
-                  right: 15,
-                  child: IconButton(
-                    icon: Icon(
-                      Icons.delete,
-                      color: kLogoColor2,
-                    ),
-                    onPressed: () {
-                      _authService.deleteVideoFile(index);
-                    },
-                  ),
-                ),
-              ],
-            );
-          },
-        ),
+                      Positioned(
+                        top: -5,
+                        right: 15,
+                        child: IconButton(
+                          icon: Icon(
+                            Icons.delete,
+                            color: kLogoColor2,
+                          ),
+                          onPressed: () {
+                            _authService.deleteVideoFile(index);
+                          },
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              )
+            : List.generate(
+                _networkVideos!.length,
+                (index) {
+                  return Stack(
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          // _authService.selectedVideo = index;
+                          // Get.toNamed("/videoScreen");
+                        },
+                        child: Container(
+                          height: 130.h,
+                          width: 130.w,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8.0),
+                              border: Border.all(color: bgroundCol)),
+                          child: Center(
+                            child: Icon(
+                              Icons.video_collection_outlined,
+                              color: kLogoColor2,
+                              size: 30,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        top: -5,
+                        right: 15,
+                        child: IconButton(
+                          icon: Icon(
+                            Icons.delete,
+                            color: kLogoColor2,
+                          ),
+                          onPressed: () {
+                            // _authService.deleteVideoFile(index);
+                          },
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              ),
       ),
     );
   });
