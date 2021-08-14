@@ -6,7 +6,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CustomAppBar extends StatefulWidget {
-  const CustomAppBar({Key? key}) : super(key: key);
+  final bool isPencil;
+  CustomAppBar({this.isPencil = false, Key? key}) : super(key: key);
 
   @override
   _CustomAppBarState createState() => _CustomAppBarState();
@@ -15,39 +16,44 @@ class CustomAppBar extends StatefulWidget {
 class _CustomAppBarState extends State<CustomAppBar> {
   @override
   Widget build(BuildContext context) {
+    print(widget.isPencil);
     return AppBar(
       actions: [
-        Stack(
-          alignment: Alignment.center,
-          children: [
-            Container(
-
-              
-
-              margin: EdgeInsets.only(right: 30.w),
-
-              child: Image.asset(
-                "assets/images/notifications.png",
-                scale: 3.5,
-              ),
-            ),
-            Transform.translate(
-              offset: Offset(-2, -13),
-              child: Container(
-                //padding: EdgeInsets
-                padding: EdgeInsets.all(5),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.red,
+        widget.isPencil == false
+            ? Stack(
+                alignment: Alignment.center,
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(right: 30.w),
+                    child: Image.asset(
+                      "assets/images/notifications.png",
+                      scale: 3.5,
+                    ),
+                  ),
+                  Transform.translate(
+                    offset: Offset(-2, -13),
+                    child: Container(
+                      //padding: EdgeInsets
+                      padding: EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.red,
+                      ),
+                      child: Text(
+                        AppLocalizations.of(context)!.homePage_demoNotif_5,
+                        style: themeData().textTheme.headline3,
+                      ),
+                    ),
+                  )
+                ],
+              )
+            : Container(
+                margin: EdgeInsets.only(right: 30.w),
+                child: Image.asset(
+                  "assets/images/pencil.png",
+                  scale: 3.5,
                 ),
-                child: Text(
-                  AppLocalizations.of(context)!.homePage_demoNotif_5,
-                  style: themeData().textTheme.headline3,
-                ),
               ),
-            )
-          ],
-        ),
       ],
       automaticallyImplyLeading: false,
       leading: Container(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:vamos/ui/utils/theme.dart';
 
 List<CustomBottomAppBarItem> iconList = [
@@ -87,7 +88,11 @@ class CustomBottomAppBarState extends State<CustomBottomAppBar> {
         child: Material(
           type: MaterialType.transparency,
           child: InkWell(
-            onTap: () => onPressed != null ? onPressed(index) : () {},
+            onTap: () => index == 0
+                ? Get.toNamed('/playerInfo')
+                : onPressed != null
+                    ? onPressed(index)
+                    : () {},
             child: Column(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,

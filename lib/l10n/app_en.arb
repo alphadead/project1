@@ -73,5 +73,7 @@
     "searchBar_search":"Search",
     "@signUpPage_title":{
       "description": "Dummy value"
-    }
+    },
+    "joined_team":"Joined Team",
+    "matches_played":"Matches\nPlayed"
 }

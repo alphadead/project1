@@ -24,3 +24,4 @@ const borderCol = Color(0xFFEEEEEE);
 const KBlueContainerUpcomingmatches = Color(0xff044660);
 const KGreyTextUpcomingmatches = Color(0xff939090);
 
+const iconColStar = Color.fromRGBO(245, 67, 22, 1);
