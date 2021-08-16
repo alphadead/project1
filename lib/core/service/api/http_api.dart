@@ -94,11 +94,12 @@ class HTTPApi extends Api {
     return JoinTeamResponse.fromJson(response);
   }
 
-  Future<DeleteMedia> deleteMedias(int mediaId) async {
+  Future<DeleteMedia> deleteMedias(String mediaId) async {
     Map<String, dynamic> body = {
       "media_id": mediaId,
     };
-    Map<String, dynamic> response = await postRequest('media_id', body);
+    Map<String, dynamic> response =
+        await postRequest('delete-profile-media', body);
     return DeleteMedia.fromJson(response);
   }
 

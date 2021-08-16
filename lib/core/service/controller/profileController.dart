@@ -14,14 +14,10 @@ class ProfileController extends GetxController {
   int? mediaId;
 
   Api api = locator<Api>();
+
   void onInit() async {
     super.onInit();
     WidgetsBinding.instance!.addPostFrameCallback((_) => getProfileData());
-  }
-
-  String? getWeight() {
-    print("weight ${profile?.weight!}");
-    return profile?.weight;
   }
 
   void getProfileData() async {

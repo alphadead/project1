@@ -63,7 +63,7 @@ class FakeApi extends Api {
     throw UnimplementedError();
   }
 
-  Future<DeleteMedia> deleteMedias(int mediaId) {
+  Future<DeleteMedia> deleteMedias(String mediaId) {
     throw UnimplementedError();
   }
 

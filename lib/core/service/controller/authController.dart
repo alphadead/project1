@@ -38,11 +38,16 @@ class AuthController extends GetxController {
 
   String type = '';
   List<Asset> images = [];
+  List networkImages = [];
   bool addImageButton = true;
   bool addVideoButton = true;
   int maxImage = 4;
   String _error = 'No Error Dectected';
   int selectedVideo = 0;
+
+  List<File> files = [];
+  List networkFiles = [];
+  FilePickerResult? result;
 
   String teamName = '';
   List<Asset> teamLogo = [];
@@ -173,8 +178,6 @@ class AuthController extends GetxController {
     update();
   }
 
-  List<File> files = [];
-  FilePickerResult? result;
   Future<void> loadVideo() async {
     List<File> tempVideo = [];
     FilePickerResult? result = await FilePicker.platform.pickFiles(
@@ -217,10 +220,22 @@ class AuthController extends GetxController {
     }
   }
 
-  void deleteMedia(int mediaId) async {
+  Future<void> deleteMedia(int index) async {
+    print('+++++++++++++++++++++++++++++');
+    print(networkImages[index]["id"].toString());
+    print('+++++++++++++++++++++++++++++');
+    String mediaId = networkImages[index]["id"].toString();
+    networkImages.removeAt(index);
+    // required api call with toDelete
+
     Utility.showLoadingDialog();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     DeleteMedia response = await api.deleteMedias(mediaId);
-    if (response.data != null) {}
+    update();
+    if (response.success!) {
+      Utility.showSnackbar("${response.message}");
+    } else {
+      Utility.showSnackbar("${response.message}");
+    }
   }
 }

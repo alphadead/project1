@@ -51,5 +51,5 @@ abstract class Api {
     String userId,
     int teamId,
   );
-  Future<DeleteMedia> deleteMedias(int mediaId);
+  Future<DeleteMedia> deleteMedias(String mediaId);
 }
