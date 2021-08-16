@@ -11,6 +11,7 @@ import 'package:vamos/core/models/teamListingResponse.dart';
 
 class ProfileController extends GetxController {
   ProfileData? profile;
+  int? mediaId;
 
   Api api = locator<Api>();
   void onInit() async {

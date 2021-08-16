@@ -176,7 +176,8 @@ Widget buildGridView(List? _networkImages) {
                               color: kLogoColor2,
                             ),
                             onPressed: () {
-                              // _authService.deleteFile(index);
+                              _authService.deleteMedia(
+                                  _networkImages[index]["media_id"]);
                             },
                           ),
                         ),

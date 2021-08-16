@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vamos/core/models/completeStepResponse.dart';
 import 'package:vamos/core/models/createTeamResponse.dart';
+import 'package:vamos/core/models/deleteMedia.dart';
 import 'package:vamos/core/models/loginResponse.dart';
 import 'package:vamos/core/models/profile_api.dart';
 import 'package:vamos/core/models/registerResponse.dart';
@@ -214,5 +215,12 @@ class AuthController extends GetxController {
     } else {
       Utility.showSnackbar("${response.message}");
     }
+  }
+
+  void deleteMedia(int mediaId) async {
+    Utility.showLoadingDialog();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    DeleteMedia response = await api.deleteMedias(mediaId);
+    if (response.data != null) {}
   }
 }
