@@ -231,7 +231,7 @@ class AuthController extends GetxController {
     Utility.showLoadingDialog();
     DeleteMedia response = await api.deleteMedias(mediaId);
 
-    if (response.success!) {
+    if (response.success) {
       Utility.showSnackbar("${response.message}");
       if (mediaType == 'image')
         networkImages.removeAt(index);
