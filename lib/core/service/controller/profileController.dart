@@ -26,7 +26,6 @@ class ProfileController extends GetxController {
     ProfileDataResponse response =
         await api.getProfile(prefs.getString("userId").toString());
     if (response.data != null) {
-      print("SAVING DATA!!!!");
       profile = response.data;
       update();
       Utility.closeDialog();

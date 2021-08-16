@@ -7,8 +7,6 @@ Widget inputField(String? placeholderText, Function(String)? onChange,
     String? Function(String?)? validate,
     String? initialValue,
     TextEditingController? controller}) {
-  print("AAAAAAAAAAAAAA");
-  print(controller?.text.toString());
   return TextFormField(
     controller: controller,
     //initialValue: initialValue,

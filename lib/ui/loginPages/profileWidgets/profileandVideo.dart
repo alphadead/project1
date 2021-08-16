@@ -28,8 +28,6 @@ class _ProfilePhotoState extends State<ProfilePhoto> {
     WidgetsBinding.instance!.addPostFrameCallback((_) => setState(() {
           networkImages = Get.find<ProfileController>().profile?.photo ?? [];
           Get.find<AuthController>().networkImages = networkImages;
-          print("NETWROK IMAGES");
-          print(networkImages);
         }));
   }
 
@@ -135,8 +133,6 @@ Widget buildImageGrid() {
         children: List.generate(
             _authService.networkImages.length + _authService.images.length,
             (index) {
-          print("NETWROOOOKKKKKK");
-          print(_authService.networkImages.length + _authService.images.length);
           return index < _authService.networkImages.length
               ? Stack(
                   children: [
@@ -156,9 +152,7 @@ Widget buildImageGrid() {
                           color: kLogoColor2,
                         ),
                         onPressed: () {
-                          print("NETWROOOOKKK DELETTEEEE");
-                          print(index);
-                          _authService.deleteMedia(index);
+                          _authService.deleteMedia(index, "image");
                         },
                       ),
                     ),
@@ -197,77 +191,6 @@ Widget buildImageGrid() {
   });
 }
 
-Widget buildGridView(List? _networkImages) {
-  return GetBuilder<AuthController>(builder: (_authService) {
-    return SingleChildScrollView(
-      physics: NeverScrollableScrollPhysics(),
-      child: GridView.count(
-        crossAxisCount: 2,
-        shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
-        children: _networkImages?.length == 0
-            ? List.generate(
-                _authService.images.length,
-                (index) {
-                  return Stack(
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(8.0),
-                        child: AssetThumb(
-                          asset: _authService.images[index],
-                          width: 130,
-                          height: 130,
-                        ),
-                      ),
-                      Positioned(
-                        top: -5,
-                        right: 25.w,
-                        child: IconButton(
-                          icon: Icon(
-                            Icons.delete,
-                            color: kLogoColor2,
-                          ),
-                          onPressed: () {
-                            _authService.deleteFile(index);
-                          },
-                        ),
-                      ),
-                    ],
-                  );
-                },
-              )
-            : List.generate(
-                _networkImages!.length,
-                (index) => Stack(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(8.0),
-                      child: Image.network(_networkImages[index],
-                          width: 130, height: 130),
-                    ),
-                    Positioned(
-                      top: -5,
-                      right: 25.w,
-                      child: IconButton(
-                        icon: Icon(
-                          Icons.delete,
-                          color: kLogoColor2,
-                        ),
-                        onPressed: () {
-                          _authService.deleteMedia(index);
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-      ),
-    );
-  });
-}
-
 class SkillVideo extends StatefulWidget {
   const SkillVideo({Key? key}) : super(key: key);
 
@@ -276,14 +199,16 @@ class SkillVideo extends StatefulWidget {
 }
 
 class _SkillVideoState extends State<SkillVideo> {
-  List? networkVideos;
+  List networkVideos = [];
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback((_) => setState(() {
-          networkVideos = Get.find<ProfileController>().profile?.skill_video;
+          networkVideos =
+              Get.find<ProfileController>().profile?.skill_video ?? [];
+          Get.find<AuthController>().networkFiles = networkVideos;
         }));
   }
 
@@ -322,7 +247,8 @@ class _SkillVideoState extends State<SkillVideo> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        networkVideos?.length == 0
+                        _authService.files.length == 0 &&
+                                networkVideos.length == 0
                             ? Row(
                                 children: [
                                   GestureDetector(
@@ -361,52 +287,8 @@ class _SkillVideoState extends State<SkillVideo> {
                                 ],
                               )
                             : SizedBox(
-                                child: buildVideoGridView([]),
+                                child: buildVideoGridView(networkVideos),
                               ),
-                        _authService.files.length == 0 &&
-                                networkVideos?.length == 0
-                            ? Row(
-                                children: [
-                                  GestureDetector(
-                                    onTap: () {
-                                      _authService.loadVideo();
-                                    },
-                                    child: Container(
-                                      height: 86.h,
-                                      width: 130.w,
-                                      color: Color.fromRGBO(249, 249, 249, 1),
-                                      child: Center(
-                                          child: Image.asset(
-                                        "assets/images/add_video_copy.webp",
-                                        height: 28.h,
-                                        width: 34.w,
-                                      )),
-                                    ),
-                                  ),
-                                  SizedBox(width: 30.w),
-                                  GestureDetector(
-                                    onTap: () {
-                                      _authService.loadVideo();
-                                    },
-                                    child: Container(
-                                      height: 86.h,
-                                      width: 130.w,
-                                      color: Color.fromRGBO(249, 249, 249, 1),
-                                      child: Center(
-                                          child: Image.asset(
-                                        "assets/images/add_video_copy.webp",
-                                        height: 28.h,
-                                        width: 34.w,
-                                      )),
-                                    ),
-                                  ),
-                                ],
-                              )
-                            : _authService.files.length != 0
-                                ? SizedBox(
-                                    child: buildVideoGridView(networkVideos),
-                                  )
-                                : SizedBox(),
                       ],
                     ),
                   )
@@ -416,8 +298,7 @@ class _SkillVideoState extends State<SkillVideo> {
   }
 }
 
-Widget buildVideoGridView(List? _networkVideos) {
-  //print(_networkVideos?.length);
+Widget buildVideoGridView(List _networkVideos) {
   return GetBuilder<AuthController>(builder: (_authService) {
     return SingleChildScrollView(
       physics: NeverScrollableScrollPhysics(),
@@ -427,7 +308,7 @@ Widget buildVideoGridView(List? _networkVideos) {
         physics: NeverScrollableScrollPhysics(),
         crossAxisSpacing: 10,
         mainAxisSpacing: 10,
-        children: _networkVideos?.length == 0
+        children: _networkVideos.length == 0
             ? List.generate(
                 _authService.files.length,
                 (index) {
@@ -471,7 +352,7 @@ Widget buildVideoGridView(List? _networkVideos) {
                 },
               )
             : List.generate(
-                _networkVideos!.length,
+                _networkVideos.length,
                 (index) {
                   return Stack(
                     children: [
@@ -504,7 +385,7 @@ Widget buildVideoGridView(List? _networkVideos) {
                             color: kLogoColor2,
                           ),
                           onPressed: () {
-                            // _authService.deleteVideoFile(index);
+                            _authService.deleteMedia(index, "video");
                           },
                         ),
                       ),

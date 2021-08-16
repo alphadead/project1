@@ -62,6 +62,7 @@ class AuthController extends GetxController {
     Utility.showLoadingDialog();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     LoginResponse response = await api.loginUser(mobileNo, password);
+    print(response.toJson().toString());
     if (response.data != null) {
       prefs.setString('token', 'Bearer ${response.accessToken}');
       prefs.setString('userId', '${response.data!.id}');
@@ -214,28 +215,31 @@ class AuthController extends GetxController {
     VerifyOtpResponse response = await api.verifyOtp(userId, mobileNo, otp);
     if (response.success!) {
       Utility.showSnackbar("${response.message}");
-      Get.offNamed("/profileScreen");
+      completedStep("1", "/profileScreen");
     } else {
       Utility.showSnackbar("${response.message}");
     }
   }
 
-  Future<void> deleteMedia(int index) async {
-    print('+++++++++++++++++++++++++++++');
-    print(networkImages[index]["id"].toString());
-    print('+++++++++++++++++++++++++++++');
-    String mediaId = networkImages[index]["id"].toString();
-    networkImages.removeAt(index);
-    // required api call with toDelete
+  Future<void> deleteMedia(int index, String mediaType) async {
+    String mediaId;
+    if (mediaType == 'image')
+      mediaId = networkImages[index]["id"].toString();
+    else
+      mediaId = networkFiles[index]["id"].toString();
 
     Utility.showLoadingDialog();
-    SharedPreferences prefs = await SharedPreferences.getInstance();
     DeleteMedia response = await api.deleteMedias(mediaId);
-    update();
+
     if (response.success!) {
       Utility.showSnackbar("${response.message}");
+      if (mediaType == 'image')
+        networkImages.removeAt(index);
+      else
+        networkFiles.removeAt(index);
     } else {
       Utility.showSnackbar("${response.message}");
     }
+    update();
   }
 }

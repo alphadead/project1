@@ -35,7 +35,6 @@ class _NickNameState extends State<NickName> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AuthController>(builder: (_authService) {
-      print("PRINTING AUTH SERVCE" + _authService.nickName.toString());
       return Container(
         padding: EdgeInsets.only(top: 30),
         child: Column(
@@ -51,7 +50,6 @@ class _NickNameState extends State<NickName> {
                 padding: EdgeInsets.all(12),
                 color: Color.fromRGBO(249, 249, 249, 1),
                 child: inputField(null, (value) {
-                  print("AUTH SERVICE PASSING" + value);
                   _authService.nickName = value;
                 },
                     initialValue: _authService.nickName,

@@ -42,7 +42,6 @@ Future<Map<String, dynamic>> postRequest(url, body) async {
 Future<Map<String, dynamic>> getRequest(url) async {
   //GlobalKey<ScaffoldState> _scaffoldKey;
   print(BASE_URL + url);
-  // print(body);
   final http.Response response = await http
       .get(Uri.parse(BASE_URL + url),
           // body: json.encode(body),
