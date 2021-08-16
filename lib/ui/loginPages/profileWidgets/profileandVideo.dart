@@ -19,102 +19,182 @@ class ProfilePhoto extends StatefulWidget {
 }
 
 class _ProfilePhotoState extends State<ProfilePhoto> {
-  List? networkImages;
+  List networkImages = [];
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback((_) => setState(() {
-          networkImages = Get.find<ProfileController>().profile?.photo;
+          networkImages = Get.find<ProfileController>().profile?.photo ?? [];
+          Get.find<AuthController>().networkImages = networkImages;
+          print("NETWROK IMAGES");
+          print(networkImages);
         }));
   }
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<AuthController>(
-        builder: (_authService) => Container(
-              padding: EdgeInsets.only(top: 30),
+    return GetBuilder<AuthController>(builder: (_authService) {
+      return Container(
+        padding: EdgeInsets.only(top: 30),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                ProfileContainer(
+                    title:
+                        AppLocalizations.of(context)!.profilePage_profilePhoto),
+                Padding(
+                    padding: EdgeInsets.only(left: 10.w),
+                    child: IconButton(
+                      onPressed: _authService.addImageButton
+                          ? () {
+                              _authService.loadAssets();
+                            }
+                          : null,
+                      icon: Icon(
+                        Icons.add,
+                      ),
+                      color: containerGreen,
+                      disabledColor: KLightGrey,
+                    ))
+              ],
+            ),
+            Container(
+              padding: EdgeInsets.fromLTRB(30.w, 15, 0, 0),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      ProfileContainer(
-                          title: AppLocalizations.of(context)!
-                              .profilePage_profilePhoto),
-                      Padding(
-                          padding: EdgeInsets.only(left: 10.w),
-                          child: IconButton(
-                            onPressed: _authService.addImageButton
-                                ? () {
-                                    _authService.loadAssets();
-                                  }
-                                : null,
-                            icon: Icon(
-                              Icons.add,
-                            ),
-                            color: containerGreen,
-                            disabledColor: KLightGrey,
-                          ))
-                    ],
-                  ),
-                  Container(
-                    padding: EdgeInsets.fromLTRB(30.w, 15, 0, 0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        networkImages?.length == 0
-                            ? GestureDetector(
-                                onTap: () {
-                                  _authService.loadAssets();
-                                },
-                                child: Container(
-                                  height: 86.h,
-                                  width: 130.w,
-                                  color: Color.fromRGBO(249, 249, 249, 1),
-                                  child: Center(
-                                      child: Image.asset(
-                                    "assets/images/add_image_1.webp",
-                                    height: 28.h,
-                                    width: 34.w,
-                                  )),
-                                ),
-                              )
-                            : SizedBox(
-                                child: buildGridView(networkImages),
-                              ),
-                        _authService.images.length == 0 &&
-                                networkImages?.length == 0
-                            ? GestureDetector(
-                                onTap: () {
-                                  _authService.loadAssets();
-                                },
-                                child: Container(
-                                  height: 86.h,
-                                  width: 130.w,
-                                  color: Color.fromRGBO(249, 249, 249, 1),
-                                  child: Center(
-                                      child: Image.asset(
-                                    "assets/images/add_image_1.webp",
-                                    height: 28.h,
-                                    width: 34.w,
-                                  )),
-                                ),
-                              )
-                            : _authService.images.length != 0
-                                ? SizedBox(
-                                    child: buildGridView([]),
-                                  )
-                                : SizedBox(),
-                      ],
-                    ),
-                  )
+                  _authService.networkImages.length == 0 &&
+                          _authService.images.length == 0
+                      ? GestureDetector(
+                          onTap: () {
+                            _authService.loadAssets();
+                          },
+                          child: Container(
+                            height: 86.h,
+                            width: 130.w,
+                            color: Color.fromRGBO(249, 249, 249, 1),
+                            child: Center(
+                                child: Image.asset(
+                              "assets/images/add_image_1.webp",
+                              height: 28.h,
+                              width: 34.w,
+                            )),
+                          ),
+                        )
+                      : SizedBox(
+                          child: buildImageGrid(),
+                        ),
+                  // _authService.images.length == 0 &&
+                  //         networkImages?.length == 0
+                  //     ? GestureDetector(
+                  //         onTap: () {
+                  //           _authService.loadAssets();
+                  //         },
+                  //         child: Container(
+                  //           height: 86.h,
+                  //           width: 130.w,
+                  //           color: Color.fromRGBO(249, 249, 249, 1),
+                  //           child: Center(
+                  //               child: Image.asset(
+                  //             "assets/images/add_image_1.webp",
+                  //             height: 28.h,
+                  //             width: 34.w,
+                  //           )),
+                  //         ),
+                  //       )
+                  //     : _authService.images.length != 0
+                  //         ? SizedBox(
+                  //             child: buildGridView([]),
+                  //           )
+                  //         : SizedBox(),
                 ],
               ),
-            ));
+            )
+          ],
+        ),
+      );
+    });
   }
+}
+
+Widget buildImageGrid() {
+  return GetBuilder<AuthController>(builder: (_authService) {
+    return SingleChildScrollView(
+      physics: NeverScrollableScrollPhysics(),
+      child: GridView.count(
+        crossAxisCount: 2,
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
+        crossAxisSpacing: 10,
+        mainAxisSpacing: 10,
+        children: List.generate(
+            _authService.networkImages.length + _authService.images.length,
+            (index) {
+          print("NETWROOOOKKKKKK");
+          print(_authService.networkImages.length + _authService.images.length);
+          return index < _authService.networkImages.length
+              ? Stack(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(8.0),
+                      child: Image.network(
+                          _authService.networkImages[index]["url"],
+                          width: 130,
+                          height: 130),
+                    ),
+                    Positioned(
+                      top: -5,
+                      right: 25.w,
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.delete,
+                          color: kLogoColor2,
+                        ),
+                        onPressed: () {
+                          print("NETWROOOOKKK DELETTEEEE");
+                          print(index);
+                          _authService.deleteNetworkFile(index);
+                        },
+                      ),
+                    ),
+                  ],
+                )
+              : Stack(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(8.0),
+                      child: AssetThumb(
+                        asset: _authService
+                            .images[index - _authService.networkImages.length],
+                        width: 130,
+                        height: 130,
+                      ),
+                    ),
+                    Positioned(
+                      top: -5,
+                      right: 25.w,
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.delete,
+                          color: kLogoColor2,
+                        ),
+                        onPressed: () {
+                          _authService.deleteFile(
+                              index - _authService.networkImages.length);
+                        },
+                      ),
+                    ),
+                  ],
+                );
+        }),
+      ),
+    );
+  });
 }
 
 Widget buildGridView(List? _networkImages) {
@@ -161,27 +241,28 @@ Widget buildGridView(List? _networkImages) {
             : List.generate(
                 _networkImages!.length,
                 (index) => Stack(
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(8.0),
-                          child: Image.network(_networkImages[index],
-                              width: 130, height: 130),
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(8.0),
+                      child: Image.network(_networkImages[index],
+                          width: 130, height: 130),
+                    ),
+                    Positioned(
+                      top: -5,
+                      right: 25.w,
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.delete,
+                          color: kLogoColor2,
                         ),
-                        Positioned(
-                          top: -5,
-                          right: 25.w,
-                          child: IconButton(
-                            icon: Icon(
-                              Icons.delete,
-                              color: kLogoColor2,
-                            ),
-                            onPressed: () {
-                              // _authService.deleteFile(index);
-                            },
-                          ),
-                        ),
-                      ],
-                    )),
+                        onPressed: () {
+                          // _authService.deleteFile(index);
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
       ),
     );
   });

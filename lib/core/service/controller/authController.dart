@@ -37,11 +37,16 @@ class AuthController extends GetxController {
 
   String type = '';
   List<Asset> images = [];
+  List networkImages = [];
   bool addImageButton = true;
   bool addVideoButton = true;
   int maxImage = 4;
   String _error = 'No Error Dectected';
   int selectedVideo = 0;
+
+  List<File> files = [];
+  List networkFiles = [];
+  FilePickerResult? result;
 
   String teamName = '';
   List<Asset> teamLogo = [];
@@ -166,14 +171,21 @@ class AuthController extends GetxController {
     }
   }
 
+  Future<void> deleteNetworkFile(int index) async {
+    //String toDelete = networkImages[index];
+    print(networkImages);
+    print(index);
+    networkImages.removeAt(index);
+    // required api call with toDelete
+    update();
+  }
+
   Future<void> deleteFile(int index) async {
     images.removeAt(index);
     addImageButton = true;
     update();
   }
 
-  List<File> files = [];
-  FilePickerResult? result;
   Future<void> loadVideo() async {
     List<File> tempVideo = [];
     FilePickerResult? result = await FilePicker.platform.pickFiles(
