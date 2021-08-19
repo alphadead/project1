@@ -145,7 +145,7 @@ Widget buildImageGrid() {
                     ),
                     Positioned(
                       top: -5,
-                      right: 25.w,
+                      right: 10.w,
                       child: IconButton(
                         icon: Icon(
                           Icons.delete,
@@ -171,7 +171,7 @@ Widget buildImageGrid() {
                     ),
                     Positioned(
                       top: -5,
-                      right: 25.w,
+                      right: 10.w,
                       child: IconButton(
                         icon: Icon(
                           Icons.delete,
@@ -336,7 +336,7 @@ Widget buildVideoGridView(List _networkVideos) {
                       ),
                       Positioned(
                         top: -5,
-                        right: 15,
+                        right: 1.w,
                         child: IconButton(
                           icon: Icon(
                             Icons.delete,
@@ -378,7 +378,7 @@ Widget buildVideoGridView(List _networkVideos) {
                       ),
                       Positioned(
                         top: -5,
-                        right: 15,
+                        right: 1.w,
                         child: IconButton(
                           icon: Icon(
                             Icons.delete,
