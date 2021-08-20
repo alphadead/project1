@@ -37,15 +37,11 @@ class _PositionRadioListState extends State<PositionRadioList> {
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance!.addPostFrameCallback((_) => setState(() {
-          _position =
-              positionEnum[Get.find<ProfileController>().profile?.position];
-        }));
-
-    WidgetsBinding.instance!.addPostFrameCallback((_) => setState(() {
-          Get.find<AuthController>().position =
-              positionValues[_position].toString();
-        }));
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      _position = positionEnum[Get.find<ProfileController>().profile?.position];
+      Get.find<AuthController>().position =
+          positionValues[_position].toString();
+    });
   }
 
   @override

@@ -20,13 +20,10 @@ class _WeightValueContainerState extends State<WeightValueContainer> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback((_) => setState(() {
-          val =
-              int.parse(Get.find<ProfileController>().profile?.weight ?? "60");
-        }));
-    WidgetsBinding.instance!.addPostFrameCallback((_) => setState(() {
-          Get.find<AuthController>().weight = val.toString();
-        }));
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      val = int.parse(Get.find<ProfileController>().profile?.weight ?? "60");
+      Get.find<AuthController>().weight = val.toString();
+    });
   }
 
   @override

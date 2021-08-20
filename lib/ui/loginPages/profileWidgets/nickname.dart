@@ -23,13 +23,13 @@ class _NickNameState extends State<NickName> {
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance!.addPostFrameCallback((_) => setState(() {
-          _text = Get.find<ProfileController>().profile?.nick_name;
-          if (_text != null) {
-            Get.find<AuthController>().nickName = _text;
-            nickNameController.text = _text ?? "";
-          }
-        }));
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      _text = Get.find<ProfileController>().profile?.nick_name;
+      if (_text != null) {
+        Get.find<AuthController>().nickName = _text;
+        nickNameController.text = _text ?? "";
+      }
+    });
   }
 
   @override

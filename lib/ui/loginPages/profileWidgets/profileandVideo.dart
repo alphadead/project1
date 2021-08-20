@@ -25,10 +25,10 @@ class _ProfilePhotoState extends State<ProfilePhoto> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback((_) => setState(() {
-          networkImages = Get.find<ProfileController>().profile?.photo ?? [];
-          Get.find<AuthController>().networkImages = networkImages;
-        }));
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      networkImages = Get.find<ProfileController>().profile?.photo ?? [];
+      Get.find<AuthController>().networkImages = networkImages;
+    });
   }
 
   @override
@@ -87,29 +87,6 @@ class _ProfilePhotoState extends State<ProfilePhoto> {
                       : SizedBox(
                           child: buildImageGrid(),
                         ),
-                  // _authService.images.length == 0 &&
-                  //         networkImages?.length == 0
-                  //     ? GestureDetector(
-                  //         onTap: () {
-                  //           _authService.loadAssets();
-                  //         },
-                  //         child: Container(
-                  //           height: 86.h,
-                  //           width: 130.w,
-                  //           color: Color.fromRGBO(249, 249, 249, 1),
-                  //           child: Center(
-                  //               child: Image.asset(
-                  //             "assets/images/add_image_1.webp",
-                  //             height: 28.h,
-                  //             width: 34.w,
-                  //           )),
-                  //         ),
-                  //       )
-                  //     : _authService.images.length != 0
-                  //         ? SizedBox(
-                  //             child: buildGridView([]),
-                  //           )
-                  //         : SizedBox(),
                 ],
               ),
             )

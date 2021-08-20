@@ -21,13 +21,11 @@ class _FitnessDetailState extends State<FitnessDetail> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback((_) => setState(() {
-          sliderVal = double.parse(
-              Get.find<ProfileController>().profile?.height ?? "180");
-        }));
-    WidgetsBinding.instance!.addPostFrameCallback((_) => setState(() {
-          Get.find<AuthController>().height = sliderVal.toInt().toString();
-        }));
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      sliderVal =
+          double.parse(Get.find<ProfileController>().profile?.height ?? "180");
+      Get.find<AuthController>().height = sliderVal.toInt().toString();
+    });
   }
 
   @override

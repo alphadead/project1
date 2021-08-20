@@ -22,21 +22,16 @@ class _NationalityState extends State<Nationality> {
   void initState() {
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback(
-      (_) => setState(
-        () {
-          dropdownValue =
-              Get.find<ProfileController>().profile?.nationality ?? 'India';
-        },
-      ),
+      (_) {
+        dropdownValue =
+            Get.find<ProfileController>().profile?.nationality ?? 'India';
+        Get.find<AuthController>().nationality = dropdownValue.toString();
+      },
     );
-    WidgetsBinding.instance!.addPostFrameCallback((_) => setState(() {
-          Get.find<AuthController>().nationality = dropdownValue.toString();
-        }));
   }
 
   @override
   Widget build(BuildContext context) {
-    
     return GetBuilder<AuthController>(
         builder: (_authService) => Container(
               padding: EdgeInsets.only(top: 30),
