@@ -335,8 +335,8 @@ Widget buildVideoGridView(List _networkVideos) {
                     children: [
                       InkWell(
                         onTap: () {
-                          // _authService.selectedVideo = index;
-                          // Get.toNamed("/videoScreen");
+                          _authService.selectedNetworkVideo = index;
+                          Get.toNamed("/networkvideoScreen");
                         },
                         child: Container(
                           height: 130.h,
