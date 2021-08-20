@@ -40,7 +40,7 @@ class ProfileController extends GetxController {
     update();
   }
 
-  void updateProfile() async {
+  void updateProfile({required bool argument}) async {
     AuthController controller = Get.find<AuthController>();
     Utility.showLoadingDialog();
 
@@ -61,7 +61,11 @@ class ProfileController extends GetxController {
         controller.files);
     if (response.success) {
       Utility.showSnackbar("${response.message}");
-      Get.offAllNamed("/homeScreen");
+      if (argument) {
+        Get.offAllNamed("/homeScreen");
+      } else {
+        Get.find<AuthController>().completedStep("2", "/registeredTeamScreen");
+      }
     } else {
       Utility.showSnackbar("${response.message}");
     }

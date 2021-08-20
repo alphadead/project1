@@ -26,6 +26,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);
+
   @override
   void initState() {
     bool isEditCheck = Get.arguments;
@@ -137,7 +138,8 @@ class ProfilePage extends StatelessWidget {
                                   height: 40.h,
                                   context: context,
                                   onPressed: () {
-                                    _profileService.updateProfile();
+                                    _profileService.updateProfile(
+                                        argument: Get.arguments);
                                   },
                                   text: AppLocalizations.of(context)!
                                       .profilePage_update,
@@ -153,10 +155,11 @@ class ProfilePage extends StatelessWidget {
                           child: primaryActionButton(
                               context: context,
                               onPressed: () {
-                                _profileService.updateProfile();
+                                _profileService.updateProfile(
+                                    argument: Get.arguments);
                               },
                               text: AppLocalizations.of(context)!
-                                  .profilePage_navButtonText),
+                                  .primaryActionButton),
                         ),
                       ),
               ],
