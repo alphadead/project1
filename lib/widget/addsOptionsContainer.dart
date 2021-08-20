@@ -4,12 +4,13 @@ import 'package:vamos/ui/utils/color.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vamos/ui/utils/theme.dart';
 
-Widget logoContainer(String image, String logoName) {
+Widget logoContainer(String image, String logoName,
+    {String nextRoute = "/createTeam"}) {
   return Stack(children: [
     Positioned(
       child: InkWell(
         onTap: () {
-          Get.toNamed("/createTeam");
+          Get.toNamed(nextRoute);
         },
         child: Container(
           height: 110.h,
