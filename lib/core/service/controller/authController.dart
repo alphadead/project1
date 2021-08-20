@@ -44,6 +44,7 @@ class AuthController extends GetxController {
   int maxImage = 4;
   String _error = 'No Error Dectected';
   int selectedVideo = 0;
+  int selectedNetworkVideo = 0;
 
   List<File> files = [];
   List networkFiles = [];
@@ -78,7 +79,7 @@ class AuthController extends GetxController {
         Get.offNamed('/setPass');
       } else {
         if (response.data!.completedStep == "1") {
-          Get.offNamed('/profileScreen');
+          Get.offNamed('/profileScreen', arguments: false);
         } else if (response.data!.completedStep == "2") {
           Get.offNamed("/registeredTeamScreen");
         } else if (response.data!.completedStep == "3") {
@@ -133,7 +134,11 @@ class AuthController extends GetxController {
     if (response.success!) {
       Utility.showSnackbar("${response.message}");
       prefs.setString("completedStep", step);
-      Get.toNamed(nextRoute);
+      if (nextRoute == "/profileScreen") {
+        Get.toNamed(nextRoute, arguments: false);
+      } else {
+        Get.toNamed(nextRoute);
+      }
     } else {
       Utility.showSnackbar("${response.message}");
     }

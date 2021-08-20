@@ -106,6 +106,13 @@ abstract class AppPages {
       binding: AllBinder(),
     ),
     GetPage(
+      name: '/networkvideoScreen',
+      transitionDuration: transitionDuration,
+      page: () => NetworkVideoPlayer(),
+      transition: Transition.downToUp,
+      binding: AllBinder(),
+    ),
+    GetPage(
       name: '/setPass',
       transitionDuration: transitionDuration,
       page: () => SetPass(),

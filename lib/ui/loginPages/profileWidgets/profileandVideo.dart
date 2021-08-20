@@ -87,29 +87,6 @@ class _ProfilePhotoState extends State<ProfilePhoto> {
                       : SizedBox(
                           child: buildImageGrid(),
                         ),
-                  // _authService.images.length == 0 &&
-                  //         networkImages?.length == 0
-                  //     ? GestureDetector(
-                  //         onTap: () {
-                  //           _authService.loadAssets();
-                  //         },
-                  //         child: Container(
-                  //           height: 86.h,
-                  //           width: 130.w,
-                  //           color: Color.fromRGBO(249, 249, 249, 1),
-                  //           child: Center(
-                  //               child: Image.asset(
-                  //             "assets/images/add_image_1.webp",
-                  //             height: 28.h,
-                  //             width: 34.w,
-                  //           )),
-                  //         ),
-                  //       )
-                  //     : _authService.images.length != 0
-                  //         ? SizedBox(
-                  //             child: buildGridView([]),
-                  //           )
-                  //         : SizedBox(),
                 ],
               ),
             )
@@ -358,8 +335,8 @@ Widget buildVideoGridView(List _networkVideos) {
                     children: [
                       InkWell(
                         onTap: () {
-                          // _authService.selectedVideo = index;
-                          // Get.toNamed("/videoScreen");
+                          _authService.selectedNetworkVideo = index;
+                          Get.toNamed("/networkvideoScreen");
                         },
                         child: Container(
                           height: 130.h,

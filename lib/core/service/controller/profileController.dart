@@ -15,10 +15,10 @@ class ProfileController extends GetxController {
 
   Api api = locator<Api>();
 
-  void onInit() async {
-    super.onInit();
-    WidgetsBinding.instance!.addPostFrameCallback((_) => getProfileData());
-  }
+  // void onInit() async {
+  //   super.onInit();
+  //   WidgetsBinding.instance!.addPostFrameCallback((_) => getProfileData());
+  // }
 
   void getProfileData() async {
     Utility.showLoadingDialog();
@@ -29,13 +29,14 @@ class ProfileController extends GetxController {
       profile = response.data;
       update();
       Utility.closeDialog();
-    } else {
-      if (prefs.getString("completedStep") == "2") {
-        Utility.showSnackbar("${response.message}");
-      } else {
-        Utility.closeDialog();
-      }
     }
+    // } else {
+    //   if (prefs.getString("completedStep") == "2") {
+    //     Utility.showSnackbar("${response.message}");
+    //   } else {
+    //     Utility.closeDialog();
+    //   }
+    // }
     update();
   }
 

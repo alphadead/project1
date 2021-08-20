@@ -51,7 +51,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
               )
             : GestureDetector(
                 onTap: () async {
-                  Get.offNamed("/profileScreen");
+                  Get.offNamed("/profileScreen", arguments: true);
                 },
                 child: Container(
                   margin: EdgeInsets.only(right: 30.w),

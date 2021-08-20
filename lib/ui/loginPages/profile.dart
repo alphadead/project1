@@ -26,6 +26,13 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);
+  @override
+  void initState() {
+    bool isEditCheck = Get.arguments;
+    if (isEditCheck) {
+      Get.find<ProfileController>().getProfileData();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,10 +41,12 @@ class ProfilePage extends StatelessWidget {
       builder: (_profileService) => Directionality(
         textDirection: TextDirection.ltr,
         child: Scaffold(
-          appBar: PreferredSize(
-            preferredSize: Size.fromHeight(60.h),
-            child: CustomAppBar(),
-          ),
+          appBar: Get.arguments
+              ? PreferredSize(
+                  preferredSize: Size.fromHeight(60.h),
+                  child: CustomAppBar(),
+                )
+              : PreferredSize(child: Container(), preferredSize: Size.zero),
           floatingActionButton: LocaleFloatingActionButton(),
           backgroundColor: Colors.white,
           body: SingleChildScrollView(
@@ -45,32 +54,49 @@ class ProfilePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  height: 200.h,
-                  margin: EdgeInsets.only(top: 10.h),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(left: 30.w),
-                        child: Text(
-                          AppLocalizations.of(context)!.profilePage_title,
-                          style: themeData().textTheme.bodyText1!.copyWith(
-                                color: profileContainerColor,
-                                fontSize: 20.sp,
-                                fontWeight: FontWeight.bold,
+                Get.arguments
+                    ? Container(
+                        height: 200.h,
+                        margin: EdgeInsets.only(top: 10.h),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(left: 30.w),
+                              child: Text(
+                                AppLocalizations.of(context)!.profilePage_title,
+                                style:
+                                    themeData().textTheme.bodyText1!.copyWith(
+                                          color: profileContainerColor,
+                                          fontSize: 20.sp,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                               ),
+                            ),
+                            Container(
+                              height: 180.h,
+                              child: Image.asset(
+                                'assets/images/register.png',
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    : LoginPageStack(
+                        heading:
+                            AppLocalizations.of(context)!.signUpPage_profile,
+                        imageWidget: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Container(
+                              height: 0.8.sh,
+                              child: Image.asset(
+                                'assets/images/register.png',
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      Container(
-                        height: 180.h,
-                        child: Image.asset(
-                          'assets/images/register.png',
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
                 PlayerTypeRadioList(),
                 PositionRadioList(),
                 FitnessDetail(),
@@ -78,48 +104,61 @@ class ProfilePage extends StatelessWidget {
                 ProfilePhoto(),
                 NickName(),
                 SkillVideo(),
-                Container(
-                  padding: EdgeInsets.only(top: 30),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
+                Get.arguments
+                    ? Container(
+                        padding: EdgeInsets.only(top: 30),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              padding: EdgeInsets.only(top: 15.h, bottom: 37.h),
+                              child: Center(
+                                child: primaryActionButton(
+                                  width: 120.w,
+                                  height: 40.h,
+                                  color: moneyBox,
+                                  context: context,
+                                  onPressed: () {
+                                    Get.back();
+                                  },
+                                  text: AppLocalizations.of(context)!
+                                      .profilePage_cancel,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Container(
+                              padding: EdgeInsets.only(top: 15.h, bottom: 37.h),
+                              child: Center(
+                                child: primaryActionButton(
+                                  width: 120.w,
+                                  height: 40.h,
+                                  context: context,
+                                  onPressed: () {
+                                    _profileService.updateProfile();
+                                  },
+                                  text: AppLocalizations.of(context)!
+                                      .profilePage_update,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    : Container(
                         padding: EdgeInsets.only(top: 15.h, bottom: 37.h),
                         child: Center(
                           child: primaryActionButton(
-                            width: 120.w,
-                            height: 40.h,
-                            color: moneyBox,
-                            context: context,
-                            onPressed: () {
-                              Get.back();
-                            },
-                            text: AppLocalizations.of(context)!
-                                .profilePage_cancel,
-                          ),
+                              context: context,
+                              onPressed: () {
+                                _profileService.updateProfile();
+                              },
+                              text: AppLocalizations.of(context)!
+                                  .profilePage_navButtonText),
                         ),
                       ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Container(
-                        padding: EdgeInsets.only(top: 15.h, bottom: 37.h),
-                        child: Center(
-                          child: primaryActionButton(
-                            width: 120.w,
-                            height: 40.h,
-                            context: context,
-                            onPressed: () {
-                              _profileService.updateProfile();
-                            },
-                            text: AppLocalizations.of(context)!
-                                .profilePage_update,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
               ],
             ),
           ),
