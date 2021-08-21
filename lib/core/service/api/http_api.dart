@@ -3,9 +3,11 @@ import 'dart:io';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:vamos/core/models/completeStepResponse.dart';
 import 'package:vamos/core/models/createTeamResponse.dart';
+import 'package:vamos/core/models/deleteMedia.dart';
 import 'package:vamos/core/models/joinTeam.dart';
 import 'package:vamos/core/models/loginResponse.dart';
 import 'package:vamos/core/models/playerListResponse.dart';
+import 'package:vamos/core/models/profileDataResponse.dart';
 import 'package:vamos/core/models/profile_api.dart';
 import 'package:vamos/core/models/registerResponse.dart';
 import 'package:vamos/core/models/teamListingResponse.dart';
@@ -55,6 +57,7 @@ class HTTPApi extends Api {
       String weight,
       String height,
       String nationality,
+      String? nickName,
       List<Asset> images,
       List<File> files) async {
     Map<String, dynamic> reponse = await postProfileData(
@@ -66,6 +69,7 @@ class HTTPApi extends Api {
         weight,
         height,
         nationality,
+        nickName,
         images,
         files);
     return ProfileResponse.fromJson(reponse);
@@ -76,12 +80,27 @@ class HTTPApi extends Api {
     return TeamListResponse.fromJson(response);
   }
 
+  Future<ProfileDataResponse> getProfile(String userId) async {
+    Map<String, dynamic> response =
+        await getRequest('profile?user_id=' + userId);
+    return ProfileDataResponse.fromJson(response);
+  }
+
   Future<JoinTeamResponse> joinTeam(int teamId) async {
     Map<String, dynamic> body = {
       "team_id": teamId,
     };
     Map<String, dynamic> response = await postRequest('team/request', body);
     return JoinTeamResponse.fromJson(response);
+  }
+
+  Future<DeleteMedia> deleteMedias(String mediaId) async {
+    Map<String, dynamic> body = {
+      "media_id": mediaId,
+    };
+    Map<String, dynamic> response =
+        await postRequest('delete-profile-media', body);
+    return DeleteMedia.fromJson(response);
   }
 
   Future<VerifyOtpResponse> verifyOtp(userId, mobileNo, otp) async {

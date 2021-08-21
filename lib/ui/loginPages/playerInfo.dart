@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vamos/core/service/controller/authController.dart';
-import 'package:vamos/core/service/routes/routeManagement.dart';
+import 'package:vamos/core/service/controller/profileController.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/loginbkground.dart';
-import 'package:vamos/ui/utils/validator.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:vamos/widget/customAppBar.dart';
@@ -24,9 +22,17 @@ class PlayerInfo extends StatefulWidget {
 
 class _PlayerInfoState extends State<PlayerInfo> {
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback(
+        (_) => Get.find<ProfileController>().getProfileData());
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return GetBuilder<AuthController>(
-      builder: (_authService) => Scaffold(
+    return GetBuilder<ProfileController>(builder: (_profileService) {
+      print(_profileService.profile?.toJson());
+      return Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: sliderGreenActive,
         floatingActionButtonLocation:
@@ -134,7 +140,8 @@ class _PlayerInfoState extends State<PlayerInfo> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Lionel Andres Messi',
+                                (_profileService.profile?.first_name ?? "") +
+                                    (_profileService.profile?.last_name ?? ""),
                                 style:
                                     themeData().textTheme.headline1!.copyWith(
                                           color: containerGreen,
@@ -145,7 +152,7 @@ class _PlayerInfoState extends State<PlayerInfo> {
                               Text(
                                 AppLocalizations.of(context)!
                                         .profilePage_nationality +
-                                    ': Argentanian',
+                                    ': ${_profileService.profile?.nationality ?? ""}',
                                 style:
                                     themeData().textTheme.headline1!.copyWith(
                                           color: KColorBlack,
@@ -184,7 +191,7 @@ class _PlayerInfoState extends State<PlayerInfo> {
                                         ),
                               ),
                               Text(
-                                '55',
+                                '${_profileService.profile?.weight ?? ""}',
                                 style:
                                     themeData().textTheme.headline1!.copyWith(
                                           color: KColorBlack,
@@ -209,7 +216,7 @@ class _PlayerInfoState extends State<PlayerInfo> {
                                         ),
                               ),
                               Text(
-                                '45',
+                                '${_profileService.profile?.age ?? ""}',
                                 style:
                                     themeData().textTheme.headline1!.copyWith(
                                           color: KColorBlack,
@@ -235,7 +242,7 @@ class _PlayerInfoState extends State<PlayerInfo> {
                                         ),
                               ),
                               Text(
-                                '1.87 CM',
+                                '${_profileService.profile?.height ?? ""} CM',
                                 style:
                                     themeData().textTheme.headline1!.copyWith(
                                           color: KColorBlack,
@@ -325,7 +332,7 @@ class _PlayerInfoState extends State<PlayerInfo> {
             ],
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 }

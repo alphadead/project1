@@ -34,7 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
     if (prefs.getString('token') != null &&
         prefs.getBool('isAuthenticated') != false) {
       if (prefs.getString("completedStep") == "1") {
-        Get.offNamed('/profileScreen');
+        Get.offNamed('/profileScreen', arguments: false);
       } else if (prefs.getString("completedStep") == "2") {
         Get.offNamed("/registeredTeamScreen");
       } else if (prefs.getString("completedStep") == "3") {
