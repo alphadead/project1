@@ -1,22 +1,21 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vamos/core/models/completeStepResponse.dart';
 import 'package:vamos/core/models/createTeamResponse.dart';
 import 'package:vamos/core/models/deleteMedia.dart';
 import 'package:vamos/core/models/loginResponse.dart';
-import 'package:vamos/core/models/profile_api.dart';
 import 'package:vamos/core/models/registerResponse.dart';
 import 'package:vamos/core/models/verifyOtpResponse.dart';
 import 'package:vamos/core/service/api/api.dart';
 import 'package:vamos/ui/utils/utility.dart';
 
 import '../../../locator.dart';
-import 'package:multi_image_picker2/multi_image_picker2.dart';
-import 'dart:async';
 
 class AuthController extends GetxController {
   String mobileNo = '';
@@ -26,8 +25,8 @@ class AuthController extends GetxController {
   String email = '';
   String address = '';
   String userId = '';
-  String typeOfPlayer = '';
-  String position = '';
+  String _typeOfPlayer = '';
+  String _position = '';
   String age = '';
   String weight = '';
   String height = '';
@@ -58,6 +57,21 @@ class AuthController extends GetxController {
   GlobalKey<FormState> formKey2 = GlobalKey<FormState>();
 
   Api api = locator<Api>();
+
+  String get position => _position;
+
+  String get typeOfPlayer => _typeOfPlayer;
+
+  set position(String value) {
+    _position = value;
+    update();
+  }
+
+  set typeOfPlayer(String value) {
+    _typeOfPlayer = value;
+    update();
+  }
+
 
   void login() async {
     Utility.showLoadingDialog();

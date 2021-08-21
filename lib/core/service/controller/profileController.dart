@@ -1,13 +1,11 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vamos/core/models/profileDataResponse.dart';
 import 'package:vamos/core/models/profile_api.dart';
+import 'package:vamos/core/service/api/api.dart';
 import 'package:vamos/core/service/controller/authController.dart';
 import 'package:vamos/locator.dart';
 import 'package:vamos/ui/utils/utility.dart';
-import 'package:vamos/core/service/api/api.dart';
-import 'package:vamos/core/models/teamListingResponse.dart';
 
 class ProfileController extends GetxController {
   ProfileData? profile;
@@ -62,7 +60,7 @@ class ProfileController extends GetxController {
     if (response.success) {
       Utility.showSnackbar("${response.message}");
       if (argument) {
-        Get.offAllNamed("/homeScreen");
+        Get.offAllNamed("/playerInfo");
       } else {
         Get.find<AuthController>().completedStep("2", "/registeredTeamScreen");
       }
