@@ -94,12 +94,6 @@ class _NetworkVideoPlayerState extends State<NetworkVideoPlayer> {
   }
 
   Future<void> initializePlayer() async {
-    int selectedVideoIndex = Get.find<AuthController>().selectedNetworkVideo;
-    String url =
-        Get.find<AuthController>().networkFiles[selectedVideoIndex]["url"];
-    print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-    print(url + "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-    print("AAAAAAAAAAAAAAAA");
     _videoPlayerController1 = VideoPlayerController.network(
         "https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4");
     await Future.wait([
