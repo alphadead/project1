@@ -1,21 +1,21 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vamos/core/models/completeStepResponse.dart';
 import 'package:vamos/core/models/createTeamResponse.dart';
+import 'package:vamos/core/models/deleteMedia.dart';
 import 'package:vamos/core/models/loginResponse.dart';
-import 'package:vamos/core/models/profile_api.dart';
 import 'package:vamos/core/models/registerResponse.dart';
 import 'package:vamos/core/models/verifyOtpResponse.dart';
 import 'package:vamos/core/service/api/api.dart';
 import 'package:vamos/ui/utils/utility.dart';
 
 import '../../../locator.dart';
-import 'package:multi_image_picker2/multi_image_picker2.dart';
-import 'dart:async';
 
 class AuthController extends GetxController {
   String mobileNo = '';
@@ -25,22 +25,29 @@ class AuthController extends GetxController {
   String email = '';
   String address = '';
   String userId = '';
-  String typeOfPlayer = '';
-  String position = '';
+  String _typeOfPlayer = '';
+  String _position = '';
   String age = '';
   String weight = '';
   String height = '';
   String nationality = '';
   String otp = '';
   String inviteCode = '';
+  String? nickName;
 
   String type = '';
   List<Asset> images = [];
+  List networkImages = [];
   bool addImageButton = true;
   bool addVideoButton = true;
   int maxImage = 4;
   String _error = 'No Error Dectected';
   int selectedVideo = 0;
+  int selectedNetworkVideo = 0;
+
+  List<File> files = [];
+  List networkFiles = [];
+  FilePickerResult? result;
 
   String teamName = '';
   List<Asset> teamLogo = [];
@@ -51,10 +58,26 @@ class AuthController extends GetxController {
 
   Api api = locator<Api>();
 
+  String get position => _position;
+
+  String get typeOfPlayer => _typeOfPlayer;
+
+  set position(String value) {
+    _position = value;
+    update();
+  }
+
+  set typeOfPlayer(String value) {
+    _typeOfPlayer = value;
+    update();
+  }
+
+
   void login() async {
     Utility.showLoadingDialog();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     LoginResponse response = await api.loginUser(mobileNo, password);
+    print(response.toJson().toString());
     if (response.data != null) {
       prefs.setString('token', 'Bearer ${response.accessToken}');
       prefs.setString('userId', '${response.data!.id}');
@@ -70,7 +93,7 @@ class AuthController extends GetxController {
         Get.offNamed('/setPass');
       } else {
         if (response.data!.completedStep == "1") {
-          Get.offNamed('/profileScreen');
+          Get.offNamed('/profileScreen', arguments: false);
         } else if (response.data!.completedStep == "2") {
           Get.offNamed("/registeredTeamScreen");
         } else if (response.data!.completedStep == "3") {
@@ -118,23 +141,6 @@ class AuthController extends GetxController {
     }
   }
 
-  void profile() async {
-    Utility.showLoadingDialog();
-
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    userId = prefs.getString("userId")!;
-    // postProfile(images);
-
-    ProfileResponse response = await api.profileResponse(userId, typeOfPlayer,
-        position, age, weight, height, nationality, images, files);
-    if (response.success) {
-      Utility.showSnackbar("${response.message}");
-      completedStep("2", "/registeredTeamScreen");
-    } else {
-      Utility.showSnackbar("${response.message}");
-    }
-  }
-
   void completedStep(String step, String nextRoute) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     Utility.showLoadingDialog();
@@ -142,7 +148,11 @@ class AuthController extends GetxController {
     if (response.success!) {
       Utility.showSnackbar("${response.message}");
       prefs.setString("completedStep", step);
-      Get.toNamed(nextRoute);
+      if (nextRoute == "/profileScreen") {
+        Get.toNamed(nextRoute, arguments: false);
+      } else {
+        Get.toNamed(nextRoute);
+      }
     } else {
       Utility.showSnackbar("${response.message}");
     }
@@ -188,8 +198,6 @@ class AuthController extends GetxController {
     update();
   }
 
-  List<File> files = [];
-  FilePickerResult? result;
   Future<void> loadVideo() async {
     List<File> tempVideo = [];
     FilePickerResult? result = await FilePicker.platform.pickFiles(
@@ -226,9 +234,31 @@ class AuthController extends GetxController {
     VerifyOtpResponse response = await api.verifyOtp(userId, mobileNo, otp);
     if (response.success!) {
       Utility.showSnackbar("${response.message}");
-      Get.offNamed("/profileScreen");
+      completedStep("1", "/profileScreen");
     } else {
       Utility.showSnackbar("${response.message}");
     }
+  }
+
+  Future<void> deleteMedia(int index, String mediaType) async {
+    String mediaId;
+    if (mediaType == 'image')
+      mediaId = networkImages[index]["id"].toString();
+    else
+      mediaId = networkFiles[index]["id"].toString();
+
+    Utility.showLoadingDialog();
+    DeleteMedia response = await api.deleteMedias(mediaId);
+
+    if (response.success) {
+      Utility.showSnackbar("${response.message}");
+      if (mediaType == 'image')
+        networkImages.removeAt(index);
+      else
+        networkFiles.removeAt(index);
+    } else {
+      Utility.showSnackbar("${response.message}");
+    }
+    update();
   }
 }

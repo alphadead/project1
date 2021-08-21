@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:vamos/core/service/controller/authController.dart';
+import 'package:vamos/core/service/controller/profileController.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/widget/numvalueContainer.dart';
 import 'package:vamos/widget/profileContainer.dart';
@@ -16,6 +18,16 @@ class FitnessDetail extends StatefulWidget {
 
 class _FitnessDetailState extends State<FitnessDetail> {
   double sliderVal = 180;
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      sliderVal =
+          double.parse(Get.find<ProfileController>().profile?.height ?? "180");
+      Get.find<AuthController>().height = sliderVal.toInt().toString();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AuthController>(

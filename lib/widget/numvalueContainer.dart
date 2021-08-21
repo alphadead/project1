@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:vamos/core/service/controller/authController.dart';
+import 'package:vamos/core/service/controller/profileController.dart';
 import 'package:vamos/ui/utils/color.dart';
 
 class WeightValueContainer extends StatefulWidget {
@@ -14,6 +16,15 @@ class WeightValueContainer extends StatefulWidget {
 
 class _WeightValueContainerState extends State<WeightValueContainer> {
   int val = 60;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      val = int.parse(Get.find<ProfileController>().profile?.weight ?? "60");
+      Get.find<AuthController>().weight = val.toString();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -120,6 +131,19 @@ class AgeValueContainer extends StatefulWidget {
 
 class _AgeValueContainerState extends State<AgeValueContainer> {
   int val = 18;
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance!.addPostFrameCallback((_) => setState(() {
+          val = int.parse(Get.find<ProfileController>().profile?.age ?? "18");
+        }));
+
+    WidgetsBinding.instance!.addPostFrameCallback((_) => setState(() {
+          Get.find<AuthController>().age = val.toString();
+        }));
+  }
 
   @override
   Widget build(BuildContext context) {

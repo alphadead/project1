@@ -3,9 +3,11 @@ import 'dart:io';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:vamos/core/models/completeStepResponse.dart';
 import 'package:vamos/core/models/createTeamResponse.dart';
+import 'package:vamos/core/models/deleteMedia.dart';
 import 'package:vamos/core/models/joinTeam.dart';
 import 'package:vamos/core/models/loginResponse.dart';
 import 'package:vamos/core/models/playerListResponse.dart';
+import 'package:vamos/core/models/profileDataResponse.dart';
 import 'package:vamos/core/models/profile_api.dart';
 import 'package:vamos/core/models/registerResponse.dart';
 import 'package:vamos/core/models/teamListingResponse.dart';
@@ -33,10 +35,12 @@ abstract class Api {
       String weight,
       String height,
       String nationality,
+      String? nickName,
       List<Asset> images,
       List<File> files);
 
   Future<TeamListResponse> getteamlist();
+  Future<ProfileDataResponse> getProfile(String userId);
   Future<JoinTeamResponse> joinTeam(
     int teamId,
   );
@@ -47,4 +51,5 @@ abstract class Api {
     String userId,
     int teamId,
   );
+  Future<DeleteMedia> deleteMedias(String mediaId);
 }
