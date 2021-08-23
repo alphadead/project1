@@ -10,6 +10,7 @@ import '../../../locator.dart';
 class TeamListController extends GetxController {
   List<TeamData> teamList = [];
   Api api = locator<Api>();
+  bool joinedTeam = false;
 
   void onInit() {
     WidgetsBinding.instance!.addPostFrameCallback((_) => getteamlist());
@@ -22,16 +23,18 @@ class TeamListController extends GetxController {
       Utility.closeDialog();
 
       teamList = response.data!;
+      print(teamList);
     } else {
       Utility.showSnackbar("${response.message}");
     }
     update();
   }
 
-  void joinTeam(int teamId) async {
+  void joinTeam(teamId) async {
     JoinTeamResponse response = await api.joinTeam(teamId);
-    if (!response.success) {
+    if (response.success) {
       Utility.showSnackbar("${response.message}");
+      joinedTeam = true;
     }
   }
 }

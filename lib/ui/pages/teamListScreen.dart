@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/single_child_widget.dart';
+import 'package:vamos/core/models/joinTeam.dart';
 import 'package:vamos/core/service/controller/authController.dart';
+import 'package:vamos/core/service/controller/teamListingController.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/theme.dart';
 import 'package:vamos/widget/customAppBar.dart';
@@ -9,19 +11,25 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:vamos/widget/customBottomNavBar.dart';
 
-class TeamListScreen extends StatelessWidget {
+class TeamListScreen extends StatefulWidget {
   const TeamListScreen({Key? key}) : super(key: key);
 
   @override
+  _TeamListScreenState createState() => _TeamListScreenState();
+}
+
+class _TeamListScreenState extends State<TeamListScreen> {
+  @override
   Widget build(BuildContext context) {
     List<int> dummyTeamList = [0, 1, 1, 2, 0];
-
     List<Color> dummyTeamListColor = [moneyBox, containerGreen, KRed];
 
-    List<String> dummyTestListStatus = ["Request", "Pending", "Join"];
+    String buttonMsg;
+    Color buttonCol;
+
     return SafeArea(
-      child: GetBuilder<AuthController>(
-        builder: (_authService) => Directionality(
+      child: GetBuilder<TeamListController>(
+        builder: (_teamService) => Directionality(
           textDirection: TextDirection.ltr,
           child: Scaffold(
             resizeToAvoidBottomInset: false,
@@ -86,8 +94,26 @@ class TeamListScreen extends StatelessWidget {
                         ListView.builder(
                           physics: NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
-                          itemCount: dummyTeamList.length,
+                          itemCount: _teamService.teamList.length,
                           itemBuilder: (context, index) {
+                            buttonMsg =
+                                _teamService.teamList[index].status == null
+                                    ? "Join"
+                                    : _teamService.joinedTeam == true
+                                        ? "Requested"
+                                        : "Join";
+                            buttonCol = _teamService.teamList[index].status
+                                        .toString() ==
+                                    'null'
+                                ? dummyTeamListColor[2]
+                                : _teamService.teamList[index].status
+                                            .toString() ==
+                                        'pending'
+                                    ? dummyTeamListColor[0]
+                                    : dummyTeamListColor[1];
+
+                            print(_teamService.teamList[index].logo != null ||
+                                _teamService.teamList[index].logo != "");
                             print("BBBBBBBBBBBBB" + index.toString());
                             return Stack(
                               children: [
@@ -105,15 +131,28 @@ class TeamListScreen extends StatelessWidget {
                                           height: 54.h,
                                           margin: EdgeInsets.symmetric(
                                               vertical: 5.h, horizontal: 10),
-                                          child: Image.asset(
-                                              'assets/images/placeholder_team_icon.png'),
+                                          child: CircleAvatar(
+                                            radius: 24.h,
+                                            backgroundImage: _teamService
+                                                            .teamList[index]
+                                                            .logo ==
+                                                        null ||
+                                                    _teamService.teamList[index]
+                                                            .logo ==
+                                                        ''
+                                                ? NetworkImage('')
+                                                : NetworkImage(_teamService
+                                                    .teamList[index].logo
+                                                    .toString()),
+                                          ),
                                         ),
                                         Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              "Wind City Rampage",
+                                              _teamService.teamList[index].name
+                                                  .toString(),
                                               style: themeData()
                                                   .textTheme
                                                   .bodyText1!
@@ -124,12 +163,15 @@ class TeamListScreen extends StatelessWidget {
                                                   ),
                                             ),
                                             Text(
-                                              "Lorem Ipsum Text",
+                                              'Team size: ' +
+                                                  _teamService
+                                                      .teamList[index].teamSize
+                                                      .toString(),
                                               style: themeData()
                                                   .textTheme
                                                   .bodyText1!
                                                   .copyWith(
-                                                    fontSize: 8.8.sp,
+                                                    fontSize: 9.sp,
                                                   ),
                                             )
                                           ],
@@ -137,7 +179,7 @@ class TeamListScreen extends StatelessWidget {
                                         Expanded(
                                           child: Container(),
                                         ),
-                                        dummyTeamList[index] == 1
+                                        buttonMsg == 'Pending'
                                             ? Container(
                                                 margin:
                                                     EdgeInsets.only(right: 10),
@@ -176,26 +218,45 @@ class TeamListScreen extends StatelessWidget {
                                 Positioned(
                                   right: 15.w,
                                   bottom: 10.h,
-                                  child: Container(
-                                    width: 120.w,
-                                    height: 25.h,
-                                    decoration: BoxDecoration(
-                                      color: dummyTeamListColor[
-                                          dummyTeamList[index]],
-                                      borderRadius:
-                                          BorderRadius.circular(2.5.w),
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                        dummyTestListStatus[
-                                            dummyTeamList[index]],
-                                        style: themeData()
-                                            .textTheme
-                                            .bodyText1!
-                                            .copyWith(
-                                                fontSize: 12.sp,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.white),
+                                  child: GestureDetector(
+                                    onTap: buttonMsg == 'Join'
+                                        ? () {
+                                            _teamService.joinTeam(_teamService
+                                                .teamList[index].id);
+                                            setState(() {
+                                              if (_teamService.joinedTeam ==
+                                                  true) {
+                                                buttonMsg = "Requested";
+                                                buttonCol =
+                                                    dummyTeamListColor[0];
+                                              }
+                                            });
+                                            print(buttonMsg);
+                                          }
+                                        : () {},
+                                    child: Container(
+                                      width: 120.w,
+                                      height: 25.h,
+                                      decoration: BoxDecoration(
+                                        color: _teamService.joinedTeam == true
+                                            ? dummyTeamListColor[0]
+                                            : buttonCol,
+                                        borderRadius:
+                                            BorderRadius.circular(2.5.w),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          _teamService.joinedTeam == true
+                                              ? "Requested"
+                                              : buttonMsg,
+                                          style: themeData()
+                                              .textTheme
+                                              .bodyText1!
+                                              .copyWith(
+                                                  fontSize: 12.sp,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white),
+                                        ),
                                       ),
                                     ),
                                   ),
