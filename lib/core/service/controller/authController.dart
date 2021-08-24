@@ -72,7 +72,6 @@ class AuthController extends GetxController {
     update();
   }
 
-
   void login() async {
     Utility.showLoadingDialog();
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -95,7 +94,7 @@ class AuthController extends GetxController {
         if (response.data!.completedStep == "1") {
           Get.offNamed('/profileScreen', arguments: false);
         } else if (response.data!.completedStep == "2") {
-          Get.offNamed("/registeredTeamScreen");
+          Get.offNamed("/teamList");
         } else if (response.data!.completedStep == "3") {
           Get.offNamed("/inviteScreen");
         } else if (response.data!.completedStep == "4") {

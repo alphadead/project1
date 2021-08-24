@@ -6,6 +6,7 @@ import 'package:vamos/core/service/controller/authController.dart';
 import 'package:vamos/core/service/controller/teamListingController.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/theme.dart';
+import 'package:vamos/ui/utils/utility.dart';
 import 'package:vamos/widget/customAppBar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -96,25 +97,24 @@ class _TeamListScreenState extends State<TeamListScreen> {
                           shrinkWrap: true,
                           itemCount: _teamService.teamList.length,
                           itemBuilder: (context, index) {
-                            buttonMsg =
+                            buttonMsg = _teamService.teamList[index].status ==
+                                    null
+                                ? "Join"
+                                : _teamService.teamList[index].isJoined == true
+                                    ? "Requested"
+                                    : "Pending";
+                            buttonCol =
                                 _teamService.teamList[index].status == null
-                                    ? "Join"
-                                    : _teamService.joinedTeam == true
-                                        ? "Requested"
-                                        : "Join";
-                            buttonCol = _teamService.teamList[index].status
-                                        .toString() ==
-                                    'null'
-                                ? dummyTeamListColor[2]
-                                : _teamService.teamList[index].status
-                                            .toString() ==
-                                        'pending'
-                                    ? dummyTeamListColor[0]
-                                    : dummyTeamListColor[1];
+                                    ? dummyTeamListColor[2]
+                                    : _teamService.teamList[index].status
+                                                .toString() ==
+                                            'pending'
+                                        ? dummyTeamListColor[1]
+                                        : dummyTeamListColor[0];
 
-                            print(_teamService.teamList[index].logo != null ||
-                                _teamService.teamList[index].logo != "");
-                            print("BBBBBBBBBBBBB" + index.toString());
+                            // print(_teamService.teamList[index].logo != null ||
+                            //     _teamService.teamList[index].logo != "");
+                            // print("BBBBBBBBBBBBB" + index.toString());
                             return Stack(
                               children: [
                                 Card(
@@ -219,26 +219,33 @@ class _TeamListScreenState extends State<TeamListScreen> {
                                   right: 15.w,
                                   bottom: 10.h,
                                   child: GestureDetector(
-                                    onTap: buttonMsg == 'Join'
-                                        ? () {
-                                            _teamService.joinTeam(_teamService
-                                                .teamList[index].id);
-                                            setState(() {
-                                              if (_teamService.joinedTeam ==
-                                                  true) {
-                                                buttonMsg = "Requested";
-                                                buttonCol =
-                                                    dummyTeamListColor[0];
-                                              }
-                                            });
-                                            print(buttonMsg);
-                                          }
-                                        : () {},
+                                    onTap: () {
+                                      if (!_teamService
+                                          .teamList[index].isJoined!) {
+                                        _teamService.joinTeam(
+                                            _teamService.teamList[index].id);
+                                        setState(() {
+                                          _teamService
+                                              .teamList[index].isJoined = true;
+
+                                          buttonMsg = "Requested";
+                                          buttonCol = dummyTeamListColor[0];
+                                        });
+                                      } else {
+                                        Utility.showSnackbar(AppLocalizations
+                                                .of(context)!
+                                            .registeredTeamsPage_alreadyPresentSnackbar);
+                                      }
+                                      print("+++++++++++++++=");
+                                      print(buttonMsg);
+                                    },
                                     child: Container(
                                       width: 120.w,
                                       height: 25.h,
                                       decoration: BoxDecoration(
-                                        color: _teamService.joinedTeam == true
+                                        color: _teamService
+                                                    .teamList[index].isJoined ==
+                                                true
                                             ? dummyTeamListColor[0]
                                             : buttonCol,
                                         borderRadius:
@@ -246,7 +253,9 @@ class _TeamListScreenState extends State<TeamListScreen> {
                                       ),
                                       child: Center(
                                         child: Text(
-                                          _teamService.joinedTeam == true
+                                          _teamService.teamList[index]
+                                                      .isJoined ==
+                                                  true
                                               ? "Requested"
                                               : buttonMsg,
                                           style: themeData()
