@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:vamos/core/models/acceptRejectResponse.dart';
 import 'package:vamos/core/models/genericResponse.dart';
 import 'package:vamos/core/models/joinTeam.dart';
 import 'package:vamos/core/models/teamListingResponse.dart';
+import 'package:vamos/core/models/teamRequestReceviedAsPlayerResponse.dart';
 import 'package:vamos/core/service/api/api.dart';
 import 'package:vamos/ui/utils/utility.dart';
 
@@ -51,4 +53,19 @@ class TeamListController extends GetxController {
       return false;
     }
   }
+
+  void requestRecived() async {
+    Utility.showLoadingDialog();
+    TeamRequestReceivedAsPlayerResponse response = await api.requestRecived();
+    if (response.status == "Success") {
+      Utility.showSnackbar("${response.message}");
+    } else {
+      Utility.showSnackbar("${response.message}");
+    }
+  }
+
+  // void requestAcceptReject(id, status) async {
+  //   AcceptRejectRequestResponse response = await api.requestAcceptReject(id, status);
+  //   if(response.status == "")
+  // }
 }
