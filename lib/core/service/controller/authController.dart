@@ -94,7 +94,7 @@ class AuthController extends GetxController {
         if (response.data!.completedStep == "1") {
           Get.offNamed('/profileScreen', arguments: false);
         } else if (response.data!.completedStep == "2") {
-          Get.offNamed("/teamList");
+          Get.offNamed("/registeredTeamScreen");
         } else if (response.data!.completedStep == "3") {
           Get.offNamed("/inviteScreen");
         } else if (response.data!.completedStep == "4") {

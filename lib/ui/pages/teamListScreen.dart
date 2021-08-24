@@ -194,7 +194,30 @@ class _TeamListScreenState extends State<TeamListScreen> {
                                                           height: 15,
                                                         ),
                                                       ),
-                                                      onTap: () {},
+                                                      onTap: () async {
+                                                        bool success =
+                                                            await _teamService
+                                                                .cancelTeamRequest(
+                                                                    _teamService
+                                                                        .teamList[
+                                                                            index]
+                                                                        .id);
+                                                        if (success) {
+                                                          setState(() {
+                                                            print("ffffff");
+                                                            buttonMsg = "Join";
+                                                            buttonCol =
+                                                                dummyTeamListColor[
+                                                                    2];
+                                                            _teamService
+                                                                .teamList[index]
+                                                                .status = null;
+                                                            _teamService
+                                                                .teamList[index]
+                                                                .isJoined = false;
+                                                          });
+                                                        }
+                                                      },
                                                     ),
                                                     GestureDetector(
                                                       child: Container(

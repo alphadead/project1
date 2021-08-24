@@ -4,6 +4,7 @@ import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:vamos/core/models/completeStepResponse.dart';
 import 'package:vamos/core/models/createTeamResponse.dart';
 import 'package:vamos/core/models/deleteMedia.dart';
+import 'package:vamos/core/models/genericResponse.dart';
 import 'package:vamos/core/models/joinTeam.dart';
 import 'package:vamos/core/models/loginResponse.dart';
 import 'package:vamos/core/models/playerListResponse.dart';
@@ -132,5 +133,14 @@ class HTTPApi extends Api {
     };
     Map<String, dynamic> response = await postRequest('player/request', body);
     return JoinTeamResponse.fromJson(response);
+  }
+
+  Future<GenericResponse> cancelTeamRequest(teamId) async {
+    Map<String, dynamic> body = {
+      "team_id": teamId,
+    };
+    Map<String, dynamic> response =
+        await postRequest('team/cancel-request', body);
+    return GenericResponse.fromJson(response);
   }
 }

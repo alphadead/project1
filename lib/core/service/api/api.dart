@@ -4,6 +4,7 @@ import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:vamos/core/models/completeStepResponse.dart';
 import 'package:vamos/core/models/createTeamResponse.dart';
 import 'package:vamos/core/models/deleteMedia.dart';
+import 'package:vamos/core/models/genericResponse.dart';
 import 'package:vamos/core/models/joinTeam.dart';
 import 'package:vamos/core/models/loginResponse.dart';
 import 'package:vamos/core/models/playerListResponse.dart';
@@ -52,4 +53,5 @@ abstract class Api {
     int teamId,
   );
   Future<DeleteMedia> deleteMedias(String mediaId);
+  Future<GenericResponse> cancelTeamRequest(teamId);
 }
