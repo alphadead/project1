@@ -22,7 +22,7 @@ class HomeScreen extends StatelessWidget {
           child: Scaffold(
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.miniCenterDocked,
-            floatingActionButton:homeFABBottomNav(),
+            floatingActionButton: homeFABBottomNav(),
             bottomNavigationBar: CustomBottomAppBar(
               height: 50.h,
             ),
@@ -51,22 +51,23 @@ class HomeScreen extends StatelessWidget {
                       shrinkWrap: true,
                       crossAxisCount: 2,
                       children: [
-                        logoContainer('assets/images/team_logo.webp', 'Team',
+                        logoContainer(
+                            context, 'assets/images/team_logo.webp', 'Team',
                             nextRoute: "/teamList"),
                         logoContainer(
-                            'assets/images/player_logo.webp', 'Player', nextRoute: '/playerListingScreen'),
-                        GestureDetector(
-                          onTap: () {
-                            Get.toNamed('/createTeam');
-                          },
-                          child: logoContainer('assets/images/create_logo.webp',
-                              'Create Own Team'),
-                        ),
+                            context, 'assets/images/player_logo.webp', 'Player',
+                            nextRoute: '/playerListingScreen'),
+                        logoContainer(context, 'assets/images/create_logo.webp',
+                            'Create Own Team'),
+                        logoContainer(context, 'assets/images/ground_logo.webp',
+                            'Ground'),
                         logoContainer(
-                            'assets/images/ground_logo.webp', 'Ground'),
-                        logoContainer('assets/images/upcoming_logo.webp',
+                            context,
+                            'assets/images/upcoming_logo.webp',
                             'Upcoming Matches'),
-                        logoContainer('assets/images/tournaments_logo.webp',
+                        logoContainer(
+                            context,
+                            'assets/images/tournaments_logo.webp',
                             'Tournaments')
                       ],
                     ),

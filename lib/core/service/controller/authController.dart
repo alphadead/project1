@@ -51,7 +51,7 @@ class AuthController extends GetxController {
 
   String teamName = '';
   List<Asset> teamLogo = [];
-  String teamSize = '';
+  String teamSize = "6";
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   GlobalKey<FormState> formKey2 = GlobalKey<FormState>();
