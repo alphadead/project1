@@ -5,6 +5,7 @@ import 'package:vamos/core/service/controller/authController.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/loginbkground.dart';
 import 'package:vamos/ui/utils/validator.dart';
+import 'package:vamos/widget/buttons.dart';
 import 'package:vamos/widget/customAppBar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vamos/ui/utils/theme.dart';
@@ -29,23 +30,7 @@ class _CreateTeamsState extends State<CreateTeams> {
         backgroundColor: sliderGreenActive,
         floatingActionButtonLocation:
             FloatingActionButtonLocation.miniCenterDocked,
-        floatingActionButton: Container(
-          width: 60.w,
-          child: FittedBox(
-            child: FloatingActionButton(
-              elevation: 0,
-              onPressed: () {},
-              backgroundColor: KRed,
-              child: SizedBox(
-                height: 30,
-                child: Image.asset(
-                  "assets/images/FloatingActionButton.png",
-                  // scale: 30,
-                ),
-              ),
-            ),
-          ),
-        ),
+        floatingActionButton: homeFABBottomNav(),
         bottomNavigationBar: CustomBottomAppBar(
           height: 50.h,
         ),

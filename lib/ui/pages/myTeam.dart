@@ -27,23 +27,7 @@ class _MyTeamState extends State<MyTeam> {
         backgroundColor: sliderGreenActive,
         floatingActionButtonLocation:
             FloatingActionButtonLocation.miniCenterDocked,
-        floatingActionButton: Container(
-          width: 60.w,
-          child: FittedBox(
-            child: FloatingActionButton(
-              elevation: 0,
-              onPressed: () {},
-              backgroundColor: KRed,
-              child: SizedBox(
-                height: 30,
-                child: Image.asset(
-                  "assets/images/FloatingActionButton.png",
-                  // scale: 30,
-                ),
-              ),
-            ),
-          ),
-        ),
+        floatingActionButton: homeFABBottomNav(),
         bottomNavigationBar: CustomBottomAppBar(
           height: 50.h,
         ),
@@ -164,14 +148,14 @@ class _MyTeamState extends State<MyTeam> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          primaryActionButton(() {
+                          primaryActionButtonKRed(() {
                             _myTeamService.getPlayerJoinedListByTeam(1);
 
                             setState(() {
                               joinedTeamListView = true;
                             });
                           }, joinedTeamListView, 'Joined Team'),
-                          primaryActionButton(() {
+                          primaryActionButtonKRed(() {
                             setState(() {
                               _myTeamService.getPlayerRequestListByTeam(1);
                               joinedTeamListView = false;
