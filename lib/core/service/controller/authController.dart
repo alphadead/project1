@@ -81,6 +81,7 @@ class AuthController extends GetxController {
       prefs.setString('token', 'Bearer ${response.accessToken}');
       prefs.setString('userId', '${response.data!.id}');
       prefs.setString('invite_code', '${response.data!.inviteCode}');
+      prefs.setString('team_id', '${response.data!.teamId}');
       prefs.setString("completedStep", '${response.data!.completedStep}');
       prefs.setBool('isAuthenticated', true);
       Utility.closeDialog();
@@ -115,7 +116,8 @@ class AuthController extends GetxController {
         await api.createTeam(teamName, teamLogo[0], teamSize);
     if (response.success) {
       Utility.showSnackbar("${response.message}");
-
+      print(response.data?.teamId);
+      prefs.setString("team_id", "${response.data?.teamId}");
       Get.offNamed('/playerListingScreen');
     } else {
       Utility.showSnackbar("${response.message}");
@@ -132,6 +134,7 @@ class AuthController extends GetxController {
       prefs.setString('token', 'Bearer ${response.accessToken}');
       prefs.setString('userId', '${response.data!.id}');
       prefs.setString('invite_code', '${response.data!.inviteCode}');
+      prefs.setString('team_id', '${response.data!.teamId}');
       otp = response.data!.otp.toString();
       update();
       Get.offNamed('/setPass');

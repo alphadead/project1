@@ -54,7 +54,7 @@ class HomeScreen extends StatelessWidget {
                         logoContainer('assets/images/team_logo.webp', 'Team',
                             nextRoute: "/teamList"),
                         logoContainer(
-                            'assets/images/player_logo.webp', 'Player'),
+                            'assets/images/player_logo.webp', 'Player', nextRoute: '/playerListingScreen'),
                         GestureDetector(
                           onTap: () {
                             Get.toNamed('/createTeam');

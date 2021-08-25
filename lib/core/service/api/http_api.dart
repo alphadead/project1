@@ -8,6 +8,7 @@ import 'package:vamos/core/models/deleteMedia.dart';
 import 'package:vamos/core/models/genericResponse.dart';
 import 'package:vamos/core/models/joinTeam.dart';
 import 'package:vamos/core/models/loginResponse.dart';
+import 'package:vamos/core/models/myTeamInfo.dart';
 import 'package:vamos/core/models/playerListResponse.dart';
 import 'package:vamos/core/models/playerRequestResponse.dart';
 import 'package:vamos/core/models/profileDataResponse.dart';
@@ -129,7 +130,7 @@ class HTTPApi extends Api {
     return CompletedStepResponse.fromJson(response);
   }
 
-  Future<JoinTeamResponse> requestPlayer(String userId, int teamId) async {
+  Future<JoinTeamResponse> requestPlayer(String userId, int? teamId) async {
     Map<String, dynamic> body = {
       "user_id": userId,
       "team_id": teamId,
@@ -139,14 +140,14 @@ class HTTPApi extends Api {
   }
 
   @override
-  Future<PlayerRequestResponse> getPlayerRequestListByTeam(int teamId) async {
+  Future<PlayerRequestResponse> getPlayerRequestListByTeam(int? teamId) async {
     Map<String, dynamic> response =
         await getRequest('player/request-received?team_id=$teamId');
     return PlayerRequestResponse.fromJson(response);
   }
 
   @override
-  Future<PlayerRequestResponse> getPlayerJoinedListByTeam(int teamId) async {
+  Future<PlayerRequestResponse> getPlayerJoinedListByTeam(int? teamId) async {
     Map<String, dynamic> response =
         await getRequest('player/joined?team_id=$teamId');
     return PlayerRequestResponse.fromJson(response);
@@ -172,5 +173,9 @@ class HTTPApi extends Api {
         await putRequest('team/update-request-received', body);
 
     return AcceptRejectRequestResponse.fromJson(response);
+  }
+  Future<MyTeamInfo> myTeamInfo() async {
+    Map<String, dynamic> response = await getRequest('my-team-info');
+    return MyTeamInfo.fromJson(response);
   }
 }

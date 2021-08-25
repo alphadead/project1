@@ -32,10 +32,11 @@ class CreateTeamResponse {
 }
 
 class Data {
-  Data({this.userId, this.name, this.logo, this.createdAt, this.updatedAt});
+  Data({this.userId, this.name, this.logo, this.createdAt, this.updatedAt, this.teamId});
 
   String? userId;
   String? name;
+  int? teamId;
   String? createdAt;
   String? updatedAt;
   dynamic logo;
@@ -46,6 +47,7 @@ class Data {
         logo: json["logo"],
         createdAt: json["created_at"],
         updatedAt: json["updated_at"],
+        teamId: json["id"]
       );
 
   Map<String, dynamic> toJson() => {
