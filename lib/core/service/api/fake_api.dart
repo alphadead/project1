@@ -1,9 +1,11 @@
 import 'dart:io';
 
 import 'package:multi_image_picker2/multi_image_picker2.dart';
+import 'package:vamos/core/models/acceptRejectResponse.dart';
 import 'package:vamos/core/models/completeStepResponse.dart';
 import 'package:vamos/core/models/createTeamResponse.dart';
 import 'package:vamos/core/models/deleteMedia.dart';
+import 'package:vamos/core/models/genericResponse.dart';
 import 'package:vamos/core/models/joinTeam.dart';
 import 'package:vamos/core/models/loginResponse.dart';
 import 'package:vamos/core/models/playerListResponse.dart';
@@ -12,6 +14,7 @@ import 'package:vamos/core/models/profileDataResponse.dart';
 import 'package:vamos/core/models/profile_api.dart';
 import 'package:vamos/core/models/registerResponse.dart';
 import 'package:vamos/core/models/teamListingResponse.dart';
+import 'package:vamos/core/models/teamRequestReceviedAsPlayerResponse.dart';
 import 'package:vamos/core/models/verifyOtpResponse.dart';
 import 'package:vamos/core/service/api/api.dart';
 
@@ -78,7 +81,6 @@ class FakeApi extends Api {
 
   @override
   Future<CompletedStepResponse> completedtep(String step) {
-    // TODO: implement completedtep
     throw UnimplementedError();
   }
 
@@ -91,13 +93,23 @@ class FakeApi extends Api {
 
   @override
   Future<PlayerRequestResponse> getPlayerRequestListByTeam(int teamId) {
-    // TODO: implement getPlayerRequestListByTeam
     throw UnimplementedError();
   }
 
   @override
   Future<PlayerRequestResponse> getPlayerJoinedListByTeam(int teamId) {
-    // TODO: implement getPlayerJoinedListByTeam
+    throw UnimplementedError();
+  }
+
+  Future<GenericResponse> cancelTeamRequest(teamId) {
+    throw UnimplementedError();
+  }
+
+  Future<TeamRequestReceivedAsPlayerResponse> requestRecived() {
+    throw UnimplementedError();
+  }
+
+  Future<AcceptRejectRequestResponse> requestAcceptReject(id, status) {
     throw UnimplementedError();
   }
 }
