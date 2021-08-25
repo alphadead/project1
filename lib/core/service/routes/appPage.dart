@@ -12,6 +12,7 @@ import 'package:vamos/ui/loginPages/signUp.dart';
 import 'package:vamos/ui/loginPages/upcomingMatches.dart';
 import 'package:vamos/ui/pages/inviteScreen.dart';
 import 'package:vamos/ui/pages/playerListingScreen.dart';
+import 'package:vamos/ui/pages/teamListScreen.dart';
 import 'package:vamos/widget/videoPlayer.dart';
 import 'package:vamos/ui/loginPages/playerInfo.dart';
 
@@ -123,6 +124,13 @@ abstract class AppPages {
       name: '/playerListingScreen',
       transitionDuration: transitionDuration,
       page: () => PlayerListingScreen(),
+      transition: Transition.downToUp,
+      binding: AllBinder(),
+    ),
+    GetPage(
+      name: '/teamList',
+      transitionDuration: transitionDuration,
+      page: () => TeamListScreen(),
       transition: Transition.downToUp,
       binding: AllBinder(),
     ),

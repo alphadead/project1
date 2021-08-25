@@ -10,7 +10,9 @@ import 'package:vamos/widget/profileContainer.dart';
 
 class CustomAppBar extends StatefulWidget {
   final bool isPencil;
-  CustomAppBar({this.isPencil = false, Key? key}) : super(key: key);
+  final PreferredSizeWidget? tabBar;
+  CustomAppBar({this.isPencil = false, this.tabBar, Key? key})
+      : super(key: key);
 
   @override
   _CustomAppBarState createState() => _CustomAppBarState();
@@ -20,6 +22,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      bottom: widget.tabBar,
       actions: [
         widget.isPencil == false
             ? Stack(

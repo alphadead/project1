@@ -44,6 +44,8 @@ class TeamData {
   TeamData({
     this.id,
     this.name,
+    this.teamSize,
+    this.status,
     this.logo,
     this.createdAt,
     this.updatedAt,
@@ -52,6 +54,8 @@ class TeamData {
 
   int? id;
   String? name;
+  String? teamSize;
+  String? status;
   String? logo;
   String? createdAt;
   String? updatedAt;
@@ -60,6 +64,8 @@ class TeamData {
   factory TeamData.fromJson(Map<String, dynamic> json) => TeamData(
       id: json["id"],
       name: json["name"],
+      teamSize: json["team_size"] == null ? null : json["team_size"],
+      status: json["status"] == null ? null : json["status"],
       logo: json["logo"],
       createdAt: json["created_at"],
       updatedAt: json["updated_at"],
@@ -68,6 +74,8 @@ class TeamData {
   Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,
+        "team_size": teamSize == null ? null : teamSize,
+        "status": status == null ? null : status,
         "logo": logo,
         "created_at": createdAt,
         "updated_at": updatedAt,

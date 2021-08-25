@@ -66,7 +66,8 @@ class HomeScreen extends StatelessWidget {
                       shrinkWrap: true,
                       crossAxisCount: 2,
                       children: [
-                        logoContainer('assets/images/team_logo.webp', 'Team'),
+                        logoContainer('assets/images/team_logo.webp', 'Team',
+                            nextRoute: "/teamList"),
                         logoContainer(
                             'assets/images/player_logo.webp', 'Player'),
                         GestureDetector(

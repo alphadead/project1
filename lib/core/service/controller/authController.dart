@@ -72,7 +72,6 @@ class AuthController extends GetxController {
     update();
   }
 
-
   void login() async {
     Utility.showLoadingDialog();
     SharedPreferences prefs = await SharedPreferences.getInstance();

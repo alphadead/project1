@@ -39,6 +39,35 @@ Future<Map<String, dynamic>> postRequest(url, body) async {
   // }
 }
 
+Future<Map<String, dynamic>> putRequest(url, body) async {
+  //GlobalKey<ScaffoldState> _scaffoldKey;
+  print(BASE_URL + url);
+  print(body);
+  final http.Response response = await http
+      .put(Uri.parse(BASE_URL + url),
+          body: json.encode(body), headers: await getHeaders())
+      .timeout(TIMEOUT, onTimeout: () {
+    return Future.value(http.Response(json.encode(timeoutResponse()), 400));
+  }).catchError((error) {
+    return getErrorMessage(error);
+  });
+  print("BODY ${response.body}");
+  print("STATUS CODE ${response.statusCode}");
+  // if (response.statusCode < 300 && response.statusCode >= 200) {
+  Map<String, dynamic> responseBody = json.decode(response.body);
+
+  if (responseBody['status'].toString().toLowerCase() == 'success' ||
+      responseBody['status'] == 'error') {
+    responseBody.putIfAbsent("success", () => true);
+  }
+  return responseBody;
+  // }
+  // else {
+  //   return responseBody;
+  //   //errorResponse();
+  // }
+}
+
 Future<Map<String, dynamic>> getRequest(url) async {
   //GlobalKey<ScaffoldState> _scaffoldKey;
   print(BASE_URL + url);
