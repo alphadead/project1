@@ -377,7 +377,7 @@ class _TeamListScreenState extends State<TeamListScreen> {
                         ListView.builder(
                           physics: NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
-                          itemCount: _teamService.teamList.length,
+                          itemCount: _teamService.teamRequestList.length,
                           itemBuilder: (context, index) {
                             return Container(
                               margin: EdgeInsets.only(top: 10.h),
@@ -403,16 +403,19 @@ class _TeamListScreenState extends State<TeamListScreen> {
                                               child: CircleAvatar(
                                                 radius: 24.h,
                                                 backgroundImage: _teamService
-                                                                .teamList[index]
-                                                                .logo ==
+                                                                .teamRequestList[
+                                                                    index]
+                                                                .teamLogo ==
                                                             null ||
                                                         _teamService
-                                                                .teamList[index]
-                                                                .logo ==
+                                                                .teamRequestList[
+                                                                    index]
+                                                                .teamLogo ==
                                                             ''
                                                     ? NetworkImage('')
                                                     : NetworkImage(_teamService
-                                                        .teamList[index].logo
+                                                        .teamRequestList[index]
+                                                        .teamLogo
                                                         .toString()),
                                               ),
                                             ),
@@ -426,7 +429,8 @@ class _TeamListScreenState extends State<TeamListScreen> {
                                                   width: 170.w,
                                                   child: Text(
                                                     _teamService
-                                                        .teamList[index].name
+                                                        .teamRequestList[index]
+                                                        .teamName
                                                         .toString(),
                                                     maxLines: 2,
                                                     overflow:
@@ -442,19 +446,6 @@ class _TeamListScreenState extends State<TeamListScreen> {
                                                         ),
                                                   ),
                                                 ),
-                                                Text(
-                                                  'Team size: ' +
-                                                      _teamService
-                                                          .teamList[index]
-                                                          .teamSize
-                                                          .toString(),
-                                                  style: themeData()
-                                                      .textTheme
-                                                      .bodyText1!
-                                                      .copyWith(
-                                                        fontSize: 9.sp,
-                                                      ),
-                                                )
                                               ],
                                             ),
                                             Expanded(
@@ -470,7 +461,18 @@ class _TeamListScreenState extends State<TeamListScreen> {
                                       child: Row(
                                         children: [
                                           GestureDetector(
-                                            onTap: () {},
+                                            onTap: () {
+                                              _teamService.requestAcceptReject(
+                                                _teamService
+                                                    .teamRequestList[index].id,
+                                                "Accept",
+                                              );
+                                              setState(() {
+                                                _teamService.teamRequestList
+                                                    .removeAt(index);
+                                                _teamService.update();
+                                              });
+                                            },
                                             child: Container(
                                               margin:
                                                   EdgeInsets.only(right: 10),
@@ -491,7 +493,18 @@ class _TeamListScreenState extends State<TeamListScreen> {
                                             ),
                                           ),
                                           GestureDetector(
-                                            onTap: () {},
+                                            onTap: () {
+                                              _teamService.requestAcceptReject(
+                                                _teamService
+                                                    .teamRequestList[index].id,
+                                                "Reject",
+                                              );
+                                              setState(() {
+                                                _teamService.teamRequestList
+                                                    .removeAt(index);
+                                                _teamService.update();
+                                              });
+                                            },
                                             child: Container(
                                               width: 40.w,
                                               height: 25.h,

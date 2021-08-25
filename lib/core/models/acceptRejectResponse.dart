@@ -12,24 +12,24 @@ String acceptRejectRequestResponseToJson(AcceptRejectRequestResponse data) =>
 
 class AcceptRejectRequestResponse {
   AcceptRejectRequestResponse({
-    this.status,
+    this.success,
     this.message,
     this.data,
   });
 
-  String? status;
+  bool? success;
   String? message;
   dynamic data;
 
   factory AcceptRejectRequestResponse.fromJson(Map<String, dynamic> json) =>
       AcceptRejectRequestResponse(
-        status: json["status"] == null ? null : json["status"],
+        success: json["success"] == null ? null : json["success"],
         message: json["message"] == null ? null : json["message"],
         data: json["data"],
       );
 
   Map<String, dynamic> toJson() => {
-        "status": status == null ? null : status,
+        "success": success == null ? null : success,
         "message": message == null ? null : message,
         "data": data,
       };

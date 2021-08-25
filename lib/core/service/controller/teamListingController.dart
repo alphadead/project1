@@ -12,11 +12,13 @@ import '../../../locator.dart';
 
 class TeamListController extends GetxController {
   List<TeamData> teamList = [];
+  List<Datum> teamRequestList = [];
   Api api = locator<Api>();
   bool joinedTeam = false;
 
   void onInit() {
     WidgetsBinding.instance!.addPostFrameCallback((_) => getteamlist());
+    WidgetsBinding.instance!.addPostFrameCallback((_) => requestRecived());
   }
 
   void getteamlist() async {
@@ -58,14 +60,24 @@ class TeamListController extends GetxController {
     Utility.showLoadingDialog();
     TeamRequestReceivedAsPlayerResponse response = await api.requestRecived();
     if (response.status == "Success") {
+      teamRequestList = response.data!;
+      print("AAAAAAAAAAAAAAAAA");
       Utility.showSnackbar("${response.message}");
     } else {
       Utility.showSnackbar("${response.message}");
     }
+    update();
   }
 
-  // void requestAcceptReject(id, status) async {
-  //   AcceptRejectRequestResponse response = await api.requestAcceptReject(id, status);
-  //   if(response.status == "")
-  // }
+  void requestAcceptReject(id, status) async {
+    Utility.showLoadingDialog();
+    AcceptRejectRequestResponse response =
+        await api.requestAcceptReject(id, status);
+    if (response.success == "true") {
+      Utility.showSnackbar("${response.message}");
+    } else {
+      Utility.showSnackbar("${response.message}");
+    }
+    update();
+  }
 }
