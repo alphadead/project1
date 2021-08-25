@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:multi_image_picker2/multi_image_picker2.dart';
-import 'package:vamos/core/service/controller/authController.dart';
+import 'package:vamos/core/service/controller/myTeamController.dart';
 import 'package:vamos/ui/utils/color.dart';
-import 'package:vamos/ui/utils/loginbkground.dart';
-import 'package:vamos/ui/utils/validator.dart';
+import 'package:vamos/widget/buttons.dart';
 import 'package:vamos/widget/customAppBar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vamos/ui/utils/theme.dart';
 import 'package:vamos/widget/customBottomNavBar.dart';
-import 'package:vamos/widget/inputField.dart';
-import 'package:vamos/widget/createteamContainer.dart';
-import 'package:vamos/widget/teamSizeButtons.dart';
 
 class MyTeam extends StatefulWidget {
   const MyTeam({Key? key}) : super(key: key);
@@ -21,10 +16,12 @@ class MyTeam extends StatefulWidget {
 }
 
 class _MyTeamState extends State<MyTeam> {
+  bool joinedTeamListView = true;
+
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<AuthController>(
-      builder: (_authService) => Scaffold(
+    return GetBuilder<MyTeamController>(
+      builder: (_myTeamService) => Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: sliderGreenActive,
         floatingActionButtonLocation:
@@ -162,32 +159,16 @@ class _MyTeamState extends State<MyTeam> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Container(
-                            height: 30.h,
-                            width: 110.h,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5),
-                                color: KRed),
-                            child: Center(
-                                child: Text(
-                              'Joined Team',
-                              style:
-                                  TextStyle(color: titleText, fontSize: 11.sp),
-                            )),
-                          ),
-                          Container(
-                            height: 30.h,
-                            width: 110.h,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5),
-                                color: moneyBox.withOpacity(0.2)),
-                            child: Center(
-                                child: Text(
-                              'Requested Player',
-                              style:
-                                  TextStyle(color: titleText, fontSize: 11.sp),
-                            )),
-                          ),
+                          primaryActionButton(() {
+                            setState(() {
+                              joinedTeamListView = true;
+                            });
+                          }, joinedTeamListView, 'Joined Team'),
+                          primaryActionButton(() {
+                            setState(() {
+                              joinedTeamListView = false;
+                            });
+                          }, !joinedTeamListView, 'Requested Player'),
                         ],
                       ),
                     ),
@@ -266,9 +247,7 @@ class _MyTeamState extends State<MyTeam> {
                     ),
                     Center(
                       child: GestureDetector(
-                        onTap: () {
-                          _authService.createTeam();
-                        },
+                        onTap: () {},
                         child: Container(
                           width: 95.h,
                           height: 30.w,

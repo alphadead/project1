@@ -291,7 +291,10 @@ class _TeamListScreenState extends State<TeamListScreen> {
                                     )
                                   ],
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                            Get.toNamed('/myTeam');
+
+                                },
                               ),
                             ],
                           ),
