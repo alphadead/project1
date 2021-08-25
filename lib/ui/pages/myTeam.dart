@@ -144,7 +144,7 @@ class _MyTeamState extends State<MyTeam> {
                           Padding(
                             padding: const EdgeInsets.fromLTRB(30, 0, 5, 0),
                             child: Icon(
-                              Icons.add,
+                              Icons.add_circle_outline,
                               color: sliderGreenActive,
                             ),
                           )
