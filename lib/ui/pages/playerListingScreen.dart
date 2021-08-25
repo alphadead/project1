@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vamos/core/service/controller/playerListingController.dart';
-import 'package:vamos/core/service/controller/teamListingController.dart';
-import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/loginbkground.dart';
 import 'package:vamos/ui/utils/utility.dart';
 import 'package:vamos/widget/customAppBar.dart';
-import 'package:vamos/widget/customBottomNavBar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vamos/widget/registeredTeamCard.dart';
 import 'package:vamos/widget/searchBar.dart';
@@ -71,9 +68,8 @@ class _PlayerListingScreenState extends State<PlayerListingScreen> {
                                   .playerListDisplay[index - 1], () {
                               if (!_playerListController
                                   .playerListDisplay[index - 1].isJoined!) {
-                                _playerListController.requestPlayer(
-                                    _playerListController
-                                        .playerListDisplay[index - 1].id!);
+                                _playerListController.requestPlayer(_playerListController
+                                  .playerListDisplay[index - 1].id);
 
                                 setState(() {
                                   _playerListController

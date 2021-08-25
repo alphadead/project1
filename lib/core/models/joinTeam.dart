@@ -46,7 +46,7 @@ class Data {
     this.id,
   });
 
-  int? userId;
+  String? userId;
   int? teamId;
   String? status;
   int? requestById;

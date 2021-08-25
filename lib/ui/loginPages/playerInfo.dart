@@ -6,6 +6,7 @@ import 'package:vamos/core/service/controller/profileController.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/loginbkground.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:vamos/widget/buttons.dart';
 
 import 'package:vamos/widget/customAppBar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -37,25 +38,7 @@ class _PlayerInfoState extends State<PlayerInfo> {
         backgroundColor: sliderGreenActive,
         floatingActionButtonLocation:
             FloatingActionButtonLocation.miniCenterDocked,
-        floatingActionButton: Container(
-          width: 60.w,
-          child: FittedBox(
-            child: FloatingActionButton(
-              elevation: 0,
-              onPressed: () {
-                Get.toNamed('/homeScreen');
-              },
-              backgroundColor: KRed,
-              child: SizedBox(
-                height: 30,
-                child: Image.asset(
-                  "assets/images/FloatingActionButton.png",
-                  // scale: 30,
-                ),
-              ),
-            ),
-          ),
-        ),
+        floatingActionButton: homeFABBottomNav(),
         bottomNavigationBar: CustomBottomAppBar(
           height: 50.h,
         ),
@@ -290,22 +273,29 @@ class _PlayerInfoState extends State<PlayerInfo> {
                               ),
                             ],
                           ),
-                          Container(
-                            width: 120.h,
-                            height: 30.w,
-                            child: Center(
-                              child: Text(
-                                AppLocalizations.of(context)!.joined_team,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 12.sp,
-                                  color: Colors.white,
+                          Center(
+                            child: GestureDetector(
+                              onTap: () {
+                                Get.toNamed('/myTeam');
+                              },
+                              child: Container(
+                                width: 120.h,
+                                height: 30.w,
+                                child: Center(
+                                  child: Text(
+                                    AppLocalizations.of(context)!.joined_team,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12.sp,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                                decoration: BoxDecoration(
+                                  color: KRed,
+                                  borderRadius: BorderRadius.circular(30),
                                 ),
                               ),
-                            ),
-                            decoration: BoxDecoration(
-                              color: KRed,
-                              borderRadius: BorderRadius.circular(30),
                             ),
                           ),
                         ],

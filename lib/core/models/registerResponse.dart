@@ -41,19 +41,19 @@ class RegisterResponse {
 }
 
 class Data {
-  Data({
-    this.firstName,
-    this.lastName,
-    this.email,
-    this.phone,
-    this.address,
-    this.type,
-    this.otp,
-    this.updatedAt,
-    this.createdAt,
-    this.id,
-    this.inviteCode
-  });
+  Data(
+      {this.firstName,
+      this.lastName,
+      this.email,
+      this.phone,
+      this.address,
+      this.type,
+      this.otp,
+      this.updatedAt,
+      this.createdAt,
+      this.id,
+      this.inviteCode,
+      this.teamId});
 
   String? firstName;
   String? lastName;
@@ -66,20 +66,21 @@ class Data {
   DateTime? createdAt;
   int? id;
   String? inviteCode;
+  int? teamId;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-        firstName: json["first_name"],
-        lastName: json["last_name"],
-        email: json["email"],
-        phone: json["phone"],
-        address: json["address"] == null ? null : json["address"],
-        type: json["type"],
-        otp: json["otp"] == null ? null : json["otp"],
-        updatedAt: DateTime.parse(json["updated_at"]),
-        createdAt: DateTime.parse(json["created_at"]),
-        id: json["id"],
-        inviteCode: json["invite_code"],
-      );
+      firstName: json["first_name"],
+      lastName: json["last_name"],
+      email: json["email"],
+      phone: json["phone"],
+      address: json["address"] == null ? null : json["address"],
+      type: json["type"],
+      otp: json["otp"] == null ? null : json["otp"],
+      updatedAt: DateTime.parse(json["updated_at"]),
+      createdAt: DateTime.parse(json["created_at"]),
+      id: json["id"],
+      inviteCode: json["invite_code"],
+      teamId: json["team_id"]);
 
   Map<String, dynamic> toJson() => {
         "first_name": firstName,
@@ -93,5 +94,6 @@ class Data {
         "created_at": createdAt!.toIso8601String(),
         "id": id,
         "invite_code": inviteCode,
+        "team_id": teamId
       };
 }

@@ -6,6 +6,7 @@ import 'package:vamos/core/service/controller/addsController.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vamos/widget/addsOptionsContainer.dart';
+import 'package:vamos/widget/buttons.dart';
 import 'package:vamos/widget/customAppBar.dart';
 import 'package:vamos/widget/customBottomNavBar.dart';
 
@@ -21,23 +22,7 @@ class HomeScreen extends StatelessWidget {
           child: Scaffold(
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.miniCenterDocked,
-            floatingActionButton: Container(
-              width: 60.w,
-              child: FittedBox(
-                child: FloatingActionButton(
-                  elevation: 0,
-                  onPressed: () {},
-                  backgroundColor: KRed,
-                  child: SizedBox(
-                    height: 30,
-                    child: Image.asset(
-                      "assets/images/FloatingActionButton.png",
-                      // scale: 30,
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            floatingActionButton:homeFABBottomNav(),
             bottomNavigationBar: CustomBottomAppBar(
               height: 50.h,
             ),
@@ -69,7 +54,7 @@ class HomeScreen extends StatelessWidget {
                         logoContainer('assets/images/team_logo.webp', 'Team',
                             nextRoute: "/teamList"),
                         logoContainer(
-                            'assets/images/player_logo.webp', 'Player'),
+                            'assets/images/player_logo.webp', 'Player', nextRoute: '/playerListingScreen'),
                         GestureDetector(
                           onTap: () {
                             Get.toNamed('/createTeam');

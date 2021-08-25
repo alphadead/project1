@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:provider/single_child_widget.dart';
-import 'package:vamos/core/models/joinTeam.dart';
-import 'package:vamos/core/service/controller/authController.dart';
 import 'package:vamos/core/service/controller/teamListingController.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/theme.dart';
 import 'package:vamos/ui/utils/utility.dart';
+import 'package:vamos/widget/buttons.dart';
 import 'package:vamos/widget/customAppBar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -37,23 +35,7 @@ class _TeamListScreenState extends State<TeamListScreen> {
               resizeToAvoidBottomInset: false,
               floatingActionButtonLocation:
                   FloatingActionButtonLocation.miniCenterDocked,
-              floatingActionButton: Container(
-                width: 60.w,
-                child: FittedBox(
-                  child: FloatingActionButton(
-                    elevation: 0,
-                    onPressed: () {},
-                    backgroundColor: KRed,
-                    child: SizedBox(
-                      height: 30,
-                      child: Image.asset(
-                        "assets/images/FloatingActionButton.png",
-                        // scale: 30,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+              floatingActionButton: homeFABBottomNav(),
               bottomNavigationBar: CustomBottomAppBar(
                 height: 50.h,
               ),
@@ -338,6 +320,38 @@ class _TeamListScreenState extends State<TeamListScreen> {
                             );
                           },
                         ),
+                        Container(
+                          margin: EdgeInsets.only(right: 10),
+                          height: 100,
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                FloatingActionButton(
+                                  backgroundColor: containerGreen,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image.asset(
+                                        "assets/images/TeamListMyTeam.webp",
+                                        height: 25.h,
+                                      ),
+                                      Text(
+                                        "MyTeam",
+                                        style: themeData()
+                                            .textTheme
+                                            .bodyText1!
+                                            .copyWith(
+                                                fontSize: 6.4.sp,
+                                                color: Colors.white),
+                                      )
+                                    ],
+                                  ),
+                                  onPressed: () {
+                                    Get.toNamed('/myTeam');
+                                  },
+                                ),
+                              ]),
+                        )
                       ],
                     ),
                   ),
