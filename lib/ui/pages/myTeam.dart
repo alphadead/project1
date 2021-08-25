@@ -186,23 +186,29 @@ class _MyTeamState extends State<MyTeam> {
                     ),
                     SingleChildScrollView(
                       child: Container(
-                        height: 200.h,
+                        padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
+                        height: 180.h,
                         child: ListView.builder(
                             shrinkWrap: true,
                             physics: ScrollPhysics(),
                             scrollDirection: Axis.vertical,
                             itemCount: 20,
                             itemBuilder: (BuildContext context, int index) {
+                              Color col = titleText;
+                              if (index % 2 == 0)
+                                col = KLightGrey.withOpacity(0.2);
+
                               return Container(
-                                padding: EdgeInsets.fromLTRB(10, 3, 0, 3),
+                                color: col,
                                 child: Row(
                                   children: [
                                     Container(
                                       height: 34.h,
                                       margin: EdgeInsets.symmetric(
-                                          vertical: 5.h, horizontal: 15),
+                                          vertical: 5.h, horizontal: 5),
+                                      padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
                                       child: CircleAvatar(
-                                        radius: 18.h,
+                                        radius: 15.h,
                                         //backgroundImage:
                                       ),
                                     ),
