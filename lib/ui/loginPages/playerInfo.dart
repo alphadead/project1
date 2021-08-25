@@ -290,22 +290,29 @@ class _PlayerInfoState extends State<PlayerInfo> {
                               ),
                             ],
                           ),
-                          Container(
-                            width: 120.h,
-                            height: 30.w,
-                            child: Center(
-                              child: Text(
-                                AppLocalizations.of(context)!.joined_team,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 12.sp,
-                                  color: Colors.white,
+                          Center(
+                            child: GestureDetector(
+                              onTap: () {
+                                Get.toNamed('/myTeam');
+                              },
+                              child: Container(
+                                width: 120.h,
+                                height: 30.w,
+                                child: Center(
+                                  child: Text(
+                                    AppLocalizations.of(context)!.joined_team,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12.sp,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                                decoration: BoxDecoration(
+                                  color: KRed,
+                                  borderRadius: BorderRadius.circular(30),
                                 ),
                               ),
-                            ),
-                            decoration: BoxDecoration(
-                              color: KRed,
-                              borderRadius: BorderRadius.circular(30),
                             ),
                           ),
                         ],
