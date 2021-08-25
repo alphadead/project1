@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:vamos/core/models/playerRequestResponse.dart';
 import 'package:vamos/core/service/controller/myTeamController.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/widget/buttons.dart';
@@ -160,12 +161,15 @@ class _MyTeamState extends State<MyTeam> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           primaryActionButton(() {
+                            _myTeamService.getPlayerJoinedListByTeam(1);
+
                             setState(() {
                               joinedTeamListView = true;
                             });
                           }, joinedTeamListView, 'Joined Team'),
                           primaryActionButton(() {
                             setState(() {
+                              _myTeamService.getPlayerRequestListByTeam(1);
                               joinedTeamListView = false;
                             });
                           }, !joinedTeamListView, 'Requested Player'),
@@ -180,65 +184,19 @@ class _MyTeamState extends State<MyTeam> {
                             shrinkWrap: true,
                             physics: ScrollPhysics(),
                             scrollDirection: Axis.vertical,
-                            itemCount: 20,
+                            itemCount: joinedTeamListView
+                                ? _myTeamService.playerJoinedList.length
+                                : _myTeamService.playerRequestList.length,
                             itemBuilder: (BuildContext context, int index) {
                               Color col = titleText;
                               if (index % 2 == 0)
                                 col = KLightGrey.withOpacity(0.2);
-
-                              return Container(
-                                color: col,
-                                child: Row(
-                                  children: [
-                                    Container(
-                                      height: 34.h,
-                                      margin: EdgeInsets.symmetric(
-                                          vertical: 5.h, horizontal: 5),
-                                      padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-                                      child: CircleAvatar(
-                                          radius: 15.h,
-                                          backgroundImage: AssetImage(
-                                              'assets/images/placeholder_team_icon.png')),
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "Wind City Rampage",
-                                          style: themeData()
-                                              .textTheme
-                                              .bodyText1!
-                                              .copyWith(
-                                                fontSize: 12.sp,
-                                                fontWeight: FontWeight.bold,
-                                                color: KRed,
-                                              ),
-                                        ),
-                                        Text(
-                                          '6x6 Team',
-                                          style: themeData()
-                                              .textTheme
-                                              .bodyText1!
-                                              .copyWith(
-                                                fontSize: 9.sp,
-                                              ),
-                                        )
-                                      ],
-                                    ),
-                                    GestureDetector(
-                                      child: Container(
-                                        margin: EdgeInsets.only(left: 50),
-                                        child: Image.asset(
-                                          "assets/images/teamListInfo.webp",
-                                          height: 18,
-                                        ),
-                                      ),
-                                      onTap: () {},
-                                    ),
-                                  ],
-                                ),
-                              );
+                              if (joinedTeamListView)
+                                return playerCard(col,
+                                    _myTeamService.playerJoinedList[index]);
+                              else
+                                return playerCard(col,
+                                    _myTeamService.playerRequestList[index]);
                             }),
                       ),
                     ),
@@ -279,6 +237,58 @@ class _MyTeamState extends State<MyTeam> {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget playerCard(Color col, PlayerData playerData) {
+    return Container(
+      color: col,
+      child: Row(
+        children: [
+          Container(
+            height: 34.h,
+            margin: EdgeInsets.symmetric(vertical: 5.h, horizontal: 5),
+            padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+            child: CircleAvatar(
+              backgroundColor: Colors.grey.shade300,
+              radius: 15.h,
+              backgroundImage: playerData.photo!.length > 0
+                  ? NetworkImage(playerData.photo?[0]?["url"])
+                  : NetworkImage(""),
+            ),
+          ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  (playerData.firstName ?? "") + (playerData.lastName ?? ""),
+                  style: themeData().textTheme.bodyText1!.copyWith(
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.bold,
+                        color: KRed,
+                      ),
+                ),
+                Text(
+                  playerData.nickName ?? "",
+                  style: themeData().textTheme.bodyText1!.copyWith(
+                        fontSize: 9.sp,
+                      ),
+                )
+              ],
+            ),
+          ),
+          GestureDetector(
+            child: Container(
+                margin: EdgeInsets.only(left: 10.w, right: 10.w),
+                child: Image.asset(
+                  "assets/images/teamListInfo.webp",
+                  height: 18,
+                )),
+            onTap: () {},
+          ),
+        ],
       ),
     );
   }

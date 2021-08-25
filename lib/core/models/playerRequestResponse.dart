@@ -63,26 +63,20 @@ class PlayerData {
   String? phone;
   String? address;
   String? nickName;
-  String? photo;
+  List<dynamic>? photo;
   DateTime? createdAt;
   DateTime? updatedAt;
 
   factory PlayerData.fromJson(Map<String, dynamic> json) => PlayerData(
       id: json["id"] == null ? null : json["id"],
       userID: json["user_id"] == null ? null : json["user_id"],
-      firstName: json["user_first_name"] == null ? null : json["first_name"],
-      lastName: json["user_last_name"] == null ? null : json["last_name"],
-      email: json["user_email"] == null ? null : json["email"],
-      phone: json["user_phone"] == null ? null : json["phone"],
-      address: json["user_address"] == null ? null : json["address"],
+      firstName: json["user_first_name"] == null ? null : json["user_first_name"],
+      lastName: json["user_last_name"] == null ? null : json["user_last_name"],
+      email: json["user_email"] == null ? null : json["user_email"],
+      phone: json["user_phone"] == null ? null : json["user_phone"],
+      address: json["user_address"] == null ? null : json["user_address"],
       nickName: json["nick_name"],
-      photo: json["user_photo"],
-      createdAt: json["created_at"] == null
-          ? null
-          : DateTime.parse(json["created_at"]),
-      updatedAt: json["updated_at"] == null
-          ? null
-          : DateTime.parse(json["updated_at"]));
+      photo: json["user_photo"]);
 
   Map<String, dynamic> toJson() => {
         "id": id == null ? null : id,

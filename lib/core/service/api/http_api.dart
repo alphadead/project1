@@ -136,9 +136,16 @@ class HTTPApi extends Api {
   }
 
   @override
-  Future<PlayerRequestResponse> getPlayerRequestListByTeam(int teamId) async{
+  Future<PlayerRequestResponse> getPlayerRequestListByTeam(int teamId) async {
+    Map<String, dynamic> response =
+        await getRequest('player/request-received?team_id=$teamId');
+    return PlayerRequestResponse.fromJson(response);
+  }
 
-    Map<String, dynamic> response = await getRequest('player/request-received?team_id=$teamId');
+  @override
+  Future<PlayerRequestResponse> getPlayerJoinedListByTeam(int teamId) async {
+    Map<String, dynamic> response =
+        await getRequest('player/joined?team_id=$teamId');
     return PlayerRequestResponse.fromJson(response);
   }
 }

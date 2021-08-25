@@ -42,6 +42,7 @@ abstract class Api {
 
   Future<TeamListResponse> getteamlist();
   Future<PlayerRequestResponse> getPlayerRequestListByTeam(int teamId);
+  Future<PlayerRequestResponse> getPlayerJoinedListByTeam(int teamId);
   Future<ProfileDataResponse> getProfile(String userId);
   Future<JoinTeamResponse> joinTeam(
     int teamId,

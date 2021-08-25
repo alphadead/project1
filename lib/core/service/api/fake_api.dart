@@ -94,4 +94,10 @@ class FakeApi extends Api {
     // TODO: implement getPlayerRequestListByTeam
     throw UnimplementedError();
   }
+
+  @override
+  Future<PlayerRequestResponse> getPlayerJoinedListByTeam(int teamId) {
+    // TODO: implement getPlayerJoinedListByTeam
+    throw UnimplementedError();
+  }
 }
