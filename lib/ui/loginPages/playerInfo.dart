@@ -116,8 +116,13 @@ class _PlayerInfoState extends State<PlayerInfo> {
                         children: [
                           CircleAvatar(
                             radius: 25,
-                            backgroundImage: AssetImage(
-                                'assets/images/placeholder_team_icon.png'),
+                            backgroundImage: _profileService.profile?.photo ==
+                                        null ||
+                                    _profileService.profile?.photo.toString() ==
+                                        ''
+                                ? NetworkImage('')
+                                : NetworkImage(
+                                    _profileService.profile!.photo.toString()),
                           ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
