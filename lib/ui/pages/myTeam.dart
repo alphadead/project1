@@ -118,30 +118,34 @@ class _MyTeamState extends State<MyTeam> {
                                 backgroundImage: AssetImage(
                                     'assets/images/placeholder_team_icon.png')),
                           ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Wind City Rampage",
-                                style:
-                                    themeData().textTheme.bodyText1!.copyWith(
-                                          fontSize: 15.sp,
-                                          fontWeight: FontWeight.bold,
-                                          color: KRed,
-                                        ),
-                              ),
-                              Text(
-                                '6x6 Team',
-                                style:
-                                    themeData().textTheme.bodyText1!.copyWith(
-                                          fontSize: 10.sp,
-                                        ),
-                              )
-                            ],
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Wind City Rampage",
+                                  style:
+                                      themeData().textTheme.bodyText1!.copyWith(
+                                            fontSize: 15.sp,
+                                            fontWeight: FontWeight.bold,
+                                            color: KRed,
+                                          ),
+                                ),
+                                Text(
+                                  '6x6 Team',
+                                  style:
+                                      themeData().textTheme.bodyText1!.copyWith(
+                                            fontSize: 10.sp,
+                                          ),
+                                )
+                              ],
+                            ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(30, 0, 5, 0),
-                            child: Icon(
+                          IconButton(
+                            onPressed: () {
+                              Get.toNamed('/playerListingScreen');
+                            },
+                            icon: Icon(
                               Icons.add_circle_outline,
                               color: sliderGreenActive,
                             ),
