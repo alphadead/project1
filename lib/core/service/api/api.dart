@@ -7,6 +7,7 @@ import 'package:vamos/core/models/deleteMedia.dart';
 import 'package:vamos/core/models/joinTeam.dart';
 import 'package:vamos/core/models/loginResponse.dart';
 import 'package:vamos/core/models/playerListResponse.dart';
+import 'package:vamos/core/models/playerRequestResponse.dart';
 import 'package:vamos/core/models/profileDataResponse.dart';
 import 'package:vamos/core/models/profile_api.dart';
 import 'package:vamos/core/models/registerResponse.dart';
@@ -40,6 +41,7 @@ abstract class Api {
       List<File> files);
 
   Future<TeamListResponse> getteamlist();
+  Future<PlayerRequestResponse> getPlayerRequestListByTeam(int teamId);
   Future<ProfileDataResponse> getProfile(String userId);
   Future<JoinTeamResponse> joinTeam(
     int teamId,

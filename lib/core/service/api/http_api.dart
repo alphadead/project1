@@ -7,6 +7,7 @@ import 'package:vamos/core/models/deleteMedia.dart';
 import 'package:vamos/core/models/joinTeam.dart';
 import 'package:vamos/core/models/loginResponse.dart';
 import 'package:vamos/core/models/playerListResponse.dart';
+import 'package:vamos/core/models/playerRequestResponse.dart';
 import 'package:vamos/core/models/profileDataResponse.dart';
 import 'package:vamos/core/models/profile_api.dart';
 import 'package:vamos/core/models/registerResponse.dart';
@@ -132,5 +133,12 @@ class HTTPApi extends Api {
     };
     Map<String, dynamic> response = await postRequest('player/request', body);
     return JoinTeamResponse.fromJson(response);
+  }
+
+  @override
+  Future<PlayerRequestResponse> getPlayerRequestListByTeam(int teamId) async{
+
+    Map<String, dynamic> response = await getRequest('player/request-received?team_id=$teamId');
+    return PlayerRequestResponse.fromJson(response);
   }
 }

@@ -7,6 +7,7 @@ import 'package:vamos/core/models/deleteMedia.dart';
 import 'package:vamos/core/models/joinTeam.dart';
 import 'package:vamos/core/models/loginResponse.dart';
 import 'package:vamos/core/models/playerListResponse.dart';
+import 'package:vamos/core/models/playerRequestResponse.dart';
 import 'package:vamos/core/models/profileDataResponse.dart';
 import 'package:vamos/core/models/profile_api.dart';
 import 'package:vamos/core/models/registerResponse.dart';
@@ -85,6 +86,12 @@ class FakeApi extends Api {
     String userId,
     int teamId,
   ) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<PlayerRequestResponse> getPlayerRequestListByTeam(int teamId) {
+    // TODO: implement getPlayerRequestListByTeam
     throw UnimplementedError();
   }
 }
