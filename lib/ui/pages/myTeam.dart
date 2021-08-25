@@ -87,7 +87,7 @@ class _MyTeamState extends State<MyTeam> {
                       child: Container(
                         width: 150.w,
                         child: Text(
-                          'Create Team',
+                          'My Team',
                           style: TextStyle(
                             color: sliderGreenActive,
                             fontSize: 20.sp,
@@ -116,9 +116,9 @@ class _MyTeamState extends State<MyTeam> {
                             margin: EdgeInsets.symmetric(
                                 vertical: 5.h, horizontal: 15),
                             child: CircleAvatar(
-                              radius: 24.h,
-                              //backgroundImage:
-                            ),
+                                radius: 20.h,
+                                backgroundImage: AssetImage(
+                                    'assets/images/placeholder_team_icon.png')),
                           ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -127,7 +127,7 @@ class _MyTeamState extends State<MyTeam> {
                                 "Wind City Rampage",
                                 style:
                                     themeData().textTheme.bodyText1!.copyWith(
-                                          fontSize: 12.sp,
+                                          fontSize: 15.sp,
                                           fontWeight: FontWeight.bold,
                                           color: KRed,
                                         ),
@@ -136,11 +136,18 @@ class _MyTeamState extends State<MyTeam> {
                                 '6x6 Team',
                                 style:
                                     themeData().textTheme.bodyText1!.copyWith(
-                                          fontSize: 9.sp,
+                                          fontSize: 10.sp,
                                         ),
                               )
                             ],
                           ),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(30, 0, 5, 0),
+                            child: Icon(
+                              Icons.add,
+                              color: sliderGreenActive,
+                            ),
+                          )
                         ],
                       ),
                     ),
@@ -165,7 +172,7 @@ class _MyTeamState extends State<MyTeam> {
                                 child: Text(
                               'Joined Team',
                               style:
-                                  TextStyle(color: titleText, fontSize: 12.sp),
+                                  TextStyle(color: titleText, fontSize: 11.sp),
                             )),
                           ),
                           Container(
@@ -178,7 +185,7 @@ class _MyTeamState extends State<MyTeam> {
                                 child: Text(
                               'Requested Player',
                               style:
-                                  TextStyle(color: titleText, fontSize: 12.sp),
+                                  TextStyle(color: titleText, fontSize: 11.sp),
                             )),
                           ),
                         ],
@@ -208,9 +215,9 @@ class _MyTeamState extends State<MyTeam> {
                                           vertical: 5.h, horizontal: 5),
                                       padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
                                       child: CircleAvatar(
-                                        radius: 15.h,
-                                        //backgroundImage:
-                                      ),
+                                          radius: 15.h,
+                                          backgroundImage: AssetImage(
+                                              'assets/images/placeholder_team_icon.png')),
                                     ),
                                     Column(
                                       crossAxisAlignment:
