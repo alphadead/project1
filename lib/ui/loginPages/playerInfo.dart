@@ -80,18 +80,26 @@ class _PlayerInfoState extends State<PlayerInfo> {
                       left: 20.w,
                       height: 400.h,
                       width: 330.w,
-                      child: Container(
-                        height: 200.h,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50)),
-                        child: CarouselSlider(
-                          options: CarouselOptions(
-                            autoPlay: true,
-                            aspectRatio: 1,
-                            enlargeCenterPage: true,
-                          ),
-                          items: images,
+                      child: CarouselSlider(
+                        options: CarouselOptions(
+                          autoPlay: true,
+                          aspectRatio: 0.4,
+                          viewportFraction: 1,
+                          enlargeCenterPage: true,
                         ),
+                        items: List.generate(
+                            _profileService.profile!.photo!.length,
+                            (index) => _profileService.profile?.photo == null ||
+                                    _profileService.profile?.photo.toString() ==
+                                        ''
+                                ? Image.network('')
+                                : CircleAvatar(
+                                    radius: 150.h,
+                                    backgroundImage: NetworkImage(
+                                        _profileService
+                                            .profile!.photo![index]["url"]
+                                            .toString()),
+                                  )),
                       ),
                     ),
                   ],
