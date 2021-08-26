@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -32,6 +33,14 @@ class _PlayerInfoState extends State<PlayerInfo> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ProfileController>(builder: (_profileService) {
+      List<Widget> images = [
+        _profileService.profile?.photo == null ||
+                _profileService.profile?.photo.toString() == ''
+            ? Image.network('')
+            : Image.network(
+                _profileService.profile!.photo![0]["url"].toString())
+      ];
+
       print(_profileService.profile?.toJson());
       return Scaffold(
         resizeToAvoidBottomInset: false,
@@ -71,14 +80,18 @@ class _PlayerInfoState extends State<PlayerInfo> {
                       left: 20.w,
                       height: 400.h,
                       width: 330.w,
-                      child: CircleAvatar(
-                        radius: 40.h,
-                        child: _profileService.profile?.photo == null ||
-                                _profileService.profile?.photo.toString() == ''
-                            ? Image.network('')
-                            : Image.network(_profileService
-                                .profile!.photo![0]["url"]
-                                .toString()),
+                      child: Container(
+                        height: 200.h,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50)),
+                        child: CarouselSlider(
+                          options: CarouselOptions(
+                            autoPlay: true,
+                            aspectRatio: 1,
+                            enlargeCenterPage: true,
+                          ),
+                          items: images,
+                        ),
                       ),
                     ),
                   ],
