@@ -74,7 +74,8 @@ class _NationalityState extends State<Nationality> {
                           'Florida',
                           'India',
                           'England',
-                          'Santorini'
+                          'Kuwaiti',
+                          'Santorini',
                         ].map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,

@@ -71,8 +71,14 @@ class _PlayerInfoState extends State<PlayerInfo> {
                       left: 20.w,
                       height: 400.h,
                       width: 330.w,
-                      child: Image.asset(
-                        'assets/images/messi.webp',
+                      child: CircleAvatar(
+                        radius: 40.h,
+                        child: _profileService.profile?.photo == null ||
+                                _profileService.profile?.photo.toString() == ''
+                            ? Image.network('')
+                            : Image.network(_profileService
+                                .profile!.photo![0]["url"]
+                                .toString()),
                       ),
                     ),
                   ],
