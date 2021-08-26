@@ -116,10 +116,12 @@ class AuthController extends GetxController {
         await api.createTeam(teamName, teamLogo[0], teamSize);
     if (response.success) {
       Utility.showSnackbar("${response.message}");
-      print(response.data?.teamId);
-      prefs.setString("team_id", "${response.data?.teamId}");
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString("team_id", response.data?.teamId?.toString() ?? "");
+      Utility.closeDialog();
       Get.offNamed('/playerListingScreen');
     } else {
+      Utility.closeDialog();
       Utility.showSnackbar("${response.message}");
     }
   }

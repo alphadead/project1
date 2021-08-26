@@ -24,15 +24,27 @@ import 'package:vamos/widget/profileContainer.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
 
   @override
+  _ProfilePageState createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  bool arguments = false;
+
+  @override
   void initState() {
-    bool isEditCheck = Get.arguments;
-    if (isEditCheck) {
-      Get.find<ProfileController>().getProfileData();
-    }
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      setState(() {
+        arguments = Get.arguments;
+      });
+      if (arguments) {
+        Get.find<ProfileController>().getProfileData();
+      }
+    });
+    super.initState();
   }
 
   @override
@@ -42,7 +54,7 @@ class ProfilePage extends StatelessWidget {
       builder: (_profileService) => Directionality(
         textDirection: TextDirection.ltr,
         child: Scaffold(
-          appBar: Get.arguments
+          appBar: arguments
               ? PreferredSize(
                   preferredSize: Size.fromHeight(60.h),
                   child: CustomAppBar(),
@@ -55,7 +67,7 @@ class ProfilePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Get.arguments
+                arguments
                     ? Container(
                         height: 200.h,
                         margin: EdgeInsets.only(top: 10.h),
@@ -105,7 +117,7 @@ class ProfilePage extends StatelessWidget {
                 ProfilePhoto(),
                 NickName(),
                 SkillVideo(),
-                Get.arguments
+                arguments
                     ? Container(
                         padding: EdgeInsets.only(top: 30),
                         child: Row(
@@ -138,8 +150,9 @@ class ProfilePage extends StatelessWidget {
                                   height: 40.h,
                                   context: context,
                                   onPressed: () {
+                                    print(arguments);
                                     _profileService.updateProfile(
-                                        argument: Get.arguments);
+                                        argument: arguments);
                                   },
                                   text: AppLocalizations.of(context)!
                                       .profilePage_update,
@@ -156,7 +169,7 @@ class ProfilePage extends StatelessWidget {
                               context: context,
                               onPressed: () {
                                 _profileService.updateProfile(
-                                    argument: Get.arguments);
+                                    argument: arguments);
                               },
                               text: AppLocalizations.of(context)!
                                   .primaryActionButton),

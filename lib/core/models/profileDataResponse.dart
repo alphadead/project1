@@ -52,6 +52,7 @@ class ProfileData {
     this.nationality,
     this.skill_video,
     this.photo,
+    this.teamLogo
   });
 
   String? user_id;
@@ -69,6 +70,7 @@ class ProfileData {
   String? nationality;
   List? skill_video;
   List? photo;
+  String? teamLogo;
 
   factory ProfileData.fromJson(Map<String, dynamic> json) => ProfileData(
         user_id: json["user_id"],
@@ -86,6 +88,8 @@ class ProfileData {
         nationality: json["nationality"],
         skill_video: json["skill_video"],
         photo: json["photo"],
+        teamLogo: json["team_logo"]
+
       );
 
   Map<String, dynamic> toJson() => {
@@ -103,5 +107,6 @@ class ProfileData {
         "nationality": nationality,
         "skill_video": skill_video,
         "photo": photo,
+        "team_logo": teamLogo
       };
 }

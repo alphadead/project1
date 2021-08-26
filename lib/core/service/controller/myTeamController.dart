@@ -18,10 +18,6 @@ class MyTeamController extends GetxController {
   List<PlayerData> get playerJoinedList => _playerJoinedList;
   TeamInfo? get teamInfo => _teamInfo;
 
-  void onInit() {
-    WidgetsBinding.instance!.addPostFrameCallback((_) => getTeamInfo());
-  }
-
   set playerRequestList(List<PlayerData> val) {
     _playerRequestList = val;
     update();
@@ -75,16 +71,31 @@ class MyTeamController extends GetxController {
     update();
   }
 
-  void getTeamInfo() async {
+  void getTeamInfo({String? nextRoute}) async {
+    print("NEXT ROUTE $nextRoute");
     Utility.showLoadingDialog();
     MyTeamInfo response = await api.myTeamInfo();
+    Utility.closeDialog();
+
     if (response.data != null) {
-      Utility.closeDialog();
-      teamInfo = response.data!;
-      getPlayerJoinedListByTeam();
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString("team_id", response.data?.id?.toString() ?? "");
+
+      if (nextRoute != null) {
+        Utility.showSnackbar("You have already created a team");
+        return;
+      } else {
+        teamInfo = response.data!;
+        getPlayerJoinedListByTeam();
+      }
     } else {
-      teamInfo = response.data;
-      Utility.showSnackbar("Please Create a Team and Continue.");
+      if (nextRoute != null) {
+        Get.toNamed(nextRoute);
+        return;
+      } else {
+        teamInfo = response.data;
+        Utility.showSnackbar("Please Create a Team and Continue.");
+      }
     }
   }
 }

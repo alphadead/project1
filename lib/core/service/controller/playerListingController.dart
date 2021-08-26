@@ -37,12 +37,10 @@ class PlayerListController extends GetxController {
   void requestPlayer(int? userId) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    int? teamId = prefs.getString("team_id") == null
-        ? null
-        : int.parse(prefs.getString("team_id").toString());
-    if (teamId != null) {
+    String? teamId = prefs.getString("team_id");
+    if (teamId != null && teamId != "") {
       JoinTeamResponse response =
-          await api.requestPlayer(userId.toString(), teamId);
+          await api.requestPlayer(userId.toString(), int.parse(teamId));
 
       if (!response.success) {
         Utility.showSnackbar("${response.message}");

@@ -18,6 +18,15 @@ class TeamListScreen extends StatefulWidget {
 }
 
 class _TeamListScreenState extends State<TeamListScreen> {
+ @override
+  void initState() {
+    super.initState();
+                WidgetsBinding.instance!.addPostFrameCallback((_) {
+              Get.put(TeamListController()).getteamlist();
+              Get.put(TeamListController()).requestRecived();
+
+            });
+  }
   @override
   Widget build(BuildContext context) {
     List<Color> teamListColor = [moneyBox, containerGreen, KRed];
