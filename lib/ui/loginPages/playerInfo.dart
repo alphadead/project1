@@ -117,9 +117,7 @@ class _PlayerInfoState extends State<PlayerInfo> {
                               color: iconColStar,
                             ),
                           ),
-                          onRatingUpdate: (rating) {
-                            //print(rating);
-                          },
+                          onRatingUpdate: (rating) {},
                         ),
                       ),
                     ),

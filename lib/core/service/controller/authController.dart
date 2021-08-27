@@ -76,7 +76,7 @@ class AuthController extends GetxController {
     Utility.showLoadingDialog();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     LoginResponse response = await api.loginUser(mobileNo, password);
-    print(response.toJson().toString());
+
     if (response.data != null) {
       prefs.setString('token', 'Bearer ${response.accessToken}');
       prefs.setString('userId', '${response.data!.id}');

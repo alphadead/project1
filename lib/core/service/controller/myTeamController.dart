@@ -72,7 +72,6 @@ class MyTeamController extends GetxController {
   }
 
   void getTeamInfo({String? nextRoute}) async {
-    print("NEXT ROUTE $nextRoute");
     Utility.showLoadingDialog();
     MyTeamInfo response = await api.myTeamInfo();
     Utility.closeDialog();

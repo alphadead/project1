@@ -30,15 +30,12 @@ class _PlayerListingScreenState extends State<PlayerListingScreen> {
     var id = prefs.getString("team_id");
 
     setState(() {
-      teamId = (id == null || id == ""||id == "null") ? null : id;
+      teamId = (id == null || id == "" || id == "null") ? null : id;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-
-    print("TEAMID!!!!!", );
-    print(teamId=='null');
     return SafeArea(
       child: GetBuilder<PlayerListController>(
         builder: (_playerListController) => Directionality(
@@ -87,11 +84,11 @@ class _PlayerListingScreenState extends State<PlayerListingScreen> {
                               _playerListController
                                   .playerListDisplay[index - 1],
                               teamId == null
-                                  ? (){
-                                    Utility.showSnackbar("Please create a team first");
-                                  }
+                                  ? () {
+                                      Utility.showSnackbar(
+                                          "Please create a team first");
+                                    }
                                   : () {
-                                    print("ON PRESS");
                                       if (!_playerListController
                                           .playerListDisplay[index - 1]
                                           .isJoined!) {

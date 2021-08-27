@@ -16,13 +16,13 @@ class Nationality extends StatefulWidget {
 }
 
 class _NationalityState extends State<Nationality> {
-
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback(
       (_) {
-        Get.find<AuthController>().nationality = Get.find<ProfileController>().profile?.nationality ?? 'India';
+        Get.find<AuthController>().nationality =
+            Get.find<ProfileController>().profile?.nationality ?? 'India';
       },
     );
   }
@@ -62,7 +62,6 @@ class _NationalityState extends State<Nationality> {
                           ),
                         ),
                         onChanged: (String? newValue) {
-                          print(newValue);
                           setState(() {
                             _authService.nationality = newValue.toString();
                           });

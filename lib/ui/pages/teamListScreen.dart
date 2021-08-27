@@ -57,7 +57,6 @@ class _TeamListScreenState extends State<TeamListScreen> {
                         icon: Text(
                           "Outgoing Request",
                           style: TextStyle(
-                            //color: profileContainerColor,
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
                           ),
@@ -67,7 +66,6 @@ class _TeamListScreenState extends State<TeamListScreen> {
                         icon: Text(
                           "Incoming Request",
                           style: TextStyle(
-                            //color: profileContainerColor,
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
                           ),

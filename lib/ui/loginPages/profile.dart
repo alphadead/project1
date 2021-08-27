@@ -150,7 +150,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                   height: 40.h,
                                   context: context,
                                   onPressed: () {
-                                    print(arguments);
                                     _profileService.updateProfile(
                                         argument: arguments);
                                   },

@@ -25,7 +25,6 @@ class TeamListController extends GetxController {
       Utility.closeDialog();
 
       teamList = response.data!;
-      print(teamList);
     } else {
       Utility.showSnackbar("${response.message}");
     }

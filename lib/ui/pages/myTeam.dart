@@ -281,7 +281,7 @@ class _MyTeamState extends State<MyTeam> {
       {bool isRequest = false, int? index}) {
     TeamListController _teamService = Get.find<TeamListController>();
     MyTeamController _myTeamService = Get.find<MyTeamController>();
-    print(index);
+
     return Stack(
       children: [
         Container(
