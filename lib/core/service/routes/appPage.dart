@@ -14,6 +14,7 @@ import 'package:vamos/ui/pages/inviteScreen.dart';
 import 'package:vamos/ui/pages/myTeam.dart';
 import 'package:vamos/ui/pages/playerListingScreen.dart';
 import 'package:vamos/ui/pages/teamListScreen.dart';
+import 'package:vamos/ui/pages/viewGround.dart';
 import 'package:vamos/widget/videoPlayer.dart';
 import 'package:vamos/ui/loginPages/playerInfo.dart';
 
@@ -141,6 +142,11 @@ abstract class AppPages {
       page: () => TeamListScreen(),
       transition: Transition.downToUp,
       binding: AllBinder(),
+    ),
+    GetPage(
+      name: '/viewGroundScreen',
+      transitionDuration: transitionDuration,
+      page: () => ViewGroundScreen(),
     ),
   ];
 }
