@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:vamos/core/service/controller/authController.dart';
 import 'package:vamos/core/service/controller/profileController.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/loginbkground.dart';
@@ -32,7 +31,6 @@ class _PlayerInfoState extends State<PlayerInfo> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ProfileController>(builder: (_profileService) {
-      print(_profileService.profile?.toJson());
       return Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: sliderGreenActive,
@@ -66,15 +64,31 @@ class _PlayerInfoState extends State<PlayerInfo> {
                         fit: BoxFit.fitWidth,
                       ),
                     ),
-                    Positioned(
-                      bottom: -70.h,
-                      left: 20.w,
-                      height: 400.h,
-                      width: 330.w,
-                      child: Image.asset(
-                        'assets/images/messi.webp',
-                      ),
-                    ),
+                    _profileService.profile?.photo?.isEmpty ?? true
+                        ? Positioned(
+                            bottom: -70.h,
+                            left: 20.w,
+                            height: 400.h,
+                            width: 330.w,
+                            child: Image.asset(
+                              'assets/images/messi.webp',
+                            ),
+                          )
+                        : Positioned(
+                            left: 20.w,
+                            height: 250.h,
+                            width: 330.w,
+                            child: Container(
+                              height: 34.h,
+                              margin: EdgeInsets.only(bottom: 10.h),
+                              padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+                              child: CircleAvatar(
+                                  backgroundColor: Colors.grey.shade300,
+                                  radius: 15.h,
+                                  backgroundImage: NetworkImage(_profileService
+                                      .profile?.photo?.first?["url"])),
+                            ),
+                          )
                   ],
                 ),
               ),
@@ -103,9 +117,7 @@ class _PlayerInfoState extends State<PlayerInfo> {
                               color: iconColStar,
                             ),
                           ),
-                          onRatingUpdate: (rating) {
-                            //print(rating);
-                          },
+                          onRatingUpdate: (rating) {},
                         ),
                       ),
                     ),
@@ -115,16 +127,25 @@ class _PlayerInfoState extends State<PlayerInfo> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           CircleAvatar(
-                            radius: 25,
-                            backgroundImage: AssetImage(
-                                'assets/images/placeholder_team_icon.png'),
-                          ),
+                              radius: 25,
+                              backgroundColor: Colors.grey.shade200,
+                              backgroundImage: NetworkImage(
+                                  _profileService.profile?.teamLogo ?? "")
+                              // AssetImage(
+                              // 'assets/images/placeholder_team_icon.png'),
+                              ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                (_profileService.profile?.first_name ?? "") +
-                                    (_profileService.profile?.last_name ?? ""),
+                                (_profileService.profile?.nick_name != null &&
+                                        _profileService.profile?.nick_name !=
+                                            "")
+                                    ? _profileService.profile?.nick_name ?? ""
+                                    : ((_profileService.profile?.first_name ??
+                                            "") +
+                                        (_profileService.profile?.last_name ??
+                                            "")),
                                 style:
                                     themeData().textTheme.headline1!.copyWith(
                                           color: containerGreen,
@@ -276,7 +297,7 @@ class _PlayerInfoState extends State<PlayerInfo> {
                           Center(
                             child: GestureDetector(
                               onTap: () {
-                                Get.toNamed('/myTeam');
+                                Get.toNamed('/joinedTeamsList');
                               },
                               child: Container(
                                 width: 120.h,

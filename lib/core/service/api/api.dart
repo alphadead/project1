@@ -7,6 +7,7 @@ import 'package:vamos/core/models/createTeamResponse.dart';
 import 'package:vamos/core/models/deleteMedia.dart';
 import 'package:vamos/core/models/genericResponse.dart';
 import 'package:vamos/core/models/joinTeam.dart';
+import 'package:vamos/core/models/joinedTeamListResponse.dart';
 import 'package:vamos/core/models/loginResponse.dart';
 import 'package:vamos/core/models/myTeamInfo.dart';
 import 'package:vamos/core/models/playerListResponse.dart';
@@ -63,4 +64,5 @@ abstract class Api {
   Future<TeamRequestReceivedAsPlayerResponse> requestRecived();
   Future<AcceptRejectRequestResponse> requestAcceptReject(id, status);
   Future<MyTeamInfo> myTeamInfo();
+  Future<JoinedTeamListResponse> getJoinedTeams();
 }

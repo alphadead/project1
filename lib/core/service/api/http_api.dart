@@ -7,6 +7,7 @@ import 'package:vamos/core/models/createTeamResponse.dart';
 import 'package:vamos/core/models/deleteMedia.dart';
 import 'package:vamos/core/models/genericResponse.dart';
 import 'package:vamos/core/models/joinTeam.dart';
+import 'package:vamos/core/models/joinedTeamListResponse.dart';
 import 'package:vamos/core/models/loginResponse.dart';
 import 'package:vamos/core/models/myTeamInfo.dart';
 import 'package:vamos/core/models/playerListResponse.dart';
@@ -177,5 +178,11 @@ class HTTPApi extends Api {
   Future<MyTeamInfo> myTeamInfo() async {
     Map<String, dynamic> response = await getRequest('my-team-info');
     return MyTeamInfo.fromJson(response);
+  }
+
+  @override
+  Future<JoinedTeamListResponse> getJoinedTeams() async {
+       Map<String, dynamic> response = await getRequest('team/joined');
+    return JoinedTeamListResponse.fromJson(response);
   }
 }

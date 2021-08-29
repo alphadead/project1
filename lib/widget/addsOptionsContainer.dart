@@ -1,16 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vamos/core/service/controller/myTeamController.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vamos/ui/utils/theme.dart';
+import 'package:vamos/ui/utils/utility.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-Widget logoContainer(String image, String logoName,
+Widget logoContainer(BuildContext context, String image, String logoName,
     {String nextRoute = "/createTeam"}) {
   return Stack(children: [
     Positioned(
       child: InkWell(
-        onTap: () {
-          Get.toNamed(nextRoute);
+        onTap: () async {
+          if (nextRoute == "/createTeam") {
+            WidgetsBinding.instance!.addPostFrameCallback((_) {
+              Get.put(MyTeamController()).getTeamInfo(nextRoute: "/createTeam");
+            });
+          } else {
+            Get.toNamed(nextRoute);
+          }
         },
         child: Container(
           height: 110.h,

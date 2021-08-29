@@ -25,6 +25,7 @@ class ProfileController extends GetxController {
         await api.getProfile(prefs.getString("userId").toString());
     if (response.data != null) {
       profile = response.data;
+      prefs.setString('team_id', '${response.data!.teamId}');
       update();
       Utility.closeDialog();
     }

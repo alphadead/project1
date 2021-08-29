@@ -32,8 +32,15 @@ Widget registeredTeamContainer(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
+            height: 34.h,
             margin: EdgeInsets.symmetric(vertical: 5.h, horizontal: 10),
-            child: Image.asset('assets/images/placeholder_team_icon.png'),
+            child: CircleAvatar(
+              backgroundColor: Colors.grey.shade300,
+              radius: 25.h,
+              backgroundImage: player?.photo?.isNotEmpty ?? false
+                  ? NetworkImage(player?.photo?[0]?["url"])
+                  : NetworkImage(""),
+            ),
           ),
           Container(
             width: .4.sw,

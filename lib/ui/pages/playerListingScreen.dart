@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vamos/core/service/controller/playerListingController.dart';
 import 'package:vamos/ui/utils/loginbkground.dart';
 import 'package:vamos/ui/utils/utility.dart';
@@ -17,6 +18,22 @@ class PlayerListingScreen extends StatefulWidget {
 }
 
 class _PlayerListingScreenState extends State<PlayerListingScreen> {
+  String? teamId;
+  @override
+  void initState() {
+    super.initState();
+    getTeamId();
+  }
+
+  getTeamId() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var id = prefs.getString("team_id");
+
+    setState(() {
+      teamId = (id == null || id == "" || id == "null") ? null : id;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -65,23 +82,32 @@ class _PlayerListingScreenState extends State<PlayerListingScreen> {
                               index - 1,
                               context,
                               _playerListController
-                                  .playerListDisplay[index - 1], () {
-                              if (!_playerListController
-                                  .playerListDisplay[index - 1].isJoined!) {
-                                _playerListController.requestPlayer(_playerListController
-                                  .playerListDisplay[index - 1].id);
+                                  .playerListDisplay[index - 1],
+                              teamId == null
+                                  ? () {
+                                      Utility.showSnackbar(
+                                          "Please create a team first");
+                                    }
+                                  : () {
+                                      if (!_playerListController
+                                          .playerListDisplay[index - 1]
+                                          .isJoined!) {
+                                        _playerListController.requestPlayer(
+                                            _playerListController
+                                                .playerListDisplay[index - 1]
+                                                .id);
 
-                                setState(() {
-                                  _playerListController
-                                      .playerListDisplay[index - 1]
-                                      .isJoined = true;
-                                });
-                              } else {
-                                Utility.showSnackbar(AppLocalizations.of(
-                                        context)!
-                                    .registeredTeamsPage_alreadyPresentSnackbar);
-                              }
-                            },
+                                        setState(() {
+                                          _playerListController
+                                              .playerListDisplay[index - 1]
+                                              .isJoined = true;
+                                        });
+                                      } else {
+                                        Utility.showSnackbar(AppLocalizations
+                                                .of(context)!
+                                            .registeredTeamsPage_alreadyPresentSnackbar);
+                                      }
+                                    },
                               _playerListController
                                   .playerListDisplay[index - 1].isJoined);
                     },

@@ -55,6 +55,7 @@ class PlayerData {
     this.createdAt,
     this.updatedAt,
     this.isJoined,
+    this.photo
   });
 
   int? id;
@@ -70,6 +71,7 @@ class PlayerData {
   DateTime? createdAt;
   DateTime? updatedAt;
   bool? isJoined = false;
+  List<dynamic>? photo;
 
   factory PlayerData.fromJson(Map<String, dynamic> json) => PlayerData(
       id: json["id"] == null ? null : json["id"],
@@ -82,6 +84,7 @@ class PlayerData {
       city: json["city"],
       state: json["state"],
       pincode: json["pincode"],
+      photo: json["photo"],
       createdAt: json["created_at"] == null
           ? null
           : DateTime.parse(json["created_at"]),
@@ -101,6 +104,7 @@ class PlayerData {
         "city": city,
         "state": state,
         "pincode": pincode,
+        "photo": photo,
         "created_at": createdAt == null ? null : createdAt!.toIso8601String(),
         "updated_at": updatedAt == null ? null : updatedAt!.toIso8601String(),
       };

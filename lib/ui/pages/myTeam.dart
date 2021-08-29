@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vamos/core/models/playerRequestResponse.dart';
 import 'package:vamos/core/service/controller/myTeamController.dart';
+import 'package:vamos/core/service/controller/teamListingController.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/widget/buttons.dart';
 import 'package:vamos/widget/customAppBar.dart';
@@ -18,6 +19,13 @@ class MyTeam extends StatefulWidget {
 
 class _MyTeamState extends State<MyTeam> {
   bool joinedTeamListView = true;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback(
+        (_) => Get.find<MyTeamController>().getTeamInfo());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -222,7 +230,9 @@ class _MyTeamState extends State<MyTeam> {
                                       return playerCard(
                                           col,
                                           _myTeamService
-                                              .playerRequestList[index]);
+                                              .playerRequestList[index],
+                                          isRequest: true,
+                                          index: index);
                                   }),
                             ),
                           ),
@@ -267,55 +277,126 @@ class _MyTeamState extends State<MyTeam> {
     );
   }
 
-  Widget playerCard(Color col, PlayerData playerData) {
-    return Container(
-      color: col,
-      child: Row(
-        children: [
-          Container(
-            height: 34.h,
-            margin: EdgeInsets.symmetric(vertical: 5.h, horizontal: 5),
-            padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-            child: CircleAvatar(
-              backgroundColor: Colors.grey.shade300,
-              radius: 15.h,
-              backgroundImage: playerData.photo!.length > 0
-                  ? NetworkImage(playerData.photo?[0]?["url"])
-                  : NetworkImage(""),
-            ),
-          ),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  (playerData.firstName ?? "") + (playerData.lastName ?? ""),
-                  style: themeData().textTheme.bodyText1!.copyWith(
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.bold,
-                        color: KRed,
-                      ),
+  Widget playerCard(Color col, PlayerData playerData,
+      {bool isRequest = false, int? index}) {
+    TeamListController _teamService = Get.find<TeamListController>();
+    MyTeamController _myTeamService = Get.find<MyTeamController>();
+
+    return Stack(
+      children: [
+        Container(
+          color: col,
+          child: Row(
+            children: [
+              Container(
+                height: 34.h,
+                margin: EdgeInsets.symmetric(vertical: 5.h, horizontal: 5),
+                padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+                child: CircleAvatar(
+                  backgroundColor: Colors.grey.shade300,
+                  radius: 15.h,
+                  backgroundImage: playerData.photo!.length > 0
+                      ? NetworkImage(playerData.photo?[0]?["url"])
+                      : NetworkImage(""),
                 ),
-                Text(
-                  playerData.nickName ?? "",
-                  style: themeData().textTheme.bodyText1!.copyWith(
-                        fontSize: 9.sp,
+              ),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      (playerData.firstName ?? "") +
+                          (playerData.lastName ?? ""),
+                      style: themeData().textTheme.bodyText1!.copyWith(
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.bold,
+                            color: KRed,
+                          ),
+                    ),
+                    Text(
+                      playerData.nickName ?? "",
+                      style: themeData().textTheme.bodyText1!.copyWith(
+                            fontSize: 9.sp,
+                          ),
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+        Visibility(
+          visible: isRequest,
+          child: Positioned(
+            right: 15.w,
+            bottom: 10.h,
+            child: Row(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    _teamService.requestAcceptReject(
+                      playerData.id,
+                      "Accept",
+                    );
+                    setState(() {
+                      _myTeamService.playerRequestList.removeAt(index!);
+                      _myTeamService.update();
+                    });
+                  },
+                  child: Container(
+                    margin: EdgeInsets.only(right: 10),
+                    padding: EdgeInsets.all(2.h),
+                    width: 25.w,
+                    height: 20.h,
+                    decoration: BoxDecoration(
+                      color: containerGreen,
+                      borderRadius: BorderRadius.circular(2.5.w),
+                    ),
+                    child: Center(
+                      child: Icon(
+                        Icons.check,
+                        color: Colors.white,
+                        size: 18,
                       ),
-                )
+                    ),
+                  ),
+                ),
+                Visibility(
+                  visible: isRequest,
+                  child: GestureDetector(
+                    onTap: () {
+                      _teamService.requestAcceptReject(
+                        playerData.id,
+                        "Reject",
+                      );
+                      setState(() {
+                        _myTeamService.playerRequestList.removeAt(index!);
+                        _myTeamService.update();
+                      });
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(2.h),
+                      width: 25.w,
+                      height: 20.h,
+                      decoration: BoxDecoration(
+                        color: KRed,
+                        borderRadius: BorderRadius.circular(2.5.w),
+                      ),
+                      child: Center(
+                        child: Icon(
+                          Icons.close,
+                          color: Colors.white,
+                          size: 18,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
-          GestureDetector(
-            child: Container(
-                margin: EdgeInsets.only(left: 10.w, right: 10.w),
-                child: Image.asset(
-                  "assets/images/teamListInfo.webp",
-                  height: 18,
-                )),
-            onTap: () {},
-          ),
-        ],
-      ),
+        )
+      ],
     );
   }
 }
