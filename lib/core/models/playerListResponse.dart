@@ -41,22 +41,22 @@ class PlayerListResponse {
 }
 
 class PlayerData {
-  PlayerData({
-    this.id,
-    this.firstName,
-    this.lastName,
-    this.email,
-    this.phone,
-    this.address,
-    this.street2,
-    this.city,
-    this.state,
-    this.pincode,
-    this.createdAt,
-    this.updatedAt,
-    this.isJoined,
-    this.photo
-  });
+  PlayerData(
+      {this.id,
+      this.firstName,
+      this.lastName,
+      this.email,
+      this.phone,
+      this.address,
+      this.street2,
+      this.city,
+      this.state,
+      this.pincode,
+      this.createdAt,
+      this.updatedAt,
+      this.isJoined,
+      this.photo,
+      this.status});
 
   int? id;
   String? firstName;
@@ -72,6 +72,7 @@ class PlayerData {
   DateTime? updatedAt;
   bool? isJoined = false;
   List<dynamic>? photo;
+  String? status;
 
   factory PlayerData.fromJson(Map<String, dynamic> json) => PlayerData(
       id: json["id"] == null ? null : json["id"],
@@ -85,6 +86,7 @@ class PlayerData {
       state: json["state"],
       pincode: json["pincode"],
       photo: json["photo"],
+      status: json["status"] == null ? null : json["status"],
       createdAt: json["created_at"] == null
           ? null
           : DateTime.parse(json["created_at"]),
@@ -105,6 +107,7 @@ class PlayerData {
         "state": state,
         "pincode": pincode,
         "photo": photo,
+        "status": status == null ? null : status,
         "created_at": createdAt == null ? null : createdAt!.toIso8601String(),
         "updated_at": updatedAt == null ? null : updatedAt!.toIso8601String(),
       };

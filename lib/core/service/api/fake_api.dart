@@ -87,7 +87,7 @@ class FakeApi extends Api {
   }
 
   Future<JoinTeamResponse> requestPlayer(
-    String userId,
+    userId,
     int? teamId,
   ) {
     throw UnimplementedError();
@@ -122,6 +122,11 @@ class FakeApi extends Api {
   @override
   Future<JoinedTeamListResponse> getJoinedTeams() {
     // TODO: implement getJoinedTeams
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<GenericResponse> cancelPlayerRequest(teamId, userId) {
     throw UnimplementedError();
   }
 }

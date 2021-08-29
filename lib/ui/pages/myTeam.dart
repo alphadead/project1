@@ -167,7 +167,7 @@ class _MyTeamState extends State<MyTeam> {
                                   ),
                                   IconButton(
                                     onPressed: () {
-                                      Get.toNamed('/playerListingScreen');
+                                      Get.toNamed('/playerList');
                                     },
                                     icon: Icon(
                                       Icons.add_circle_outline,
