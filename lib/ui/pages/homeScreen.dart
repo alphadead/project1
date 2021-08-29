@@ -22,7 +22,7 @@ class HomeScreen extends StatelessWidget {
           child: Scaffold(
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.miniCenterDocked,
-            floatingActionButton:homeFABBottomNav(),
+            floatingActionButton: homeFABBottomNav(),
             bottomNavigationBar: CustomBottomAppBar(
               height: 50.h,
             ),
@@ -54,7 +54,8 @@ class HomeScreen extends StatelessWidget {
                         logoContainer('assets/images/team_logo.webp', 'Team',
                             nextRoute: "/teamList"),
                         logoContainer(
-                            'assets/images/player_logo.webp', 'Player', nextRoute: '/playerListingScreen'),
+                            'assets/images/player_logo.webp', 'Player',
+                            nextRoute: '/playerListingScreen'),
                         GestureDetector(
                           onTap: () {
                             Get.toNamed('/createTeam');
@@ -63,7 +64,10 @@ class HomeScreen extends StatelessWidget {
                               'Create Own Team'),
                         ),
                         logoContainer(
-                            'assets/images/ground_logo.webp', 'Ground'),
+                          'assets/images/ground_logo.webp',
+                          'Ground',
+                          nextRoute: '/viewGroundScreen',
+                        ),
                         logoContainer('assets/images/upcoming_logo.webp',
                             'Upcoming Matches'),
                         logoContainer('assets/images/tournaments_logo.webp',
