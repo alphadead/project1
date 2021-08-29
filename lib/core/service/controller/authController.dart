@@ -119,7 +119,7 @@ class AuthController extends GetxController {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString("team_id", response.data?.teamId?.toString() ?? "");
       Utility.closeDialog();
-      Get.offNamed('/playerListingScreen');
+      Get.offNamed('/playerList');
     } else {
       Utility.closeDialog();
       Utility.showSnackbar("${response.message}");
