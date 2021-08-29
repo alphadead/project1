@@ -129,12 +129,13 @@ class CreateGround extends StatelessWidget {
                   ),
                   Card(
                     child: Container(
-                      height: 115.h,
+                      height: 110.h,
                       child: Column(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(12, 8, 12, 5),
+                            padding: const EdgeInsets.fromLTRB(12, 8, 15, 5),
                             child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
                                   "Calendar",
@@ -153,8 +154,20 @@ class CreateGround extends StatelessWidget {
                             child: Container(
                               child: DatePicker(
                                 DateTime.now(),
+                                daysCount: 50,
                                 width: 60.w,
-                                height: 80.h,
+                                height: 76.h,
+                                monthTextStyle:
+                                    themeData().textTheme.bodyText1!.copyWith(
+                                          color: KLightGrey,
+                                          fontSize: 12.sp,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                dateTextStyle:
+                                    themeData().textTheme.bodyText1!.copyWith(
+                                          fontSize: 18.sp,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                 initialSelectedDate: DateTime.now(),
                                 selectionColor: KRed,
                               ),
