@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:vamos/core/service/Binder/authBinder.dart';
 import 'package:vamos/splashScreen.dart';
 import 'package:vamos/testScreen.dart';
+import 'package:vamos/ui/pages/createGround.dart';
 import 'package:vamos/ui/pages/homeScreen.dart';
 import 'package:vamos/ui/loginPages/createTeam.dart';
 import 'package:vamos/ui/loginPages/profile.dart';
@@ -147,6 +148,11 @@ abstract class AppPages {
       name: '/viewGroundScreen',
       transitionDuration: transitionDuration,
       page: () => ViewGroundScreen(),
+    ),
+    GetPage(
+      name: '/createGroundScreen',
+      transitionDuration: transitionDuration,
+      page: () => CreateGround(),
     ),
   ];
 }

@@ -66,7 +66,7 @@ class HomeScreen extends StatelessWidget {
                         logoContainer(
                           'assets/images/ground_logo.webp',
                           'Ground',
-                          nextRoute: '/viewGroundScreen',
+                          nextRoute: '/createGroundScreen',
                         ),
                         logoContainer('assets/images/upcoming_logo.webp',
                             'Upcoming Matches'),
