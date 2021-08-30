@@ -11,7 +11,9 @@ import 'package:vamos/ui/loginPages/setPass.dart';
 import 'package:vamos/ui/loginPages/signUp.dart';
 import 'package:vamos/ui/loginPages/upcomingMatches.dart';
 import 'package:vamos/ui/pages/inviteScreen.dart';
+import 'package:vamos/ui/pages/joinedTeamListing.dart';
 import 'package:vamos/ui/pages/myTeam.dart';
+import 'package:vamos/ui/pages/playerListScreen.dart';
 import 'package:vamos/ui/pages/playerListingScreen.dart';
 import 'package:vamos/ui/pages/teamListScreen.dart';
 import 'package:vamos/ui/pages/viewGround.dart';
@@ -147,6 +149,22 @@ abstract class AppPages {
       name: '/viewGroundScreen',
       transitionDuration: transitionDuration,
       page: () => ViewGroundScreen(),
+      transition: Transition.downToUp,
+      binding: AllBinder(),
+      ),
+    GetPage(
+      name: '/joinedTeamsList',
+      transitionDuration: transitionDuration,
+      page: () => JoinedTeamListingScreen(),
+      transition: Transition.downToUp,
+      binding: AllBinder(),
+    ),
+    GetPage(
+      name: '/playerList',
+      transitionDuration: transitionDuration,
+      page: () => PlayerListScreen(),
+      transition: Transition.downToUp,
+      binding: AllBinder(),
     ),
   ];
 }
