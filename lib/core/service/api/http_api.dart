@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:http/http.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:vamos/core/models/acceptRejectResponse.dart';
 import 'package:vamos/core/models/completeStepResponse.dart';
@@ -18,6 +19,7 @@ import 'package:vamos/core/models/profile_api.dart';
 import 'package:vamos/core/models/registerResponse.dart';
 import 'package:vamos/core/models/teamListingResponse.dart';
 import 'package:vamos/core/models/teamRequestReceviedAsPlayerResponse.dart';
+import 'package:vamos/core/models/updateGround.dart';
 import 'package:vamos/core/models/verifyOtpResponse.dart';
 import 'package:vamos/core/service/api/api.dart';
 import 'package:vamos/core/service/api/request.dart';
@@ -129,6 +131,17 @@ class HTTPApi extends Api {
   Future<PlayerListResponse> getPlayerlist() async {
     Map<String, dynamic> response = await getRequest('players');
     return PlayerListResponse.fromJson(response);
+  }
+
+  Future<UpdateGround> updateGround(userId, name, location, fees) async {
+    Map<String, dynamic> body = {
+      "user_id": userId,
+      "name": name,
+      "location": location,
+      "booking_fees": fees,
+    };
+    Map<String, dynamic> response = await postRequest('ground/update', body);
+    return UpdateGround.fromJson(response);
   }
 
   @override
