@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:vamos/core/service/controller/groundController.dart';
 import 'package:vamos/core/service/controller/inviteController.dart';
 import 'package:vamos/core/service/controller/addsController.dart';
 import 'package:vamos/core/service/controller/authController.dart';
@@ -18,5 +19,6 @@ class AllBinder extends Bindings {
     Get.lazyPut<PlayerListController>(() => PlayerListController());
     Get.lazyPut<InviteController>(() => InviteController());
     Get.lazyPut<ProfileController>(() => ProfileController());
+    Get.lazyPut<GroundController>(() => GroundController());
   }
 }

@@ -1,7 +1,12 @@
+import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vamos/core/models/groundProfileView.dart';
 import 'package:vamos/core/service/controller/authController.dart';
+import 'package:vamos/core/service/controller/groundController.dart';
 import 'package:vamos/ui/utils/color.dart';
+import 'package:vamos/ui/utils/loginbkground.dart';
 import 'package:vamos/ui/utils/theme.dart';
 import 'package:vamos/widget/buttons.dart';
 import 'package:vamos/widget/customAppBar.dart';
@@ -14,14 +19,28 @@ List schedule = [
   ["FIFA World Cup", "12:22"],
 ];
 
-class ViewGroundScreen extends StatelessWidget {
+class ViewGroundScreen extends StatefulWidget {
   const ViewGroundScreen({Key? key}) : super(key: key);
+
+  @override
+  _ViewGroundScreenState createState() => _ViewGroundScreenState();
+}
+
+class _ViewGroundScreenState extends State<ViewGroundScreen> {
+  String dropdownValue = 'January';
+  @override
+  void initState() {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      Get.find<GroundController>().getProfileData();
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: GetBuilder<AuthController>(
-        builder: (_authService) => Directionality(
+      child: GetBuilder<GroundController>(builder: (_authService) {
+        return Directionality(
           textDirection: TextDirection.ltr,
           child: Scaffold(
             appBar: PreferredSize(
@@ -80,7 +99,7 @@ class ViewGroundScreen extends StatelessWidget {
                                     Container(
                                       width: 170.w,
                                       child: Text(
-                                        "Michigan Stadium",
+                                        _authService.groundName.toString(),
                                         maxLines: 2,
                                         overflow: TextOverflow.ellipsis,
                                         style: themeData()
@@ -94,7 +113,7 @@ class ViewGroundScreen extends StatelessWidget {
                                       ),
                                     ),
                                     Text(
-                                      "Booking Fees: \$2500",
+                                      "Booking Fees: \$${_authService.bookingFees}",
                                       style: themeData()
                                           .textTheme
                                           .bodyText1!
@@ -143,6 +162,100 @@ class ViewGroundScreen extends StatelessWidget {
                           color: KRed),
                     ),
                   ),
+                  Card(
+                    child: Container(
+                      height: 130.h,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(12, 8, 15, 5),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Calendar",
+                                  style:
+                                      themeData().textTheme.bodyText1!.copyWith(
+                                            color: profileContainerColor,
+                                            fontSize: 13.sp,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                ),
+                                DropdownButton<String>(
+                                    value: dropdownValue,
+                                    icon: const Icon(
+                                      Icons.arrow_drop_down,
+                                      color: KRed,
+                                    ),
+                                    iconSize: 24,
+                                    elevation: 16,
+                                    style: themeData()
+                                        .textTheme
+                                        .bodyText1!
+                                        .copyWith(
+                                          color: profileContainerColor,
+                                          fontSize: 13.sp,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                    underline: Container(
+                                      height: 0,
+                                    ),
+                                    onChanged: (String? newValue) {
+                                      setState(() {
+                                        dropdownValue = newValue!;
+                                      });
+                                    },
+                                    items: <String>[
+                                      'January',
+                                      'February',
+                                      'March',
+                                      'April',
+                                      'May',
+                                      'June',
+                                      'July',
+                                      'August',
+                                      'September',
+                                      'October',
+                                      'November',
+                                      'December'
+                                    ].map<DropdownMenuItem<String>>(
+                                        (String val) {
+                                      return DropdownMenuItem<String>(
+                                        value: val,
+                                        child: Text(val),
+                                      );
+                                    }).toList())
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            child: Container(
+                              child: DatePicker(
+                                DateTime.now(),
+                                daysCount: 50,
+                                width: 60.w,
+                                height: 76.h,
+                                monthTextStyle:
+                                    themeData().textTheme.bodyText1!.copyWith(
+                                          color: KLightGrey,
+                                          fontSize: 12.sp,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                dateTextStyle:
+                                    themeData().textTheme.bodyText1!.copyWith(
+                                          fontSize: 18.sp,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                initialSelectedDate: DateTime.now(),
+                                selectionColor: KRed,
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
                   Container(
                     margin: EdgeInsets.only(bottom: 15.h),
                     child: Row(
@@ -164,15 +277,45 @@ class ViewGroundScreen extends StatelessWidget {
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
                       return GroundScheduleWidget(
-                          text: schedule[index][0], time: schedule[index][1]);
+                        text: schedule[index][0],
+                        time: schedule[index][1],
+                      );
                     },
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      FloatingActionButton(
+                        backgroundColor: containerGreen,
+                        child: Icon(
+                          Icons.add,
+                          size: 40,
+                        ),
+                        onPressed: () {},
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  primaryActionButton(
+                      context: context,
+                      onPressed: () async {
+                        SharedPreferences prefs =
+                            await SharedPreferences.getInstance();
+                        prefs.clear();
+                        Get.offAllNamed("/login");
+                      },
+                      text: "Logout"),
+                  SizedBox(
+                    height: 40,
                   ),
                 ],
               ),
             ),
           ),
-        ),
-      ),
+        );
+      }),
     );
   }
 }

@@ -14,6 +14,7 @@ class LoginResponse {
     this.errors,
     this.status,
     this.accessToken,
+    this.groundID,
   });
 
   Data? data;
@@ -21,6 +22,7 @@ class LoginResponse {
   Errors? errors;
   String? status;
   String? accessToken;
+  int? groundID;
 
   factory LoginResponse.fromJson(Map<String, dynamic> json) => LoginResponse(
         data: json["data"] == null ? null : Data.fromJson(json["data"]),
@@ -28,6 +30,7 @@ class LoginResponse {
         errors: json["errors"] == null ? null : Errors.fromJson(json["errors"]),
         status: json["status"] == null ? null : json["status"],
         accessToken: json["access_token"] == null ? null : json["access_token"],
+        groundID: json["ground_id"] == null ? null : json["ground_id"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -36,34 +39,34 @@ class LoginResponse {
         "errors": errors == null ? null : errors!.toJson(),
         "status": status == null ? null : status,
         "access_token": accessToken == null ? null : accessToken,
+        "ground_id": groundID == null ? null : groundID,
       };
 }
 
 class Data {
-  Data({
-    this.id,
-    this.type,
-    this.firstName,
-    this.lastName,
-    this.email,
-    this.emailVerifiedAt,
-    this.phone,
-    this.deviceId,
-    this.deviceToken,
-    this.address,
-    this.street2,
-    this.city,
-    this.state,
-    this.pincode,
-    this.otp,
-    this.isVerified,
-    this.completedStep,
-    this.createdAt,
-    this.updatedAt,
-    this.deletedAt,
-    this.inviteCode,
-    this.teamId
-  });
+  Data(
+      {this.id,
+      this.type,
+      this.firstName,
+      this.lastName,
+      this.email,
+      this.emailVerifiedAt,
+      this.phone,
+      this.deviceId,
+      this.deviceToken,
+      this.address,
+      this.street2,
+      this.city,
+      this.state,
+      this.pincode,
+      this.otp,
+      this.isVerified,
+      this.completedStep,
+      this.createdAt,
+      this.updatedAt,
+      this.deletedAt,
+      this.inviteCode,
+      this.teamId});
 
   int? id;
   String? type;
@@ -89,30 +92,29 @@ class Data {
   int? teamId;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-        id: json["id"],
-        type: json["type"],
-        firstName: json["first_name"],
-        lastName: json["last_name"],
-        email: json["email"],
-        emailVerifiedAt: json["email_verified_at"],
-        phone: json["phone"],
-        deviceId: json["device_id"],
-        deviceToken: json["device_token"],
-        address: json["address"] == null ? null : json["address"],
-        street2: json["street_2"],
-        city: json["city"],
-        state: json["state"],
-        pincode: json["pincode"],
-        otp: json["otp"] == null ? null : json["otp"],
-        isVerified: json["is_verified"] == null ? null : json["is_verified"],
-        completedStep:
-            json["completed_step"] == null ? null : json["completed_step"],
-        createdAt: json["created_at"],
-        updatedAt: DateTime.parse(json["updated_at"]),
-        deletedAt: json["deleted_at"],
-        inviteCode: json["invite_code"],
-        teamId: json["team_id"]
-      );
+      id: json["id"],
+      type: json["type"],
+      firstName: json["first_name"],
+      lastName: json["last_name"],
+      email: json["email"],
+      emailVerifiedAt: json["email_verified_at"],
+      phone: json["phone"],
+      deviceId: json["device_id"],
+      deviceToken: json["device_token"],
+      address: json["address"] == null ? null : json["address"],
+      street2: json["street_2"],
+      city: json["city"],
+      state: json["state"],
+      pincode: json["pincode"],
+      otp: json["otp"] == null ? null : json["otp"],
+      isVerified: json["is_verified"] == null ? null : json["is_verified"],
+      completedStep:
+          json["completed_step"] == null ? null : json["completed_step"],
+      createdAt: json["created_at"],
+      updatedAt: DateTime.parse(json["updated_at"]),
+      deletedAt: json["deleted_at"],
+      inviteCode: json["invite_code"],
+      teamId: json["team_id"]);
 
   Map<String, dynamic> toJson() => {
         "id": id,
