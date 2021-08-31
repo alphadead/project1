@@ -131,7 +131,7 @@ class HTTPApi extends Api {
       "user_id": userId,
       "name": name,
       "location": location,
-      "booking_fees": fees,
+      "booking_fee": fees,
     };
     Map<String, dynamic> response = await postRequest('ground/update', body);
     return UpdateGround.fromJson(response);

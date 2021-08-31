@@ -247,7 +247,6 @@ class _CreateGroundState extends State<CreateGround> {
                           color: KLightGrey.withOpacity(0.2),
                           child: Center(
                               child: TextField(
-                            controller: feesController,
                             keyboardType: TextInputType.number,
                             textAlign: TextAlign.center,
                             style: themeData().textTheme.bodyText1!.copyWith(
@@ -256,7 +255,7 @@ class _CreateGroundState extends State<CreateGround> {
                                   fontWeight: FontWeight.bold,
                                 ),
                             onChanged: (value) {
-                              _groundService.bookingFees = feesController.text;
+                              _groundService.bookingFees = value;
                             },
                           )),
                         ),
@@ -297,9 +296,7 @@ class _CreateGroundState extends State<CreateGround> {
                       ),
                       GestureDetector(
                         onTap: () {
-
                           _groundService.groundUpdate();
-
                         },
                         child: Container(
                           width: 120.h,

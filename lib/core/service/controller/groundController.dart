@@ -12,7 +12,14 @@ class GroundController extends GetxController {
 
   String? groundName;
   String? groundLocation;
-  String? bookingFees;
+  late String _bookingFees;
+
+  String get bookingFees => _bookingFees;
+
+  set bookingFees(String value) {
+    _bookingFees = value;
+    update();
+  }
 
   void groundUpdate() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -29,6 +36,7 @@ class GroundController extends GetxController {
       Utility.closeDialog();
       groundInfo = response.data!;
       groundDisplay = groundInfo;
+      Get.offNamed("/homeScreen");
     } else {
       Utility.closeDialog();
       Utility.showSnackbar("${response.message}");
