@@ -7,6 +7,7 @@ import 'package:vamos/core/models/createTeamResponse.dart';
 import 'package:vamos/core/models/deleteMedia.dart';
 import 'package:vamos/core/models/genericResponse.dart';
 import 'package:vamos/core/models/joinTeam.dart';
+import 'package:vamos/core/models/joinedTeamListResponse.dart';
 import 'package:vamos/core/models/loginResponse.dart';
 import 'package:vamos/core/models/myTeamInfo.dart';
 import 'package:vamos/core/models/playerListResponse.dart';
@@ -87,7 +88,7 @@ class FakeApi extends Api {
   }
 
   Future<JoinTeamResponse> requestPlayer(
-    String userId,
+    userId,
     int? teamId,
   ) {
     throw UnimplementedError();
@@ -120,6 +121,17 @@ class FakeApi extends Api {
   }
 
   Future<MyTeamInfo> myTeamInfo() async {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<JoinedTeamListResponse> getJoinedTeams() {
+    // TODO: implement getJoinedTeams
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<GenericResponse> cancelPlayerRequest(teamId, userId) {
     throw UnimplementedError();
   }
 }

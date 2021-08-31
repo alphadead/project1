@@ -51,26 +51,27 @@ class HomeScreen extends StatelessWidget {
                       shrinkWrap: true,
                       crossAxisCount: 2,
                       children: [
-                        logoContainer('assets/images/team_logo.webp', 'Team',
+                        logoContainer(
+                            context, 'assets/images/team_logo.webp', 'Team',
                             nextRoute: "/teamList"),
                         logoContainer(
-                            'assets/images/player_logo.webp', 'Player',
-                            nextRoute: '/playerListingScreen'),
-                        GestureDetector(
-                          onTap: () {
-                            Get.toNamed('/createTeam');
-                          },
-                          child: logoContainer('assets/images/create_logo.webp',
-                              'Create Own Team'),
-                        ),
+                            context, 'assets/images/player_logo.webp', 'Player',
+                            nextRoute: '/playerList'),
+                        logoContainer(context, 'assets/images/create_logo.webp',
+                            'Create Own Team'),
                         logoContainer(
+                          context,
                           'assets/images/ground_logo.webp',
                           'Ground',
                           nextRoute: '/createGroundScreen',
                         ),
-                        logoContainer('assets/images/upcoming_logo.webp',
+                        logoContainer(
+                            context,
+                            'assets/images/upcoming_logo.webp',
                             'Upcoming Matches'),
-                        logoContainer('assets/images/tournaments_logo.webp',
+                        logoContainer(
+                            context,
+                            'assets/images/tournaments_logo.webp',
                             'Tournaments')
                       ],
                     ),

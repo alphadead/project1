@@ -69,6 +69,7 @@
     "invitePage_referNowButtonText": "Refer Now",
     "invitePage_textCopied": "Text Copied",
     "playerListingPage_requestButtonText":"Request",
+    "createTeamInfo_alreadyCreated":"You have already created team",
     "invitePage_skip":"Skip",
     "searchBar_search":"Search",
     "@signUpPage_title":{

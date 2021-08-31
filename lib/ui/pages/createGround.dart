@@ -270,7 +270,9 @@ class _CreateGroundState extends State<CreateGround> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          Get.toNamed("/homeScreen");
+                        },
                         child: Container(
                           width: 120.h,
                           height: 40.w,
@@ -295,7 +297,9 @@ class _CreateGroundState extends State<CreateGround> {
                       ),
                       GestureDetector(
                         onTap: () {
+
                           _groundService.groundUpdate();
+
                         },
                         child: Container(
                           width: 120.h,

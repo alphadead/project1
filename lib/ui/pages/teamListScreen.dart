@@ -19,6 +19,15 @@ class TeamListScreen extends StatefulWidget {
 
 class _TeamListScreenState extends State<TeamListScreen> {
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      Get.put(TeamListController()).getteamlist();
+      Get.put(TeamListController()).requestRecived();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     List<Color> teamListColor = [moneyBox, containerGreen, KRed];
 
@@ -48,7 +57,6 @@ class _TeamListScreenState extends State<TeamListScreen> {
                         icon: Text(
                           "Outgoing Request",
                           style: TextStyle(
-                            //color: profileContainerColor,
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
                           ),
@@ -58,7 +66,6 @@ class _TeamListScreenState extends State<TeamListScreen> {
                         icon: Text(
                           "Incoming Request",
                           style: TextStyle(
-                            //color: profileContainerColor,
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
                           ),
@@ -108,9 +115,11 @@ class _TeamListScreenState extends State<TeamListScreen> {
                           shrinkWrap: true,
                           itemCount: _teamService.teamList.length,
                           itemBuilder: (context, index) {
-                            buttonMsg =
-                                _teamService.teamList[index].status == null
-                                    ? "Request"
+                            buttonMsg = _teamService.teamList[index].status ==
+                                    null
+                                ? "Request"
+                                : _teamService.teamList[index].status == "Join"
+                                    ? "Joined"
                                     : "Pending";
                             buttonCol =
                                 _teamService.teamList[index].status == null
@@ -228,12 +237,6 @@ class _TeamListScreenState extends State<TeamListScreen> {
                                                                         .id);
                                                             if (success) {
                                                               setState(() {
-                                                                print("ffffff");
-                                                                // buttonMsg =
-                                                                //     "Join";
-                                                                // buttonCol =
-                                                                //     teamListColor[
-                                                                //         2];
                                                                 _teamService
                                                                     .teamList[
                                                                         index]
@@ -283,8 +286,6 @@ class _TeamListScreenState extends State<TeamListScreen> {
                                                     .of(context)!
                                                 .registeredTeamsPage_alreadyPresentSnackbar);
                                           }
-                                          print("+++++++++++++++=");
-                                          print(buttonMsg);
                                         },
                                         child: Container(
                                           width: 80.w,

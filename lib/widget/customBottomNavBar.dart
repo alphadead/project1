@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:vamos/core/service/controller/authController.dart';
 import 'package:vamos/ui/utils/theme.dart';
 
 List<CustomBottomAppBarItem> iconList = [
@@ -37,11 +38,18 @@ class CustomBottomAppBar extends StatefulWidget {
 
 class CustomBottomAppBarState extends State<CustomBottomAppBar> {
   int _selectedIndex = 0;
-
+  late String playerUI;
   _updateIndex(int index) {
     setState(() {
       _selectedIndex = index;
     });
+  }
+
+  @override
+  void initState() {
+    playerUI = Get.find<AuthController>().type;
+    // TODO: implement initState
+    super.initState();
   }
 
   @override
@@ -89,7 +97,9 @@ class CustomBottomAppBarState extends State<CustomBottomAppBar> {
           type: MaterialType.transparency,
           child: InkWell(
             onTap: () => index == 0
-                ? Get.toNamed('/playerInfo')
+                ? playerUI == "Player"
+                    ? Get.toNamed('/playerInfo')
+                    : Get.toNamed('/viewGroundScreen')
                 : onPressed != null
                     ? onPressed(index)
                     : () {},

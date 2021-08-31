@@ -51,7 +51,7 @@ class AuthController extends GetxController {
 
   String teamName = '';
   List<Asset> teamLogo = [];
-  String teamSize = '';
+  String teamSize = "6";
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   GlobalKey<FormState> formKey2 = GlobalKey<FormState>();
@@ -76,7 +76,7 @@ class AuthController extends GetxController {
     Utility.showLoadingDialog();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     LoginResponse response = await api.loginUser(mobileNo, password);
-    print(response.toJson().toString());
+
     if (response.data != null) {
       prefs.setString('token', 'Bearer ${response.accessToken}');
       prefs.setString('userId', '${response.data!.id}');
@@ -87,6 +87,7 @@ class AuthController extends GetxController {
       Utility.closeDialog();
       otp = response.data!.otp!;
       mobileNo = response.data!.phone!;
+      type = response.data!.type!;
       update();
       Utility.showSnackbar("${response.message}");
       if (response.data!.isVerified == "0") {
@@ -116,10 +117,12 @@ class AuthController extends GetxController {
         await api.createTeam(teamName, teamLogo[0], teamSize);
     if (response.success) {
       Utility.showSnackbar("${response.message}");
-      print(response.data?.teamId);
-      prefs.setString("team_id", "${response.data?.teamId}");
-      Get.offNamed('/playerListingScreen');
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString("team_id", response.data?.teamId?.toString() ?? "");
+      Utility.closeDialog();
+      Get.offNamed('/playerList');
     } else {
+      Utility.closeDialog();
       Utility.showSnackbar("${response.message}");
     }
   }
@@ -134,7 +137,7 @@ class AuthController extends GetxController {
       prefs.setString('token', 'Bearer ${response.accessToken}');
       prefs.setString('userId', '${response.data!.id}');
       prefs.setString('invite_code', '${response.data!.inviteCode}');
-      prefs.setString('team_id', '${response.data!.teamId}');
+      prefs.setString("team_id", '${response.data!.teamId}');
       otp = response.data!.otp.toString();
       update();
       Get.offNamed('/setPass');
@@ -236,7 +239,11 @@ class AuthController extends GetxController {
     VerifyOtpResponse response = await api.verifyOtp(userId, mobileNo, otp);
     if (response.success!) {
       Utility.showSnackbar("${response.message}");
-      completedStep("1", "/profileScreen");
+      if (type == "Ground") {
+        completedStep("4", "/createGroundScreen");
+      } else {
+        completedStep("1", "/profileScreen");
+      }
     } else {
       Utility.showSnackbar("${response.message}");
     }
