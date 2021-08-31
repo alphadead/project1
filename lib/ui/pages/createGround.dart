@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:vamos/core/service/controller/authController.dart';
+import 'package:vamos/core/service/controller/groundController.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/theme.dart';
 import 'package:vamos/widget/buttons.dart';
@@ -16,14 +17,21 @@ List schedule = [
   ["FIFA World Cup", "12:22"],
 ];
 
-class CreateGround extends StatelessWidget {
+class CreateGround extends StatefulWidget {
   const CreateGround({Key? key}) : super(key: key);
 
   @override
+  _CreateGroundState createState() => _CreateGroundState();
+}
+
+String dropdownValue = 'January';
+
+class _CreateGroundState extends State<CreateGround> {
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: GetBuilder<AuthController>(
-        builder: (_authService) => Directionality(
+      child: GetBuilder<GroundController>(
+        builder: (_groundService) => Directionality(
           textDirection: TextDirection.ltr,
           child: Scaffold(
             appBar: PreferredSize(
@@ -59,7 +67,9 @@ class CreateGround extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                   ),
-                  inputField("Ground Name", (value) {}, validate: (arg) {
+                  inputField("Ground Name", (value) {
+                    _groundService.groundName = value;
+                  }, validate: (arg) {
                     // arg = _authService.teamName;
                     // if (ValidateFeild().isValidateName(arg)) {
                     //   return null;
@@ -67,7 +77,9 @@ class CreateGround extends StatelessWidget {
                     //   return "Enter valid name";
                     // }
                   }, keyType: TextInputType.name),
-                  inputField("Ground Location", (value) {}, validate: (arg) {
+                  inputField("Ground Location", (value) {
+                    _groundService.groundLocation = value;
+                  }, validate: (arg) {
                     // arg = _authService.teamName;
                     // if (ValidateFeild().isValidateName(arg)) {
                     //   return null;
@@ -91,25 +103,17 @@ class CreateGround extends StatelessWidget {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () {
-                      _authService.loadAssets(isSingleImage: true);
-                    },
+                    onTap: () {},
                     child: Container(
                       height: 100.h,
                       width: 300.w,
                       color: KLightGrey.withOpacity(0.2),
                       child: Center(
-                        child: _authService.teamLogo.isEmpty
-                            ? Image.asset(
-                                "assets/images/add_image_1.webp",
-                                height: 28.h,
-                                width: 34.w,
-                              )
-                            : AssetThumb(
-                                asset: _authService.teamLogo[0],
-                                width: 130,
-                                height: 130),
-                      ),
+                          child: Image.asset(
+                        "assets/images/add_image_1.webp",
+                        height: 28.h,
+                        width: 34.w,
+                      )),
                     ),
                   ),
                   Container(
@@ -129,7 +133,7 @@ class CreateGround extends StatelessWidget {
                   ),
                   Card(
                     child: Container(
-                      height: 110.h,
+                      height: 130.h,
                       child: Column(
                         children: [
                           Padding(
@@ -146,6 +150,50 @@ class CreateGround extends StatelessWidget {
                                             fontWeight: FontWeight.bold,
                                           ),
                                 ),
+                                DropdownButton<String>(
+                                    value: dropdownValue,
+                                    icon: const Icon(
+                                      Icons.arrow_drop_down,
+                                      color: KRed,
+                                    ),
+                                    iconSize: 24,
+                                    elevation: 16,
+                                    style: themeData()
+                                        .textTheme
+                                        .bodyText1!
+                                        .copyWith(
+                                          color: profileContainerColor,
+                                          fontSize: 13.sp,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                    underline: Container(
+                                      height: 0,
+                                    ),
+                                    onChanged: (String? newValue) {
+                                      setState(() {
+                                        dropdownValue = newValue!;
+                                      });
+                                    },
+                                    items: <String>[
+                                      'January',
+                                      'February',
+                                      'March',
+                                      'April',
+                                      'May',
+                                      'June',
+                                      'July',
+                                      'August',
+                                      'September',
+                                      'October',
+                                      'November',
+                                      'December'
+                                    ].map<DropdownMenuItem<String>>(
+                                        (String val) {
+                                      return DropdownMenuItem<String>(
+                                        value: val,
+                                        child: Text(val),
+                                      );
+                                    }).toList())
                               ],
                             ),
                           ),

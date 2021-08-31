@@ -16,6 +16,7 @@ import 'package:vamos/core/models/profile_api.dart';
 import 'package:vamos/core/models/registerResponse.dart';
 import 'package:vamos/core/models/teamListingResponse.dart';
 import 'package:vamos/core/models/teamRequestReceviedAsPlayerResponse.dart';
+import 'package:vamos/core/models/updateGround.dart';
 import 'package:vamos/core/models/verifyOtpResponse.dart';
 
 abstract class Api {
@@ -53,6 +54,7 @@ abstract class Api {
   );
   Future<VerifyOtpResponse> verifyOtp(userId, mobileNo, otp);
   Future<PlayerListResponse> getPlayerlist();
+  Future<UpdateGround> updateGround(name, location, fees);
   Future<CompletedStepResponse> completedtep(String step);
   Future<JoinTeamResponse> requestPlayer(
     String userId,
