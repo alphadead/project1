@@ -6,6 +6,7 @@ import 'package:vamos/core/models/completeStepResponse.dart';
 import 'package:vamos/core/models/createTeamResponse.dart';
 import 'package:vamos/core/models/deleteMedia.dart';
 import 'package:vamos/core/models/genericResponse.dart';
+import 'package:vamos/core/models/groundProfileView.dart';
 import 'package:vamos/core/models/joinTeam.dart';
 import 'package:vamos/core/models/joinedTeamListResponse.dart';
 import 'package:vamos/core/models/loginResponse.dart';
@@ -45,6 +46,8 @@ abstract class Api {
       String? nickName,
       List<Asset> images,
       List<File> files);
+
+  Future<GroundProfileViewResponse> getGroundProfile(String? groundID);
 
   Future<TeamListResponse> getteamlist();
   Future<PlayerRequestResponse> getPlayerRequestListByTeam(int? teamId);

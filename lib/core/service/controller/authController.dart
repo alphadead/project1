@@ -83,6 +83,7 @@ class AuthController extends GetxController {
       prefs.setString('invite_code', '${response.data!.inviteCode}');
       prefs.setString('team_id', '${response.data!.teamId}');
       prefs.setString("completedStep", '${response.data!.completedStep}');
+      prefs.setString("ground_id", '${response.groundID}');
       prefs.setBool('isAuthenticated', true);
       Utility.closeDialog();
       otp = response.data!.otp!;

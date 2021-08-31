@@ -255,7 +255,7 @@ class _CreateGroundState extends State<CreateGround> {
                                   fontWeight: FontWeight.bold,
                                 ),
                             onChanged: (value) {
-                              _groundService.bookingFees = value;
+                              _groundService.bookingFee = value;
                             },
                           )),
                         ),
