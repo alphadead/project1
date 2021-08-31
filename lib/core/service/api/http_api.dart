@@ -125,8 +125,9 @@ class HTTPApi extends Api {
     return PlayerListResponse.fromJson(response);
   }
 
-  Future<UpdateGround> updateGround(name, location, fees) async {
+  Future<UpdateGround> updateGround(userId, name, location, fees) async {
     Map<String, dynamic> body = {
+      "user_id": userId,
       "name": name,
       "location": location,
       "booking_fees": fees,
