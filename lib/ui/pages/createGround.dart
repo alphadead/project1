@@ -245,13 +245,17 @@ class _CreateGroundState extends State<CreateGround> {
                           width: 100.w,
                           color: KLightGrey.withOpacity(0.2),
                           child: Center(
-                              child: Text(
-                            "1200\$",
+                              child: TextField(
+                            keyboardType: TextInputType.number,
+                            textAlign: TextAlign.center,
                             style: themeData().textTheme.bodyText1!.copyWith(
                                   color: KColorBlack,
                                   fontSize: 15.sp,
                                   fontWeight: FontWeight.bold,
                                 ),
+                            onChanged: (value) {
+                              _groundService.bookingFees = value;
+                            },
                           )),
                         ),
                       ],
@@ -288,7 +292,9 @@ class _CreateGroundState extends State<CreateGround> {
                         width: 10.w,
                       ),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          _groundService.groundUpdate();
+                        },
                         child: Container(
                           width: 120.h,
                           height: 40.w,

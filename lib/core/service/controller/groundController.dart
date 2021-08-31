@@ -6,8 +6,8 @@ import 'package:vamos/ui/utils/utility.dart';
 
 class GroundController extends GetxController {
   Api api = locator<Api>();
-  UpdateGround? groundInfo;
-  UpdateGround? groundDisplay;
+  GroundInfo? groundInfo;
+  GroundInfo? groundDisplay;
 
   String? groundName;
   String? groundLocation;
@@ -22,7 +22,7 @@ class GroundController extends GetxController {
     print('+++++++++++++++AAAAAAAAAAAAAAAAAAAAA');
     if (response.data != null) {
       Utility.closeDialog();
-      groundInfo = response.data! as UpdateGround?;
+      groundInfo = response.data!;
       groundDisplay = groundInfo;
     } else {
       Utility.closeDialog();
