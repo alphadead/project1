@@ -87,6 +87,7 @@ class AuthController extends GetxController {
       Utility.closeDialog();
       otp = response.data!.otp!;
       mobileNo = response.data!.phone!;
+      type = response.data!.type!;
       update();
       Utility.showSnackbar("${response.message}");
       if (response.data!.isVerified == "0") {
@@ -236,7 +237,11 @@ class AuthController extends GetxController {
     VerifyOtpResponse response = await api.verifyOtp(userId, mobileNo, otp);
     if (response.success!) {
       Utility.showSnackbar("${response.message}");
-      completedStep("1", "/profileScreen");
+      if (type == "Ground") {
+        completedStep("4", "/createGroundScreen");
+      } else {
+        completedStep("1", "/profileScreen");
+      }
     } else {
       Utility.showSnackbar("${response.message}");
     }

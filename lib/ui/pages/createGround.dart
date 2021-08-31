@@ -216,7 +216,9 @@ class CreateGround extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          Get.toNamed("/homeScreen");
+                        },
                         child: Container(
                           width: 120.h,
                           height: 40.w,
@@ -240,7 +242,9 @@ class CreateGround extends StatelessWidget {
                         width: 10.w,
                       ),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          Get.toNamed("/homeScreen");
+                        },
                         child: Container(
                           width: 120.h,
                           height: 40.w,
