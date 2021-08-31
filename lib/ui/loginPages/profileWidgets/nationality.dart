@@ -16,16 +16,13 @@ class Nationality extends StatefulWidget {
 }
 
 class _NationalityState extends State<Nationality> {
-  String? dropdownValue = 'India';
-
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback(
       (_) {
-        dropdownValue =
+        Get.find<AuthController>().nationality =
             Get.find<ProfileController>().profile?.nationality ?? 'India';
-        Get.find<AuthController>().nationality = dropdownValue.toString();
       },
     );
   }
@@ -53,7 +50,7 @@ class _NationalityState extends State<Nationality> {
                           width: 16.sp,
                         ),
                         underline: SizedBox(),
-                        value: dropdownValue,
+                        value: _authService.nationality,
                         hint: Container(
                           margin: EdgeInsets.only(right: 200.w),
                           child: Text(
@@ -66,7 +63,6 @@ class _NationalityState extends State<Nationality> {
                         ),
                         onChanged: (String? newValue) {
                           setState(() {
-                            dropdownValue = newValue;
                             _authService.nationality = newValue.toString();
                           });
                         },

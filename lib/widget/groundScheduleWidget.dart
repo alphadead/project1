@@ -33,7 +33,6 @@ class GroundScheduleWidget extends StatelessWidget {
               child: Container(
                 margin: EdgeInsets.symmetric(horizontal: 15.w),
                 child: Row(
-                  //mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
@@ -43,9 +42,6 @@ class GroundScheduleWidget extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                     ),
-                    // Expanded(
-                    //   child: Container(),
-                    // ),
                     GestureDetector(
                       onTap: () {},
                       child: Container(

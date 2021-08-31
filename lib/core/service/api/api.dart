@@ -7,6 +7,7 @@ import 'package:vamos/core/models/createTeamResponse.dart';
 import 'package:vamos/core/models/deleteMedia.dart';
 import 'package:vamos/core/models/genericResponse.dart';
 import 'package:vamos/core/models/joinTeam.dart';
+import 'package:vamos/core/models/joinedTeamListResponse.dart';
 import 'package:vamos/core/models/loginResponse.dart';
 import 'package:vamos/core/models/myTeamInfo.dart';
 import 'package:vamos/core/models/playerListResponse.dart';
@@ -55,7 +56,7 @@ abstract class Api {
   Future<PlayerListResponse> getPlayerlist();
   Future<CompletedStepResponse> completedtep(String step);
   Future<JoinTeamResponse> requestPlayer(
-    String userId,
+    userId,
     int? teamId,
   );
   Future<DeleteMedia> deleteMedias(String mediaId);
@@ -63,4 +64,6 @@ abstract class Api {
   Future<TeamRequestReceivedAsPlayerResponse> requestRecived();
   Future<AcceptRejectRequestResponse> requestAcceptReject(id, status);
   Future<MyTeamInfo> myTeamInfo();
+  Future<JoinedTeamListResponse> getJoinedTeams();
+  Future<GenericResponse> cancelPlayerRequest(teamId, userId);
 }

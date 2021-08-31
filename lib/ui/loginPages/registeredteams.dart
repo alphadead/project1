@@ -23,6 +23,14 @@ class _RegisteredTeamPageState extends State<RegisteredTeamPage> {
   bool pressed = false;
 
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      Get.put(TeamListController()).getteamlist();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: GetBuilder<TeamListController>(

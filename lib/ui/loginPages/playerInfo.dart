@@ -2,7 +2,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:vamos/core/service/controller/authController.dart';
 import 'package:vamos/core/service/controller/profileController.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/loginbkground.dart';
@@ -33,7 +32,7 @@ class _PlayerInfoState extends State<PlayerInfo> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ProfileController>(builder: (_profileService) {
-     return Scaffold(
+      return Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: sliderGreenActive,
         floatingActionButtonLocation:
@@ -121,9 +120,7 @@ class _PlayerInfoState extends State<PlayerInfo> {
                               color: iconColStar,
                             ),
                           ),
-                          onRatingUpdate: (rating) {
-                            //print(rating);
-                          },
+                          onRatingUpdate: (rating) {},
                         ),
                       ),
                     ),
@@ -146,8 +143,14 @@ class _PlayerInfoState extends State<PlayerInfo> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                (_profileService.profile?.first_name ?? "") +
-                                    (_profileService.profile?.last_name ?? ""),
+                                (_profileService.profile?.nick_name != null &&
+                                        _profileService.profile?.nick_name !=
+                                            "")
+                                    ? _profileService.profile?.nick_name ?? ""
+                                    : ((_profileService.profile?.first_name ??
+                                            "") +
+                                        (_profileService.profile?.last_name ??
+                                            "")),
                                 style:
                                     themeData().textTheme.headline1!.copyWith(
                                           color: containerGreen,
@@ -299,7 +302,7 @@ class _PlayerInfoState extends State<PlayerInfo> {
                           Center(
                             child: GestureDetector(
                               onTap: () {
-                                Get.toNamed('/myTeam');
+                                Get.toNamed('/joinedTeamsList');
                               },
                               child: Container(
                                 width: 120.h,

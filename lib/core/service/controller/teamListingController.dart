@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:vamos/core/models/acceptRejectResponse.dart';
 import 'package:vamos/core/models/genericResponse.dart';
 import 'package:vamos/core/models/joinTeam.dart';
+import 'package:vamos/core/models/joinedTeamListResponse.dart';
 import 'package:vamos/core/models/teamListingResponse.dart';
 import 'package:vamos/core/models/teamRequestReceviedAsPlayerResponse.dart';
 import 'package:vamos/core/service/api/api.dart';
@@ -12,14 +13,10 @@ import '../../../locator.dart';
 
 class TeamListController extends GetxController {
   List<TeamData> teamList = [];
+  List<JoinedTeamData>? joinedTeamList = [];
   List<Datum> teamRequestList = [];
   Api api = locator<Api>();
   bool joinedTeam = false;
-
-  void onInit() {
-    WidgetsBinding.instance!.addPostFrameCallback((_) => getteamlist());
-    WidgetsBinding.instance!.addPostFrameCallback((_) => requestRecived());
-  }
 
   void getteamlist() async {
     Utility.showLoadingDialog();
@@ -28,7 +25,6 @@ class TeamListController extends GetxController {
       Utility.closeDialog();
 
       teamList = response.data!;
-      print(teamList);
     } else {
       Utility.showSnackbar("${response.message}");
     }
@@ -61,7 +57,6 @@ class TeamListController extends GetxController {
     TeamRequestReceivedAsPlayerResponse response = await api.requestRecived();
     if (response.status == "Success") {
       teamRequestList = response.data!;
-      print("AAAAAAAAAAAAAAAAA");
       Utility.showSnackbar("${response.message}");
     } else {
       Utility.showSnackbar("${response.message}");
@@ -74,6 +69,18 @@ class TeamListController extends GetxController {
     AcceptRejectRequestResponse response =
         await api.requestAcceptReject(id, status);
     if (response.success == "true") {
+      Utility.showSnackbar("${response.message}");
+    } else {
+      Utility.showSnackbar("${response.message}");
+    }
+    update();
+  }
+
+  void getJoinedTeams() async {
+    Utility.showLoadingDialog();
+    JoinedTeamListResponse response = await api.getJoinedTeams();
+    if (response.status == "Success") {
+      joinedTeamList = response.data;
       Utility.showSnackbar("${response.message}");
     } else {
       Utility.showSnackbar("${response.message}");
