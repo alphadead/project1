@@ -51,8 +51,8 @@ class Data {
   int id;
   String name;
   String location;
-  String latitude;
-  String longitude;
+  String? latitude;
+  String? longitude;
   String bookingFee;
   List<dynamic> photo;
 

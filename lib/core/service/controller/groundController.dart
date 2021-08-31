@@ -29,7 +29,8 @@ class GroundController extends GetxController {
   void getProfileData() async {
     Utility.showLoadingDialog();
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    GroundProfileViewResponse response = await api.getGroundProfile("7");
+    GroundProfileViewResponse response =
+        await api.getGroundProfile(prefs.getString("ground_id"));
     if (response.data != null) {
       groundName = response.data?.name;
       groundLocation = response.data?.location;
@@ -55,6 +56,7 @@ class GroundController extends GetxController {
     print('+++++++++++++++AAAAAAAAAAAAAAAAAAAAA');
     if (response.data != null) {
       Utility.closeDialog();
+      prefs.setString("ground_id", response.data!.id.toString());
       groundInfo = response.data!;
       groundDisplay = groundInfo;
       Get.offNamed("/homeScreen");
