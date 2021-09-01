@@ -73,5 +73,6 @@
     "invitePage_skip":"تخطى",
     "searchBar_search":"بحث",
     "joined_team":"انضم للفريق",
-    "matches_played":"المباريات الملعوبة"
+    "matches_played":"المباريات الملعوبة",
+    "logout":"تسجيل خروج"
 }

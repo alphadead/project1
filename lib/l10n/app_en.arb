@@ -72,6 +72,7 @@
     "createTeamInfo_alreadyCreated":"You have already created team",
     "invitePage_skip":"Skip",
     "searchBar_search":"Search",
+    "logout":"Logout",
     "@signUpPage_title":{
       "description": "Dummy value"
     },

@@ -51,14 +51,11 @@ class GroundController extends GetxController {
     AuthController controller = Get.find<AuthController>();
 
     Utility.showLoadingDialog();
-    print('+++++++++++++++AAAAAAAAAAAAAAAAAAAAA');
     UpdateGround response = await api.updateGround(
         prefs.getString("userId").toString(),
         groundName,
         groundLocation,
         bookingFee);
-    print(response.toString());
-    print('+++++++++++++++AAAAAAAAAAAAAAAAAAAAA');
     if (response.data != null) {
       Utility.closeDialog();
       prefs.setString("ground_id", response.data!.id.toString());

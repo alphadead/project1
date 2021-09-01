@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:vamos/core/service/controller/authController.dart';
 import 'package:vamos/core/service/controller/groundController.dart';
+import 'package:vamos/ui/pages/viewGround.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/theme.dart';
 import 'package:vamos/widget/buttons.dart';
@@ -70,24 +71,10 @@ class _CreateGroundState extends State<CreateGround> {
                   ),
                   inputField("Ground Name", (value) {
                     _groundService.groundName = value;
-                  }, validate: (arg) {
-                    // arg = _authService.teamName;
-                    // if (ValidateFeild().isValidateName(arg)) {
-                    //   return null;
-                    // } else {
-                    //   return "Enter valid name";
-                    // }
-                  }, keyType: TextInputType.name),
+                  }, validate: (arg) {}, keyType: TextInputType.name),
                   inputField("Ground Location", (value) {
                     _groundService.groundLocation = value;
-                  }, validate: (arg) {
-                    // arg = _authService.teamName;
-                    // if (ValidateFeild().isValidateName(arg)) {
-                    //   return null;
-                    // } else {
-                    //   return "Enter valid name";
-                    // }
-                  }, keyType: TextInputType.name),
+                  }, validate: (arg) {}, keyType: TextInputType.name),
                   Container(
                     margin: EdgeInsets.only(bottom: 12.h, top: 15.h),
                     child: Row(
@@ -132,100 +119,7 @@ class _CreateGroundState extends State<CreateGround> {
                       ],
                     ),
                   ),
-                  Card(
-                    child: Container(
-                      height: 130.h,
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(12, 8, 15, 5),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Calendar",
-                                  style:
-                                      themeData().textTheme.bodyText1!.copyWith(
-                                            color: profileContainerColor,
-                                            fontSize: 13.sp,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                ),
-                                DropdownButton<String>(
-                                    value: dropdownValue,
-                                    icon: const Icon(
-                                      Icons.arrow_drop_down,
-                                      color: KRed,
-                                    ),
-                                    iconSize: 24,
-                                    elevation: 16,
-                                    style: themeData()
-                                        .textTheme
-                                        .bodyText1!
-                                        .copyWith(
-                                          color: profileContainerColor,
-                                          fontSize: 13.sp,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                    underline: Container(
-                                      height: 0,
-                                    ),
-                                    onChanged: (String? newValue) {
-                                      setState(() {
-                                        dropdownValue = newValue!;
-                                      });
-                                    },
-                                    items: <String>[
-                                      'January',
-                                      'February',
-                                      'March',
-                                      'April',
-                                      'May',
-                                      'June',
-                                      'July',
-                                      'August',
-                                      'September',
-                                      'October',
-                                      'November',
-                                      'December'
-                                    ].map<DropdownMenuItem<String>>(
-                                        (String val) {
-                                      return DropdownMenuItem<String>(
-                                        value: val,
-                                        child: Text(val),
-                                      );
-                                    }).toList())
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8),
-                            child: Container(
-                              child: DatePicker(
-                                DateTime.now(),
-                                daysCount: 50,
-                                width: 60.w,
-                                height: 76.h,
-                                monthTextStyle:
-                                    themeData().textTheme.bodyText1!.copyWith(
-                                          color: KLightGrey,
-                                          fontSize: 12.sp,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                dateTextStyle:
-                                    themeData().textTheme.bodyText1!.copyWith(
-                                          fontSize: 18.sp,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                initialSelectedDate: DateTime.now(),
-                                selectionColor: KRed,
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
+                  CustomCalender(),
                   Container(
                     margin: EdgeInsets.only(bottom: 15.h, top: 10.h),
                     child: Row(
