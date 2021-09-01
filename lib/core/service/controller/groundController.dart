@@ -11,6 +11,8 @@ class GroundController extends GetxController {
   Api api = locator<Api>();
   String? groundName;
   String? groundLocation;
+  int currentDateIndex = -1;
+  String? selectedMonth;
   late String _bookingFee;
 
   String get bookingFee => _bookingFee;

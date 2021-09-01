@@ -1,6 +1,7 @@
 import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart' as intl;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vamos/core/models/groundProfileView.dart';
 import 'package:vamos/core/service/controller/authController.dart';
@@ -12,11 +13,27 @@ import 'package:vamos/widget/buttons.dart';
 import 'package:vamos/widget/customAppBar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vamos/widget/customBottomNavBar.dart';
+import 'package:vamos/widget/dateSchedulePopup.dart';
 import 'package:vamos/widget/groundScheduleWidget.dart';
 
 List schedule = [
   ["Team Invitation", "10:20"],
   ["FIFA World Cup", "12:22"],
+];
+
+List<String> months = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December'
 ];
 
 class ViewGroundScreen extends StatefulWidget {
@@ -27,7 +44,6 @@ class ViewGroundScreen extends StatefulWidget {
 }
 
 class _ViewGroundScreenState extends State<ViewGroundScreen> {
-  String dropdownValue = 'January';
   @override
   void initState() {
     WidgetsBinding.instance!.addPostFrameCallback((_) {
@@ -162,100 +178,7 @@ class _ViewGroundScreenState extends State<ViewGroundScreen> {
                           color: KRed),
                     ),
                   ),
-                  Card(
-                    child: Container(
-                      height: 130.h,
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(12, 8, 15, 5),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Calendar",
-                                  style:
-                                      themeData().textTheme.bodyText1!.copyWith(
-                                            color: profileContainerColor,
-                                            fontSize: 13.sp,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                ),
-                                DropdownButton<String>(
-                                    value: dropdownValue,
-                                    icon: const Icon(
-                                      Icons.arrow_drop_down,
-                                      color: KRed,
-                                    ),
-                                    iconSize: 24,
-                                    elevation: 16,
-                                    style: themeData()
-                                        .textTheme
-                                        .bodyText1!
-                                        .copyWith(
-                                          color: profileContainerColor,
-                                          fontSize: 13.sp,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                    underline: Container(
-                                      height: 0,
-                                    ),
-                                    onChanged: (String? newValue) {
-                                      setState(() {
-                                        dropdownValue = newValue!;
-                                      });
-                                    },
-                                    items: <String>[
-                                      'January',
-                                      'February',
-                                      'March',
-                                      'April',
-                                      'May',
-                                      'June',
-                                      'July',
-                                      'August',
-                                      'September',
-                                      'October',
-                                      'November',
-                                      'December'
-                                    ].map<DropdownMenuItem<String>>(
-                                        (String val) {
-                                      return DropdownMenuItem<String>(
-                                        value: val,
-                                        child: Text(val),
-                                      );
-                                    }).toList())
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8),
-                            child: Container(
-                              child: DatePicker(
-                                DateTime.now(),
-                                daysCount: 50,
-                                width: 60.w,
-                                height: 76.h,
-                                monthTextStyle:
-                                    themeData().textTheme.bodyText1!.copyWith(
-                                          color: KLightGrey,
-                                          fontSize: 12.sp,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                dateTextStyle:
-                                    themeData().textTheme.bodyText1!.copyWith(
-                                          fontSize: 18.sp,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                initialSelectedDate: DateTime.now(),
-                                selectionColor: KRed,
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
+                  CustomCalender(),
                   Container(
                     margin: EdgeInsets.only(bottom: 15.h),
                     child: Row(
@@ -287,9 +210,9 @@ class _ViewGroundScreenState extends State<ViewGroundScreen> {
                     children: [
                       FloatingActionButton(
                         backgroundColor: containerGreen,
-                        child: Icon(
-                          Icons.add,
-                          size: 40,
+                        child: Image.asset(
+                          "assets/images/pencil.png",
+                          scale: 3.5,
                         ),
                         onPressed: () {},
                       ),
@@ -316,6 +239,186 @@ class _ViewGroundScreenState extends State<ViewGroundScreen> {
           ),
         );
       }),
+    );
+  }
+}
+
+class CustomCalender extends StatefulWidget {
+  const CustomCalender({Key? key}) : super(key: key);
+
+  @override
+  _CustomCalenderState createState() => _CustomCalenderState();
+}
+
+class _CustomCalenderState extends State<CustomCalender> {
+  String dropdownValue = months[DateTime.now().month - 1];
+  int calenderStartingDate = DateTime.now().day;
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Container(
+        height: 130.h,
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(12, 8, 15, 5),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Calendar",
+                    style: themeData().textTheme.bodyText1!.copyWith(
+                          color: profileContainerColor,
+                          fontSize: 13.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
+                  DropdownButton<String>(
+                    value: dropdownValue,
+                    icon: const Icon(
+                      Icons.arrow_drop_down,
+                      color: KRed,
+                    ),
+                    iconSize: 24,
+                    elevation: 16,
+                    style: themeData().textTheme.bodyText1!.copyWith(
+                          color: profileContainerColor,
+                          fontSize: 13.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                    underline: Container(
+                      height: 0,
+                    ),
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        dropdownValue = newValue!;
+                        if (months.indexOf(dropdownValue) + 1 ==
+                            DateTime.now().month) {
+                          calenderStartingDate = DateTime.now().day;
+                        } else {
+                          calenderStartingDate = 1;
+                        }
+                      });
+                    },
+                    items: <String>[
+                      months[DateTime.now().month - 1],
+                      months[DateTime.now().month]
+                    ].map<DropdownMenuItem<String>>((String val) {
+                      return DropdownMenuItem<String>(
+                        value: val,
+                        child: Text(val),
+                      );
+                    }).toList(),
+                  )
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: Container(
+                height: 65,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: DateTime(DateTime.now().year,
+                              months.indexOf(dropdownValue) + 1, 0)
+                          .day -
+                      calenderStartingDate +
+                      1,
+                  itemBuilder: (context, index) {
+                    return Stack(
+                      children: [
+                        Positioned(
+                          right: 0,
+                          top: 0,
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              Container(
+                                width: 19,
+                                height: 19,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(11.5),
+                                  color: Colors.white,
+                                ),
+                              ),
+                              Icon(
+                                Icons.check_circle_rounded,
+                                size: 23,
+                                color: containerGreen,
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          margin:
+                              EdgeInsets.symmetric(vertical: 5, horizontal: 3),
+                          child: Ink(
+                            width: 45.w,
+                            decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8.0)),
+                              color: KRed,
+                            ),
+                            child: InkWell(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8.0)),
+                              onTap: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return ScheduleCard(
+                                      scheduleDate: DateTime(
+                                          DateTime.now().year,
+                                          months.indexOf(dropdownValue) + 1,
+                                          index + calenderStartingDate),
+                                    );
+                                  },
+                                );
+                              },
+                              child: Padding(
+                                padding: EdgeInsets.all(8),
+                                child: Center(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "${intl.DateFormat('EEEE').format(DateTime(DateTime.now().year, months.indexOf(dropdownValue) + 1, index + calenderStartingDate)).substring(0, 3)}",
+                                        style: themeData()
+                                            .textTheme
+                                            .bodyText1!
+                                            .copyWith(
+                                                fontSize: 10,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white),
+                                      ),
+                                      Text(
+                                        "${index + calenderStartingDate}",
+                                        style: themeData()
+                                            .textTheme
+                                            .bodyText1!
+                                            .copyWith(
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }
