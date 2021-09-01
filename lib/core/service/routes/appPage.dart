@@ -152,7 +152,7 @@ abstract class AppPages {
       page: () => ViewGroundScreen(),
       transition: Transition.downToUp,
       binding: AllBinder(),
-      ),
+    ),
     GetPage(
       name: '/joinedTeamsList',
       transitionDuration: transitionDuration,
@@ -168,9 +168,9 @@ abstract class AppPages {
       binding: AllBinder(),
     ),
     GetPage(
-      name: '/createGroundScreen',
-      transitionDuration: transitionDuration,
-      page: () => CreateGround(),
-    ),
+        name: '/createGroundScreen',
+        transitionDuration: transitionDuration,
+        page: () => CreateGround(),
+        binding: AllBinder()),
   ];
 }

@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vamos/core/models/groundProfileView.dart';
 import 'package:vamos/core/models/updateGround.dart';
 import 'package:vamos/core/service/api/api.dart';
+import 'package:vamos/core/service/controller/authController.dart';
 import 'package:vamos/locator.dart';
 import 'package:vamos/ui/utils/utility.dart';
 
@@ -45,6 +46,8 @@ class GroundController extends GetxController {
 
   void groundUpdate() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    AuthController controller = Get.find<AuthController>();
+
     Utility.showLoadingDialog();
     print('+++++++++++++++AAAAAAAAAAAAAAAAAAAAA');
     UpdateGround response = await api.updateGround(
@@ -59,7 +62,7 @@ class GroundController extends GetxController {
       prefs.setString("ground_id", response.data!.id.toString());
       groundInfo = response.data!;
       groundDisplay = groundInfo;
-      Get.offNamed("/homeScreen");
+      controller.completedStep("2", "/homeScreen");
     } else {
       Utility.closeDialog();
       Utility.showSnackbar("${response.message}");

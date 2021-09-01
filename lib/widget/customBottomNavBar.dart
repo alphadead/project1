@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vamos/core/service/controller/authController.dart';
 import 'package:vamos/ui/utils/theme.dart';
 
@@ -38,7 +39,7 @@ class CustomBottomAppBar extends StatefulWidget {
 
 class CustomBottomAppBarState extends State<CustomBottomAppBar> {
   int _selectedIndex = 0;
-  late String playerUI;
+  late String? playerUI;
   _updateIndex(int index) {
     setState(() {
       _selectedIndex = index;
@@ -47,9 +48,15 @@ class CustomBottomAppBarState extends State<CustomBottomAppBar> {
 
   @override
   void initState() {
-    playerUI = Get.find<AuthController>().type;
+    loadProfile();
+
     // TODO: implement initState
     super.initState();
+  }
+
+  void loadProfile() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    playerUI = prefs.getString("register_type");
   }
 
   @override

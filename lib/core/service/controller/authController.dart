@@ -84,6 +84,7 @@ class AuthController extends GetxController {
       prefs.setString('team_id', '${response.data!.teamId}');
       prefs.setString("completedStep", '${response.data!.completedStep}');
       prefs.setString("ground_id", '${response.groundID}');
+      prefs.setString("register_type", '${response.data!.type}');
       prefs.setBool('isAuthenticated', true);
       Utility.closeDialog();
       otp = response.data!.otp!;
@@ -94,16 +95,24 @@ class AuthController extends GetxController {
       if (response.data!.isVerified == "0") {
         Get.offNamed('/setPass');
       } else {
-        if (response.data!.completedStep == "1") {
-          Get.offNamed('/profileScreen', arguments: false);
-        } else if (response.data!.completedStep == "2") {
-          Get.offNamed("/registeredTeamScreen");
-        } else if (response.data!.completedStep == "3") {
-          Get.offNamed("/inviteScreen");
-        } else if (response.data!.completedStep == "4") {
-          Get.offNamed("/homeScreen");
+        if (type != "Ground") {
+          if (response.data!.completedStep == "1") {
+            Get.offNamed('/profileScreen', arguments: false);
+          } else if (response.data!.completedStep == "2") {
+            Get.offNamed("/registeredTeamScreen");
+          } else if (response.data!.completedStep == "3") {
+            Get.offNamed("/inviteScreen");
+          } else if (response.data!.completedStep == "4") {
+            Get.offNamed("/homeScreen");
+          } else {
+            Get.offNamed("/login");
+          }
         } else {
-          Get.offNamed("/login");
+          if (response.data!.completedStep == "1") {
+            Get.offNamed("/createGroundScreen");
+          } else if (response.data!.completedStep == "2") {
+            Get.offNamed("/homeScreen");
+          }
         }
       }
     } else {
@@ -237,11 +246,13 @@ class AuthController extends GetxController {
     Utility.showLoadingDialog();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     userId = prefs.getString("userId")!;
+    type = prefs.getString("register_type")!;
+
     VerifyOtpResponse response = await api.verifyOtp(userId, mobileNo, otp);
     if (response.success!) {
       Utility.showSnackbar("${response.message}");
       if (type == "Ground") {
-        completedStep("4", "/createGroundScreen");
+        completedStep("1", "/createGroundScreen");
       } else {
         completedStep("1", "/profileScreen");
       }
