@@ -37,20 +37,23 @@ class HTTPApi extends Api {
   }
 
   Future<RegisterResponse> registerStep(
-      String firstName,
-      String lastName,
-      String email,
-      String mobileNo,
-      String type,
-      String password,
-      String address) async {
+    String firstName,
+    String lastName,
+    String email,
+    String mobileNo,
+    String type,
+    String password,
+    String address,
+    String referralCode,
+  ) async {
     Map<String, dynamic> body = {
       "phone": mobileNo,
       "first_name": firstName,
       "last_name": lastName,
       "email": email,
       "type": type,
-      "password": password
+      "password": password,
+      "referrer_code": referralCode
     };
     Map<String, dynamic> response = await postRequest("register", body);
     return RegisterResponse.fromJson(response);

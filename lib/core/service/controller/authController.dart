@@ -33,6 +33,7 @@ class AuthController extends GetxController {
   String nationality = '';
   String otp = '';
   String inviteCode = '';
+  String referralCode = '';
   String? nickName;
 
   String type = '';
@@ -129,8 +130,8 @@ class AuthController extends GetxController {
   void registerStep() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     Utility.showLoadingDialog();
-    RegisterResponse response = await api.registerStep(
-        firstName, lastName, email, mobileNo, type, password, address);
+    RegisterResponse response = await api.registerStep(firstName, lastName,
+        email, mobileNo, type, password, address, referralCode);
     if (response.success) {
       Utility.showSnackbar("${response.message}");
       prefs.setString('token', 'Bearer ${response.accessToken}');

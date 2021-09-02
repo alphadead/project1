@@ -27,13 +27,15 @@ class FakeApi extends Api {
   }
 
   Future<RegisterResponse> registerStep(
-      String firstName,
-      String lastName,
-      String email,
-      String mobileNo,
-      String type,
-      String password,
-      String address) {
+    String firstName,
+    String lastName,
+    String email,
+    String mobileNo,
+    String type,
+    String password,
+    String address,
+    String referralCode,
+  ) {
     throw UnimplementedError();
   }
 

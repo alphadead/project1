@@ -23,13 +23,15 @@ import 'package:vamos/core/models/verifyOtpResponse.dart';
 abstract class Api {
   Future<LoginResponse> loginUser(String mobileNo, String password);
   Future<RegisterResponse> registerStep(
-      String firstName,
-      String lastName,
-      String email,
-      String mobileNo,
-      String type,
-      String password,
-      String address);
+    String firstName,
+    String lastName,
+    String email,
+    String mobileNo,
+    String type,
+    String password,
+    String address,
+    String referralCode,
+  );
 
   Future<CreateTeamResponse> createTeam(
       String name, Asset logo, String teamSize);

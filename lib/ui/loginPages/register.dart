@@ -187,6 +187,19 @@ class _RegisterPageState extends State<RegisterPage> {
                               }
                             }, keyType: TextInputType.name)),
                         Padding(
+                          padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
+                          child: inputField('Referal Code', (value) {
+                            _authService.referralCode = value;
+                          }, validate: (arg) {
+                            arg = _authService.referralCode;
+                            if (ValidateFeild().isValidateName(arg)) {
+                              return null;
+                            } else {
+                              return "Fill with characters";
+                            }
+                          }, keyType: TextInputType.name),
+                        ),
+                        Padding(
                           padding: EdgeInsets.fromLTRB(30, 20, 30, 30),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
