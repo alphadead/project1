@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -31,7 +32,7 @@ class _PlayerInfoState extends State<PlayerInfo> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ProfileController>(builder: (_profileService) {
-      return Scaffold(
+     return Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: sliderGreenActive,
         floatingActionButtonLocation:
@@ -64,31 +65,33 @@ class _PlayerInfoState extends State<PlayerInfo> {
                         fit: BoxFit.fitWidth,
                       ),
                     ),
-                    _profileService.profile?.photo?.isEmpty ?? true
-                        ? Positioned(
-                            bottom: -70.h,
-                            left: 20.w,
-                            height: 400.h,
-                            width: 330.w,
-                            child: Image.asset(
-                              'assets/images/messi.webp',
-                            ),
-                          )
-                        : Positioned(
-                            left: 20.w,
-                            height: 250.h,
-                            width: 330.w,
-                            child: Container(
-                              height: 34.h,
-                              margin: EdgeInsets.only(bottom: 10.h),
-                              padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-                              child: CircleAvatar(
-                                  backgroundColor: Colors.grey.shade300,
-                                  radius: 15.h,
-                                  backgroundImage: NetworkImage(_profileService
-                                      .profile?.photo?.first?["url"])),
-                            ),
-                          )
+                    Positioned(
+                      bottom: -70.h,
+                      left: 20.w,
+                      height: 400.h,
+                      width: 330.w,
+                      child: CarouselSlider(
+                        options: CarouselOptions(
+                          autoPlay: true,
+                          aspectRatio: 0.4,
+                          viewportFraction: 1,
+                          enlargeCenterPage: true,
+                        ),
+                        items: List.generate(
+                            _profileService.profile!.photo!.length,
+                            (index) => _profileService.profile?.photo == null ||
+                                    _profileService.profile?.photo.toString() ==
+                                        ''
+                                ? Image.network('')
+                                : CircleAvatar(
+                                    radius: 150.h,
+                                    backgroundImage: NetworkImage(
+                                        _profileService
+                                            .profile!.photo![index]["url"]
+                                            .toString()),
+                                  )),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -127,13 +130,15 @@ class _PlayerInfoState extends State<PlayerInfo> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           CircleAvatar(
-                              radius: 25,
-                              backgroundColor: Colors.grey.shade200,
-                              backgroundImage: NetworkImage(
-                                  _profileService.profile?.teamLogo ?? "")
-                              // AssetImage(
-                              // 'assets/images/placeholder_team_icon.png'),
-                              ),
+                            radius: 25,
+                            backgroundImage: _profileService.profile?.photo ==
+                                        null ||
+                                    _profileService.profile?.photo.toString() ==
+                                        ''
+                                ? NetworkImage('')
+                                : NetworkImage(
+                                    _profileService.profile!.photo.toString()),
+                          ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
