@@ -31,11 +31,12 @@ String dropdownValue = 'January';
 TextEditingController feesController = TextEditingController();
 
 class _CreateGroundState extends State<CreateGround> {
+  bool isVisible = false;
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: GetBuilder<GroundController>(builder: (_groundService) {
-        bool isVisible = false;
         return Directionality(
           textDirection: TextDirection.ltr,
           child: Scaffold(
