@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vamos/core/models/profileDataResponse.dart';
 import 'package:vamos/core/models/profile_api.dart';
+import 'package:vamos/core/models/referalEarning.dart';
 import 'package:vamos/core/service/api/api.dart';
 import 'package:vamos/core/service/controller/authController.dart';
 import 'package:vamos/locator.dart';
@@ -10,7 +11,7 @@ import 'package:vamos/ui/utils/utility.dart';
 class ProfileController extends GetxController {
   ProfileData? profile;
   int? mediaId;
-
+  Referal? referals;
   Api api = locator<Api>();
 
   // void onInit() async {
@@ -65,6 +66,21 @@ class ProfileController extends GetxController {
       } else {
         Get.find<AuthController>().completedStep("2", "/registeredTeamScreen");
       }
+    } else {
+      Utility.showSnackbar("${response.message}");
+    }
+  }
+
+  void getReferral() async {
+    Utility.showLoadingDialog();
+
+    ReferalEarning response = await api.getEarning();
+
+    print(response.toString());
+    if (response.data != null) {
+      referals = response.data;
+      update();
+      Utility.closeDialog();
     } else {
       Utility.showSnackbar("${response.message}");
     }

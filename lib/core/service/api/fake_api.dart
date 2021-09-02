@@ -16,6 +16,7 @@ import 'package:vamos/core/models/playerListResponse.dart';
 import 'package:vamos/core/models/playerRequestResponse.dart';
 import 'package:vamos/core/models/profileDataResponse.dart';
 import 'package:vamos/core/models/profile_api.dart';
+import 'package:vamos/core/models/referalEarning.dart';
 import 'package:vamos/core/models/registerResponse.dart';
 import 'package:vamos/core/models/teamListingResponse.dart';
 import 'package:vamos/core/models/teamRequestReceviedAsPlayerResponse.dart';
@@ -29,13 +30,15 @@ class FakeApi extends Api {
   }
 
   Future<RegisterResponse> registerStep(
-      String firstName,
-      String lastName,
-      String email,
-      String mobileNo,
-      String type,
-      String password,
-      String address) {
+    String firstName,
+    String lastName,
+    String email,
+    String mobileNo,
+    String type,
+    String password,
+    String address,
+    String referralCode,
+  ) {
     throw UnimplementedError();
   }
 
@@ -138,6 +141,11 @@ class FakeApi extends Api {
 
   @override
   Future<GenericResponse> cancelPlayerRequest(teamId, userId) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<ReferalEarning> getEarning() async {
     throw UnimplementedError();
   }
 }
