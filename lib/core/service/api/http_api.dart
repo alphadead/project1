@@ -14,6 +14,7 @@ import 'package:vamos/core/models/playerListResponse.dart';
 import 'package:vamos/core/models/playerRequestResponse.dart';
 import 'package:vamos/core/models/profileDataResponse.dart';
 import 'package:vamos/core/models/profile_api.dart';
+import 'package:vamos/core/models/referalEarning.dart';
 import 'package:vamos/core/models/registerResponse.dart';
 import 'package:vamos/core/models/teamListingResponse.dart';
 import 'package:vamos/core/models/teamRequestReceviedAsPlayerResponse.dart';
@@ -36,20 +37,23 @@ class HTTPApi extends Api {
   }
 
   Future<RegisterResponse> registerStep(
-      String firstName,
-      String lastName,
-      String email,
-      String mobileNo,
-      String type,
-      String password,
-      String address) async {
+    String firstName,
+    String lastName,
+    String email,
+    String mobileNo,
+    String type,
+    String password,
+    String address,
+    String referralCode,
+  ) async {
     Map<String, dynamic> body = {
       "phone": mobileNo,
       "first_name": firstName,
       "last_name": lastName,
       "email": email,
       "type": type,
-      "password": password
+      "password": password,
+      "referrer_code": referralCode
     };
     Map<String, dynamic> response = await postRequest("register", body);
     return RegisterResponse.fromJson(response);
@@ -192,5 +196,11 @@ class HTTPApi extends Api {
     Map<String, dynamic> response =
         await postRequest('player/cancel-request', body);
     return GenericResponse.fromJson(response);
+  }
+
+  @override
+  Future<ReferalEarning> getEarning() async {
+    Map<String, dynamic> response = await getRequest('get-referral-earning');
+    return ReferalEarning.fromJson(response);
   }
 }
