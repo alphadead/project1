@@ -52,10 +52,11 @@ class _ViewGroundScreenState extends State<ViewGroundScreen> {
     super.initState();
   }
 
+  bool isVisible = false;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: GetBuilder<GroundController>(builder: (_authService) {
+      child: GetBuilder<GroundController>(builder: (_groundService) {
         return Directionality(
           textDirection: TextDirection.ltr,
           child: Scaffold(
@@ -115,7 +116,7 @@ class _ViewGroundScreenState extends State<ViewGroundScreen> {
                                     Container(
                                       width: 170.w,
                                       child: Text(
-                                        _authService.groundName.toString(),
+                                        _groundService.groundName.toString(),
                                         maxLines: 2,
                                         overflow: TextOverflow.ellipsis,
                                         style: themeData()
@@ -129,7 +130,7 @@ class _ViewGroundScreenState extends State<ViewGroundScreen> {
                                       ),
                                     ),
                                     Text(
-                                      "Booking Fees: \$${_authService.bookingFees}",
+                                      "Booking Fees: \$${_groundService.bookingFees}",
                                       style: themeData()
                                           .textTheme
                                           .bodyText1!
@@ -178,7 +179,65 @@ class _ViewGroundScreenState extends State<ViewGroundScreen> {
                           color: KRed),
                     ),
                   ),
-                  CustomCalender(),
+                  CustomCalender(
+                    isVisibleControllerTrue: () {
+                      setState(() {
+                        isVisible = true;
+                      });
+                    },
+                    isVisibleControllerFalse: () {
+                      setState(() {
+                        isVisible = false;
+                      });
+                    },
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                    height: 50,
+                    child: isVisible
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              primaryActionButton(
+                                text: "Delete",
+                                color: moneyBox,
+                                width: 100,
+                                height: 40,
+                                fontSize: 15,
+                                context: context,
+                                onPressed: () {
+                                  _groundService.deleteSchedule();
+                                  setState(() {
+                                    isVisible = false;
+                                  });
+                                },
+                              ),
+                              primaryActionButton(
+                                text: "Update",
+                                width: 100,
+                                height: 40,
+                                fontSize: 15,
+                                context: context,
+                                onPressed: () {
+                                  showDialog(
+                                    context: context,
+                                    barrierDismissible: false,
+                                    builder: (BuildContext context) {
+                                      return ScheduleCard(
+                                        scheduleDate:
+                                            _groundService.selectedDate!,
+                                      );
+                                    },
+                                  );
+                                  setState(() {
+                                    isVisible = false;
+                                  });
+                                },
+                              ),
+                            ],
+                          )
+                        : SizedBox(),
+                  ),
                   Container(
                     margin: EdgeInsets.only(bottom: 15.h),
                     child: Row(
@@ -244,8 +303,13 @@ class _ViewGroundScreenState extends State<ViewGroundScreen> {
 }
 
 class CustomCalender extends StatefulWidget {
-  const CustomCalender({Key? key}) : super(key: key);
-
+  const CustomCalender(
+      {Key? key,
+      required this.isVisibleControllerTrue,
+      required this.isVisibleControllerFalse})
+      : super(key: key);
+  final Function isVisibleControllerTrue;
+  final Function isVisibleControllerFalse;
   @override
   _CustomCalenderState createState() => _CustomCalenderState();
 }
@@ -253,172 +317,212 @@ class CustomCalender extends StatefulWidget {
 class _CustomCalenderState extends State<CustomCalender> {
   String dropdownValue = months[DateTime.now().month - 1];
   int calenderStartingDate = DateTime.now().day;
+  int? selectedIndex;
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Container(
-        height: 130.h,
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(12, 8, 15, 5),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Calendar",
-                    style: themeData().textTheme.bodyText1!.copyWith(
-                          color: profileContainerColor,
-                          fontSize: 13.sp,
-                          fontWeight: FontWeight.bold,
-                        ),
-                  ),
-                  DropdownButton<String>(
-                    value: dropdownValue,
-                    icon: const Icon(
-                      Icons.arrow_drop_down,
-                      color: KRed,
-                    ),
-                    iconSize: 24,
-                    elevation: 16,
-                    style: themeData().textTheme.bodyText1!.copyWith(
-                          color: profileContainerColor,
-                          fontSize: 13.sp,
-                          fontWeight: FontWeight.bold,
-                        ),
-                    underline: Container(
-                      height: 0,
-                    ),
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        dropdownValue = newValue!;
-                        if (months.indexOf(dropdownValue) + 1 ==
-                            DateTime.now().month) {
-                          calenderStartingDate = DateTime.now().day;
-                        } else {
-                          calenderStartingDate = 1;
-                        }
-                      });
-                    },
-                    items: <String>[
-                      months[DateTime.now().month - 1],
-                      months[DateTime.now().month]
-                    ].map<DropdownMenuItem<String>>((String val) {
-                      return DropdownMenuItem<String>(
-                        value: val,
-                        child: Text(val),
-                      );
-                    }).toList(),
-                  )
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: Container(
-                height: 65,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: DateTime(DateTime.now().year,
-                              months.indexOf(dropdownValue) + 1, 0)
-                          .day -
-                      calenderStartingDate +
-                      1,
-                  itemBuilder: (context, index) {
-                    return Stack(
-                      children: [
-                        Positioned(
-                          right: 0,
-                          top: 0,
-                          child: Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              Container(
-                                width: 19,
-                                height: 19,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(11.5),
-                                  color: Colors.white,
-                                ),
-                              ),
-                              Icon(
-                                Icons.check_circle_rounded,
-                                size: 23,
-                                color: containerGreen,
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          margin:
-                              EdgeInsets.symmetric(vertical: 5, horizontal: 3),
-                          child: Ink(
-                            width: 45.w,
-                            decoration: BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(8.0)),
-                              color: KRed,
+    return GetBuilder<GroundController>(
+      builder: (_groundService) {
+        return Card(
+          child: Container(
+            height: 130.h,
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(12, 8, 15, 5),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Calendar",
+                        style: themeData().textTheme.bodyText1!.copyWith(
+                              color: profileContainerColor,
+                              fontSize: 13.sp,
+                              fontWeight: FontWeight.bold,
                             ),
-                            child: InkWell(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(8.0)),
-                              onTap: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return ScheduleCard(
-                                      scheduleDate: DateTime(
-                                          DateTime.now().year,
-                                          months.indexOf(dropdownValue) + 1,
-                                          index + calenderStartingDate),
-                                    );
+                      ),
+                      DropdownButton<String>(
+                        value: dropdownValue,
+                        icon: const Icon(
+                          Icons.arrow_drop_down,
+                          color: KRed,
+                        ),
+                        iconSize: 24,
+                        elevation: 16,
+                        style: themeData().textTheme.bodyText1!.copyWith(
+                              color: profileContainerColor,
+                              fontSize: 13.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                        underline: Container(
+                          height: 0,
+                        ),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            dropdownValue = newValue!;
+                            selectedIndex = null;
+                            _groundService.selectedDate = null;
+                            if (months.indexOf(dropdownValue) + 1 ==
+                                DateTime.now().month) {
+                              calenderStartingDate = DateTime.now().day;
+                            } else {
+                              calenderStartingDate = 1;
+                            }
+                            widget.isVisibleControllerFalse();
+                          });
+                        },
+                        items: <String>[
+                          months[DateTime.now().month - 1],
+                          months[DateTime.now().month]
+                        ].map<DropdownMenuItem<String>>((String val) {
+                          return DropdownMenuItem<String>(
+                            value: val,
+                            child: Text(val),
+                          );
+                        }).toList(),
+                      )
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: Container(
+                    height: 65,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: DateTime(DateTime.now().year,
+                                  months.indexOf(dropdownValue) + 1, 0)
+                              .day -
+                          calenderStartingDate +
+                          1,
+                      itemBuilder: (context, index) {
+                        DateTime thisDate = DateTime(
+                          DateTime.now().year,
+                          months.indexOf(dropdownValue) + 1,
+                          index + calenderStartingDate,
+                        );
+                        bool isScheduled =
+                            _groundService.checkIsScheduled(thisDate);
+                        bool isSelected = selectedIndex == index;
+                        return Stack(
+                          children: [
+                            isScheduled
+                                ? Positioned(
+                                    right: 0,
+                                    top: 0,
+                                    child: Stack(
+                                      alignment: Alignment.center,
+                                      children: [
+                                        Container(
+                                          width: 19,
+                                          height: 19,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(11.5),
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                        Icon(
+                                          Icons.check_circle_rounded,
+                                          size: 23,
+                                          color: containerGreen,
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                : SizedBox(),
+                            Container(
+                              margin: EdgeInsets.symmetric(
+                                  vertical: 5, horizontal: 3),
+                              child: Ink(
+                                width: 45.w,
+                                decoration: BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(8.0)),
+                                    color: isSelected ? KRed : Colors.white,
+                                    border: isSelected
+                                        ? Border.all(color: Colors.white)
+                                        : Border.all(color: Colors.black26)),
+                                child: InkWell(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(8.0)),
+                                  onTap: () {
+                                    setState(() {
+                                      selectedIndex = index;
+                                      isSelected = true;
+                                      isScheduled
+                                          ? widget.isVisibleControllerTrue()
+                                          : widget.isVisibleControllerFalse();
+                                    });
+                                    _groundService.selectedDate = thisDate;
+                                    !isScheduled
+                                        ? showDialog(
+                                            context: context,
+                                            barrierDismissible: false,
+                                            builder: (BuildContext context) {
+                                              return ScheduleCard(
+                                                scheduleDate: DateTime(
+                                                    DateTime.now().year,
+                                                    months.indexOf(
+                                                            dropdownValue) +
+                                                        1,
+                                                    index +
+                                                        calenderStartingDate),
+                                              );
+                                            },
+                                          )
+                                        : print("");
                                   },
-                                );
-                              },
-                              child: Padding(
-                                padding: EdgeInsets.all(8),
-                                child: Center(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        "${intl.DateFormat('EEEE').format(DateTime(DateTime.now().year, months.indexOf(dropdownValue) + 1, index + calenderStartingDate)).substring(0, 3)}",
-                                        style: themeData()
-                                            .textTheme
-                                            .bodyText1!
-                                            .copyWith(
-                                                fontSize: 10,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.white),
+                                  child: Padding(
+                                    padding: EdgeInsets.all(8),
+                                    child: Center(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            "${intl.DateFormat('EEEE').format(DateTime(DateTime.now().year, months.indexOf(dropdownValue) + 1, index + calenderStartingDate)).substring(0, 3)}",
+                                            style: themeData()
+                                                .textTheme
+                                                .bodyText1!
+                                                .copyWith(
+                                                    fontSize: 10,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: isSelected
+                                                        ? Colors.white
+                                                        : Colors.black),
+                                          ),
+                                          Text(
+                                            "${index + calenderStartingDate}",
+                                            style: themeData()
+                                                .textTheme
+                                                .bodyText1!
+                                                .copyWith(
+                                                    fontSize: 15,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: isSelected
+                                                        ? Colors.white
+                                                        : Colors.black),
+                                          ),
+                                        ],
                                       ),
-                                      Text(
-                                        "${index + calenderStartingDate}",
-                                        style: themeData()
-                                            .textTheme
-                                            .bodyText1!
-                                            .copyWith(
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.white),
-                                      ),
-                                    ],
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                        ),
-                      ],
-                    );
-                  },
-                ),
-              ),
-            )
-          ],
-        ),
-      ),
+                          ],
+                        );
+                      },
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

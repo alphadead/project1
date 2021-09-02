@@ -118,7 +118,8 @@ class FakeApi extends Api {
     throw UnimplementedError();
   }
 
-  Future<UpdateGround> updateGround(userId, name, location, fees) {
+  Future<UpdateGround> updateGround(
+      userId, name, location, fees, availableSlots) {
     throw UnimplementedError();
   }
 

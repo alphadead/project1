@@ -7,10 +7,12 @@ import 'package:vamos/core/service/controller/authController.dart';
 import 'package:vamos/core/service/controller/groundController.dart';
 import 'package:vamos/ui/pages/viewGround.dart';
 import 'package:vamos/ui/utils/color.dart';
+import 'package:vamos/ui/utils/loginbkground.dart';
 import 'package:vamos/ui/utils/theme.dart';
 import 'package:vamos/widget/buttons.dart';
 import 'package:vamos/widget/customAppBar.dart';
 import 'package:vamos/widget/customBottomNavBar.dart';
+import 'package:vamos/widget/dateSchedulePopup.dart';
 import 'package:vamos/widget/inputField.dart';
 
 List schedule = [
@@ -32,8 +34,9 @@ class _CreateGroundState extends State<CreateGround> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: GetBuilder<GroundController>(
-        builder: (_groundService) => Directionality(
+      child: GetBuilder<GroundController>(builder: (_groundService) {
+        bool isVisible = false;
+        return Directionality(
           textDirection: TextDirection.ltr,
           child: Scaffold(
             appBar: PreferredSize(
@@ -119,7 +122,65 @@ class _CreateGroundState extends State<CreateGround> {
                       ],
                     ),
                   ),
-                  CustomCalender(),
+                  CustomCalender(
+                    isVisibleControllerTrue: () {
+                      setState(() {
+                        isVisible = true;
+                      });
+                    },
+                    isVisibleControllerFalse: () {
+                      setState(() {
+                        isVisible = false;
+                      });
+                    },
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                    height: 50,
+                    child: isVisible
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              primaryActionButton(
+                                text: "Delete",
+                                color: moneyBox,
+                                width: 100,
+                                height: 40,
+                                fontSize: 15,
+                                context: context,
+                                onPressed: () {
+                                  _groundService.deleteSchedule();
+                                  setState(() {
+                                    isVisible = false;
+                                  });
+                                },
+                              ),
+                              primaryActionButton(
+                                text: "Update",
+                                width: 100,
+                                height: 40,
+                                fontSize: 15,
+                                context: context,
+                                onPressed: () {
+                                  showDialog(
+                                    context: context,
+                                    barrierDismissible: false,
+                                    builder: (BuildContext context) {
+                                      return ScheduleCard(
+                                        scheduleDate:
+                                            _groundService.selectedDate!,
+                                      );
+                                    },
+                                  );
+                                  setState(() {
+                                    isVisible = false;
+                                  });
+                                },
+                              ),
+                            ],
+                          )
+                        : SizedBox(),
+                  ),
                   Container(
                     margin: EdgeInsets.only(bottom: 15.h, top: 10.h),
                     child: Row(
@@ -220,8 +281,8 @@ class _CreateGroundState extends State<CreateGround> {
               ),
             ),
           ),
-        ),
-      ),
+        );
+      }),
     );
   }
 }

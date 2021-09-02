@@ -12,8 +12,72 @@ class GroundController extends GetxController {
   String? groundName;
   String? groundLocation;
   int currentDateIndex = -1;
-  String? selectedMonth;
+  DateTime? selectedDate;
+  DateTime? selectedOpeningTime;
+  DateTime? selectedClosingTime;
+  DateTime? selectedSlotDuration;
+  int? selectedSlotPrice;
+  List availableDates = [];
   late String _bookingFee;
+
+  void updateSchedule() {
+    deleteSchedule();
+    Map newValue = {
+      "date": selectedDate,
+      "availablility": {
+        "opening_time": selectedOpeningTime,
+        "closing_time": selectedClosingTime,
+        "slot_time": selectedSlotDuration,
+        "cost_per_slot": selectedSlotPrice,
+      },
+    };
+    availableDates.add(newValue);
+    print(availableDates);
+  }
+
+  void deleteSchedule() {
+    if (checkIsScheduled(selectedDate!)) {
+      availableDates.removeAt(availableDates
+          .indexWhere((element) => element["date"] == selectedDate));
+    }
+  }
+
+  bool checkIsScheduled(DateTime? _date) {
+    bool check = false;
+    if (availableDates.indexWhere((element) => element["date"] == _date) !=
+        -1) {
+      check = true;
+    }
+    return check;
+  }
+
+  void setSelectedOpeningTime(DateTime _value) {
+    selectedOpeningTime = _value;
+    update();
+  }
+
+  void setSelectedClosingTime(DateTime _value) {
+    selectedClosingTime = _value;
+    update();
+  }
+
+  void setSelectedSlotDuration(DateTime _value) {
+    selectedSlotDuration = _value;
+    update();
+  }
+
+  void setSelectedSlotPrice(int _value) {
+    selectedSlotPrice = _value;
+    update();
+  }
+
+  void clearSchedule() {
+    selectedOpeningTime = null;
+    selectedClosingTime = null;
+    selectedSlotDuration = null;
+    selectedSlotPrice = null;
+    update();
+  }
 
   String get bookingFee => _bookingFee;
 
@@ -52,10 +116,22 @@ class GroundController extends GetxController {
 
     Utility.showLoadingDialog();
     UpdateGround response = await api.updateGround(
-        prefs.getString("userId").toString(),
-        groundName,
-        groundLocation,
-        bookingFee);
+      prefs.getString("userId").toString(),
+      groundName,
+      groundLocation,
+      bookingFee,
+      [
+        {
+          "date": "2021-10-01",
+          "availablility": {
+            "opening_time": "05:20:00",
+            "closing_time": "11:30:00",
+            "slot_time": "00:20:00",
+            "cost_per_slot": 2000
+          }
+        }
+      ],
+    );
     if (response.data != null) {
       Utility.closeDialog();
       prefs.setString("ground_id", response.data!.id.toString());

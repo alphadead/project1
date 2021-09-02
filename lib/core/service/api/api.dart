@@ -58,7 +58,8 @@ abstract class Api {
   );
   Future<VerifyOtpResponse> verifyOtp(userId, mobileNo, otp);
   Future<PlayerListResponse> getPlayerlist();
-  Future<UpdateGround> updateGround(userId, name, location, fees);
+  Future<UpdateGround> updateGround(
+      userId, name, location, fees, availableSlots);
   Future<CompletedStepResponse> completedtep(String step);
   Future<JoinTeamResponse> requestPlayer(
     userId,
