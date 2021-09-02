@@ -16,6 +16,8 @@ import 'package:vamos/ui/pages/myTeam.dart';
 import 'package:vamos/ui/pages/playerListScreen.dart';
 import 'package:vamos/ui/pages/playerListingScreen.dart';
 import 'package:vamos/ui/pages/teamListScreen.dart';
+
+import 'package:vamos/ui/pages/wallet.dart';
 import 'package:vamos/widget/videoPlayer.dart';
 import 'package:vamos/ui/loginPages/playerInfo.dart';
 
@@ -155,6 +157,13 @@ abstract class AppPages {
       name: '/playerList',
       transitionDuration: transitionDuration,
       page: () => PlayerListScreen(),
+      transition: Transition.downToUp,
+      binding: AllBinder(),
+    ),
+    GetPage(
+      name: '/walletPage',
+      transitionDuration: transitionDuration,
+      page: () => WalletPage(),
       transition: Transition.downToUp,
       binding: AllBinder(),
     ),
