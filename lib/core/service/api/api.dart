@@ -15,6 +15,7 @@ import 'package:vamos/core/models/playerListResponse.dart';
 import 'package:vamos/core/models/playerRequestResponse.dart';
 import 'package:vamos/core/models/profileDataResponse.dart';
 import 'package:vamos/core/models/profile_api.dart';
+import 'package:vamos/core/models/referalEarning.dart';
 import 'package:vamos/core/models/registerResponse.dart';
 import 'package:vamos/core/models/teamListingResponse.dart';
 import 'package:vamos/core/models/teamRequestReceviedAsPlayerResponse.dart';
@@ -24,13 +25,15 @@ import 'package:vamos/core/models/verifyOtpResponse.dart';
 abstract class Api {
   Future<LoginResponse> loginUser(String mobileNo, String password);
   Future<RegisterResponse> registerStep(
-      String firstName,
-      String lastName,
-      String email,
-      String mobileNo,
-      String type,
-      String password,
-      String address);
+    String firstName,
+    String lastName,
+    String email,
+    String mobileNo,
+    String type,
+    String password,
+    String address,
+    String referralCode,
+  );
 
   Future<CreateTeamResponse> createTeam(
       String name, Asset logo, String teamSize);
@@ -60,6 +63,7 @@ abstract class Api {
   Future<PlayerListResponse> getPlayerlist();
   Future<UpdateGround> updateGround(
       userId, name, location, fees, availableSlots);
+  Future<ReferalEarning> getEarning();
   Future<CompletedStepResponse> completedtep(String step);
   Future<JoinTeamResponse> requestPlayer(
     userId,
