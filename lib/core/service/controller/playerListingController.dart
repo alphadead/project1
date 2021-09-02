@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vamos/core/models/genericResponse.dart';
 import 'package:vamos/core/models/joinTeam.dart';
 import 'package:vamos/core/models/playerListResponse.dart';
 import 'package:vamos/core/models/teamListingResponse.dart';
 import 'package:vamos/core/service/api/api.dart';
+import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/utility.dart';
 
 import '../../../locator.dart';
@@ -13,6 +15,8 @@ class PlayerListController extends GetxController {
   List<PlayerData> playerList = [];
   List<PlayerData> playerListDisplay = [];
   late bool apiCall;
+
+  List<Color> statusColor = [moneyBox, containerGreen, KRed];
 
   Api api = locator<Api>();
 
@@ -34,21 +38,41 @@ class PlayerListController extends GetxController {
     update();
   }
 
-  void requestPlayer(int? userId) async {
+  void requestPlayer(userId) async {
+    Utility.showLoadingDialog();
+
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    int? teamId = prefs.getString("team_id") == null
-        ? null
-        : int.parse(prefs.getString("team_id").toString());
-    if (teamId != null) {
+    String? teamId = prefs.getString("team_id");
+    if (teamId != null && teamId != "") {
       JoinTeamResponse response =
-          await api.requestPlayer(userId.toString(), teamId);
+          await api.requestPlayer(userId, int.parse(teamId));
 
       if (!response.success) {
         Utility.showSnackbar("${response.message}");
+      } else {
+        Utility.closeDialog();
       }
     } else {
       Utility.showSnackbar("First Create a Team!!");
+    }
+  }
+
+  Future<bool> cancelPlayerRequest(userId) async {
+    Utility.showLoadingDialog();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    String? teamId = prefs.getString("team_id");
+    print(teamId);
+    print(userId);
+
+    GenericResponse response = await api.cancelPlayerRequest(teamId, userId);
+    if (response.success!) {
+      Utility.showSnackbar("${response.message}");
+      return true;
+    } else {
+      Utility.showSnackbar("${response.message}");
+      return false;
     }
   }
 }

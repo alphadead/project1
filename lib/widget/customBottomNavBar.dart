@@ -90,9 +90,11 @@ class CustomBottomAppBarState extends State<CustomBottomAppBar> {
           child: InkWell(
             onTap: () => index == 0
                 ? Get.toNamed('/playerInfo')
-                : onPressed != null
-                    ? onPressed(index)
-                    : () {},
+                : index == 1
+                    ? Get.toNamed('/walletPage')
+                    : onPressed != null
+                        ? onPressed(index)
+                        : () {},
             child: Column(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,

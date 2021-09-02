@@ -7,12 +7,14 @@ import 'package:vamos/core/models/createTeamResponse.dart';
 import 'package:vamos/core/models/deleteMedia.dart';
 import 'package:vamos/core/models/genericResponse.dart';
 import 'package:vamos/core/models/joinTeam.dart';
+import 'package:vamos/core/models/joinedTeamListResponse.dart';
 import 'package:vamos/core/models/loginResponse.dart';
 import 'package:vamos/core/models/myTeamInfo.dart';
 import 'package:vamos/core/models/playerListResponse.dart';
 import 'package:vamos/core/models/playerRequestResponse.dart';
 import 'package:vamos/core/models/profileDataResponse.dart';
 import 'package:vamos/core/models/profile_api.dart';
+import 'package:vamos/core/models/referalEarning.dart';
 import 'package:vamos/core/models/registerResponse.dart';
 import 'package:vamos/core/models/teamListingResponse.dart';
 import 'package:vamos/core/models/teamRequestReceviedAsPlayerResponse.dart';
@@ -25,13 +27,15 @@ class FakeApi extends Api {
   }
 
   Future<RegisterResponse> registerStep(
-      String firstName,
-      String lastName,
-      String email,
-      String mobileNo,
-      String type,
-      String password,
-      String address) {
+    String firstName,
+    String lastName,
+    String email,
+    String mobileNo,
+    String type,
+    String password,
+    String address,
+    String referralCode,
+  ) {
     throw UnimplementedError();
   }
 
@@ -86,7 +90,7 @@ class FakeApi extends Api {
   }
 
   Future<JoinTeamResponse> requestPlayer(
-    String userId,
+    userId,
     int? teamId,
   ) {
     throw UnimplementedError();
@@ -115,6 +119,22 @@ class FakeApi extends Api {
   }
 
   Future<MyTeamInfo> myTeamInfo() async {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<JoinedTeamListResponse> getJoinedTeams() {
+    // TODO: implement getJoinedTeams
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<GenericResponse> cancelPlayerRequest(teamId, userId) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<ReferalEarning> getEarning() async {
     throw UnimplementedError();
   }
 }

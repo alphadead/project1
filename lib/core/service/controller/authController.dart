@@ -33,6 +33,7 @@ class AuthController extends GetxController {
   String nationality = '';
   String otp = '';
   String inviteCode = '';
+  String referralCode = '';
   String? nickName;
 
   String type = '';
@@ -51,7 +52,7 @@ class AuthController extends GetxController {
 
   String teamName = '';
   List<Asset> teamLogo = [];
-  String teamSize = '';
+  String teamSize = "6";
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   GlobalKey<FormState> formKey2 = GlobalKey<FormState>();
@@ -76,7 +77,7 @@ class AuthController extends GetxController {
     Utility.showLoadingDialog();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     LoginResponse response = await api.loginUser(mobileNo, password);
-    print(response.toJson().toString());
+
     if (response.data != null) {
       prefs.setString('token', 'Bearer ${response.accessToken}');
       prefs.setString('userId', '${response.data!.id}');
@@ -116,10 +117,12 @@ class AuthController extends GetxController {
         await api.createTeam(teamName, teamLogo[0], teamSize);
     if (response.success) {
       Utility.showSnackbar("${response.message}");
-      print(response.data?.teamId);
-      prefs.setString("team_id", "${response.data?.teamId}");
-      Get.offNamed('/playerListingScreen');
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString("team_id", response.data?.teamId?.toString() ?? "");
+      Utility.closeDialog();
+      Get.offNamed('/playerList');
     } else {
+      Utility.closeDialog();
       Utility.showSnackbar("${response.message}");
     }
   }
@@ -127,14 +130,14 @@ class AuthController extends GetxController {
   void registerStep() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     Utility.showLoadingDialog();
-    RegisterResponse response = await api.registerStep(
-        firstName, lastName, email, mobileNo, type, password, address);
+    RegisterResponse response = await api.registerStep(firstName, lastName,
+        email, mobileNo, type, password, address, referralCode);
     if (response.success) {
       Utility.showSnackbar("${response.message}");
       prefs.setString('token', 'Bearer ${response.accessToken}');
       prefs.setString('userId', '${response.data!.id}');
       prefs.setString('invite_code', '${response.data!.inviteCode}');
-      prefs.setString('team_id', '${response.data!.teamId}');
+      prefs.setString("team_id", '${response.data!.teamId}');
       otp = response.data!.otp.toString();
       update();
       Get.offNamed('/setPass');

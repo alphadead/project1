@@ -7,12 +7,14 @@ import 'package:vamos/core/models/createTeamResponse.dart';
 import 'package:vamos/core/models/deleteMedia.dart';
 import 'package:vamos/core/models/genericResponse.dart';
 import 'package:vamos/core/models/joinTeam.dart';
+import 'package:vamos/core/models/joinedTeamListResponse.dart';
 import 'package:vamos/core/models/loginResponse.dart';
 import 'package:vamos/core/models/myTeamInfo.dart';
 import 'package:vamos/core/models/playerListResponse.dart';
 import 'package:vamos/core/models/playerRequestResponse.dart';
 import 'package:vamos/core/models/profileDataResponse.dart';
 import 'package:vamos/core/models/profile_api.dart';
+import 'package:vamos/core/models/referalEarning.dart';
 import 'package:vamos/core/models/registerResponse.dart';
 import 'package:vamos/core/models/teamListingResponse.dart';
 import 'package:vamos/core/models/teamRequestReceviedAsPlayerResponse.dart';
@@ -35,20 +37,23 @@ class HTTPApi extends Api {
   }
 
   Future<RegisterResponse> registerStep(
-      String firstName,
-      String lastName,
-      String email,
-      String mobileNo,
-      String type,
-      String password,
-      String address) async {
+    String firstName,
+    String lastName,
+    String email,
+    String mobileNo,
+    String type,
+    String password,
+    String address,
+    String referralCode,
+  ) async {
     Map<String, dynamic> body = {
       "phone": mobileNo,
       "first_name": firstName,
       "last_name": lastName,
       "email": email,
       "type": type,
-      "password": password
+      "password": password,
+      "referrer_code": referralCode
     };
     Map<String, dynamic> response = await postRequest("register", body);
     return RegisterResponse.fromJson(response);
@@ -130,7 +135,7 @@ class HTTPApi extends Api {
     return CompletedStepResponse.fromJson(response);
   }
 
-  Future<JoinTeamResponse> requestPlayer(String userId, int? teamId) async {
+  Future<JoinTeamResponse> requestPlayer(userId, int? teamId) async {
     Map<String, dynamic> body = {
       "user_id": userId,
       "team_id": teamId,
@@ -174,8 +179,28 @@ class HTTPApi extends Api {
 
     return AcceptRejectRequestResponse.fromJson(response);
   }
+
   Future<MyTeamInfo> myTeamInfo() async {
     Map<String, dynamic> response = await getRequest('my-team-info');
     return MyTeamInfo.fromJson(response);
+  }
+
+  @override
+  Future<JoinedTeamListResponse> getJoinedTeams() async {
+    Map<String, dynamic> response = await getRequest('team/joined');
+    return JoinedTeamListResponse.fromJson(response);
+  }
+
+  Future<GenericResponse> cancelPlayerRequest(teamId, userId) async {
+    Map<String, dynamic> body = {"team_id": teamId, "user_id": userId};
+    Map<String, dynamic> response =
+        await postRequest('player/cancel-request', body);
+    return GenericResponse.fromJson(response);
+  }
+
+  @override
+  Future<ReferalEarning> getEarning() async {
+    Map<String, dynamic> response = await getRequest('get-referral-earning');
+    return ReferalEarning.fromJson(response);
   }
 }

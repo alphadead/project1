@@ -7,12 +7,14 @@ import 'package:vamos/core/models/createTeamResponse.dart';
 import 'package:vamos/core/models/deleteMedia.dart';
 import 'package:vamos/core/models/genericResponse.dart';
 import 'package:vamos/core/models/joinTeam.dart';
+import 'package:vamos/core/models/joinedTeamListResponse.dart';
 import 'package:vamos/core/models/loginResponse.dart';
 import 'package:vamos/core/models/myTeamInfo.dart';
 import 'package:vamos/core/models/playerListResponse.dart';
 import 'package:vamos/core/models/playerRequestResponse.dart';
 import 'package:vamos/core/models/profileDataResponse.dart';
 import 'package:vamos/core/models/profile_api.dart';
+import 'package:vamos/core/models/referalEarning.dart';
 import 'package:vamos/core/models/registerResponse.dart';
 import 'package:vamos/core/models/teamListingResponse.dart';
 import 'package:vamos/core/models/teamRequestReceviedAsPlayerResponse.dart';
@@ -21,13 +23,15 @@ import 'package:vamos/core/models/verifyOtpResponse.dart';
 abstract class Api {
   Future<LoginResponse> loginUser(String mobileNo, String password);
   Future<RegisterResponse> registerStep(
-      String firstName,
-      String lastName,
-      String email,
-      String mobileNo,
-      String type,
-      String password,
-      String address);
+    String firstName,
+    String lastName,
+    String email,
+    String mobileNo,
+    String type,
+    String password,
+    String address,
+    String referralCode,
+  );
 
   Future<CreateTeamResponse> createTeam(
       String name, Asset logo, String teamSize);
@@ -53,9 +57,10 @@ abstract class Api {
   );
   Future<VerifyOtpResponse> verifyOtp(userId, mobileNo, otp);
   Future<PlayerListResponse> getPlayerlist();
+  Future<ReferalEarning> getEarning();
   Future<CompletedStepResponse> completedtep(String step);
   Future<JoinTeamResponse> requestPlayer(
-    String userId,
+    userId,
     int? teamId,
   );
   Future<DeleteMedia> deleteMedias(String mediaId);
@@ -63,4 +68,6 @@ abstract class Api {
   Future<TeamRequestReceivedAsPlayerResponse> requestRecived();
   Future<AcceptRejectRequestResponse> requestAcceptReject(id, status);
   Future<MyTeamInfo> myTeamInfo();
+  Future<JoinedTeamListResponse> getJoinedTeams();
+  Future<GenericResponse> cancelPlayerRequest(teamId, userId);
 }
