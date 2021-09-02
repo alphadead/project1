@@ -83,6 +83,50 @@ class _WalletPageState extends State<WalletPage> {
                             fontWeight: FontWeight.bold,
                           ),
                     ),
+                    SizedBox(
+                      height: 35.h,
+                    ),
+                    Center(
+                      child: Text(
+                        'Total Referrals',
+                        style: themeData().textTheme.bodyText1!.copyWith(
+                              color: KRed,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                      ),
+                    ),
+                    Text(
+                      (_profileService.referals?.totalReferrer.toString() ??
+                          ''),
+                      style: themeData().textTheme.bodyText1!.copyWith(
+                            color: KColorBlack.withOpacity(0.8),
+                            fontSize: 25.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
+                    ),
+                           SizedBox(
+                      height: 35.h,
+                    ),
+                    Center(
+                      child: Text(
+                        'Referral Amount',
+                        style: themeData().textTheme.bodyText1!.copyWith(
+                              color: KRed,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                      ),
+                    ),
+                    Text('KD  ' +
+                      (_profileService.referals?.referAmount.toString() ??
+                          ''),
+                      style: themeData().textTheme.bodyText1!.copyWith(
+                            color: KColorBlack.withOpacity(0.8),
+                            fontSize: 25.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
+                    ),
                   ],
                 ),
               ),
