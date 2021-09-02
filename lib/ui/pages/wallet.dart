@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:vamos/core/service/controller/profileController.dart';
 import 'package:vamos/ui/utils/color.dart';
@@ -7,7 +8,6 @@ import 'package:vamos/ui/utils/theme.dart';
 import 'package:vamos/widget/buttons.dart';
 import 'package:vamos/widget/customAppBar.dart';
 import 'package:vamos/widget/customBottomNavBar.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class WalletPage extends StatefulWidget {
   const WalletPage({Key? key}) : super(key: key);
@@ -17,6 +17,14 @@ class WalletPage extends StatefulWidget {
 }
 
 class _WalletPageState extends State<WalletPage> {
+  @override
+  void initState() {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      Get.find<ProfileController>().getReferral();
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -66,7 +74,9 @@ class _WalletPageState extends State<WalletPage> {
                       ),
                     ),
                     Text(
-                      'KD  28.600',
+                      'KD  ' +
+                          (_profileService.referals?.totalEarning.toString() ??
+                              ''),
                       style: themeData().textTheme.bodyText1!.copyWith(
                             color: KColorBlack.withOpacity(0.8),
                             fontSize: 25.sp,

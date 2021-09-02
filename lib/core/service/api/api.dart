@@ -14,6 +14,7 @@ import 'package:vamos/core/models/playerListResponse.dart';
 import 'package:vamos/core/models/playerRequestResponse.dart';
 import 'package:vamos/core/models/profileDataResponse.dart';
 import 'package:vamos/core/models/profile_api.dart';
+import 'package:vamos/core/models/referalEarning.dart';
 import 'package:vamos/core/models/registerResponse.dart';
 import 'package:vamos/core/models/teamListingResponse.dart';
 import 'package:vamos/core/models/teamRequestReceviedAsPlayerResponse.dart';
@@ -54,6 +55,7 @@ abstract class Api {
   );
   Future<VerifyOtpResponse> verifyOtp(userId, mobileNo, otp);
   Future<PlayerListResponse> getPlayerlist();
+  Future<ReferalEarning> getEarning();
   Future<CompletedStepResponse> completedtep(String step);
   Future<JoinTeamResponse> requestPlayer(
     userId,

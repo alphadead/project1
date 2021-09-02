@@ -14,6 +14,7 @@ import 'package:vamos/core/models/playerListResponse.dart';
 import 'package:vamos/core/models/playerRequestResponse.dart';
 import 'package:vamos/core/models/profileDataResponse.dart';
 import 'package:vamos/core/models/profile_api.dart';
+import 'package:vamos/core/models/referalEarning.dart';
 import 'package:vamos/core/models/registerResponse.dart';
 import 'package:vamos/core/models/teamListingResponse.dart';
 import 'package:vamos/core/models/teamRequestReceviedAsPlayerResponse.dart';
@@ -192,5 +193,11 @@ class HTTPApi extends Api {
     Map<String, dynamic> response =
         await postRequest('player/cancel-request', body);
     return GenericResponse.fromJson(response);
+  }
+
+  @override
+  Future<ReferalEarning> getEarning() async {
+    Map<String, dynamic> response = await getRequest('get-referral-earning');
+    return ReferalEarning.fromJson(response);
   }
 }
