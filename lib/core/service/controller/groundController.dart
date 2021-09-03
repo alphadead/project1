@@ -17,12 +17,12 @@ class GroundController extends GetxController {
   DateTime? selectedClosingTime;
   DateTime? selectedSlotDuration;
   int? selectedSlotPrice;
-  List availableDates = [];
+  List<Map<String, dynamic>> availableDates = [];
   late String _bookingFee;
 
   void updateSchedule() {
     deleteSchedule();
-    Map newValue = {
+    Map<String, dynamic> newValue = {
       "date": selectedDate,
       "availablility": {
         "opening_time": selectedOpeningTime,
@@ -90,8 +90,8 @@ class GroundController extends GetxController {
   String? longitude;
   String? bookingFees;
   List? photos;
-  GroundInfo? groundInfo;
-  GroundInfo? groundDisplay;
+  // GroundInfo? groundInfo;
+  // GroundInfo? groundDisplay;
 
   void getProfileData() async {
     Utility.showLoadingDialog();
@@ -113,31 +113,42 @@ class GroundController extends GetxController {
   void groundUpdate() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     AuthController controller = Get.find<AuthController>();
+    print("++++  passing argument in api ++++++++++++++");
+    print(groundName);
+    print(prefs.getString("userId").toString());
+
+    print(groundLocation);
+
+    print(bookingFee);
+    print(availableDates);
 
     Utility.showLoadingDialog();
     UpdateGround response = await api.updateGround(
-      prefs.getString("userId").toString(),
-      groundName,
-      groundLocation,
-      bookingFee,
-      [
-        {
-          "date": "2021-10-01",
-          "availablility": {
-            "opening_time": "05:20:00",
-            "closing_time": "11:30:00",
-            "slot_time": "00:20:00",
-            "cost_per_slot": 2000
-          }
-        }
-      ],
-    );
+        prefs.getString("userId").toString(),
+        groundName,
+        groundLocation,
+        bookingFee,
+        availableDates
+        // [
+        //   {
+        //     "date": "2021-10-01",
+        //     "availablility": {
+        //       "opening_time": "05:20:00",
+        //       "closing_time": "11:30:00",
+        //       "slot_time": "00:20:00",
+        //       "cost_per_slot": 2000
+        //     }
+        //   }
+        // ],
+        );
     if (response.data != null) {
       Utility.closeDialog();
       prefs.setString("ground_id", response.data!.id.toString());
-      groundInfo = response.data!;
-      groundDisplay = groundInfo;
-      controller.completedStep("2", "/homeScreen");
+      // groundInfo = response.data!;
+      // groundDisplay = groundInfo;
+      print("======================");
+      // do not uncomment the below line other wise again we have to register user for testing the flow
+      //   controller.completedStep("2", "/homeScreen");
     } else {
       Utility.closeDialog();
       Utility.showSnackbar("${response.message}");
