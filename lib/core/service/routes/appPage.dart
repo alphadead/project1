@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:vamos/core/service/Binder/authBinder.dart';
 import 'package:vamos/splashScreen.dart';
 import 'package:vamos/testScreen.dart';
+import 'package:vamos/ui/pages/aboutMatch.dart';
 import 'package:vamos/ui/pages/homeScreen.dart';
 import 'package:vamos/ui/loginPages/createTeam.dart';
 import 'package:vamos/ui/loginPages/profile.dart';
@@ -81,6 +82,13 @@ abstract class AppPages {
       name: '/profileScreen',
       transitionDuration: transitionDuration,
       page: () => ProfilePage(),
+      binding: AllBinder(),
+    ),
+    GetPage(
+      name: '/aboutMatch',
+      transitionDuration: transitionDuration,
+      page: () => AboutMatch(),
+      transition: Transition.downToUp,
       binding: AllBinder(),
     ),
     GetPage(
