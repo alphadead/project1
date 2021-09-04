@@ -116,6 +116,9 @@ class ScheduleCard extends StatelessWidget {
                   TextFormField(
                     minLines: 3,
                     maxLines: 20,
+                    onChanged: (value) {
+                      _groundService.eventDetails = value;
+                    },
                     decoration: InputDecoration(
                       alignLabelWithHint: true,
                       floatingLabelBehavior: FloatingLabelBehavior.never,

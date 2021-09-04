@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vamos/core/models/groundProfileView.dart';
 import 'package:vamos/core/models/updateGround.dart';
@@ -10,6 +11,7 @@ import 'package:vamos/ui/utils/utility.dart';
 class GroundController extends GetxController {
   Api api = locator<Api>();
   String? groundName;
+  String _eventDetails = '';
   String? groundLocation;
   int currentDateIndex = -1;
   DateTime? selectedDate;
@@ -20,15 +22,22 @@ class GroundController extends GetxController {
   List<Map<String, dynamic>> availableDates = [];
   late String _bookingFee;
 
+  String get eventDetails => _eventDetails;
+  set eventDetails(String value) {
+    _eventDetails = value;
+    update();
+  }
+
   void updateSchedule() {
+    print("UPDATE SCHEDULE");
     deleteSchedule();
     Map<String, dynamic> newValue = {
-      "date": selectedDate,
-      "availablility": {
-        "opening_time": selectedOpeningTime,
-        "closing_time": selectedClosingTime,
-        "slot_time": selectedSlotDuration,
-        "cost_per_slot": selectedSlotPrice,
+      "date": DateFormat('yyyy-MM-dd').format(selectedDate!),
+      "availability": {
+        "opening_time": DateFormat('HH:mm').format(selectedOpeningTime!),
+        "closing_time": DateFormat('HH:mm').format(selectedClosingTime!),
+        "slot_time": DateFormat('mm').format(selectedSlotDuration!),
+        "event_details": eventDetails
       },
     };
     availableDates.add(newValue);
@@ -37,18 +46,19 @@ class GroundController extends GetxController {
 
   void deleteSchedule() {
     if (checkIsScheduled(selectedDate!)) {
-      availableDates.removeAt(availableDates
-          .indexWhere((element) => element["date"] == selectedDate));
+      availableDates.removeAt(availableDates.indexWhere((element) =>
+          element["date"] == DateFormat('yyyy-MM-dd').format(selectedDate!)));
     }
   }
 
   bool checkIsScheduled(DateTime? _date) {
-    bool check = false;
-    if (availableDates.indexWhere((element) => element["date"] == _date) !=
+    if (availableDates.indexWhere((element) =>
+            element["date"] == DateFormat('yyyy-MM-dd').format(_date!)) !=
         -1) {
-      check = true;
+      return true;
+    } else {
+      return false;
     }
-    return check;
   }
 
   void setSelectedOpeningTime(DateTime _value) {
@@ -76,6 +86,7 @@ class GroundController extends GetxController {
     selectedClosingTime = null;
     selectedSlotDuration = null;
     selectedSlotPrice = null;
+    eventDetails = '';
     update();
   }
 
@@ -113,14 +124,6 @@ class GroundController extends GetxController {
   void groundUpdate() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     AuthController controller = Get.find<AuthController>();
-    print("++++  passing argument in api ++++++++++++++");
-    print(groundName);
-    print(prefs.getString("userId").toString());
-
-    print(groundLocation);
-
-    print(bookingFee);
-    print(availableDates);
 
     Utility.showLoadingDialog();
     UpdateGround response = await api.updateGround(
@@ -128,27 +131,12 @@ class GroundController extends GetxController {
         groundName,
         groundLocation,
         bookingFee,
-        availableDates
-        // [
-        //   {
-        //     "date": "2021-10-01",
-        //     "availablility": {
-        //       "opening_time": "05:20:00",
-        //       "closing_time": "11:30:00",
-        //       "slot_time": "00:20:00",
-        //       "cost_per_slot": 2000
-        //     }
-        //   }
-        // ],
-        );
+        availableDates);
     if (response.data != null) {
       Utility.closeDialog();
       prefs.setString("ground_id", response.data!.id.toString());
-      // groundInfo = response.data!;
-      // groundDisplay = groundInfo;
-      print("======================");
-      // do not uncomment the below line other wise again we have to register user for testing the flow
-      //   controller.completedStep("2", "/homeScreen");
+
+      controller.completedStep("2", "/homeScreen");
     } else {
       Utility.closeDialog();
       Utility.showSnackbar("${response.message}");
