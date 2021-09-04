@@ -94,11 +94,6 @@ class ScheduleCard extends StatelessWidget {
                       isDate: true,
                       defaultDateValue: DateTime(DateTime.now().year)
                           .add(Duration(minutes: 30))),
-                  CalenderScheduleRow(
-                    title: "Cost Per Slot",
-                    isDate: false,
-                    defaultPriceValue: 2000,
-                  ),
                   Container(
                     margin: EdgeInsets.only(top: 20.sp),
                     child: Row(
@@ -228,11 +223,6 @@ class _CalenderScheduleRowState extends State<CalenderScheduleRow> {
     if (widget.title == "Slot Time(Mins)") {
       WidgetsBinding.instance!.addPostFrameCallback((_) {
         Get.find<GroundController>().setSelectedSlotDuration(_value);
-      });
-    }
-    if (widget.title == "Cost Per Slot") {
-      WidgetsBinding.instance!.addPostFrameCallback((_) {
-        Get.find<GroundController>().setSelectedSlotPrice(_value);
       });
     }
   }

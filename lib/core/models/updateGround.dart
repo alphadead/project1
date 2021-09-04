@@ -96,7 +96,6 @@ class AvailableSlot {
     this.openingTime,
     this.closingTime,
     this.slotTime,
-    this.costPerSlot,
     this.eventDetails,
   });
 
@@ -105,7 +104,6 @@ class AvailableSlot {
   String? openingTime;
   String? closingTime;
   String? slotTime;
-  String? costPerSlot;
   String? eventDetails;
 
   factory AvailableSlot.fromJson(Map<String, dynamic> json) => AvailableSlot(
@@ -114,8 +112,6 @@ class AvailableSlot {
         openingTime: json["opening_time"] == null ? null : json["opening_time"],
         closingTime: json["closing_time"] == null ? null : json["closing_time"],
         slotTime: json["slot_time"] == null ? null : json["slot_time"],
-        costPerSlot:
-            json["cost_per_slot"] == null ? null : json["cost_per_slot"],
         eventDetails:
             json["event_details"] == null ? null : json["event_details"],
       );
@@ -128,7 +124,6 @@ class AvailableSlot {
         "opening_time": openingTime == null ? null : openingTime,
         "closing_time": closingTime == null ? null : closingTime,
         "slot_time": slotTime == null ? null : slotTime,
-        "cost_per_slot": costPerSlot == null ? null : costPerSlot,
         "event_details": eventDetails == null ? null : eventDetails,
       };
 }

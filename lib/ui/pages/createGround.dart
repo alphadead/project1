@@ -44,12 +44,6 @@ class _CreateGroundState extends State<CreateGround> {
               preferredSize: Size.fromHeight(60.h),
               child: CustomAppBar(),
             ),
-            floatingActionButton: homeFABBottomNav(),
-            floatingActionButtonLocation:
-                FloatingActionButtonLocation.miniCenterDocked,
-            bottomNavigationBar: CustomBottomAppBar(
-              height: 50.h,
-            ),
             body: SingleChildScrollView(
               padding: EdgeInsets.symmetric(horizontal: 30.w),
               child: Column(
