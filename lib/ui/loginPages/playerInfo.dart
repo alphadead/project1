@@ -32,7 +32,7 @@ class _PlayerInfoState extends State<PlayerInfo> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ProfileController>(builder: (_profileService) {
-     return Scaffold(
+      return Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: sliderGreenActive,
         floatingActionButtonLocation:

@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:vamos/core/service/Binder/authBinder.dart';
 import 'package:vamos/splashScreen.dart';
 import 'package:vamos/testScreen.dart';
+import 'package:vamos/ui/pages/createGround.dart';
 import 'package:vamos/ui/pages/homeScreen.dart';
 import 'package:vamos/ui/loginPages/createTeam.dart';
 import 'package:vamos/ui/loginPages/profile.dart';
@@ -16,6 +17,7 @@ import 'package:vamos/ui/pages/myTeam.dart';
 import 'package:vamos/ui/pages/playerListScreen.dart';
 import 'package:vamos/ui/pages/playerListingScreen.dart';
 import 'package:vamos/ui/pages/teamListScreen.dart';
+import 'package:vamos/ui/pages/viewGround.dart';
 
 import 'package:vamos/ui/pages/wallet.dart';
 import 'package:vamos/widget/videoPlayer.dart';
@@ -147,6 +149,13 @@ abstract class AppPages {
       binding: AllBinder(),
     ),
     GetPage(
+      name: '/viewGroundScreen',
+      transitionDuration: transitionDuration,
+      page: () => ViewGroundScreen(),
+      transition: Transition.downToUp,
+      binding: AllBinder(),
+    ),
+    GetPage(
       name: '/joinedTeamsList',
       transitionDuration: transitionDuration,
       page: () => JoinedTeamListingScreen(),
@@ -160,6 +169,11 @@ abstract class AppPages {
       transition: Transition.downToUp,
       binding: AllBinder(),
     ),
+    GetPage(
+        name: '/createGroundScreen',
+        transitionDuration: transitionDuration,
+        page: () => CreateGround(),
+        binding: AllBinder()),
     GetPage(
       name: '/walletPage',
       transitionDuration: transitionDuration,

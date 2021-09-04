@@ -9,6 +9,7 @@
     "signUpPage_forgotPassword": "هل نسيت كلمة السر؟",
     "signUpPage_notRegisteredYet": "لم يتم تسجيلة بعد؟",
     "signUpPage_createAccount": "إنشاء حساب",
+    "signUpPage_referralCode": "رمز الإحالة" ,
     "signUpPage_1": "١",
     "signUpPage_2": "٢",
     "signUpPage_3": "٣",
@@ -73,5 +74,6 @@
     "invitePage_skip":"تخطى",
     "searchBar_search":"بحث",
     "joined_team":"انضم للفريق",
-    "matches_played":"المباريات الملعوبة"
+    "matches_played":"المباريات الملعوبة",
+    "logout":"تسجيل خروج"
 }
