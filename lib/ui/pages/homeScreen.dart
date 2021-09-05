@@ -59,8 +59,12 @@ class HomeScreen extends StatelessWidget {
                             nextRoute: '/playerList'),
                         logoContainer(context, 'assets/images/create_logo.webp',
                             'Create Own Team'),
-                        logoContainer(context, 'assets/images/ground_logo.webp',
-                            'Ground'),
+                        logoContainer(
+                          context,
+                          'assets/images/ground_logo.webp',
+                          'Create Match',
+                          nextRoute: '/aboutMatch',
+                        ),
                         logoContainer(
                             context,
                             'assets/images/upcoming_logo.webp',

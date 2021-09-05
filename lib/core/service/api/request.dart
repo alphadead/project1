@@ -262,3 +262,74 @@ Future<Map<String, dynamic>> createTeamRequest(
     }
   }
 }
+
+Future<Map<String, dynamic>> postGroundData(
+    String url, userId, name, location, fees, availableSlots) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  // List<MultipartFile> multipartImageList = [];
+  // List<MultipartFile> multipartVideoList = [];
+
+  // if (images.length > 0) {
+  //   for (Asset asset in images) {
+  //     ByteData byteData = await asset.getByteData();
+  //     List<int> imageData = byteData.buffer.asUint8List();
+  //     MultipartFile multipartFile =
+  //         new MultipartFile.fromBytes(imageData, filename: asset.name);
+  //     multipartImageList.add(multipartFile);
+  //   }
+  // }
+  // if (files.length > 0) {
+  //   for (int i = 0; i < files.length; i++) {
+  //     MultipartFile multipartFile = await MultipartFile.fromFile(files[i].path,
+  //         filename: files[0].path.split('/').last);
+  //     multipartVideoList.add(multipartFile);
+  //   }
+  // }
+  Dio dio = new Dio(BaseOptions(
+    connectTimeout: 15000,
+    receiveTimeout: 16000,
+    headers: {
+      HttpHeaders.contentTypeHeader: 'application/json',
+      HttpHeaders.authorizationHeader: prefs.getString('token')
+    },
+    validateStatus: (_) => true,
+  ));
+
+  try {
+    print("-----------------");
+    print(availableSlots);
+    FormData formData = new FormData.fromMap({
+      "user_id": userId,
+      "name": name,
+      "location": location,
+      "booking_fee": fees,
+      "available_slots": availableSlots,
+    });
+    Response response = await dio.post(BASE_URL + url, data: formData,
+        onSendProgress: (int sent, int total) {
+      print("$sent $total");
+    });
+    if (response.statusCode! < 300 && response.statusCode! >= 200) {
+      print("**********************8");
+
+      print(response.data);
+
+      print(response.data.runtimeType);
+      return response.data;
+    } else {
+      print("&&&&&&&&&&&&&&&&&&&&&&&&7");
+      // print(json.decode(json.encode(response.data)));
+      print(response.data);
+      print(response.data.runtimeType);
+      // Map<String, dynamic> responseBody = json.decode(response.data);
+
+      return response.data;
+    }
+  } on DioError catch (e) {
+    if (e.type == DioErrorType.connectTimeout) {
+      return timeoutResponse();
+    } else {
+      return errorResponse();
+    }
+  }
+}

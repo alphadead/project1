@@ -4,15 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vamos/core/models/groundList.dart';
 import 'package:vamos/core/service/controller/addsController.dart';
+import 'package:vamos/core/service/controller/groundController.dart';
 import 'package:vamos/core/service/controller/myTeamController.dart';
 import 'package:vamos/core/service/controller/teamListingController.dart';
+import 'package:vamos/ui/pages/viewGround.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:vamos/ui/utils/loginbkground.dart';
 import 'package:vamos/ui/utils/theme.dart';
 import 'package:vamos/widget/addsOptionsContainer.dart';
 import 'package:vamos/widget/buttons.dart';
 import 'package:vamos/widget/customAppBar.dart';
 import 'package:vamos/widget/customBottomNavBar.dart';
+import 'package:vamos/widget/dateSchedulePopup.dart';
 import 'package:vamos/widget/inputField.dart';
 
 class AboutMatch extends StatefulWidget {
@@ -32,9 +36,10 @@ class _AboutMatchState extends State<AboutMatch> {
 
   @override
   Widget build(BuildContext context) {
+    bool isVisible = false;
     return SafeArea(
-      child: GetBuilder<AddsController>(
-        builder: (_addService) => Directionality(
+      child: GetBuilder<GroundController>(
+        builder: (_groundService) => Directionality(
           textDirection: TextDirection.ltr,
           child: Scaffold(
             floatingActionButtonLocation:
@@ -50,14 +55,16 @@ class _AboutMatchState extends State<AboutMatch> {
             body: SingleChildScrollView(
               child: Column(
                 children: [
-                  CarouselSlider(
-                    items: _addService.listAdds
-                        .map((item) => Container(
-                              child: Center(child: item),
-                            ))
-                        .toList(),
-                    options: CarouselOptions(
-                        scrollDirection: Axis.horizontal, autoPlay: true),
+                  GetBuilder<AddsController>(
+                    builder: (_addService) => CarouselSlider(
+                      items: _addService.listAdds
+                          .map((item) => Container(
+                                child: Center(child: item),
+                              ))
+                          .toList(),
+                      options: CarouselOptions(
+                          scrollDirection: Axis.horizontal, autoPlay: true),
+                    ),
                   ),
                   Container(
                     margin: EdgeInsets.only(bottom: 10.h),
@@ -159,7 +166,7 @@ class _AboutMatchState extends State<AboutMatch> {
                           ),
                         ),
                         inputField("Match name", (value) {}, validate: (arg) {
-                          // arg = _authService.teamName;
+                          arg = _groundService.matchName;
                           // if (ValidateFeild().isValidateName(arg)) {
                           //   return null;
                           // } else {
@@ -168,15 +175,6 @@ class _AboutMatchState extends State<AboutMatch> {
                         }, keyType: TextInputType.name),
                         GetBuilder<TeamListController>(
                           builder: (_myTeamInfo) {
-                            var item = List.generate(
-                              _myTeamInfo.groundList.length,
-                              (index) =>
-                                  _myTeamInfo.groundList[index].name.toString(),
-                            );
-
-                            print('+++++++++++++++++++++');
-                            print(item);
-                            print('+++++++++++++++++++++');
                             return Padding(
                               padding:
                                   const EdgeInsets.symmetric(vertical: 8.0),
@@ -187,18 +185,28 @@ class _AboutMatchState extends State<AboutMatch> {
                                     'Ground name',
                                     style: TextStyle(color: KLightGrey),
                                   ),
+                                  onChanged: (String? newValue) {
+                                    setState(() {});
+                                  },
                                   items: List.generate(
                                     _myTeamInfo.groundList.length,
-                                    (index) => DropdownMenuItem<String>(
-                                      value: _myTeamInfo.groundList[index].name
-                                          .toString(),
-                                      child: Text(
+                                    (index) {
+                                      print(
                                         _myTeamInfo.groundList[index].name
                                             .toString(),
-                                        style: TextStyle(
-                                            color: inputText, fontSize: 16),
-                                      ),
-                                    ),
+                                      );
+                                      return DropdownMenuItem<String>(
+                                        value: _myTeamInfo
+                                            .groundList[index].name
+                                            .toString(),
+                                        child: Text(
+                                          _myTeamInfo.groundList[index].name
+                                              .toString(),
+                                          style: TextStyle(
+                                              color: inputText, fontSize: 16),
+                                        ),
+                                      );
+                                    },
                                   )
                                   // .map(
                                   //   (e) => DropdownMenuItem<String>(
@@ -224,14 +232,28 @@ class _AboutMatchState extends State<AboutMatch> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              Text(
-                                "Add New +",
-                                style:
-                                    themeData().textTheme.bodyText1!.copyWith(
-                                          color: KRed,
-                                          fontSize: 15.sp,
-                                          fontWeight: FontWeight.bold,
-                                        ),
+                              GestureDetector(
+                                onTap: () {
+                                  showDialog(
+                                    context: context,
+                                    barrierDismissible: false,
+                                    builder: (BuildContext context) {
+                                      return ScheduleCard(
+                                        groundName: true,
+                                        scheduleDate: DateTime.now(),
+                                      );
+                                    },
+                                  );
+                                },
+                                child: Text(
+                                  "Add New +",
+                                  style:
+                                      themeData().textTheme.bodyText1!.copyWith(
+                                            color: KRed,
+                                            fontSize: 15.sp,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                ),
                               ),
                             ],
                           ),
@@ -251,6 +273,68 @@ class _AboutMatchState extends State<AboutMatch> {
                               ),
                             ],
                           ),
+                        ),
+                        CustomCalender(
+                          isVisibleControllerTrue: () {
+                            setState(() {
+                              isVisible = true;
+                            });
+                          },
+                          isVisibleControllerFalse: () {
+                            setState(() {
+                              isVisible = false;
+                            });
+                          },
+                        ),
+                        Container(
+                          margin:
+                              EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                          height: 50,
+                          child: isVisible
+                              ? Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    primaryActionButton(
+                                      text: "Delete",
+                                      color: moneyBox,
+                                      width: 100,
+                                      height: 40,
+                                      fontSize: 15,
+                                      context: context,
+                                      onPressed: () {
+                                        _groundService.deleteSchedule();
+                                        setState(() {
+                                          isVisible = false;
+                                        });
+                                      },
+                                    ),
+                                    primaryActionButton(
+                                      text: "Update",
+                                      width: 100,
+                                      height: 40,
+                                      fontSize: 15,
+                                      context: context,
+                                      onPressed: () {
+                                        showDialog(
+                                          context: context,
+                                          barrierDismissible: false,
+                                          builder: (BuildContext context) {
+                                            return ScheduleCard(
+                                              groundName: true,
+                                              scheduleDate:
+                                                  _groundService.selectedDate!,
+                                            );
+                                          },
+                                        );
+                                        setState(() {
+                                          isVisible = false;
+                                        });
+                                      },
+                                    ),
+                                  ],
+                                )
+                              : SizedBox(),
                         ),
                         Container(
                           margin: EdgeInsets.only(bottom: 15.h, top: 10.h),
@@ -283,7 +367,7 @@ class _AboutMatchState extends State<AboutMatch> {
                                             fontWeight: FontWeight.bold,
                                           ),
                                   onChanged: (value) {
-                                    // _groundService.bookingFee = value;
+                                    _groundService.bookingFee = value;
                                   },
                                 )),
                               ),
@@ -324,7 +408,7 @@ class _AboutMatchState extends State<AboutMatch> {
                             ),
                             GestureDetector(
                               onTap: () {
-                                //_groundService.groundUpdate();
+                                _groundService.createMatch();
                               },
                               child: Container(
                                 width: 120.h,

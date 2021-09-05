@@ -31,18 +31,28 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void movepage() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? type = prefs.getString("register_type");
+
     if (prefs.getString('token') != null &&
         prefs.getBool('isAuthenticated') != false) {
-      if (prefs.getString("completedStep") == "1") {
-        Get.offNamed('/profileScreen', arguments: false);
-      } else if (prefs.getString("completedStep") == "2") {
-        Get.offNamed("/registeredTeamScreen");
-      } else if (prefs.getString("completedStep") == "3") {
-        Get.offNamed("/inviteScreen");
-      } else if (prefs.getString("completedStep") == "4") {
-        Get.offNamed("/homeScreen");
+      if (type != "Ground") {
+        if (prefs.getString("completedStep") == "1") {
+          Get.offNamed('/profileScreen', arguments: false);
+        } else if (prefs.getString("completedStep") == "2") {
+          Get.offNamed("/registeredTeamScreen");
+        } else if (prefs.getString("completedStep") == "3") {
+          Get.offNamed("/inviteScreen");
+        } else if (prefs.getString("completedStep") == "4") {
+          Get.offNamed("/homeScreen");
+        } else {
+          Get.offNamed("/login");
+        }
       } else {
-        Get.offNamed("/login");
+        if (prefs.getString("completedStep") == "1") {
+          Get.offNamed("/createGroundScreen");
+        } else if (prefs.getString("completedStep") == "2") {
+          Get.offNamed("/homeScreen");
+        }
       }
     } else {
       RouteManagement().goToLoginScreen();
