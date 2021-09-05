@@ -4,6 +4,7 @@ import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vamos/core/models/createMatch.dart';
 import 'package:vamos/core/models/groundList.dart';
+import 'package:vamos/core/models/groundAvailability.dart';
 import 'package:vamos/core/models/groundProfileView.dart';
 import 'package:vamos/core/models/updateGround.dart';
 import 'package:vamos/core/service/api/api.dart';
@@ -14,6 +15,8 @@ import 'package:vamos/ui/utils/utility.dart';
 class GroundController extends GetxController {
   Api api = locator<Api>();
   String? groundName;
+  int? groundId;
+  String? date;
   String? matchName;
   String _eventDetails = '';
   String? groundLocation;
@@ -190,6 +193,20 @@ class GroundController extends GetxController {
 
       groundList = response.data!;
     } else {
+      Utility.closeDialog();
+      Utility.showSnackbar("${response.message}");
+    }
+    update();
+  }
+
+  void groundAvailability() async {
+    Utility.showLoadingDialog();
+    GroundAvailability response = await api.groundAvailable(groundId!, date!);
+
+    if (response.data != null) {
+      Utility.closeDialog();
+    } else {
+      Utility.closeDialog();
       Utility.showSnackbar("${response.message}");
     }
     update();
@@ -204,7 +221,9 @@ class GroundController extends GetxController {
   void selectSlot(int currIndex) {
     var list = selectedIndices;
     list.sort();
-    if (list.isEmpty|| currIndex == list.last + 1 || currIndex == list.first - 1) {
+    if (list.isEmpty ||
+        currIndex == list.last + 1 ||
+        currIndex == list.first - 1) {
       selectedIndices.add(currIndex);
       update();
     } else {

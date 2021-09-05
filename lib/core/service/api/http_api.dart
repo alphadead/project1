@@ -8,11 +8,13 @@ import 'package:vamos/core/models/createMatch.dart';
 import 'package:vamos/core/models/createTeamResponse.dart';
 import 'package:vamos/core/models/deleteMedia.dart';
 import 'package:vamos/core/models/genericResponse.dart';
+import 'package:vamos/core/models/groundAvailability.dart';
 import 'package:vamos/core/models/groundList.dart';
 import 'package:vamos/core/models/groundProfileView.dart';
 import 'package:vamos/core/models/joinTeam.dart';
 import 'package:vamos/core/models/joinedTeamListResponse.dart';
 import 'package:vamos/core/models/loginResponse.dart';
+import 'package:vamos/core/models/matchRequest.dart';
 import 'package:vamos/core/models/myTeamInfo.dart';
 import 'package:vamos/core/models/playerListResponse.dart';
 import 'package:vamos/core/models/playerRequestResponse.dart';
@@ -146,6 +148,16 @@ class HTTPApi extends Api {
     return JoinTeamResponse.fromJson(response);
   }
 
+  Future<RequestMatch> requestMatch(String teamId, String matchId) async {
+    Map<String, dynamic> body = {
+      "team_id": teamId,
+      "match_id": matchId,
+    };
+    Map<String, dynamic> response =
+        await postRequest('team/match-request', body);
+    return RequestMatch.fromJson(response);
+  }
+
   Future<DeleteMedia> deleteMedias(String mediaId) async {
     Map<String, dynamic> body = {
       "media_id": mediaId,
@@ -219,6 +231,12 @@ class HTTPApi extends Api {
   Future<TeamRequestReceivedAsPlayerResponse> requestRecived() async {
     Map<String, dynamic> response = await getRequest('team/request-received');
     return TeamRequestReceivedAsPlayerResponse.fromJson(response);
+  }
+
+  Future<GroundAvailability> groundAvailable(int id, String date) async {
+    Map<String, dynamic> response =
+        await getRequest('ground-availability?id=$id&date=$date');
+    return GroundAvailability.fromJson(response);
   }
 
   Future<AcceptRejectRequestResponse> requestAcceptReject(id, status) async {
