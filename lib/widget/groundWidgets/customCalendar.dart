@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:vamos/core/service/controller/groundController.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/theme.dart';
@@ -27,11 +28,13 @@ class CustomCalender extends StatefulWidget {
       {Key? key,
       required this.isVisibleControllerTrue,
       required this.isVisibleControllerFalse,
-      this.viewGroundProfile = false})
+      this.viewGroundProfile = false,
+      this.createMatch = false})
       : super(key: key);
   final Function isVisibleControllerTrue;
   final Function isVisibleControllerFalse;
   final bool viewGroundProfile;
+  final bool createMatch;
   @override
   _CustomCalenderState createState() => _CustomCalenderState();
 }
@@ -174,38 +177,17 @@ class _CustomCalenderState extends State<CustomCalender> {
                                       BorderRadius.all(Radius.circular(8.0)),
                                   onTap: widget.viewGroundProfile
                                       ? () {}
-                                      : () {
-                                          setState(() {
-                                            selectedIndex = index;
-                                            isSelected = true;
-                                            isScheduled
-                                                ? widget
-                                                    .isVisibleControllerTrue()
-                                                : widget
-                                                    .isVisibleControllerFalse();
-                                          });
-                                          _groundService.selectedDate =
-                                              thisDate;
-                                          !isScheduled
-                                              ? showDialog(
-                                                  context: context,
-                                                  barrierDismissible: false,
-                                                  builder:
-                                                      (BuildContext context) {
-                                                    return ScheduleCard(
-                                                      groundName: false,
-                                                      scheduleDate: DateTime(
-                                                          DateTime.now().year,
-                                                          months.indexOf(
-                                                                  dropdownValue) +
-                                                              1,
-                                                          index +
-                                                              calenderStartingDate),
-                                                    );
-                                                  },
-                                                )
-                                              : print("");
-                                        },
+                                      : widget.createMatch
+                                          ? () {
+                                              _groundService.groundAvailability(
+                                                  DateFormat('yyyy-MM-dd')
+                                                      .format(thisDate)
+                                                      .toString());
+                                            }
+                                          : () {
+                                              onDateSelect(index, isScheduled,
+                                                  _groundService, thisDate);
+                                            },
                                   child: Padding(
                                     padding: EdgeInsets.all(8),
                                     child: Center(
@@ -260,5 +242,32 @@ class _CustomCalenderState extends State<CustomCalender> {
         );
       },
     );
+  }
+
+  void onDateSelect(
+      int index, bool isScheduled, GroundController _groundService, thisDate) {
+    setState(() {
+      selectedIndex = index;
+      isSelected = true;
+      isScheduled
+          ? widget.isVisibleControllerTrue()
+          : widget.isVisibleControllerFalse();
+    });
+    _groundService.selectedDate = thisDate;
+    !isScheduled
+        ? showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (BuildContext context) {
+              return ScheduleCard(
+                groundName: false,
+                scheduleDate: DateTime(
+                    DateTime.now().year,
+                    months.indexOf(dropdownValue) + 1,
+                    index + calenderStartingDate),
+              );
+            },
+          )
+        : print("");
   }
 }

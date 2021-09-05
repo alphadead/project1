@@ -35,8 +35,8 @@ class _AboutMatchState extends State<AboutMatch> {
   Widget build(BuildContext context) {
     bool isVisible = false;
     return SafeArea(
-      child: GetBuilder<GroundController>(
-        builder: (_groundService) => Directionality(
+      child: GetBuilder<GroundController>(builder: (_groundService) {
+        return Directionality(
           textDirection: TextDirection.ltr,
           child: Scaffold(
             floatingActionButtonLocation:
@@ -257,6 +257,7 @@ class _AboutMatchState extends State<AboutMatch> {
                               isVisible = false;
                             });
                           },
+                          createMatch: true,
                         ),
                         Container(
                           margin: EdgeInsets.only(bottom: 5.h, top: 15.h),
@@ -307,18 +308,12 @@ class _AboutMatchState extends State<AboutMatch> {
                                 width: 100.w,
                                 color: KLightGrey.withOpacity(0.2),
                                 child: Center(
-                                    child: TextField(
-                                  keyboardType: TextInputType.number,
-                                  textAlign: TextAlign.center,
-                                  style:
-                                      themeData().textTheme.bodyText1!.copyWith(
-                                            color: KColorBlack,
-                                            fontSize: 15.sp,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                  onChanged: (value) {
-                                    _groundService.bookingFee = value;
-                                  },
+                                    child: Text(
+                                  _groundService.bookingFee,
+                                  style: themeData()
+                                      .textTheme
+                                      .bodyText1!
+                                      .copyWith(fontWeight: FontWeight.bold),
                                 )),
                               ),
                             ],
@@ -391,8 +386,8 @@ class _AboutMatchState extends State<AboutMatch> {
               ),
             ),
           ),
-        ),
-      ),
+        );
+      }),
     );
   }
 }

@@ -15,12 +15,11 @@ import 'package:vamos/ui/utils/utility.dart';
 class GroundController extends GetxController {
   Api api = locator<Api>();
   String? groundName;
-  int? groundId;
-  String? date;
   String? matchName;
   String _eventDetails = '';
   String? groundLocation;
   int currentDateIndex = -1;
+  int? _groundId;
   DateTime? selectedDate;
   String? bookingDate;
   String? bookingSlotTime;
@@ -45,6 +44,12 @@ class GroundController extends GetxController {
   List<dynamic> get availableDates => _availableDates;
   set availableDates(List<dynamic> value) {
     _availableDates = value;
+    update();
+  }
+
+  int? get groundId => _groundId;
+  set groundId(int? value) {
+    _groundId = value;
     update();
   }
 
@@ -199,9 +204,10 @@ class GroundController extends GetxController {
     update();
   }
 
-  void groundAvailability() async {
+  void groundAvailability(String date) async {
+
     Utility.showLoadingDialog();
-    GroundAvailability response = await api.groundAvailable(groundId!, date!);
+    GroundAvailability response = await api.groundAvailable(groundId!, date);
 
     if (response.data != null) {
       Utility.closeDialog();
@@ -213,9 +219,11 @@ class GroundController extends GetxController {
   }
 
   void setSelectedGroundInfo(int groundId) {
-    availableDates = groundList
-        .firstWhere((ground) => ground.id == groundId)
-        .availableSlots!;
+    Grounds ground = groundList.firstWhere((ground) => ground.id == groundId);
+    groundId = groundId;
+    bookingFee = ground.bookingFee!;
+    availableDates = ground.availableSlots!;
+    update();
   }
 
   void selectSlot(int currIndex) {
