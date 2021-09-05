@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:vamos/ui/utils/color.dart';
 
-Widget inputField(String? placeholderText, Function(String)? onChange,
-    {TextInputType? keyType,
-    String? Function(String?)? validate,
-    String? initialValue,
-    TextEditingController? controller}) {
+Widget inputField(
+  String? placeholderText,
+  Function(String)? onChange, {
+  TextInputType? keyType,
+  String? Function(String?)? validate,
+  String? initialValue,
+  TextEditingController? controller,
+}) {
   return TextFormField(
     controller: controller,
-    //initialValue: initialValue,
+    initialValue: initialValue,
     validator: validate,
     onChanged: onChange,
     keyboardType: keyType,

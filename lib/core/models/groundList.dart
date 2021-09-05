@@ -51,7 +51,7 @@ class Grounds {
   String? longitude;
   String? bookingFee;
   List<dynamic>? photo;
-  List<AvailableSlot>? availableSlots;
+  List<dynamic>? availableSlots;
 
   factory Grounds.fromJson(Map<String, dynamic> json) => Grounds(
         id: json["id"],
@@ -61,8 +61,7 @@ class Grounds {
         longitude: json["longitude"] == null ? null : json["longitude"],
         bookingFee: json["booking_fee"] == null ? null : json["booking_fee"],
         photo: List<dynamic>.from(json["photo"].map((x) => x)),
-        availableSlots: List<AvailableSlot>.from(
-            json["available_slots"].map((x) => AvailableSlot.fromJson(x))),
+        availableSlots: json["available_slots"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -74,47 +73,6 @@ class Grounds {
         "booking_fee": bookingFee == null ? null : bookingFee,
         "photo": List<dynamic>.from(photo!.map((x) => x)),
         "available_slots":
-            List<dynamic>.from(availableSlots!.map((x) => x.toJson())),
-      };
-}
-
-class AvailableSlot {
-  AvailableSlot({
-    this.groundId,
-    this.date,
-    this.openingTime,
-    this.closingTime,
-    this.slotTime,
-    this.costPerSlot,
-    this.eventDetails,
-  });
-
-  String? groundId;
-  DateTime? date;
-  String? openingTime;
-  String? closingTime;
-  String? slotTime;
-  String? costPerSlot;
-  String? eventDetails;
-
-  factory AvailableSlot.fromJson(Map<String, dynamic> json) => AvailableSlot(
-        groundId: json["ground_id"],
-        date: DateTime.parse(json["date"]),
-        openingTime: json["opening_time"],
-        closingTime: json["closing_time"],
-        slotTime: json["slot_time"],
-        costPerSlot: json["cost_per_slot"],
-        eventDetails: json["event_details"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "ground_id": groundId,
-        "date":
-            "${date!.year.toString().padLeft(4, '0')}-${date!.month.toString().padLeft(2, '0')}-${date!.day.toString().padLeft(2, '0')}",
-        "opening_time": openingTime,
-        "closing_time": closingTime,
-        "slot_time": slotTime,
-        "cost_per_slot": costPerSlot,
-        "event_details": eventDetails,
+            List<dynamic>.from(availableSlots!.map((x) => x)),
       };
 }

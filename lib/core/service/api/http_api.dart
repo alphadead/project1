@@ -186,8 +186,6 @@ class HTTPApi extends Api {
       userId, name, location, fees, availableSlots) async {
     Map<String, dynamic> response = await postGroundData(
         "ground/update", userId, name, location, fees, availableSlots);
-    print("klsflsjfl");
-    print(response.runtimeType);
     return UpdateGround.fromJson(response);
   }
 

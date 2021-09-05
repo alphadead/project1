@@ -63,8 +63,6 @@ class PlayerListController extends GetxController {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     String? teamId = prefs.getString("team_id");
-    print(teamId);
-    print(userId);
 
     GenericResponse response = await api.cancelPlayerRequest(teamId, userId);
     if (response.success!) {

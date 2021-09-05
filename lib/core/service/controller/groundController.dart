@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vamos/core/models/createMatch.dart';
+import 'package:vamos/core/models/groundList.dart';
 import 'package:vamos/core/models/groundAvailability.dart';
 import 'package:vamos/core/models/groundProfileView.dart';
 import 'package:vamos/core/models/updateGround.dart';
@@ -23,14 +24,17 @@ class GroundController extends GetxController {
   DateTime? selectedDate;
   String? bookingDate;
   String? bookingSlotTime;
-  List<Map<String, dynamic>> availableDates = [];
   DateTime? selectedOpeningTime;
   DateTime? selectedClosingTime;
   DateTime? selectedSlotDuration;
   int? selectedSlotPrice;
   Asset? image;
   List<Map<String, dynamic>> bookingTimeslots = [];
+  List<dynamic> _availableDates = [];
   late String _bookingFee;
+  List<Grounds> groundList = [];
+
+  List<int> selectedIndices = [];
 
   String get eventDetails => _eventDetails;
   set eventDetails(String value) {
@@ -38,8 +42,13 @@ class GroundController extends GetxController {
     update();
   }
 
+  List<dynamic> get availableDates => _availableDates;
+  set availableDates(List<dynamic> value) {
+    _availableDates = value;
+    update();
+  }
+
   void updateSchedule() {
-    print("UPDATE SCHEDULE");
     deleteSchedule();
     Map<String, dynamic> newValue = {
       "date": DateFormat('yyyy-MM-dd').format(selectedDate!),
@@ -51,7 +60,6 @@ class GroundController extends GetxController {
       },
     };
     availableDates.add(newValue);
-    print(availableDates);
   }
 
   void deleteSchedule() {
@@ -125,7 +133,9 @@ class GroundController extends GetxController {
       latitude = response.data?.latitude;
       longitude = response.data?.longitude;
       bookingFees = response.data?.bookingFee;
+      bookingFee = bookingFees!;
       photos = response.data?.photo;
+      availableDates = response.data!.availableSlots!;
       update();
       Utility.closeDialog();
     }
@@ -145,7 +155,6 @@ class GroundController extends GetxController {
         bookingDate!,
         bookingTimeslots,
         bookingSlotTime);
-    print(response);
     if (response.data != null) {
       update();
       Utility.closeDialog();
@@ -172,6 +181,21 @@ class GroundController extends GetxController {
       Utility.closeDialog();
       Utility.showSnackbar("${response.message}");
     }
+
+    update();
+  }
+
+  void getGroundlist() async {
+    Utility.showLoadingDialog();
+    GroundList response = await api.getGroundlist();
+    if (response.data != null) {
+      Utility.closeDialog();
+
+      groundList = response.data!;
+    } else {
+      Utility.closeDialog();
+      Utility.showSnackbar("${response.message}");
+    }
     update();
   }
 
@@ -186,5 +210,25 @@ class GroundController extends GetxController {
       Utility.showSnackbar("${response.message}");
     }
     update();
+  }
+
+  void setSelectedGroundInfo(int groundId) {
+    availableDates = groundList
+        .firstWhere((ground) => ground.id == groundId)
+        .availableSlots!;
+  }
+
+  void selectSlot(int currIndex) {
+    var list = selectedIndices;
+    list.sort();
+    if (list.isEmpty ||
+        currIndex == list.last + 1 ||
+        currIndex == list.first - 1) {
+      selectedIndices.add(currIndex);
+      update();
+    } else {
+      selectedIndices = [currIndex];
+      update();
+    }
   }
 }

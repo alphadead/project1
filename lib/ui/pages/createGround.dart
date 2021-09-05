@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:vamos/core/service/controller/groundController.dart';
-import 'package:vamos/ui/pages/viewGround.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/loginbkground.dart';
 import 'package:vamos/ui/utils/theme.dart';
 import 'package:vamos/widget/customAppBar.dart';
 import 'package:vamos/widget/dateSchedulePopup.dart';
+import 'package:vamos/widget/groundWidgets/customCalendar.dart';
 import 'package:vamos/widget/inputField.dart';
 
 List schedule = [
@@ -27,6 +27,20 @@ TextEditingController feesController = TextEditingController();
 
 class _CreateGroundState extends State<CreateGround> {
   bool isVisible = false;
+  bool arguments = false;
+
+  @override
+  void initState() {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      setState(() {
+        arguments = Get.arguments;
+      });
+      if (arguments) {
+        Get.find<GroundController>().getProfileData();
+      }
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,10 +78,16 @@ class _CreateGroundState extends State<CreateGround> {
                   ),
                   inputField("Ground Name", (value) {
                     _groundService.groundName = value;
-                  }, validate: (arg) {}, keyType: TextInputType.name),
+                  },
+                      validate: (arg) {},
+                      initialValue: _groundService.groundName.toString(),
+                      keyType: TextInputType.name),
                   inputField("Ground Location", (value) {
                     _groundService.groundLocation = value;
-                  }, validate: (arg) {}, keyType: TextInputType.name),
+                  },
+                      validate: (arg) {},
+                      initialValue: _groundService.groundLocation.toString(),
+                      keyType: TextInputType.name),
                   Container(
                     margin: EdgeInsets.only(bottom: 12.h, top: 15.h),
                     child: Row(
@@ -192,7 +212,8 @@ class _CreateGroundState extends State<CreateGround> {
                           width: 100.w,
                           color: KLightGrey.withOpacity(0.2),
                           child: Center(
-                              child: TextField(
+                              child: TextFormField(
+                            initialValue: _groundService.bookingFees,
                             keyboardType: TextInputType.number,
                             textAlign: TextAlign.center,
                             style: themeData().textTheme.bodyText1!.copyWith(
