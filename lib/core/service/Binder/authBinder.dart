@@ -3,6 +3,7 @@ import 'package:vamos/core/service/controller/groundController.dart';
 import 'package:vamos/core/service/controller/inviteController.dart';
 import 'package:vamos/core/service/controller/addsController.dart';
 import 'package:vamos/core/service/controller/authController.dart';
+import 'package:vamos/core/service/controller/matchController.dart';
 import 'package:vamos/core/service/controller/myTeamController.dart';
 import 'package:vamos/core/service/controller/playerListingController.dart';
 import 'package:vamos/core/service/controller/profileController.dart';
@@ -20,5 +21,6 @@ class AllBinder extends Bindings {
     Get.lazyPut<InviteController>(() => InviteController());
     Get.lazyPut<ProfileController>(() => ProfileController());
     Get.lazyPut<GroundController>(() => GroundController());
+    Get.lazyPut<MatchController>(() => MatchController());
   }
 }
