@@ -29,9 +29,6 @@ class ScheduleCard extends StatelessWidget {
   final bool groundName;
   @override
   Widget build(BuildContext context) {
-    print('++++++++++++++++++++++++++++');
-    print(groundName);
-    print('++++++++++++++++++++++++++++');
     return GetBuilder<GroundController>(builder: (_groundService) {
       String dateString = "${scheduleDate.day}" +
           (scheduleDate.day == 1
@@ -222,8 +219,6 @@ class _CalenderScheduleRowState extends State<CalenderScheduleRow> {
     if (widget.title == "Opening Time") {
       WidgetsBinding.instance!.addPostFrameCallback((_) {
         Get.find<GroundController>().setSelectedOpeningTime(_value);
-        print("NEW CONTROLLER VALUE:::::::::::::");
-        print(Get.find<GroundController>().selectedOpeningTime);
       });
     }
     if (widget.title == "Closing Time") {

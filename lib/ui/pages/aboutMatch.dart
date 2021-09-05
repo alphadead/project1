@@ -2,21 +2,18 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:vamos/core/models/groundList.dart';
 import 'package:vamos/core/service/controller/addsController.dart';
 import 'package:vamos/core/service/controller/groundController.dart';
 import 'package:vamos/core/service/controller/myTeamController.dart';
-import 'package:vamos/core/service/controller/teamListingController.dart';
-import 'package:vamos/ui/pages/viewGround.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:vamos/ui/utils/loginbkground.dart';
 import 'package:vamos/ui/utils/theme.dart';
-import 'package:vamos/widget/addsOptionsContainer.dart';
 import 'package:vamos/widget/buttons.dart';
 import 'package:vamos/widget/customAppBar.dart';
 import 'package:vamos/widget/customBottomNavBar.dart';
 import 'package:vamos/widget/dateSchedulePopup.dart';
+import 'package:vamos/widget/groundWidgets/customCalendar.dart';
+import 'package:vamos/widget/groundWidgets/timeslots.dart';
 import 'package:vamos/widget/inputField.dart';
 
 class AboutMatch extends StatefulWidget {
@@ -31,7 +28,7 @@ class _AboutMatchState extends State<AboutMatch> {
   void initState() {
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback(
-        (_) => Get.find<TeamListController>().getGroundlist());
+        (_) => Get.find<GroundController>().getGroundlist());
   }
 
   @override
@@ -173,60 +170,35 @@ class _AboutMatchState extends State<AboutMatch> {
                           //   return "Enter valid name";
                           // }
                         }, keyType: TextInputType.name),
-                        GetBuilder<TeamListController>(
-                          builder: (_myTeamInfo) {
-                            return Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 8.0),
-                              child: DropdownButtonFormField(
-                                  isExpanded: true,
-                                  elevation: 25,
-                                  hint: Text(
-                                    'Ground name',
-                                    style: TextStyle(color: KLightGrey),
-                                  ),
-                                  onChanged: (String? newValue) {
-                                    setState(() {});
-                                  },
-                                  items: List.generate(
-                                    _myTeamInfo.groundList.length,
-                                    (index) {
-                                      print(
-                                        _myTeamInfo.groundList[index].name
-                                            .toString(),
-                                      );
-                                      return DropdownMenuItem<String>(
-                                        value: _myTeamInfo
-                                            .groundList[index].name
-                                            .toString(),
-                                        child: Text(
-                                          _myTeamInfo.groundList[index].name
-                                              .toString(),
-                                          style: TextStyle(
-                                              color: inputText, fontSize: 16),
-                                        ),
-                                      );
-                                    },
-                                  )
-                                  // .map(
-                                  //   (e) => DropdownMenuItem<String>(
-                                  //     value: _myTeamInfo
-                                  //         .groundList[int.parse(e)].name
-                                  //         .toString(),
-                                  //     child: Text(
-                                  //       _myTeamInfo
-                                  //           .groundList[int.parse(e)].name
-                                  //           .toString(),
-                                  //       style: TextStyle(
-                                  //           color: inputText, fontSize: 16),
-                                  //     ),
-                                  //   ),
-                                  // )
-                                  // .toList(),
-                                  ),
-                            );
-                          },
-                        ),
+                        Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: DropdownButtonFormField(
+                              isExpanded: true,
+                              elevation: 25,
+                              hint: Text(
+                                'Ground name',
+                                style: TextStyle(color: KLightGrey),
+                              ),
+                              onChanged: (String? newValue) {
+                                _groundService.setSelectedGroundInfo(
+                                    int.parse(newValue!));
+                              },
+                              items: List.generate(
+                                _groundService.groundList.length,
+                                (index) {
+                                  return DropdownMenuItem<String>(
+                                    value: _groundService.groundList[index].id
+                                        .toString(),
+                                    child: Text(
+                                      _groundService.groundList[index].name
+                                          .toString(),
+                                      style: TextStyle(
+                                          color: inputText, fontSize: 16),
+                                    ),
+                                  );
+                                },
+                              ),
+                            )),
                         Container(
                           margin: EdgeInsets.only(bottom: 5.h, top: 5.h),
                           child: Row(
@@ -287,54 +259,32 @@ class _AboutMatchState extends State<AboutMatch> {
                           },
                         ),
                         Container(
-                          margin:
-                              EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-                          height: 50,
-                          child: isVisible
-                              ? Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    primaryActionButton(
-                                      text: "Delete",
-                                      color: moneyBox,
-                                      width: 100,
-                                      height: 40,
-                                      fontSize: 15,
-                                      context: context,
-                                      onPressed: () {
-                                        _groundService.deleteSchedule();
-                                        setState(() {
-                                          isVisible = false;
-                                        });
-                                      },
-                                    ),
-                                    primaryActionButton(
-                                      text: "Update",
-                                      width: 100,
-                                      height: 40,
-                                      fontSize: 15,
-                                      context: context,
-                                      onPressed: () {
-                                        showDialog(
-                                          context: context,
-                                          barrierDismissible: false,
-                                          builder: (BuildContext context) {
-                                            return ScheduleCard(
-                                              groundName: true,
-                                              scheduleDate:
-                                                  _groundService.selectedDate!,
-                                            );
-                                          },
-                                        );
-                                        setState(() {
-                                          isVisible = false;
-                                        });
-                                      },
-                                    ),
-                                  ],
-                                )
-                              : SizedBox(),
+                          margin: EdgeInsets.only(bottom: 5.h, top: 15.h),
+                          child: Row(
+                            children: [
+                              Text(
+                                "Select Timeslots",
+                                style:
+                                    themeData().textTheme.bodyText1!.copyWith(
+                                          color: profileContainerColor,
+                                          fontSize: 15.sp,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        TimeSlots(
+                          timeslots: [
+                            "1",
+                            "2",
+                            "3",
+                            "4",
+                            "5",
+                            "6",
+                            "7",
+                            "8",
+                          ],
                         ),
                         Container(
                           margin: EdgeInsets.only(bottom: 15.h, top: 10.h),
