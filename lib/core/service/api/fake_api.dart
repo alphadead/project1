@@ -6,6 +6,7 @@ import 'package:vamos/core/models/completeStepResponse.dart';
 import 'package:vamos/core/models/createTeamResponse.dart';
 import 'package:vamos/core/models/deleteMedia.dart';
 import 'package:vamos/core/models/genericResponse.dart';
+import 'package:vamos/core/models/groundList.dart';
 import 'package:vamos/core/models/joinTeam.dart';
 import 'package:vamos/core/models/joinedTeamListResponse.dart';
 import 'package:vamos/core/models/loginResponse.dart';
@@ -63,6 +64,10 @@ class FakeApi extends Api {
   }
 
   Future<TeamListResponse> getteamlist() {
+    throw UnimplementedError();
+  }
+
+  Future<GroundList> getGroundlist() {
     throw UnimplementedError();
   }
 

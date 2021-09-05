@@ -2,8 +2,10 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:vamos/core/models/groundList.dart';
 import 'package:vamos/core/service/controller/addsController.dart';
 import 'package:vamos/core/service/controller/myTeamController.dart';
+import 'package:vamos/core/service/controller/teamListingController.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vamos/ui/utils/theme.dart';
@@ -13,8 +15,20 @@ import 'package:vamos/widget/customAppBar.dart';
 import 'package:vamos/widget/customBottomNavBar.dart';
 import 'package:vamos/widget/inputField.dart';
 
-class AboutMatch extends StatelessWidget {
+class AboutMatch extends StatefulWidget {
   const AboutMatch({Key? key}) : super(key: key);
+
+  @override
+  _AboutMatchState createState() => _AboutMatchState();
+}
+
+class _AboutMatchState extends State<AboutMatch> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback(
+        (_) => Get.find<TeamListController>().getGroundlist());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -152,16 +166,58 @@ class AboutMatch extends StatelessWidget {
                           //   return "Enter valid name";
                           // }
                         }, keyType: TextInputType.name),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: DropdownButtonFormField(
-                            elevation: 25,
-                            disabledHint: Text(
-                              'Ground name',
-                              style: TextStyle(color: KLightGrey),
-                            ),
-                            items: [],
-                          ),
+                        GetBuilder<TeamListController>(
+                          builder: (_myTeamInfo) {
+                            var item = List.generate(
+                              _myTeamInfo.groundList.length,
+                              (index) =>
+                                  _myTeamInfo.groundList[index].name.toString(),
+                            );
+
+                            print('+++++++++++++++++++++');
+                            print(item);
+                            print('+++++++++++++++++++++');
+                            return Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 8.0),
+                              child: DropdownButtonFormField(
+                                  isExpanded: true,
+                                  elevation: 25,
+                                  hint: Text(
+                                    'Ground name',
+                                    style: TextStyle(color: KLightGrey),
+                                  ),
+                                  items: List.generate(
+                                    _myTeamInfo.groundList.length,
+                                    (index) => DropdownMenuItem<String>(
+                                      value: _myTeamInfo.groundList[index].name
+                                          .toString(),
+                                      child: Text(
+                                        _myTeamInfo.groundList[index].name
+                                            .toString(),
+                                        style: TextStyle(
+                                            color: inputText, fontSize: 16),
+                                      ),
+                                    ),
+                                  )
+                                  // .map(
+                                  //   (e) => DropdownMenuItem<String>(
+                                  //     value: _myTeamInfo
+                                  //         .groundList[int.parse(e)].name
+                                  //         .toString(),
+                                  //     child: Text(
+                                  //       _myTeamInfo
+                                  //           .groundList[int.parse(e)].name
+                                  //           .toString(),
+                                  //       style: TextStyle(
+                                  //           color: inputText, fontSize: 16),
+                                  //     ),
+                                  //   ),
+                                  // )
+                                  // .toList(),
+                                  ),
+                            );
+                          },
                         ),
                         Container(
                           margin: EdgeInsets.only(bottom: 5.h, top: 5.h),

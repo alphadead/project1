@@ -6,6 +6,7 @@ import 'package:vamos/core/models/completeStepResponse.dart';
 import 'package:vamos/core/models/createTeamResponse.dart';
 import 'package:vamos/core/models/deleteMedia.dart';
 import 'package:vamos/core/models/genericResponse.dart';
+import 'package:vamos/core/models/groundList.dart';
 import 'package:vamos/core/models/joinTeam.dart';
 import 'package:vamos/core/models/joinedTeamListResponse.dart';
 import 'package:vamos/core/models/loginResponse.dart';
@@ -88,6 +89,11 @@ class HTTPApi extends Api {
   Future<TeamListResponse> getteamlist() async {
     Map<String, dynamic> response = await getRequest('team');
     return TeamListResponse.fromJson(response);
+  }
+
+  Future<GroundList> getGroundlist() async {
+    Map<String, dynamic> response = await getRequest('ground-list?offset=0');
+    return GroundList.fromJson(response);
   }
 
   Future<ProfileDataResponse> getProfile(String userId) async {

@@ -91,7 +91,7 @@ class CustomBottomAppBarState extends State<CustomBottomAppBar> {
             onTap: () => index == 0
                 ? Get.toNamed('/playerInfo')
                 : index == 1
-                    ? Get.toNamed('/walletPage')
+                    ? Get.toNamed('/aboutMatch')
                     : onPressed != null
                         ? onPressed(index)
                         : () {},

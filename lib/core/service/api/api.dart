@@ -6,6 +6,7 @@ import 'package:vamos/core/models/completeStepResponse.dart';
 import 'package:vamos/core/models/createTeamResponse.dart';
 import 'package:vamos/core/models/deleteMedia.dart';
 import 'package:vamos/core/models/genericResponse.dart';
+import 'package:vamos/core/models/groundList.dart';
 import 'package:vamos/core/models/joinTeam.dart';
 import 'package:vamos/core/models/joinedTeamListResponse.dart';
 import 'package:vamos/core/models/loginResponse.dart';
@@ -57,6 +58,7 @@ abstract class Api {
   );
   Future<VerifyOtpResponse> verifyOtp(userId, mobileNo, otp);
   Future<PlayerListResponse> getPlayerlist();
+  Future<GroundList> getGroundlist();
   Future<ReferalEarning> getEarning();
   Future<CompletedStepResponse> completedtep(String step);
   Future<JoinTeamResponse> requestPlayer(

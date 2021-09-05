@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vamos/core/models/acceptRejectResponse.dart';
 import 'package:vamos/core/models/genericResponse.dart';
+import 'package:vamos/core/models/groundList.dart';
 import 'package:vamos/core/models/joinTeam.dart';
 import 'package:vamos/core/models/joinedTeamListResponse.dart';
 import 'package:vamos/core/models/teamListingResponse.dart';
@@ -15,6 +16,7 @@ class TeamListController extends GetxController {
   List<TeamData> teamList = [];
   List<JoinedTeamData>? joinedTeamList = [];
   List<Datum> teamRequestList = [];
+  List<Grounds> groundList = [];
   Api api = locator<Api>();
   bool joinedTeam = false;
 
@@ -25,6 +27,20 @@ class TeamListController extends GetxController {
       Utility.closeDialog();
 
       teamList = response.data!;
+    } else {
+      Utility.showSnackbar("${response.message}");
+    }
+    update();
+  }
+
+  void getGroundlist() async {
+    Utility.showLoadingDialog();
+    GroundList response = await api.getGroundlist();
+    if (response.data != null) {
+      Utility.closeDialog();
+
+      groundList = response.data!;
+      print(groundList[0].name);
     } else {
       Utility.showSnackbar("${response.message}");
     }
