@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:vamos/core/models/updateGround.dart';
+
 GroundProfileViewResponse GroundProfileViewResponseFromJson(String str) =>
     GroundProfileViewResponse.fromJson(json.decode(str));
 
@@ -45,6 +47,7 @@ class Data {
     required this.longitude,
     required this.bookingFee,
     required this.photo,
+    this.availableSlots,
   });
 
   String userId;
@@ -55,17 +58,18 @@ class Data {
   String? longitude;
   String bookingFee;
   List<dynamic> photo;
+  List<dynamic>? availableSlots;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-        userId: json["user_id"],
-        id: json["id"],
-        name: json["name"],
-        location: json["location"],
-        latitude: json["latitude"],
-        longitude: json["longitude"],
-        bookingFee: json["booking_fee"],
-        photo: List<dynamic>.from(json["photo"].map((x) => x)),
-      );
+      userId: json["user_id"],
+      id: json["id"],
+      name: json["name"],
+      location: json["location"],
+      latitude: json["latitude"],
+      longitude: json["longitude"],
+      bookingFee: json["booking_fee"],
+      photo: List<dynamic>.from(json["photo"].map((x) => x)),
+      availableSlots: json["available_slots"]);
 
   Map<String, dynamic> toJson() => {
         "user_id": userId,
@@ -76,5 +80,6 @@ class Data {
         "longitude": longitude,
         "booking_fee": bookingFee,
         "photo": List<dynamic>.from(photo.map((x) => x)),
+        "available_slots": availableSlots
       };
 }

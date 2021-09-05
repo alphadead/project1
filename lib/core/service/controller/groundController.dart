@@ -20,13 +20,13 @@ class GroundController extends GetxController {
   DateTime? selectedDate;
   String? bookingDate;
   String? bookingSlotTime;
-  List<Map<String, dynamic>> availableDates = [];
   DateTime? selectedOpeningTime;
   DateTime? selectedClosingTime;
   DateTime? selectedSlotDuration;
   int? selectedSlotPrice;
   Asset? image;
   List<Map<String, dynamic>> bookingTimeslots = [];
+  List<dynamic> availableDates = [];
   late String _bookingFee;
 
   String get eventDetails => _eventDetails;
@@ -122,7 +122,9 @@ class GroundController extends GetxController {
       latitude = response.data?.latitude;
       longitude = response.data?.longitude;
       bookingFees = response.data?.bookingFee;
+      bookingFee = bookingFees!;
       photos = response.data?.photo;
+      availableDates = response.data!.availableSlots!;
       update();
       Utility.closeDialog();
     }
@@ -169,6 +171,11 @@ class GroundController extends GetxController {
       Utility.closeDialog();
       Utility.showSnackbar("${response.message}");
     }
+
+    print(availableDates);
+    print(groundName);
+    print(groundLocation);
+
     update();
   }
 }
