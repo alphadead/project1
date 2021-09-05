@@ -182,7 +182,7 @@ class _ViewGroundScreenState extends State<ViewGroundScreen> {
                   CustomCalender(
                     isVisibleControllerTrue: () {
                       setState(() {
-                        isVisible = true;
+                        isVisible = false;
                       });
                     },
                     isVisibleControllerFalse: () {
@@ -190,6 +190,7 @@ class _ViewGroundScreenState extends State<ViewGroundScreen> {
                         isVisible = false;
                       });
                     },
+                    viewGroundProfile: true,
                   ),
                   Container(
                     margin: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
@@ -273,7 +274,9 @@ class _ViewGroundScreenState extends State<ViewGroundScreen> {
                           "assets/images/pencil.png",
                           scale: 3.5,
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          Get.toNamed("/createGroundScreen", arguments: true);
+                        },
                       ),
                     ],
                   ),
@@ -306,10 +309,12 @@ class CustomCalender extends StatefulWidget {
   const CustomCalender(
       {Key? key,
       required this.isVisibleControllerTrue,
-      required this.isVisibleControllerFalse})
+      required this.isVisibleControllerFalse,
+      this.viewGroundProfile = false})
       : super(key: key);
   final Function isVisibleControllerTrue;
   final Function isVisibleControllerFalse;
+  final bool viewGroundProfile;
   @override
   _CustomCalenderState createState() => _CustomCalenderState();
 }
@@ -318,6 +323,7 @@ class _CustomCalenderState extends State<CustomCalender> {
   String dropdownValue = months[DateTime.now().month - 1];
   int calenderStartingDate = DateTime.now().day;
   int? selectedIndex;
+  late bool isSelected;
   @override
   Widget build(BuildContext context) {
     return GetBuilder<GroundController>(
@@ -402,7 +408,9 @@ class _CustomCalenderState extends State<CustomCalender> {
                         );
                         bool isScheduled =
                             _groundService.checkIsScheduled(thisDate);
-                        bool isSelected = selectedIndex == index;
+                        widget.viewGroundProfile
+                            ? isSelected = true
+                            : isSelected = selectedIndex == index;
                         return Stack(
                           children: [
                             isScheduled
@@ -438,40 +446,48 @@ class _CustomCalenderState extends State<CustomCalender> {
                                 decoration: BoxDecoration(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(8.0)),
-                                    color: isSelected ? KRed : Colors.white,
-                                    border: isSelected
+                                    color: isSelected && isScheduled
+                                        ? KRed
+                                        : Colors.white,
+                                    border: isSelected && isScheduled
                                         ? Border.all(color: Colors.white)
                                         : Border.all(color: Colors.black26)),
                                 child: InkWell(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(8.0)),
-                                  onTap: () {
-                                    setState(() {
-                                      selectedIndex = index;
-                                      isSelected = true;
-                                      isScheduled
-                                          ? widget.isVisibleControllerTrue()
-                                          : widget.isVisibleControllerFalse();
-                                    });
-                                    _groundService.selectedDate = thisDate;
-                                    !isScheduled
-                                        ? showDialog(
-                                            context: context,
-                                            barrierDismissible: false,
-                                            builder: (BuildContext context) {
-                                              return ScheduleCard(
-                                                scheduleDate: DateTime(
-                                                    DateTime.now().year,
-                                                    months.indexOf(
-                                                            dropdownValue) +
-                                                        1,
-                                                    index +
-                                                        calenderStartingDate),
-                                              );
-                                            },
-                                          )
-                                        : print("");
-                                  },
+                                  onTap: widget.viewGroundProfile
+                                      ? () {}
+                                      : () {
+                                          setState(() {
+                                            selectedIndex = index;
+                                            isSelected = true;
+                                            isScheduled
+                                                ? widget
+                                                    .isVisibleControllerTrue()
+                                                : widget
+                                                    .isVisibleControllerFalse();
+                                          });
+                                          _groundService.selectedDate =
+                                              thisDate;
+                                          !isScheduled
+                                              ? showDialog(
+                                                  context: context,
+                                                  barrierDismissible: false,
+                                                  builder:
+                                                      (BuildContext context) {
+                                                    return ScheduleCard(
+                                                      scheduleDate: DateTime(
+                                                          DateTime.now().year,
+                                                          months.indexOf(
+                                                                  dropdownValue) +
+                                                              1,
+                                                          index +
+                                                              calenderStartingDate),
+                                                    );
+                                                  },
+                                                )
+                                              : print("");
+                                        },
                                   child: Padding(
                                     padding: EdgeInsets.all(8),
                                     child: Center(
@@ -489,7 +505,8 @@ class _CustomCalenderState extends State<CustomCalender> {
                                                 .copyWith(
                                                     fontSize: 10,
                                                     fontWeight: FontWeight.bold,
-                                                    color: isSelected
+                                                    color: isSelected &&
+                                                            isScheduled
                                                         ? Colors.white
                                                         : Colors.black),
                                           ),
@@ -501,7 +518,8 @@ class _CustomCalenderState extends State<CustomCalender> {
                                                 .copyWith(
                                                     fontSize: 15,
                                                     fontWeight: FontWeight.bold,
-                                                    color: isSelected
+                                                    color: isSelected &&
+                                                            isScheduled
                                                         ? Colors.white
                                                         : Colors.black),
                                           ),
