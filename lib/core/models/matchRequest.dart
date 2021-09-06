@@ -45,7 +45,7 @@ class Data {
   });
 
   String? teamId;
-  String? matchId;
+  int? matchId;
   String? status;
   int? requestById;
   String? updatedAt;

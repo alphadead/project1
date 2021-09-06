@@ -13,6 +13,7 @@ import 'package:vamos/ui/loginPages/setPass.dart';
 import 'package:vamos/ui/loginPages/signUp.dart';
 import 'package:vamos/ui/loginPages/upcomingMatches.dart';
 import 'package:vamos/ui/pages/inviteScreen.dart';
+import 'package:vamos/ui/pages/inviteTeamMatch.dart';
 import 'package:vamos/ui/pages/joinedTeamListing.dart';
 import 'package:vamos/ui/pages/myTeam.dart';
 import 'package:vamos/ui/pages/playerListScreen.dart';
@@ -186,6 +187,13 @@ abstract class AppPages {
       name: '/walletPage',
       transitionDuration: transitionDuration,
       page: () => WalletPage(),
+      transition: Transition.downToUp,
+      binding: AllBinder(),
+    ),
+    GetPage(
+      name: '/inviteTeamMatch',
+      transitionDuration: transitionDuration,
+      page: () => InviteTeamPage(),
       transition: Transition.downToUp,
       binding: AllBinder(),
     ),

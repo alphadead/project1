@@ -162,8 +162,10 @@ class _AboutMatchState extends State<AboutMatch> {
                             ),
                           ),
                         ),
-                        inputField("Match name", (value) { _groundService.matchName = value;}, validate: (arg) {
-                          if (arg?.isEmpty??false) {
+                        inputField("Match name", (value) {
+                          _groundService.matchName = value;
+                        }, validate: (arg) {
+                          if (arg?.isEmpty ?? false) {
                             return "Match name is required!";
                           } else {
                             return null;
@@ -318,6 +320,7 @@ class _AboutMatchState extends State<AboutMatch> {
                           children: [
                             GestureDetector(
                               onTap: () {
+                                // Get.toNamed("/inviteTeamMatch");
                                 _groundService.createMatch();
                               },
                               child: Container(

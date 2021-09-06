@@ -8,9 +8,9 @@ class MatchController extends GetxController {
   int? matchId;
   String? teamId;
   Api api = locator<Api>();
-  void requestMatch() async {
+  void requestMatch(String teamId) async {
     Utility.showLoadingDialog();
-    RequestMatch response = await api.requestMatch(teamId!, matchId!);
+    RequestMatch response = await api.requestMatch(teamId, matchId!);
     if (response.data != null) {
       update();
       Utility.closeDialog();

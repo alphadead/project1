@@ -168,6 +168,7 @@ class GroundController extends GetxController {
       Get.find<MatchController>().matchId = response.data?.id;
       update();
       Utility.closeDialog();
+      Get.toNamed("/inviteTeamMatch");
     }
   }
 
