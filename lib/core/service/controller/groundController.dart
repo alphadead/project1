@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vamos/core/models/createMatch.dart';
 import 'package:vamos/core/models/groundList.dart';
@@ -9,6 +8,7 @@ import 'package:vamos/core/models/groundProfileView.dart';
 import 'package:vamos/core/models/updateGround.dart';
 import 'package:vamos/core/service/api/api.dart';
 import 'package:vamos/core/service/controller/authController.dart';
+import 'package:vamos/core/service/controller/matchController.dart';
 import 'package:vamos/locator.dart';
 import 'package:vamos/ui/utils/utility.dart';
 
@@ -27,14 +27,13 @@ class GroundController extends GetxController {
   DateTime? selectedClosingTime;
   DateTime? selectedSlotDuration;
   int? selectedSlotPrice;
-  Asset? image;
   List<Map<String, dynamic>> bookingTimeslots = [];
   List<dynamic> _availableDates = [];
   late String _bookingFee = '';
   List<Grounds> groundList = [];
   List<Datum> timeSlots = [];
   List<int> selectedIndices = [];
-
+  Grounds? selectedGround;
   String get eventDetails => _eventDetails;
   set eventDetails(String value) {
     _eventDetails = value;
@@ -147,20 +146,26 @@ class GroundController extends GetxController {
   }
 
   void createMatch() async {
-    Utility.showLoadingDialog();
+    // Utility.showLoadingDialog();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     CreateMatch response = await api.createMatch(
-        prefs.getString("userId")!,
-        matchName!,
-        image!,
-        prefs.getString("ground_id")!,
-        groundName!,
-        groundLocation!,
-        _bookingFee,
-        bookingDate!,
-        bookingTimeslots,
-        bookingSlotTime);
+      prefs.getString("userId")!,
+      matchName!,
+      selectedGround?.id,
+      selectedGround?.name,
+      selectedGround?.location,
+      selectedGround?.bookingFee,
+      bookingDate!,
+      [
+        {
+          "opening_time": timeSlots[selectedIndices.first].slotStartTime,
+          "closing_time": timeSlots[selectedIndices.last].slotEndTime
+        }
+      ],
+      timeSlots[selectedIndices.first].slotTime,
+    );
     if (response.data != null) {
+      Get.find<MatchController>().matchId = response.data?.id;
       update();
       Utility.closeDialog();
     }
@@ -204,15 +209,16 @@ class GroundController extends GetxController {
     update();
   }
 
-  void groundAvailability( String date) async {
+  void groundAvailability(String date) async {
     Utility.showLoadingDialog();
     GroundAvailability response = await api.groundAvailable(groundId!, date);
+    bookingDate = date;
 
     if (response.data != null) {
       timeSlots = response.data!;
       Utility.closeDialog();
     } else {
-      timeSlots=[];
+      timeSlots = [];
       Utility.closeDialog();
       Utility.showSnackbar("${response.message}");
     }
@@ -220,10 +226,11 @@ class GroundController extends GetxController {
   }
 
   void setSelectedGroundInfo(int incomingGroundId) {
-    Grounds ground = groundList.firstWhere((ground) => ground.id == incomingGroundId);
+    Grounds ground =
+        groundList.firstWhere((ground) => ground.id == incomingGroundId);
     groundId = incomingGroundId;
-    bookingFee = ground.bookingFee!;
     availableDates = ground.availableSlots!;
+    selectedGround = ground;
     update();
   }
 
@@ -234,6 +241,7 @@ class GroundController extends GetxController {
         currIndex == list.last + 1 ||
         currIndex == list.first - 1) {
       selectedIndices.add(currIndex);
+      selectedIndices.sort();
       update();
     } else {
       selectedIndices = [currIndex];

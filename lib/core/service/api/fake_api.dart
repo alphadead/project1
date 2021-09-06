@@ -75,13 +75,12 @@ class FakeApi extends Api {
 
   Future<CreateMatch> createMatch(
     String userId,
-    String name,
-    Asset image,
-    String groundId,
-    String groundName,
-    String groundLocation,
-    String bookingFees,
-    String bookingDate,
+    String? name,
+    int? groundId,
+    String? groundName,
+    String? groundLocation,
+    String? bookingFees,
+    String? bookingDate,
     bookingTimeslots,
     bookingSlotTime,
   ) {
@@ -102,7 +101,7 @@ class FakeApi extends Api {
     throw UnimplementedError();
   }
 
-  Future<RequestMatch> requestMatch(String teamId, String matchId) {
+  Future<RequestMatch> requestMatch(String teamId, int matchId) {
     throw UnimplementedError();
   }
 

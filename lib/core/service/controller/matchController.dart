@@ -1,13 +1,11 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vamos/core/models/matchRequest.dart';
 import 'package:vamos/core/service/api/api.dart';
 import 'package:vamos/locator.dart';
 import 'package:vamos/ui/utils/utility.dart';
 
 class MatchController extends GetxController {
-  String? matchId;
+  int? matchId;
   String? teamId;
   Api api = locator<Api>();
   void requestMatch() async {

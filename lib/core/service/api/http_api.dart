@@ -100,13 +100,12 @@ class HTTPApi extends Api {
 
   Future<CreateMatch> createMatch(
     String userId,
-    String name,
-    Asset image,
-    String groundId,
-    String groundName,
-    String groundLocation,
-    String bookingFees,
-    String bookingDate,
+    String? name,
+    int? groundId,
+    String? groundName,
+    String? groundLocation,
+    String? bookingFees,
+    String? bookingDate,
     bookingTimeslots,
     bookingSlotTime,
   ) async {
@@ -148,7 +147,7 @@ class HTTPApi extends Api {
     return JoinTeamResponse.fromJson(response);
   }
 
-  Future<RequestMatch> requestMatch(String teamId, String matchId) async {
+  Future<RequestMatch> requestMatch(String teamId, int matchId) async {
     Map<String, dynamic> body = {
       "team_id": teamId,
       "match_id": matchId,

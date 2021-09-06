@@ -162,13 +162,12 @@ class _AboutMatchState extends State<AboutMatch> {
                             ),
                           ),
                         ),
-                        inputField("Match name", (value) {}, validate: (arg) {
-                          arg = _groundService.matchName;
-                          // if (ValidateFeild().isValidateName(arg)) {
-                          //   return null;
-                          // } else {
-                          //   return "Enter valid name";
-                          // }
+                        inputField("Match name", (value) { _groundService.matchName = value;}, validate: (arg) {
+                          if (arg?.isEmpty??false) {
+                            return "Match name is required!";
+                          } else {
+                            return null;
+                          }
                         }, keyType: TextInputType.name),
                         Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -300,7 +299,8 @@ class _AboutMatchState extends State<AboutMatch> {
                                 color: KLightGrey.withOpacity(0.2),
                                 child: Center(
                                     child: Text(
-                                  _groundService.bookingFee,
+                                  _groundService.selectedGround?.bookingFee ??
+                                      "",
                                   style: themeData()
                                       .textTheme
                                       .bodyText1!
@@ -318,40 +318,14 @@ class _AboutMatchState extends State<AboutMatch> {
                           children: [
                             GestureDetector(
                               onTap: () {
-                                Get.toNamed("/homeScreen");
-                              },
-                              child: Container(
-                                width: 120.h,
-                                height: 40.w,
-                                child: Center(
-                                  child: Text(
-                                    'Invite team',
-                                    style: TextStyle(
-                                      fontSize: 15.sp,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ),
-                                decoration: BoxDecoration(
-                                  color: moneyBox,
-                                  borderRadius: BorderRadius.circular(30),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              width: 10.w,
-                            ),
-                            GestureDetector(
-                              onTap: () {
                                 _groundService.createMatch();
                               },
                               child: Container(
-                                width: 120.h,
+                                padding: EdgeInsets.symmetric(horizontal: 16),
                                 height: 40.w,
                                 child: Center(
                                   child: Text(
-                                    'Save',
+                                    'Create Match & Invite Teams',
                                     style: TextStyle(
                                       fontSize: 15.sp,
                                       fontWeight: FontWeight.bold,

@@ -51,7 +51,7 @@ class MatchData {
   int? userId;
   int? id;
   String? name;
-  String? groundId;
+  int? groundId;
   dynamic groundName;
   dynamic groundLocation;
   String? bookingFee;

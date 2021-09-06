@@ -40,10 +40,12 @@ class Datum {
   Datum({
     this.slotStartTime,
     this.slotEndTime,
+    this.slotTime
   });
 
   String? slotStartTime;
   String? slotEndTime;
+  String? slotTime;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         slotStartTime: json["slot_start_time"]
@@ -53,10 +55,12 @@ class Datum {
             .join(":"),
         slotEndTime:
             json["slot_end_time"].toString().split(":").sublist(0, 2).join(":"),
+        slotTime: json["slot_time"]
       );
 
   Map<String, dynamic> toJson() => {
         "slot_start_time": slotStartTime,
         "slot_end_time": slotEndTime,
+        "slot_time": slotTime
       };
 }

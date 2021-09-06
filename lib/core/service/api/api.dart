@@ -76,19 +76,18 @@ abstract class Api {
   );
   Future<CreateMatch> createMatch(
     String userId,
-    String name,
-    Asset image,
-    String groundId,
-    String groundName,
-    String groundLocation,
-    String bookingFees,
-    String bookingDate,
+    String? name,
+    int? groundId,
+    String? groundName,
+    String? groundLocation,
+    String? bookingFees,
+    String? bookingDate,
     bookingTimeslots,
     bookingSlotTime,
   );
   Future<DeleteMedia> deleteMedias(String mediaId);
   Future<GenericResponse> cancelTeamRequest(teamId);
-  Future<RequestMatch> requestMatch(String teamId, String matchId);
+  Future<RequestMatch> requestMatch(String teamId, int matchId);
   Future<TeamRequestReceivedAsPlayerResponse> requestRecived();
   Future<AcceptRejectRequestResponse> requestAcceptReject(id, status);
   Future<GroundAvailability> groundAvailable(int id, String date);
