@@ -8,9 +8,9 @@ import 'package:vamos/ui/utils/color.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vamos/ui/utils/loginbkground.dart';
 import 'package:vamos/ui/utils/theme.dart';
-import 'package:vamos/widget/inputField.dart';
+import 'package:vamos/widget/formWidgets/inputField.dart';
 import 'package:vamos/widget/localeFloatingActionButtonDebug.dart';
-import 'package:vamos/widget/loginpageStack.dart';
+import 'package:vamos/widget/loginWidgets/loginpageStack.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SetPass extends StatefulWidget {

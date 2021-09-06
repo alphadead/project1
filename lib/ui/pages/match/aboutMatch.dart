@@ -7,13 +7,13 @@ import 'package:vamos/core/service/controller/myTeamController.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vamos/ui/utils/theme.dart';
-import 'package:vamos/widget/buttons.dart';
+import 'package:vamos/widget/formWidgets/buttons.dart';
 import 'package:vamos/widget/customAppBar.dart';
 import 'package:vamos/widget/customBottomNavBar.dart';
 import 'package:vamos/widget/dateSchedulePopup.dart';
 import 'package:vamos/widget/groundWidgets/customCalendar.dart';
 import 'package:vamos/widget/groundWidgets/timeslots.dart';
-import 'package:vamos/widget/inputField.dart';
+import 'package:vamos/widget/formWidgets/inputField.dart';
 
 class AboutMatch extends StatefulWidget {
   const AboutMatch({Key? key}) : super(key: key);

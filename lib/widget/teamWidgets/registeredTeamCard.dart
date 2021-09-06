@@ -5,7 +5,7 @@ import 'package:vamos/core/models/teamListingResponse.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:vamos/widget/teamCardButton.dart';
+import 'package:vamos/widget/teamWidgets/teamCardButton.dart';
 
 Widget registeredTeamContainer(
     {required BuildContext context,

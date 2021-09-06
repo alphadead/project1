@@ -10,10 +10,10 @@ import 'package:vamos/ui/utils/loginbkground.dart';
 import 'package:vamos/ui/utils/theme.dart';
 import 'package:vamos/ui/utils/utility.dart';
 import 'package:vamos/widget/localeFloatingActionButtonDebug.dart';
-import 'package:vamos/widget/loginpageStack.dart';
+import 'package:vamos/widget/loginWidgets/loginpageStack.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:vamos/widget/registeredTeamCard.dart';
+import 'package:vamos/widget/teamWidgets/registeredTeamCard.dart';
 
 class InviteTeamPage extends StatefulWidget {
   const InviteTeamPage({Key? key}) : super(key: key);

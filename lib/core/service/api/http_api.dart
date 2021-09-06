@@ -14,6 +14,7 @@ import 'package:vamos/core/models/groundProfileView.dart';
 import 'package:vamos/core/models/joinTeam.dart';
 import 'package:vamos/core/models/joinedTeamListResponse.dart';
 import 'package:vamos/core/models/loginResponse.dart';
+import 'package:vamos/core/models/match/matchListResponse.dart';
 import 'package:vamos/core/models/match/matchRequest.dart';
 import 'package:vamos/core/models/myTeamInfo.dart';
 import 'package:vamos/core/models/playerListResponse.dart';
@@ -268,5 +269,11 @@ class HTTPApi extends Api {
   Future<ReferalEarning> getEarning() async {
     Map<String, dynamic> response = await getRequest('get-referral-earning');
     return ReferalEarning.fromJson(response);
+  }
+
+  @override
+  Future<MatchListResponse> getMatchList() async {
+      Map<String, dynamic> response = await getRequest('match');
+    return MatchListResponse.fromJson(response);
   }
 }

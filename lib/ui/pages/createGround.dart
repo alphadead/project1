@@ -8,7 +8,7 @@ import 'package:vamos/ui/utils/theme.dart';
 import 'package:vamos/widget/customAppBar.dart';
 import 'package:vamos/widget/dateSchedulePopup.dart';
 import 'package:vamos/widget/groundWidgets/customCalendar.dart';
-import 'package:vamos/widget/inputField.dart';
+import 'package:vamos/widget/formWidgets/inputField.dart';
 
 List schedule = [
   ["Team Invitation", "10:20"],

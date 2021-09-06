@@ -6,7 +6,7 @@ import 'package:vamos/core/service/controller/addsController.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vamos/widget/addsOptionsContainer.dart';
-import 'package:vamos/widget/buttons.dart';
+import 'package:vamos/widget/formWidgets/buttons.dart';
 import 'package:vamos/widget/customAppBar.dart';
 import 'package:vamos/widget/customBottomNavBar.dart';
 
@@ -62,8 +62,8 @@ class HomeScreen extends StatelessWidget {
                         logoContainer(
                           context,
                           'assets/images/ground_logo.webp',
-                          'Create Match',
-                          nextRoute: '/aboutMatch',
+                          'Match',
+                          nextRoute: '/matchListing',
                         ),
                         logoContainer(
                             context,

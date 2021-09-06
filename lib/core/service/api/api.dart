@@ -13,6 +13,7 @@ import 'package:vamos/core/models/groundProfileView.dart';
 import 'package:vamos/core/models/joinTeam.dart';
 import 'package:vamos/core/models/joinedTeamListResponse.dart';
 import 'package:vamos/core/models/loginResponse.dart';
+import 'package:vamos/core/models/match/matchListResponse.dart';
 import 'package:vamos/core/models/match/matchRequest.dart';
 import 'package:vamos/core/models/myTeamInfo.dart';
 import 'package:vamos/core/models/playerListResponse.dart';
@@ -93,5 +94,6 @@ abstract class Api {
   Future<GroundAvailability> groundAvailable(int id, String date);
   Future<MyTeamInfo> myTeamInfo();
   Future<JoinedTeamListResponse> getJoinedTeams();
+  Future<MatchListResponse> getMatchList();
   Future<GenericResponse> cancelPlayerRequest(teamId, userId);
 }

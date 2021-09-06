@@ -14,6 +14,7 @@ import 'package:vamos/core/models/groundProfileView.dart';
 import 'package:vamos/core/models/joinTeam.dart';
 import 'package:vamos/core/models/joinedTeamListResponse.dart';
 import 'package:vamos/core/models/loginResponse.dart';
+import 'package:vamos/core/models/match/matchListResponse.dart';
 import 'package:vamos/core/models/match/matchRequest.dart';
 import 'package:vamos/core/models/myTeamInfo.dart';
 import 'package:vamos/core/models/playerListResponse.dart';
@@ -177,6 +178,12 @@ class FakeApi extends Api {
 
   @override
   Future<ReferalEarning> getEarning() async {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<MatchListResponse> getMatchList() {
+    // TODO: implement getMatchList
     throw UnimplementedError();
   }
 }

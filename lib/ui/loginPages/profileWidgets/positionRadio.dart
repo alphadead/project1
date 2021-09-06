@@ -5,7 +5,7 @@ import 'package:vamos/core/service/controller/authController.dart';
 import 'package:vamos/core/service/controller/profileController.dart';
 import 'package:vamos/widget/profileContainer.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:vamos/widget/radioWidget.dart';
+import 'package:vamos/widget/formWidgets/radioWidget.dart';
 
 class PositionRadioList extends StatelessWidget{
   @override

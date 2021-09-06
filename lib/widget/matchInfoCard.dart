@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/theme.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:vamos/widget/teamInfoCircularCard.dart';
+import 'package:vamos/widget/teamWidgets/teamInfoCircularCard.dart';
 
 class MatchInfoCard extends StatelessWidget {
   const MatchInfoCard({Key? key}) : super(key: key);

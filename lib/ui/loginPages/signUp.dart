@@ -7,14 +7,14 @@ import 'package:vamos/core/service/controller/authController.dart';
 import 'package:vamos/ui/loginPages/register.dart';
 import 'package:vamos/ui/loginPages/setPass.dart';
 import 'package:vamos/widget/localeFloatingActionButtonDebug.dart';
-import 'package:vamos/widget/loginpageIndicator.dart';
-import 'package:vamos/widget/loginpageStack.dart';
+import 'package:vamos/widget/loginWidgets/loginpageIndicator.dart';
+import 'package:vamos/widget/loginWidgets/loginpageStack.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/constants.dart';
 import 'package:vamos/ui/utils/loginbkground.dart';
 import 'package:vamos/ui/utils/theme.dart';
 import 'package:vamos/ui/utils/validator.dart';
-import 'package:vamos/widget/inputField.dart';
+import 'package:vamos/widget/formWidgets/inputField.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SignUpPage extends StatelessWidget {
