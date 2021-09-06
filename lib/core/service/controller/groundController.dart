@@ -156,6 +156,8 @@ class GroundController extends GetxController {
   void createMatch() async {
     // Utility.showLoadingDialog();
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    print(selectedGround?.location);
+    print(selectedGround?.name);
     CreateMatch response = await api.createMatch(
       prefs.getString("userId")!,
       matchName!,
@@ -172,6 +174,7 @@ class GroundController extends GetxController {
       ],
       timeSlots[selectedIndices.first].slotTime,
     );
+    print(response.data);
     if (response.data != null) {
       Get.find<MatchController>().matchId = response.data?.id;
       update();

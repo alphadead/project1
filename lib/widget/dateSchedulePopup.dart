@@ -1,3 +1,4 @@
+import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -6,6 +7,7 @@ import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/loginbkground.dart';
 import 'package:vamos/ui/utils/theme.dart';
 import 'package:vamos/widget/formWidgets/inputField.dart';
+import 'package:vamos/widget/groundWidgets/customCalendar.dart';
 
 List<String> months = [
   'January',
@@ -22,23 +24,32 @@ List<String> months = [
   'December'
 ];
 
-class ScheduleCard extends StatelessWidget {
+class ScheduleCard extends StatefulWidget {
   ScheduleCard({Key? key, required this.groundName, required this.scheduleDate})
       : super(key: key);
   final DateTime scheduleDate;
   final bool groundName;
+
+  @override
+  _ScheduleCardState createState() => _ScheduleCardState();
+}
+
+class _ScheduleCardState extends State<ScheduleCard> {
+  var date;
+
   @override
   Widget build(BuildContext context) {
+    bool isVisible = false;
     return GetBuilder<GroundController>(builder: (_groundService) {
-      String dateString = "${scheduleDate.day}" +
-          (scheduleDate.day == 1
+      String dateString = "${widget.scheduleDate.day}" +
+          (widget.scheduleDate.day == 1
               ? "st"
-              : scheduleDate.day == 2
+              : widget.scheduleDate.day == 2
                   ? "nd"
-                  : scheduleDate.day == 3
+                  : widget.scheduleDate.day == 3
                       ? "rd"
                       : "th") +
-          " ${months[scheduleDate.month - 1].substring(0, 3)} ${scheduleDate.year}";
+          " ${months[widget.scheduleDate.month - 1].substring(0, 3)} ${widget.scheduleDate.year}";
       return AlertDialog(
         contentPadding: EdgeInsets.zero,
         content: Card(
@@ -62,27 +73,53 @@ class ScheduleCard extends StatelessWidget {
                         fontWeight: FontWeight.w600,
                         fontSize: 18.sp),
                   ),
-                  groundName
-                      ? inputField("Ground Name", (value) {
-                          _groundService.groundName = value;
-                        }, validate: (arg) {}, keyType: TextInputType.name)
+                  widget.groundName
+                      ? inputField("Ground name", (value) {
+                          _groundService.selectedGround?.name = value;
+                        }, validate: (arg) {
+                          if (arg?.isEmpty ?? false) {
+                            return "Ground name is required!";
+                          } else {
+                            return null;
+                          }
+                        }, keyType: TextInputType.name)
+                      : SizedBox(),
+                  widget.groundName
+                      ? inputField("Ground location", (value) {
+                          _groundService.selectedGround?.location = value;
+                        }, validate: (arg) {
+                          if (arg?.isEmpty ?? false) {
+                            return "Ground location is required!";
+                          } else {
+                            return null;
+                          }
+                        }, keyType: TextInputType.name)
                       : SizedBox(),
                   Container(
                     margin: EdgeInsets.only(top: 20.sp),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          "Selected date",
-                          style: themeData()
-                              .textTheme
-                              .bodyText1!
-                              .copyWith(color: KLightGrey),
+                        Column(
+                          children: [
+                            Text(
+                              widget.groundName
+                                  ? "Select date"
+                                  : "Selected date",
+                              style: themeData()
+                                  .textTheme
+                                  .bodyText1!
+                                  .copyWith(color: KLightGrey),
+                            ),
+                          ],
                         ),
-                        Text(
-                          dateString,
-                          style: themeData().textTheme.bodyText1!.copyWith(
-                              color: KRed, fontWeight: FontWeight.bold),
+                        GestureDetector(
+                          onTap: () {},
+                          child: Text(
+                            dateString,
+                            style: themeData().textTheme.bodyText1!.copyWith(
+                                color: KRed, fontWeight: FontWeight.bold),
+                          ),
                         )
                       ],
                     ),
@@ -102,42 +139,66 @@ class ScheduleCard extends StatelessWidget {
                       isDate: true,
                       defaultDateValue: DateTime(DateTime.now().year)
                           .add(Duration(minutes: 30))),
-                  Container(
-                    margin: EdgeInsets.only(top: 20.sp),
-                    child: Row(
-                      children: [
-                        Text(
-                          "Event details",
-                          style: themeData()
-                              .textTheme
-                              .bodyText1!
-                              .copyWith(color: KLightGrey),
+                  widget.groundName
+                      ? Container(
+                          margin: EdgeInsets.only(bottom: 15.h, top: 10.h),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Booking Fees",
+                                style: themeData()
+                                    .textTheme
+                                    .bodyText1!
+                                    .copyWith(color: KLightGrey),
+                              ),
+                              SizedBox(
+                                width: 10.w,
+                              ),
+                              Container(
+                                height: 35.h,
+                                width: 100.w,
+                                color: KLightGrey.withOpacity(0.2),
+                                child: Center(
+                                    child: Text(
+                                  _groundService.selectedGround?.bookingFee ??
+                                      "",
+                                  style: themeData()
+                                      .textTheme
+                                      .bodyText1!
+                                      .copyWith(fontWeight: FontWeight.bold),
+                                )),
+                              ),
+                            ],
+                          ),
+                        )
+                      : SizedBox(),
+                  widget.groundName
+                      ? SizedBox()
+                      : TextFormField(
+                          minLines: 3,
+                          maxLines: 20,
+                          onChanged: (value) {
+                            _groundService.eventDetails = value;
+                          },
+                          decoration: InputDecoration(
+                            alignLabelWithHint: true,
+                            floatingLabelBehavior: FloatingLabelBehavior.never,
+                            labelText: "Text Goes Here",
+                            labelStyle: themeData()
+                                .textTheme
+                                .bodyText1!
+                                .copyWith(color: KLightGrey),
+                            enabledBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: KLightGrey, width: 1.0),
+                                borderRadius: BorderRadius.zero),
+                            focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: KLightGrey, width: 1.0),
+                                borderRadius: BorderRadius.zero),
+                          ),
                         ),
-                      ],
-                    ),
-                  ),
-                  TextFormField(
-                    minLines: 3,
-                    maxLines: 20,
-                    onChanged: (value) {
-                      _groundService.eventDetails = value;
-                    },
-                    decoration: InputDecoration(
-                      alignLabelWithHint: true,
-                      floatingLabelBehavior: FloatingLabelBehavior.never,
-                      labelText: "Text Goes Here",
-                      labelStyle: themeData()
-                          .textTheme
-                          .bodyText1!
-                          .copyWith(color: KLightGrey),
-                      enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: KLightGrey, width: 1.0),
-                          borderRadius: BorderRadius.zero),
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: KLightGrey, width: 1.0),
-                          borderRadius: BorderRadius.zero),
-                    ),
-                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -163,8 +224,11 @@ class ScheduleCard extends StatelessWidget {
                         child: primaryActionButton(
                           context: context,
                           onPressed: () {
-                            _groundService.updateSchedule();
+                            widget.groundName
+                                ? _groundService.createMatch()
+                                : _groundService.updateSchedule();
                             _groundService.clearSchedule();
+
                             Get.back();
                           },
                           text: "Save",
