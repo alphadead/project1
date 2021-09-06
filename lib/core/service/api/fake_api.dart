@@ -4,13 +4,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:vamos/core/models/acceptRejectResponse.dart';
 import 'package:vamos/core/models/completeStepResponse.dart';
+import 'package:vamos/core/models/createMatch.dart';
 import 'package:vamos/core/models/createTeamResponse.dart';
 import 'package:vamos/core/models/deleteMedia.dart';
 import 'package:vamos/core/models/genericResponse.dart';
+import 'package:vamos/core/models/groundAvailability.dart';
+import 'package:vamos/core/models/groundList.dart';
 import 'package:vamos/core/models/groundProfileView.dart';
 import 'package:vamos/core/models/joinTeam.dart';
 import 'package:vamos/core/models/joinedTeamListResponse.dart';
 import 'package:vamos/core/models/loginResponse.dart';
+import 'package:vamos/core/models/matchRequest.dart';
 import 'package:vamos/core/models/myTeamInfo.dart';
 import 'package:vamos/core/models/playerListResponse.dart';
 import 'package:vamos/core/models/playerRequestResponse.dart';
@@ -69,13 +73,39 @@ class FakeApi extends Api {
     throw UnimplementedError();
   }
 
+  Future<CreateMatch> createMatch(
+    String userId,
+    String? name,
+    int? groundId,
+    String? groundName,
+    String? groundLocation,
+    String? bookingFees,
+    String? bookingDate,
+    bookingTimeslots,
+    bookingSlotTime,
+  ) {
+    throw UnimplementedError();
+  }
+
   Future<TeamListResponse> getteamlist() {
+    throw UnimplementedError();
+  }
+
+  Future<GroundList> getGroundlist() {
     throw UnimplementedError();
   }
 
   Future<JoinTeamResponse> joinTeam(
     int teamId,
   ) {
+    throw UnimplementedError();
+  }
+
+  Future<RequestMatch> requestMatch(String teamId, int matchId) {
+    throw UnimplementedError();
+  }
+
+  Future<GroundAvailability> groundAvailable(int id, String date) {
     throw UnimplementedError();
   }
 

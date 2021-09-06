@@ -1,35 +1,58 @@
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vamos/core/models/createMatch.dart';
+import 'package:vamos/core/models/groundList.dart';
+import 'package:vamos/core/models/groundAvailability.dart';
 import 'package:vamos/core/models/groundProfileView.dart';
 import 'package:vamos/core/models/updateGround.dart';
 import 'package:vamos/core/service/api/api.dart';
 import 'package:vamos/core/service/controller/authController.dart';
+import 'package:vamos/core/service/controller/matchController.dart';
 import 'package:vamos/locator.dart';
 import 'package:vamos/ui/utils/utility.dart';
 
 class GroundController extends GetxController {
   Api api = locator<Api>();
   String? groundName;
+  String? matchName;
   String _eventDetails = '';
   String? groundLocation;
   int currentDateIndex = -1;
+  int? _groundId;
   DateTime? selectedDate;
+  String? bookingDate;
+  String? bookingSlotTime;
   DateTime? selectedOpeningTime;
   DateTime? selectedClosingTime;
   DateTime? selectedSlotDuration;
   int? selectedSlotPrice;
-  List<dynamic> availableDates = [];
-  late String _bookingFee;
-
+  List<Map<String, dynamic>> bookingTimeslots = [];
+  List<dynamic> _availableDates = [];
+  late String _bookingFee = '';
+  List<Grounds> groundList = [];
+  List<Datum> timeSlots = [];
+  List<int> selectedIndices = [];
+  Grounds? selectedGround;
   String get eventDetails => _eventDetails;
   set eventDetails(String value) {
     _eventDetails = value;
     update();
   }
 
+  List<dynamic> get availableDates => _availableDates;
+  set availableDates(List<dynamic> value) {
+    _availableDates = value;
+    update();
+  }
+
+  int? get groundId => _groundId;
+  set groundId(int? value) {
+    _groundId = value;
+    update();
+  }
+
   void updateSchedule() {
-    print("UPDATE SCHEDULE");
     deleteSchedule();
     Map<String, dynamic> newValue = {
       "date": DateFormat('yyyy-MM-dd').format(selectedDate!),
@@ -41,7 +64,6 @@ class GroundController extends GetxController {
       },
     };
     availableDates.add(newValue);
-    print(availableDates);
   }
 
   void deleteSchedule() {
@@ -110,6 +132,14 @@ class GroundController extends GetxController {
     GroundProfileViewResponse response =
         await api.getGroundProfile(prefs.getString("ground_id"));
     if (response.data != null) {
+      groundId = response.data?.id;
+      selectedGround = Grounds(
+          id: response.data?.id,
+          name: response.data?.name,
+          location: response.data?.location,
+          latitude: response.data?.latitude,
+          longitude: response.data?.longitude,
+          bookingFee: response.data?.bookingFee);
       groundName = response.data?.name;
       groundLocation = response.data?.location;
       latitude = response.data?.latitude;
@@ -120,6 +150,33 @@ class GroundController extends GetxController {
       availableDates = response.data!.availableSlots!;
       update();
       Utility.closeDialog();
+    }
+  }
+
+  void createMatch() async {
+    // Utility.showLoadingDialog();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    CreateMatch response = await api.createMatch(
+      prefs.getString("userId")!,
+      matchName!,
+      selectedGround?.id,
+      selectedGround?.name,
+      selectedGround?.location,
+      selectedGround?.bookingFee,
+      bookingDate!,
+      [
+        {
+          "opening_time": timeSlots[selectedIndices.first].slotStartTime,
+          "closing_time": timeSlots[selectedIndices.last].slotEndTime
+        }
+      ],
+      timeSlots[selectedIndices.first].slotTime,
+    );
+    if (response.data != null) {
+      Get.find<MatchController>().matchId = response.data?.id;
+      update();
+      Utility.closeDialog();
+      Get.toNamed("/inviteTeamMatch");
     }
   }
 
@@ -144,10 +201,62 @@ class GroundController extends GetxController {
       Utility.showSnackbar("${response.message}");
     }
 
-    print(availableDates);
-    print(groundName);
-    print(groundLocation);
-
     update();
+  }
+
+  void getGroundlist() async {
+    Utility.showLoadingDialog();
+    GroundList response = await api.getGroundlist();
+    if (response.data != null) {
+      Utility.closeDialog();
+
+      groundList = response.data!;
+    } else {
+      Utility.closeDialog();
+      Utility.showSnackbar("${response.message}");
+    }
+    update();
+  }
+
+  void groundAvailability(String date) async {
+    Utility.showLoadingDialog();
+    GroundAvailability response = await api.groundAvailable(groundId!, date);
+    bookingDate = date;
+
+    if (response.data != null) {
+      timeSlots = response.data!;
+      Utility.closeDialog();
+    } else {
+      timeSlots = [];
+      Utility.closeDialog();
+      Utility.showSnackbar("${response.message}");
+    }
+    update();
+  }
+
+  void setSelectedGroundInfo(int incomingGroundId) {
+    Grounds ground =
+        groundList.firstWhere((ground) => ground.id == incomingGroundId);
+    groundId = incomingGroundId;
+    availableDates = ground.availableSlots!;
+    selectedGround = ground;
+    timeSlots = [];
+    selectedIndices = [];
+    update();
+  }
+
+  void selectSlot(int currIndex) {
+    var list = selectedIndices;
+    list.sort();
+    if (list.isEmpty ||
+        currIndex == list.last + 1 ||
+        currIndex == list.first - 1) {
+      selectedIndices.add(currIndex);
+      selectedIndices.sort();
+      update();
+    } else {
+      selectedIndices = [currIndex];
+      update();
+    }
   }
 }

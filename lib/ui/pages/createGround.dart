@@ -1,18 +1,13 @@
-import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:multi_image_picker2/multi_image_picker2.dart';
-import 'package:vamos/core/service/controller/authController.dart';
 import 'package:vamos/core/service/controller/groundController.dart';
-import 'package:vamos/ui/pages/viewGround.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/loginbkground.dart';
 import 'package:vamos/ui/utils/theme.dart';
-import 'package:vamos/widget/buttons.dart';
 import 'package:vamos/widget/customAppBar.dart';
-import 'package:vamos/widget/customBottomNavBar.dart';
 import 'package:vamos/widget/dateSchedulePopup.dart';
+import 'package:vamos/widget/groundWidgets/customCalendar.dart';
 import 'package:vamos/widget/inputField.dart';
 
 List schedule = [
@@ -182,6 +177,7 @@ class _CreateGroundState extends State<CreateGround> {
                                     barrierDismissible: false,
                                     builder: (BuildContext context) {
                                       return ScheduleCard(
+                                        groundName: false,
                                         scheduleDate:
                                             _groundService.selectedDate!,
                                       );

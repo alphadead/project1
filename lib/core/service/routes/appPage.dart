@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:vamos/core/service/Binder/authBinder.dart';
 import 'package:vamos/splashScreen.dart';
 import 'package:vamos/testScreen.dart';
+import 'package:vamos/ui/pages/aboutMatch.dart';
 import 'package:vamos/ui/pages/createGround.dart';
 import 'package:vamos/ui/pages/homeScreen.dart';
 import 'package:vamos/ui/loginPages/createTeam.dart';
@@ -12,6 +13,7 @@ import 'package:vamos/ui/loginPages/setPass.dart';
 import 'package:vamos/ui/loginPages/signUp.dart';
 import 'package:vamos/ui/loginPages/upcomingMatches.dart';
 import 'package:vamos/ui/pages/inviteScreen.dart';
+import 'package:vamos/ui/pages/inviteTeamMatch.dart';
 import 'package:vamos/ui/pages/joinedTeamListing.dart';
 import 'package:vamos/ui/pages/myTeam.dart';
 import 'package:vamos/ui/pages/playerListScreen.dart';
@@ -83,6 +85,13 @@ abstract class AppPages {
       name: '/profileScreen',
       transitionDuration: transitionDuration,
       page: () => ProfilePage(),
+      binding: AllBinder(),
+    ),
+    GetPage(
+      name: '/aboutMatch',
+      transitionDuration: transitionDuration,
+      page: () => AboutMatch(),
+      transition: Transition.downToUp,
       binding: AllBinder(),
     ),
     GetPage(
@@ -178,6 +187,13 @@ abstract class AppPages {
       name: '/walletPage',
       transitionDuration: transitionDuration,
       page: () => WalletPage(),
+      transition: Transition.downToUp,
+      binding: AllBinder(),
+    ),
+    GetPage(
+      name: '/inviteTeamMatch',
+      transitionDuration: transitionDuration,
+      page: () => InviteTeamPage(),
       transition: Transition.downToUp,
       binding: AllBinder(),
     ),

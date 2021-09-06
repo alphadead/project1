@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vamos/core/models/acceptRejectResponse.dart';
 import 'package:vamos/core/models/genericResponse.dart';
@@ -30,6 +29,8 @@ class TeamListController extends GetxController {
     }
     update();
   }
+
+
 
   void joinTeam(teamId) async {
     JoinTeamResponse response = await api.joinTeam(teamId);

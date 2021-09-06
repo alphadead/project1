@@ -3,13 +3,17 @@ import 'dart:io';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:vamos/core/models/acceptRejectResponse.dart';
 import 'package:vamos/core/models/completeStepResponse.dart';
+import 'package:vamos/core/models/createMatch.dart';
 import 'package:vamos/core/models/createTeamResponse.dart';
 import 'package:vamos/core/models/deleteMedia.dart';
 import 'package:vamos/core/models/genericResponse.dart';
+import 'package:vamos/core/models/groundAvailability.dart';
+import 'package:vamos/core/models/groundList.dart';
 import 'package:vamos/core/models/groundProfileView.dart';
 import 'package:vamos/core/models/joinTeam.dart';
 import 'package:vamos/core/models/joinedTeamListResponse.dart';
 import 'package:vamos/core/models/loginResponse.dart';
+import 'package:vamos/core/models/matchRequest.dart';
 import 'package:vamos/core/models/myTeamInfo.dart';
 import 'package:vamos/core/models/playerListResponse.dart';
 import 'package:vamos/core/models/playerRequestResponse.dart';
@@ -61,6 +65,7 @@ abstract class Api {
   );
   Future<VerifyOtpResponse> verifyOtp(userId, mobileNo, otp);
   Future<PlayerListResponse> getPlayerlist();
+  Future<GroundList> getGroundlist();
   Future<UpdateGround> updateGround(
       userId, name, location, fees, availableSlots);
   Future<ReferalEarning> getEarning();
@@ -69,10 +74,23 @@ abstract class Api {
     userId,
     int? teamId,
   );
+  Future<CreateMatch> createMatch(
+    String userId,
+    String? name,
+    int? groundId,
+    String? groundName,
+    String? groundLocation,
+    String? bookingFees,
+    String? bookingDate,
+    bookingTimeslots,
+    bookingSlotTime,
+  );
   Future<DeleteMedia> deleteMedias(String mediaId);
   Future<GenericResponse> cancelTeamRequest(teamId);
+  Future<RequestMatch> requestMatch(String teamId, int matchId);
   Future<TeamRequestReceivedAsPlayerResponse> requestRecived();
   Future<AcceptRejectRequestResponse> requestAcceptReject(id, status);
+  Future<GroundAvailability> groundAvailable(int id, String date);
   Future<MyTeamInfo> myTeamInfo();
   Future<JoinedTeamListResponse> getJoinedTeams();
   Future<GenericResponse> cancelPlayerRequest(teamId, userId);

@@ -76,7 +76,6 @@ class ProfileController extends GetxController {
 
     ReferalEarning response = await api.getEarning();
 
-    print(response.toString());
     if (response.data != null) {
       referals = response.data;
       update();

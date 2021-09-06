@@ -5,6 +5,7 @@ import 'package:vamos/core/service/controller/groundController.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/loginbkground.dart';
 import 'package:vamos/ui/utils/theme.dart';
+import 'package:vamos/widget/inputField.dart';
 
 List<String> months = [
   'January',
@@ -22,8 +23,10 @@ List<String> months = [
 ];
 
 class ScheduleCard extends StatelessWidget {
-  ScheduleCard({Key? key, required this.scheduleDate}) : super(key: key);
+  ScheduleCard({Key? key, required this.groundName, required this.scheduleDate})
+      : super(key: key);
   final DateTime scheduleDate;
+  final bool groundName;
   @override
   Widget build(BuildContext context) {
     return GetBuilder<GroundController>(builder: (_groundService) {
@@ -59,6 +62,11 @@ class ScheduleCard extends StatelessWidget {
                         fontWeight: FontWeight.w600,
                         fontSize: 18.sp),
                   ),
+                  groundName
+                      ? inputField("Ground Name", (value) {
+                          _groundService.groundName = value;
+                        }, validate: (arg) {}, keyType: TextInputType.name)
+                      : SizedBox(),
                   Container(
                     margin: EdgeInsets.only(top: 20.sp),
                     child: Row(
@@ -211,8 +219,6 @@ class _CalenderScheduleRowState extends State<CalenderScheduleRow> {
     if (widget.title == "Opening Time") {
       WidgetsBinding.instance!.addPostFrameCallback((_) {
         Get.find<GroundController>().setSelectedOpeningTime(_value);
-        print("NEW CONTROLLER VALUE:::::::::::::");
-        print(Get.find<GroundController>().selectedOpeningTime);
       });
     }
     if (widget.title == "Closing Time") {
@@ -243,7 +249,7 @@ class _CalenderScheduleRowState extends State<CalenderScheduleRow> {
             Ink(
               decoration: BoxDecoration(
                   color: KRed, borderRadius: BorderRadius.circular(15)),
-              width: 80.w,
+              width: 90.w,
               height: 30.h,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

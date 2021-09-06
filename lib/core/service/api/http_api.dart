@@ -4,13 +4,17 @@ import 'package:http/http.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:vamos/core/models/acceptRejectResponse.dart';
 import 'package:vamos/core/models/completeStepResponse.dart';
+import 'package:vamos/core/models/createMatch.dart';
 import 'package:vamos/core/models/createTeamResponse.dart';
 import 'package:vamos/core/models/deleteMedia.dart';
 import 'package:vamos/core/models/genericResponse.dart';
+import 'package:vamos/core/models/groundAvailability.dart';
+import 'package:vamos/core/models/groundList.dart';
 import 'package:vamos/core/models/groundProfileView.dart';
 import 'package:vamos/core/models/joinTeam.dart';
 import 'package:vamos/core/models/joinedTeamListResponse.dart';
 import 'package:vamos/core/models/loginResponse.dart';
+import 'package:vamos/core/models/matchRequest.dart';
 import 'package:vamos/core/models/myTeamInfo.dart';
 import 'package:vamos/core/models/playerListResponse.dart';
 import 'package:vamos/core/models/playerRequestResponse.dart';
@@ -94,9 +98,39 @@ class HTTPApi extends Api {
     return ProfileResponse.fromJson(reponse);
   }
 
+  Future<CreateMatch> createMatch(
+    String userId,
+    String? name,
+    int? groundId,
+    String? groundName,
+    String? groundLocation,
+    String? bookingFees,
+    String? bookingDate,
+    bookingTimeslots,
+    bookingSlotTime,
+  ) async {
+    Map<String, dynamic> body = {
+      "name": name,
+      "ground_name": groundName,
+      "ground_location": groundLocation,
+      "booking_fee": bookingFees,
+      "booking_date": bookingDate,
+      "ground_id": groundId,
+      "booking_slot_time": bookingSlotTime,
+      "booking_time_slots": bookingTimeslots
+    };
+    Map<String, dynamic> response = await postRequest("match/store", body);
+    return CreateMatch.fromJson(response);
+  }
+
   Future<TeamListResponse> getteamlist() async {
     Map<String, dynamic> response = await getRequest('team');
     return TeamListResponse.fromJson(response);
+  }
+
+  Future<GroundList> getGroundlist() async {
+    Map<String, dynamic> response = await getRequest('ground-list?offset=0');
+    return GroundList.fromJson(response);
   }
 
   Future<ProfileDataResponse> getProfile(String userId) async {
@@ -111,6 +145,16 @@ class HTTPApi extends Api {
     };
     Map<String, dynamic> response = await postRequest('team/request', body);
     return JoinTeamResponse.fromJson(response);
+  }
+
+  Future<RequestMatch> requestMatch(String teamId, int matchId) async {
+    Map<String, dynamic> body = {
+      "team_id": teamId,
+      "match_id": matchId,
+    };
+    Map<String, dynamic> response =
+        await postRequest('team/match-request', body);
+    return RequestMatch.fromJson(response);
   }
 
   Future<DeleteMedia> deleteMedias(String mediaId) async {
@@ -141,8 +185,6 @@ class HTTPApi extends Api {
       userId, name, location, fees, availableSlots) async {
     Map<String, dynamic> response = await postGroundData(
         "ground/update", userId, name, location, fees, availableSlots);
-    print("klsflsjfl");
-    print(response.runtimeType);
     return UpdateGround.fromJson(response);
   }
 
@@ -188,6 +230,12 @@ class HTTPApi extends Api {
   Future<TeamRequestReceivedAsPlayerResponse> requestRecived() async {
     Map<String, dynamic> response = await getRequest('team/request-received');
     return TeamRequestReceivedAsPlayerResponse.fromJson(response);
+  }
+
+  Future<GroundAvailability> groundAvailable(int id, String date) async {
+    Map<String, dynamic> response =
+        await getRequest('ground-availability?id=$id&date=$date');
+    return GroundAvailability.fromJson(response);
   }
 
   Future<AcceptRejectRequestResponse> requestAcceptReject(id, status) async {
