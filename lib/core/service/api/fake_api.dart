@@ -16,6 +16,8 @@ import 'package:vamos/core/models/joinedTeamListResponse.dart';
 import 'package:vamos/core/models/loginResponse.dart';
 import 'package:vamos/core/models/match/matchListResponse.dart';
 import 'package:vamos/core/models/match/matchRequest.dart';
+import 'package:vamos/core/models/match/matchRequestRecvdByTeam.dart';
+import 'package:vamos/core/models/match/teamRequestSentByMatch.dart';
 import 'package:vamos/core/models/myTeamInfo.dart';
 import 'package:vamos/core/models/playerListResponse.dart';
 import 'package:vamos/core/models/playerRequestResponse.dart';
@@ -184,6 +186,18 @@ class FakeApi extends Api {
   @override
   Future<MatchListResponse> getMatchList() {
     // TODO: implement getMatchList
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<MatchRequestReceivedByTeamResponse> getIncomingMatchRequests(int teamId) {
+    // TODO: implement getIncomingMatchRequests
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<TeamRequestSentByMatch> getTeamRequestsSentByMatch(int? matchId) {
+    // TODO: implement getTeamRequestsSentByMatch
     throw UnimplementedError();
   }
 }

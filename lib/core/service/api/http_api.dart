@@ -16,6 +16,8 @@ import 'package:vamos/core/models/joinedTeamListResponse.dart';
 import 'package:vamos/core/models/loginResponse.dart';
 import 'package:vamos/core/models/match/matchListResponse.dart';
 import 'package:vamos/core/models/match/matchRequest.dart';
+import 'package:vamos/core/models/match/matchRequestRecvdByTeam.dart';
+import 'package:vamos/core/models/match/teamRequestSentByMatch.dart';
 import 'package:vamos/core/models/myTeamInfo.dart';
 import 'package:vamos/core/models/playerListResponse.dart';
 import 'package:vamos/core/models/playerRequestResponse.dart';
@@ -275,5 +277,17 @@ class HTTPApi extends Api {
   Future<MatchListResponse> getMatchList() async {
       Map<String, dynamic> response = await getRequest('match');
     return MatchListResponse.fromJson(response);
+  }
+
+  @override
+  Future<MatchRequestReceivedByTeamResponse> getIncomingMatchRequests(int teamId) async {
+      Map<String, dynamic> response = await getRequest('team/match-request-received?team_id=$teamId');
+    return MatchRequestReceivedByTeamResponse.fromJson(response);
+  }
+
+  @override
+  Future<TeamRequestSentByMatch> getTeamRequestsSentByMatch(int? matchId) async {
+      Map<String, dynamic> response = await getRequest('match/team-request?match_id=$matchId');
+    return TeamRequestSentByMatch.fromJson(response);
   }
 }

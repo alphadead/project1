@@ -21,7 +21,7 @@ class MatchRequestReceivedByTeamResponse {
 
   String? status;
   String? message;
-  List<Datum>? data;
+  List<MatchRequest>? data;
 
   factory MatchRequestReceivedByTeamResponse.fromJson(
           Map<String, dynamic> json) =>
@@ -30,7 +30,7 @@ class MatchRequestReceivedByTeamResponse {
         message: json["message"] == null ? null : json["message"],
         data: json["data"] == null
             ? null
-            : List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+            : List<MatchRequest>.from(json["data"].map((x) => MatchRequest.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -42,8 +42,8 @@ class MatchRequestReceivedByTeamResponse {
       };
 }
 
-class Datum {
-  Datum({
+class MatchRequest {
+  MatchRequest({
     this.id,
     this.matchId,
     this.matchName,
@@ -55,7 +55,7 @@ class Datum {
   String? matchName;
   String? status;
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory MatchRequest.fromJson(Map<String, dynamic> json) => MatchRequest(
         id: json["id"] == null ? null : json["id"],
         matchId: json["match_id"] == null ? null : json["match_id"],
         matchName: json["match_name"] == null ? null : json["match_name"],

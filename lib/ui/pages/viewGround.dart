@@ -223,32 +223,33 @@ class _ViewGroundScreenState extends State<ViewGroundScreen> {
                           )
                         : SizedBox(),
                   ),
-                  Container(
-                    margin: EdgeInsets.only(bottom: 15.h),
-                    child: Row(
-                      children: [
-                        Text(
-                          "Schedule",
-                          style: themeData().textTheme.bodyText1!.copyWith(
-                                color: profileContainerColor,
-                                fontSize: 15.sp,
-                                fontWeight: FontWeight.bold,
-                              ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  ListView.builder(
-                    itemCount: schedule.length,
-                    physics: NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return GroundScheduleWidget(
-                        text: schedule[index][0],
-                        time: schedule[index][1],
-                      );
-                    },
-                  ),
+                  // Container(
+                  //   margin: EdgeInsets.only(bottom: 15.h),
+                  //   child: Row(
+                  //     children: [
+                  //       Text(
+                  //         "Schedule",
+                  //         style: themeData().textTheme.bodyText1!.copyWith(
+                  //               color: profileContainerColor,
+                  //               fontSize: 15.sp,
+                  //               fontWeight: FontWeight.bold,
+                  //             ),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
+                  // ListView.builder(
+                  //   itemCount: schedule.length,
+                  //   physics: NeverScrollableScrollPhysics(),
+                  //   shrinkWrap: true,
+                  //   itemBuilder: (context, index) {
+                  //     return GroundScheduleWidget(
+                  //       text: schedule[index][0],
+                  //       time: schedule[index][1],
+                  //     );
+                  //   },
+                  // ),
+                 
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [

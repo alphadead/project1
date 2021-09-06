@@ -13,12 +13,15 @@ Widget registeredTeamContainer(
     PlayerData? player,
     required String buttonText,
     required VoidCallback onPressed,
-    bool? pressed}) {
+    bool? pressed,
+    String? name}) {
   String fullName;
-  if (team == null) {
-    fullName = player!.firstName.toString() + " " + player.lastName.toString();
-  } else {
+  if (player != null) {
+    fullName = player.firstName.toString() + " " + player.lastName.toString();
+  } else if (team != null) {
     fullName = team.name.toString();
+  } else {
+    fullName = name ?? "";
   }
   return Container(
     margin: EdgeInsets.only(bottom: 12),

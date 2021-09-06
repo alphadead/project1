@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:vamos/core/models/match/matchRequestRecvdByTeam.dart';
 import 'package:vamos/core/service/controller/matchController.dart';
 import 'package:vamos/core/models/match/matchListResponse.dart';
 import 'package:vamos/ui/utils/color.dart';
@@ -23,6 +24,7 @@ class _MatchListingState extends State<MatchListing> {
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       Get.put(MatchController()).getMatchList();
+      Get.put(MatchController()).getIncomingRequestsByTeam();
     });
   }
 
@@ -81,68 +83,93 @@ class _MatchListingState extends State<MatchListing> {
                           itemCount: matchService.matches?.length ?? 0,
                           itemBuilder: (context, index) {
                             Match? match = matchService.matches?[index];
-                            return Container(
-                              margin: EdgeInsets.only(top: 10.h),
-                              child: Center(
-                                child: Container(
-                                  height: 100.h,
-                                  width: 300.w,
-                                  child: Card(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(2.5.w)),
-                                    elevation: 3,
-                                    margin:
-                                        EdgeInsets.fromLTRB(5.w, 0, 5.w, 25.h),
-                                    child: Row(children: [
-                                      Container(
-                                          height: 54.h,
-                                          margin: EdgeInsets.symmetric(
-                                              vertical: 5.h, horizontal: 15),
-                                          child: CircleAvatar(
-                                              radius: 20.h,
-                                              backgroundImage: AssetImage(
-                                                  'assets/images/placeholder_team_icon.png'))),
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Container(
-                                            width: 170.w,
-                                            child: Text(
-                                              match?.name?.toString() ?? "",
-                                              maxLines: 2,
-                                              overflow: TextOverflow.ellipsis,
+                            return GestureDetector(
+                              onTap: () {
+                                Get.put(MatchController())
+                                    .getTeamRequestsByMatch(match?.id);
+                              },
+                              child: Container(
+                                margin: EdgeInsets.only(top: 10.h),
+                                child: Center(
+                                  child: Container(
+                                    height: 100.h,
+                                    width: 300.w,
+                                    child: Card(
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(2.5.w)),
+                                      elevation: 3,
+                                      margin: EdgeInsets.fromLTRB(
+                                          5.w, 0, 5.w, 25.h),
+                                      child: Row(children: [
+                                        Container(
+                                            height: 54.h,
+                                            margin: EdgeInsets.symmetric(
+                                                vertical: 5.h, horizontal: 15),
+                                            child: CircleAvatar(
+                                                radius: 20.h,
+                                                backgroundImage: AssetImage(
+                                                    'assets/images/placeholder_team_icon.png'))),
+                                        Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Container(
+                                              width: 170.w,
+                                              child: Text(
+                                                match?.name?.toString() ?? "",
+                                                maxLines: 2,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: themeData()
+                                                    .textTheme
+                                                    .bodyText1!
+                                                    .copyWith(
+                                                      fontSize: 12.sp,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: KRed,
+                                                    ),
+                                              ),
+                                            ),
+                                            Text(
+                                              'Time Slot: ' +
+                                                  "${match?.bookingTimeSlots?.first['opening_time']} -  ${match?.bookingTimeSlots?.first['closing_time']} ",
                                               style: themeData()
                                                   .textTheme
                                                   .bodyText1!
                                                   .copyWith(
-                                                    fontSize: 12.sp,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: KRed,
+                                                    fontSize: 11.sp,
                                                   ),
-                                            ),
-                                          ),
-                                          Text(
-                                            'Time Slot: ' +
-                                                "${match?.bookingTimeSlots?.first['opening_time']} -  ${match?.bookingTimeSlots?.first['closing_time']} ",
-                                            style: themeData()
-                                                .textTheme
-                                                .bodyText1!
-                                                .copyWith(
-                                                  fontSize: 11.sp,
-                                                ),
-                                          )
-                                        ],
-                                      ),
-                                    ]),
+                                            )
+                                          ],
+                                        ),
+                                      ]),
+                                    ),
                                   ),
                                 ),
                               ),
                             );
-                          })
+                          }),
+                      Container(
+                        margin: EdgeInsets.only(right: 10),
+                        height: 50.h,
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              FloatingActionButton(
+                                backgroundColor: containerGreen,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [Icon(Icons.add)],
+                                ),
+                                onPressed: () {
+                                  Get.toNamed('/aboutMatch');
+                                },
+                              ),
+                            ]),
+                      )
                     ],
                   ),
                 ),
@@ -150,7 +177,74 @@ class _MatchListingState extends State<MatchListing> {
                   child: Column(
                     children: [
                       pageHeader(
-                          "List of Teams", "assets/images/team_logo.webp"),
+                          "List of Matches", "assets/images/team_logo.webp"),
+                      ListView.builder(
+                          physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: matchService.matchRequests?.length ?? 0,
+                          itemBuilder: (context, index) {
+                            MatchRequest? match =
+                                matchService.matchRequests?[index];
+                            return GestureDetector(
+                              onTap: () {
+                                Get.put(MatchController())
+                                    .getTeamRequestsByMatch(match?.id);
+                              },
+                              child: Container(
+                                margin: EdgeInsets.only(top: 10.h),
+                                child: Center(
+                                  child: Container(
+                                    height: 100.h,
+                                    width: 300.w,
+                                    child: Card(
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(2.5.w)),
+                                      elevation: 3,
+                                      margin: EdgeInsets.fromLTRB(
+                                          5.w, 0, 5.w, 25.h),
+                                      child: Row(children: [
+                                        Container(
+                                            height: 54.h,
+                                            margin: EdgeInsets.symmetric(
+                                                vertical: 5.h, horizontal: 15),
+                                            child: CircleAvatar(
+                                                radius: 20.h,
+                                                backgroundImage: AssetImage(
+                                                    'assets/images/placeholder_team_icon.png'))),
+                                        Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Container(
+                                              width: 170.w,
+                                              child: Text(
+                                                match?.matchName?.toString() ??
+                                                    "",
+                                                maxLines: 2,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: themeData()
+                                                    .textTheme
+                                                    .bodyText1!
+                                                    .copyWith(
+                                                      fontSize: 12.sp,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: KRed,
+                                                    ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ]),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
+                          })
                     ],
                   ),
                 ),
