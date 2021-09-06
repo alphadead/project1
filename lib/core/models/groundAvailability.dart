@@ -37,26 +37,24 @@ class GroundAvailability {
 }
 
 class Datum {
-  Datum({
-    this.slotStartTime,
-    this.slotEndTime,
-    this.slotTime
-  });
+  Datum({this.slotStartTime, this.slotEndTime, this.slotTime});
 
   String? slotStartTime;
   String? slotEndTime;
   String? slotTime;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
-        slotStartTime: json["slot_start_time"]
-            .toString()
-            .split(":")
-            .sublist(0, 2)
-            .join(":"),
-        slotEndTime:
-            json["slot_end_time"].toString().split(":").sublist(0, 2).join(":"),
-        slotTime: json["slot_time"]
-      );
+      slotStartTime: json["slot_start_time"] == null
+          ? null
+          : json["slot_start_time"]
+              .toString()
+              .split(":")
+              .sublist(0, 2)
+              .join(":"),
+      slotEndTime: json["slot_end_time"] == null
+          ? null
+          : json["slot_end_time"].toString().split(":").sublist(0, 2).join(":"),
+      slotTime: json["slot_time"]);
 
   Map<String, dynamic> toJson() => {
         "slot_start_time": slotStartTime,

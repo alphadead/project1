@@ -232,6 +232,8 @@ class GroundController extends GetxController {
     groundId = incomingGroundId;
     availableDates = ground.availableSlots!;
     selectedGround = ground;
+    timeSlots = [];
+    selectedIndices = [];
     update();
   }
 

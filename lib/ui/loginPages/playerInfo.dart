@@ -78,18 +78,18 @@ class _PlayerInfoState extends State<PlayerInfo> {
                           enlargeCenterPage: true,
                         ),
                         items: List.generate(
-                            _profileService.profile!.photo!.length,
-                            (index) => _profileService.profile?.photo == null ||
-                                    _profileService.profile?.photo.toString() ==
-                                        ''
-                                ? Image.network('')
-                                : CircleAvatar(
-                                    radius: 150.h,
-                                    backgroundImage: NetworkImage(
-                                        _profileService
-                                            .profile!.photo![index]["url"]
-                                            .toString()),
-                                  )),
+                          _profileService.profile?.photo?.length ?? 0,
+                          (index) => _profileService.profile?.photo == null ||
+                                  _profileService.profile?.photo.toString() ==
+                                      ''
+                              ? Image.network('')
+                              : CircleAvatar(
+                                  radius: 150.h,
+                                  backgroundImage: NetworkImage(_profileService
+                                      .profile!.photo![index]["url"]
+                                      .toString()),
+                                ),
+                        ),
                       ),
                     ),
                   ],

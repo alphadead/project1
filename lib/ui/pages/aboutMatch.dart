@@ -1,8 +1,7 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:vamos/core/service/controller/addsController.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vamos/core/service/controller/groundController.dart';
 import 'package:vamos/core/service/controller/myTeamController.dart';
 import 'package:vamos/ui/utils/color.dart';
@@ -24,11 +23,30 @@ class AboutMatch extends StatefulWidget {
 }
 
 class _AboutMatchState extends State<AboutMatch> {
+  bool isLoading = true;
+  String? profileType;
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback(
         (_) => Get.find<GroundController>().getGroundlist());
+    setProfileType();
+  }
+
+    void setProfileType() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    profileType = prefs.getString("register_type");
+    if (prefs.getString("register_type") == "Player") {
+      WidgetsBinding.instance!.addPostFrameCallback(
+          (_) => Get.find<MyTeamController>().getTeamInfo());
+    } else {
+      WidgetsBinding.instance!.addPostFrameCallback(
+          (_) => Get.find<GroundController>().getProfileData());
+    }
+
+    setState(() {
+      isLoading = false;
+    });
   }
 
   @override
@@ -52,19 +70,8 @@ class _AboutMatchState extends State<AboutMatch> {
             body: SingleChildScrollView(
               child: Column(
                 children: [
-                  GetBuilder<AddsController>(
-                    builder: (_addService) => CarouselSlider(
-                      items: _addService.listAdds
-                          .map((item) => Container(
-                                child: Center(child: item),
-                              ))
-                          .toList(),
-                      options: CarouselOptions(
-                          scrollDirection: Axis.horizontal, autoPlay: true),
-                    ),
-                  ),
                   Container(
-                    margin: EdgeInsets.only(bottom: 10.h),
+                    margin: EdgeInsets.only(bottom: 10.h, top: 20.h),
                     height: 56.h,
                     child: Image.asset("assets/images/kick_football.webp"),
                   ),
@@ -82,86 +89,11 @@ class _AboutMatchState extends State<AboutMatch> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Container(
-                          margin: EdgeInsets.only(bottom: 5.h, top: 15.h),
-                          child: Row(
-                            children: [
-                              Text(
-                                "Team detail",
-                                style:
-                                    themeData().textTheme.bodyText1!.copyWith(
-                                          color: profileContainerColor,
-                                          fontSize: 15.sp,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Card(
-                          child: GetBuilder<MyTeamController>(
-                            builder: (_myTeamInfo) => Container(
-                              child: Row(
-                                children: [
-                                  Container(
-                                    height: 54.h,
-                                    margin: EdgeInsets.symmetric(
-                                        vertical: 5.h, horizontal: 15),
-                                    child: CircleAvatar(
-                                      radius: 20.h,
-                                      backgroundImage:
-                                          _myTeamInfo.teamInfo?.logo == null ||
-                                                  _myTeamInfo.teamInfo?.logo ==
-                                                      ''
-                                              ? NetworkImage('')
-                                              : NetworkImage(_myTeamInfo
-                                                      .teamInfo?.logo
-                                                      .toString() ??
-                                                  ""),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          _myTeamInfo.teamInfo?.name
-                                                  .toString() ??
-                                              "",
-                                          style: themeData()
-                                              .textTheme
-                                              .bodyText1!
-                                              .copyWith(
-                                                fontSize: 15.sp,
-                                                fontWeight: FontWeight.bold,
-                                                color: KRed,
-                                              ),
-                                        ),
-                                        Text(
-                                          (_myTeamInfo.teamInfo?.teamSize
-                                                      .toString() ??
-                                                  "") +
-                                              'x' +
-                                              (_myTeamInfo.teamInfo?.teamSize
-                                                      .toString() ??
-                                                  "") +
-                                              ' Team',
-                                          style: themeData()
-                                              .textTheme
-                                              .bodyText1!
-                                              .copyWith(
-                                                fontSize: 10.sp,
-                                              ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
+                        isLoading || profileType == null
+                            ? CircularProgressIndicator()
+                            : profileType == "Player"
+                                ? teamDetail()
+                                : groundDetail(),
                         inputField("Match name", (value) {
                           _groundService.matchName = value;
                         }, validate: (arg) {
@@ -356,6 +288,142 @@ class _AboutMatchState extends State<AboutMatch> {
           ),
         );
       }),
+    );
+  }
+
+
+
+  Widget groundDetail() {
+    return Column(
+      children: [
+        Container(
+          margin: EdgeInsets.only(bottom: 5.h, top: 15.h),
+          child: Row(
+            children: [
+              Text(
+                "Ground detail",
+                style: themeData().textTheme.bodyText1!.copyWith(
+                      color: profileContainerColor,
+                      fontSize: 15.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+            ],
+          ),
+        ),
+        Card(
+          child: GetBuilder<GroundController>(
+            builder: (_groundInfo) => Container(
+              child: Row(
+                children: [
+                  Container(
+                    height: 54.h,
+                    margin: EdgeInsets.symmetric(vertical: 5.h, horizontal: 15),
+                    child: CircleAvatar(
+                      radius: 20.h,
+                      backgroundImage:
+                          AssetImage('assets/images/placeholder_team_icon.png'),
+                    ),
+                  ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          _groundInfo.groundName ?? "",
+                          style: themeData().textTheme.bodyText1!.copyWith(
+                                fontSize: 15.sp,
+                                fontWeight: FontWeight.bold,
+                                color: KRed,
+                              ),
+                        ),
+                        Text(
+                          _groundInfo.groundLocation ?? "",
+                          style: themeData().textTheme.bodyText1!.copyWith(
+                                fontSize: 10.sp,
+                              ),
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget teamDetail() {
+    return Column(
+      children: [
+        Container(
+          margin: EdgeInsets.only(bottom: 5.h, top: 15.h),
+          child: Row(
+            children: [
+              Text(
+                "Team detail",
+                style: themeData().textTheme.bodyText1!.copyWith(
+                      color: profileContainerColor,
+                      fontSize: 15.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+            ],
+          ),
+        ),
+        Card(
+          child: GetBuilder<MyTeamController>(
+            builder: (_myTeamInfo) => Container(
+              child: Row(
+                children: [
+                  Container(
+                    height: 54.h,
+                    margin: EdgeInsets.symmetric(vertical: 5.h, horizontal: 15),
+                    child: _myTeamInfo.teamInfo?.logo == null ||
+                            _myTeamInfo.teamInfo?.logo == ''
+                        ? CircleAvatar(
+                            radius: 20.h,
+                            backgroundImage: AssetImage(
+                                'assets/images/placeholder_team_icon.png'))
+                        : CircleAvatar(
+                            radius: 20.h,
+                            backgroundImage: NetworkImage(
+                                _myTeamInfo.teamInfo?.logo.toString() ?? ""),
+                          ),
+                  ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          _myTeamInfo.teamInfo?.name.toString() ?? "",
+                          style: themeData().textTheme.bodyText1!.copyWith(
+                                fontSize: 15.sp,
+                                fontWeight: FontWeight.bold,
+                                color: KRed,
+                              ),
+                        ),
+                        Text(
+                          (_myTeamInfo.teamInfo?.teamSize.toString() ?? "") +
+                              'x' +
+                              (_myTeamInfo.teamInfo?.teamSize.toString() ??
+                                  "") +
+                              ' Team',
+                          style: themeData().textTheme.bodyText1!.copyWith(
+                                fontSize: 10.sp,
+                              ),
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

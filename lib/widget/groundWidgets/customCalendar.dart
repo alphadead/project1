@@ -179,6 +179,7 @@ class _CustomCalenderState extends State<CustomCalender> {
                                       ? () {}
                                       : widget.createMatch
                                           ? () {
+                                            selectedIndex = index;
                                               _groundService.groundAvailability(
                                                   DateFormat('yyyy-MM-dd')
                                                       .format(thisDate)
