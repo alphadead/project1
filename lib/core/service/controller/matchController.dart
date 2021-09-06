@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:vamos/core/models/matchRequest.dart';
+import 'package:vamos/core/models/match/matchRequest.dart';
 import 'package:vamos/core/service/api/api.dart';
 import 'package:vamos/locator.dart';
 import 'package:vamos/ui/utils/utility.dart';

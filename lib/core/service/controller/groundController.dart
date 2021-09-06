@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:vamos/core/models/createMatch.dart';
+import 'package:vamos/core/models/match/createMatch.dart';
 import 'package:vamos/core/models/groundList.dart';
 import 'package:vamos/core/models/groundAvailability.dart';
 import 'package:vamos/core/models/groundProfileView.dart';
