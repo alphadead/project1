@@ -132,6 +132,14 @@ class GroundController extends GetxController {
     GroundProfileViewResponse response =
         await api.getGroundProfile(prefs.getString("ground_id"));
     if (response.data != null) {
+      groundId = response.data?.id;
+      selectedGround = Grounds(
+          id: response.data?.id,
+          name: response.data?.name,
+          location: response.data?.location,
+          latitude: response.data?.latitude,
+          longitude: response.data?.longitude,
+          bookingFee: response.data?.bookingFee);
       groundName = response.data?.name;
       groundLocation = response.data?.location;
       latitude = response.data?.latitude;

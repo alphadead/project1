@@ -33,19 +33,20 @@ class _AboutMatchState extends State<AboutMatch> {
     setProfileType();
   }
 
-    void setProfileType() async {
+  void setProfileType() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    profileType = prefs.getString("register_type");
     if (prefs.getString("register_type") == "Player") {
       WidgetsBinding.instance!.addPostFrameCallback(
           (_) => Get.find<MyTeamController>().getTeamInfo());
     } else {
+      
       WidgetsBinding.instance!.addPostFrameCallback(
           (_) => Get.find<GroundController>().getProfileData());
     }
 
     setState(() {
       isLoading = false;
+      profileType = prefs.getString("register_type");
     });
   }
 
@@ -103,35 +104,38 @@ class _AboutMatchState extends State<AboutMatch> {
                             return null;
                           }
                         }, keyType: TextInputType.name),
+                        (profileType??"Player") == "Player"?
                         Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8.0),
-                            child: DropdownButtonFormField(
-                              isExpanded: true,
-                              elevation: 25,
-                              hint: Text(
-                                'Ground name',
-                                style: TextStyle(color: KLightGrey),
-                              ),
-                              onChanged: (String? newValue) {
-                                _groundService.setSelectedGroundInfo(
-                                    int.parse(newValue!));
-                              },
-                              items: List.generate(
-                                _groundService.groundList.length,
-                                (index) {
-                                  return DropdownMenuItem<String>(
-                                    value: _groundService.groundList[index].id
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: DropdownButtonFormField(
+                            isExpanded: true,
+                            elevation: 25,
+                            hint: Text(
+                              'Ground name',
+                              style: TextStyle(color: KLightGrey),
+                            ),
+                            onChanged: (String? newValue) {
+                              _groundService
+                                  .setSelectedGroundInfo(int.parse(newValue!));
+                            },
+                            items: List.generate(
+                              _groundService.groundList.length,
+                              (index) {
+                                return DropdownMenuItem<String>(
+                                  value: _groundService.groundList[index].id
+                                      .toString(),
+                                  child: Text(
+                                    _groundService.groundList[index].name
                                         .toString(),
-                                    child: Text(
-                                      _groundService.groundList[index].name
-                                          .toString(),
-                                      style: TextStyle(
-                                          color: inputText, fontSize: 16),
-                                    ),
-                                  );
-                                },
-                              ),
-                            )),
+                                    style: TextStyle(
+                                        color: inputText, fontSize: 16),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ): Container(),
+                        (profileType??"Player") == "Player"?
                         Container(
                           margin: EdgeInsets.only(bottom: 5.h, top: 5.h),
                           child: Row(
@@ -162,7 +166,7 @@ class _AboutMatchState extends State<AboutMatch> {
                               ),
                             ],
                           ),
-                        ),
+                        ): Container(),
                         Container(
                           margin: EdgeInsets.only(bottom: 5.h, top: 15.h),
                           child: Row(
@@ -290,8 +294,6 @@ class _AboutMatchState extends State<AboutMatch> {
       }),
     );
   }
-
-
 
   Widget groundDetail() {
     return Column(
@@ -426,4 +428,5 @@ class _AboutMatchState extends State<AboutMatch> {
       ],
     );
   }
+
 }
