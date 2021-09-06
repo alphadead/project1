@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:vamos/core/service/controller/authController.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'createteamContainer.dart';
+import '../createteamContainer.dart';
 
 class TeamSizeButtonGrid extends StatefulWidget {
   const TeamSizeButtonGrid({Key? key}) : super(key: key);

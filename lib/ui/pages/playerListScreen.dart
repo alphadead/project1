@@ -4,9 +4,11 @@ import 'package:vamos/core/service/controller/playerListingController.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/theme.dart';
 import 'package:vamos/ui/utils/utility.dart';
+import 'package:vamos/widget/formWidgets/buttons.dart';
 import 'package:vamos/widget/customAppBar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:vamos/widget/customBottomNavBar.dart';
 
 class PlayerListScreen extends StatefulWidget {
   const PlayerListScreen({Key? key}) : super(key: key);
@@ -28,6 +30,10 @@ class _PlayerListScreenState extends State<PlayerListScreen> {
             resizeToAvoidBottomInset: false,
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.miniCenterDocked,
+            floatingActionButton: homeFABBottomNav(),
+            bottomNavigationBar: CustomBottomAppBar(
+              height: 50.h,
+            ),
             appBar: PreferredSize(
               preferredSize: Size.fromHeight(60.h),
               child: CustomAppBar(),

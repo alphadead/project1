@@ -4,7 +4,7 @@ import 'package:http/http.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:vamos/core/models/acceptRejectResponse.dart';
 import 'package:vamos/core/models/completeStepResponse.dart';
-import 'package:vamos/core/models/createMatch.dart';
+import 'package:vamos/core/models/match/createMatch.dart';
 import 'package:vamos/core/models/createTeamResponse.dart';
 import 'package:vamos/core/models/deleteMedia.dart';
 import 'package:vamos/core/models/genericResponse.dart';
@@ -14,7 +14,11 @@ import 'package:vamos/core/models/groundProfileView.dart';
 import 'package:vamos/core/models/joinTeam.dart';
 import 'package:vamos/core/models/joinedTeamListResponse.dart';
 import 'package:vamos/core/models/loginResponse.dart';
-import 'package:vamos/core/models/matchRequest.dart';
+import 'package:vamos/core/models/match/matchListResponse.dart';
+import 'package:vamos/core/models/match/matchRequest.dart';
+import 'package:vamos/core/models/match/matchRequestRecvdByTeam.dart';
+import 'package:vamos/core/models/match/teamRequestSentByMatch.dart';
+import 'package:vamos/core/models/match/updateMatchRequest.dart';
 import 'package:vamos/core/models/myTeamInfo.dart';
 import 'package:vamos/core/models/playerListResponse.dart';
 import 'package:vamos/core/models/playerRequestResponse.dart';
@@ -268,5 +272,42 @@ class HTTPApi extends Api {
   Future<ReferalEarning> getEarning() async {
     Map<String, dynamic> response = await getRequest('get-referral-earning');
     return ReferalEarning.fromJson(response);
+  }
+
+  @override
+  Future<MatchListResponse> getMatchList() async {
+    Map<String, dynamic> response = await getRequest('match');
+    return MatchListResponse.fromJson(response);
+  }
+
+  @override
+  Future<MatchRequestReceivedByTeamResponse> getIncomingMatchRequests(
+      int teamId) async {
+    Map<String, dynamic> response =
+        await getRequest('team/match-request-received?team_id=$teamId');
+    return MatchRequestReceivedByTeamResponse.fromJson(response);
+  }
+
+  @override
+  Future<TeamRequestSentByMatch> getTeamRequestsSentByMatch(
+      int? matchId) async {
+    Map<String, dynamic> response =
+        await getRequest('match/team-request?match_id=$matchId');
+    return TeamRequestSentByMatch.fromJson(response);
+  }
+
+  @override
+  Future<UpdateMatchRequestsByTeam> updateMatchRequestsByTeam(
+      int? id, String? matchId, String? status) async {
+    Map<String, dynamic> body = {
+      "id": id,
+      "match_id": matchId,
+      "status": status
+    };
+
+    Map<String, dynamic> response =
+        await putRequest('team/update-match-request-received', body);
+
+    return UpdateMatchRequestsByTeam.fromJson(response);
   }
 }

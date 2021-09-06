@@ -6,7 +6,7 @@ import 'package:vamos/core/service/controller/profileController.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/loginbkground.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:vamos/widget/buttons.dart';
+import 'package:vamos/widget/formWidgets/buttons.dart';
 
 import 'package:vamos/widget/customAppBar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

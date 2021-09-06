@@ -71,29 +71,33 @@ class MyTeamController extends GetxController {
     update();
   }
 
-  void getTeamInfo({String? nextRoute}) async {
+  Future<int?>? getTeamInfo({String? nextRoute}) async {
+    print("CALLING GET TEAM INFO!!!");
     Utility.showLoadingDialog();
     MyTeamInfo response = await api.myTeamInfo();
     Utility.closeDialog();
-
     if (response.data != null) {
+      print(response.data?.toJson().toString());
+
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString("team_id", response.data?.id?.toString() ?? "");
 
       if (nextRoute != null) {
         Utility.showSnackbar("You have already created a team");
-        return;
+        return response.data?.id;
       } else {
         teamInfo = response.data!;
         getPlayerJoinedListByTeam();
+        return response.data?.id;
       }
     } else {
       if (nextRoute != null) {
         Get.toNamed(nextRoute);
-        return;
+        return null;
       } else {
         teamInfo = response.data;
         Utility.showSnackbar("Please Create a Team and Continue.");
+        return null;
       }
     }
   }

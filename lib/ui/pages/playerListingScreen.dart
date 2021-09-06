@@ -4,10 +4,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vamos/core/service/controller/playerListingController.dart';
 import 'package:vamos/ui/utils/loginbkground.dart';
 import 'package:vamos/ui/utils/utility.dart';
+import 'package:vamos/widget/formWidgets/buttons.dart';
 import 'package:vamos/widget/customAppBar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:vamos/widget/registeredTeamCard.dart';
-import 'package:vamos/widget/searchBar.dart';
+import 'package:vamos/widget/customBottomNavBar.dart';
+import 'package:vamos/widget/teamWidgets/registeredTeamCard.dart';
+import 'package:vamos/widget/formWidgets/searchBar.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PlayerListingScreen extends StatefulWidget {
@@ -48,6 +50,7 @@ class _PlayerListingScreenState extends State<PlayerListingScreen> {
               preferredSize: Size.fromHeight(60.h),
               child: CustomAppBar(),
             ),
+
             body: SingleChildScrollView(
               child: Column(
                 children: [

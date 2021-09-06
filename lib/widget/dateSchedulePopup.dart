@@ -5,7 +5,7 @@ import 'package:vamos/core/service/controller/groundController.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/loginbkground.dart';
 import 'package:vamos/ui/utils/theme.dart';
-import 'package:vamos/widget/inputField.dart';
+import 'package:vamos/widget/formWidgets/inputField.dart';
 
 List<String> months = [
   'January',
