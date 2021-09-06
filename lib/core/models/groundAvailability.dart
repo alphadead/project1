@@ -18,21 +18,21 @@ class GroundAvailability {
 
   bool? success;
   String? message;
-  Map<String, Datum>? data;
+  List<Datum>? data;
 
   factory GroundAvailability.fromJson(Map<String, dynamic> json) =>
       GroundAvailability(
         success: json["success"],
         message: json["message"],
-        data: Map.from(json["data"])
-            .map((k, v) => MapEntry<String, Datum>(k, Datum.fromJson(v))),
+        data: json["data"] == null
+            ? null
+            : List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
         "success": success,
         "message": message,
-        "data": Map.from(data!)
-            .map((k, v) => MapEntry<String, dynamic>(k, v.toJson())),
+        "data": data,
       };
 }
 
@@ -46,8 +46,13 @@ class Datum {
   String? slotEndTime;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
-        slotStartTime: json["slot_start_time"],
-        slotEndTime: json["slot_end_time"],
+        slotStartTime: json["slot_start_time"]
+            .toString()
+            .split(":")
+            .sublist(0, 2)
+            .join(":"),
+        slotEndTime:
+            json["slot_end_time"].toString().split(":").sublist(0, 2).join(":"),
       );
 
   Map<String, dynamic> toJson() => {

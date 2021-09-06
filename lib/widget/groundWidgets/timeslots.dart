@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:vamos/core/models/groundAvailability.dart';
 import 'package:vamos/core/service/controller/groundController.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/theme.dart';
@@ -9,7 +10,7 @@ import 'package:vamos/widget/dateSchedulePopup.dart';
 class TimeSlots extends StatefulWidget {
   const TimeSlots({Key? key, this.timeslots}) : super(key: key);
 
-  final List<dynamic>? timeslots;
+  final List<Datum>? timeslots;
   @override
   _TimeSlotsState createState() => _TimeSlotsState();
 }
@@ -25,7 +26,6 @@ class _TimeSlotsState extends State<TimeSlots> {
       builder: (_groundService) {
         return Card(
           child: Container(
-            height: 130.h,
             child: Column(
               children: [
                 Padding(
@@ -44,70 +44,80 @@ class _TimeSlotsState extends State<TimeSlots> {
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: Container(
-                    height: 65,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: widget.timeslots?.length,
-                      itemBuilder: (context, index) {
-                        isSelected = _groundService.selectedIndices.contains(index);
-                        return Stack(
-                          children: [
-                            Container(
-                              margin: EdgeInsets.symmetric(
-                                  vertical: 5, horizontal: 3),
-                              child: Ink(
-                                width: 45.w,
-                                decoration: BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(8.0)),
-                                    color: isSelected ? KRed : Colors.white,
-                                    border: isSelected
-                                        ? Border.all(color: Colors.white)
-                                        : Border.all(color: Colors.black26)),
-                                child: InkWell(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(8.0)),
-                                  onTap: () {
-                                    _groundService.selectSlot(index);
-                                  },
-                                  child: Padding(
-                                    padding: EdgeInsets.all(8),
-                                    child: Center(
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            widget.timeslots?[index],
-                                            style: themeData()
-                                                .textTheme
-                                                .bodyText1!
-                                                .copyWith(
-                                                  fontSize: 15,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: isSelected
-                                                      ? Colors.white
-                                                      : Colors.black,
+                widget.timeslots?.length == 0
+                    ? Padding(
+                        padding: const EdgeInsets.all(8),
+                        child:
+                            Text("No Slots available, try changing the date!"),
+                      )
+                    : Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: Container(
+                          height: 65,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: widget.timeslots?.length,
+                            itemBuilder: (context, index) {
+                              isSelected = _groundService.selectedIndices
+                                  .contains(index);
+                              return Stack(
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.symmetric(
+                                        vertical: 5, horizontal: 3),
+                                    child: Ink(
+                                      width: 45.w,
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(8.0)),
+                                          color:
+                                              isSelected ? KRed : Colors.white,
+                                          border: isSelected
+                                              ? Border.all(color: Colors.white)
+                                              : Border.all(
+                                                  color: Colors.black26)),
+                                      child: InkWell(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(8.0)),
+                                        onTap: () {
+                                          _groundService.selectSlot(index);
+                                        },
+                                        child: Padding(
+                                          padding: EdgeInsets.all(4),
+                                          child: Center(
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  "${widget.timeslots?[index].slotStartTime} - ${widget.timeslots?[index].slotEndTime}",
+                                                  style: themeData()
+                                                      .textTheme
+                                                      .bodyText1!
+                                                      .copyWith(
+                                                        fontSize: 10,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: isSelected
+                                                            ? Colors.white
+                                                            : Colors.black,
+                                                      ),
                                                 ),
+                                              ],
+                                            ),
                                           ),
-                                        ],
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        );
-                      },
-                    ),
-                  ),
-                )
+                                ],
+                              );
+                            },
+                          ),
+                        ),
+                      )
               ],
             ),
           ),

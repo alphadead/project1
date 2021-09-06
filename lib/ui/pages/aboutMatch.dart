@@ -276,16 +276,7 @@ class _AboutMatchState extends State<AboutMatch> {
                           ),
                         ),
                         TimeSlots(
-                          timeslots: [
-                            "1",
-                            "2",
-                            "3",
-                            "4",
-                            "5",
-                            "6",
-                            "7",
-                            "8",
-                          ],
+                          timeslots: _groundService.timeSlots,
                         ),
                         Container(
                           margin: EdgeInsets.only(bottom: 15.h, top: 10.h),

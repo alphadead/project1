@@ -30,9 +30,9 @@ class GroundController extends GetxController {
   Asset? image;
   List<Map<String, dynamic>> bookingTimeslots = [];
   List<dynamic> _availableDates = [];
-  late String _bookingFee;
+  late String _bookingFee = '';
   List<Grounds> groundList = [];
-
+  List<Datum> timeSlots = [];
   List<int> selectedIndices = [];
 
   String get eventDetails => _eventDetails;
@@ -204,23 +204,24 @@ class GroundController extends GetxController {
     update();
   }
 
-  void groundAvailability(String date) async {
-
+  void groundAvailability( String date) async {
     Utility.showLoadingDialog();
     GroundAvailability response = await api.groundAvailable(groundId!, date);
 
     if (response.data != null) {
+      timeSlots = response.data!;
       Utility.closeDialog();
     } else {
+      timeSlots=[];
       Utility.closeDialog();
       Utility.showSnackbar("${response.message}");
     }
     update();
   }
 
-  void setSelectedGroundInfo(int groundId) {
-    Grounds ground = groundList.firstWhere((ground) => ground.id == groundId);
-    groundId = groundId;
+  void setSelectedGroundInfo(int incomingGroundId) {
+    Grounds ground = groundList.firstWhere((ground) => ground.id == incomingGroundId);
+    groundId = incomingGroundId;
     bookingFee = ground.bookingFee!;
     availableDates = ground.availableSlots!;
     update();
