@@ -4,6 +4,7 @@ import 'package:vamos/core/models/match/matchListResponse.dart';
 import 'package:vamos/core/models/match/matchRequest.dart';
 import 'package:vamos/core/models/match/matchRequestRecvdByTeam.dart';
 import 'package:vamos/core/models/match/teamRequestSentByMatch.dart';
+import 'package:vamos/core/models/match/updateMatchRequest.dart';
 import 'package:vamos/core/service/api/api.dart';
 import 'package:vamos/core/service/controller/myTeamController.dart';
 import 'package:vamos/locator.dart';
@@ -58,7 +59,6 @@ class MatchController extends GetxController {
 
       teams = response.data;
       Get.toNamed('/teamListingByMatch');
-
     } else {
       Utility.showSnackbar("${response.message}");
     }
@@ -92,6 +92,22 @@ class MatchController extends GetxController {
       update();
       Utility.closeDialog();
     } else {
+      Utility.showSnackbar("${response.message}");
+    }
+  }
+
+  void updateRequest(int? id, String? matchId, String? status) async {
+    Utility.showLoadingDialog();
+
+    UpdateMatchRequestsByTeam response =
+        await api.updateMatchRequestsByTeam(id, matchId, status);
+    if (response.data != null) {
+      Utility.closeDialog();
+
+      Utility.showSnackbar("${response.message}");
+    } else {
+      Utility.closeDialog();
+
       Utility.showSnackbar("${response.message}");
     }
   }

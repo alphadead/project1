@@ -17,6 +17,7 @@ import 'package:vamos/core/models/match/matchListResponse.dart';
 import 'package:vamos/core/models/match/matchRequest.dart';
 import 'package:vamos/core/models/match/matchRequestRecvdByTeam.dart';
 import 'package:vamos/core/models/match/teamRequestSentByMatch.dart';
+import 'package:vamos/core/models/match/updateMatchRequest.dart';
 import 'package:vamos/core/models/myTeamInfo.dart';
 import 'package:vamos/core/models/playerListResponse.dart';
 import 'package:vamos/core/models/playerRequestResponse.dart';
@@ -99,5 +100,6 @@ abstract class Api {
   Future<MatchListResponse> getMatchList();
   Future<TeamRequestSentByMatch> getTeamRequestsSentByMatch(int? matchId);
   Future<MatchRequestReceivedByTeamResponse> getIncomingMatchRequests(int teamId);
+  Future<UpdateMatchRequestsByTeam> updateMatchRequestsByTeam(int? id, String? matchId, String? status);
   Future<GenericResponse> cancelPlayerRequest(teamId, userId);
 }
