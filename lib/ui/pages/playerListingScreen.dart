@@ -50,7 +50,6 @@ class _PlayerListingScreenState extends State<PlayerListingScreen> {
               preferredSize: Size.fromHeight(60.h),
               child: CustomAppBar(),
             ),
-
             body: SingleChildScrollView(
               child: Column(
                 children: [
@@ -98,7 +97,8 @@ class _PlayerListingScreenState extends State<PlayerListingScreen> {
                                         _playerListController.requestPlayer(
                                             _playerListController
                                                 .playerListDisplay[index - 1]
-                                                .id);
+                                                .id,
+                                            index);
 
                                         setState(() {
                                           _playerListController

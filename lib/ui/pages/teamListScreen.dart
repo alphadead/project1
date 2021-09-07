@@ -222,7 +222,7 @@ class _TeamListScreenState extends State<TeamListScreen> {
                                                           child: Container(
                                                             margin:
                                                                 EdgeInsets.only(
-                                                                    left: 10),
+                                                                    left: 5),
                                                             child: Image.asset(
                                                               "assets/images/teamListDelete.webp",
                                                               height: 15,
@@ -252,8 +252,8 @@ class _TeamListScreenState extends State<TeamListScreen> {
                                                       : SizedBox(),
                                                   GestureDetector(
                                                     child: Container(
-                                                      margin: EdgeInsets.only(
-                                                          left: 10),
+                                                      padding: EdgeInsets.only(
+                                                          left: 5),
                                                       child: Image.asset(
                                                         "assets/images/teamListInfo.webp",
                                                         height: 15,

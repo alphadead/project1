@@ -38,19 +38,24 @@ class PlayerListController extends GetxController {
     update();
   }
 
-  void requestPlayer(userId) async {
+  void requestPlayer(userId, int index) async {
     Utility.showLoadingDialog();
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     String? teamId = prefs.getString("team_id");
-    if (teamId != null && teamId != "") {
+    print('++++++++');
+    print(teamId == "null");
+    print('++++++++');
+    if (teamId != null && teamId != "" && teamId != "null") {
       JoinTeamResponse response =
           await api.requestPlayer(userId, int.parse(teamId));
 
       if (!response.success) {
         Utility.showSnackbar("${response.message}");
       } else {
+        playerListDisplay[index].status = 'pending';
+        update();
         Utility.closeDialog();
       }
     } else {

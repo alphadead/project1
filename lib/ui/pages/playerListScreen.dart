@@ -197,8 +197,8 @@ class _PlayerListScreenState extends State<PlayerListScreen> {
                                                 : SizedBox(),
                                             GestureDetector(
                                               child: Container(
-                                                margin:
-                                                    EdgeInsets.only(left: 10),
+                                                padding:
+                                                    EdgeInsets.only(left: 5),
                                                 child: Image.asset(
                                                   "assets/images/teamListInfo.webp",
                                                   height: 15,
@@ -214,7 +214,7 @@ class _PlayerListScreenState extends State<PlayerListScreen> {
                                 ),
                               ),
                               Positioned(
-                                right: 15.w,
+                                right: 25.w,
                                 bottom: 10.h,
                                 child: GestureDetector(
                                   onTap: () {
@@ -222,12 +222,8 @@ class _PlayerListScreenState extends State<PlayerListScreen> {
                                         .playerListDisplay[index].isJoined!) {
                                       _playerListController.requestPlayer(
                                           _playerListController
-                                              .playerListDisplay[index].id);
-                                      setState(() {
-                                        _playerListController
-                                            .playerListDisplay[index]
-                                            .status = 'pending';
-                                      });
+                                              .playerListDisplay[index].id,
+                                          index);
                                     } else {
                                       Utility.showSnackbar(AppLocalizations.of(
                                               context)!
