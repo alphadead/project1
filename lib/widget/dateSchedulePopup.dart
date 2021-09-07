@@ -37,6 +37,30 @@ class ScheduleCard extends StatefulWidget {
 class _ScheduleCardState extends State<ScheduleCard> {
   var date;
 
+  DateTime currentDate = DateTime.now();
+  String dateNow = '';
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? pickedDate = await showDatePicker(
+        context: context,
+        initialDate: currentDate,
+        firstDate: DateTime.now(),
+        lastDate: DateTime.now().add(Duration(days: 60)));
+    if (pickedDate != null && pickedDate != currentDate)
+      setState(() {
+        currentDate = pickedDate;
+        dateNow = currentDate.day.toString() +
+            (currentDate.day == 1
+                ? "st"
+                : currentDate.day == 2
+                    ? "nd"
+                    : currentDate.day == 3
+                        ? "rd"
+                        : "th") +
+            " ${months[currentDate.month - 1].substring(0, 3)} ${currentDate.year}";
+      });
+  }
+
   @override
   Widget build(BuildContext context) {
     bool isVisible = false;
@@ -113,14 +137,38 @@ class _ScheduleCardState extends State<ScheduleCard> {
                             ),
                           ],
                         ),
-                        GestureDetector(
-                          onTap: () {},
-                          child: Text(
-                            dateString,
-                            style: themeData().textTheme.bodyText1!.copyWith(
-                                color: KRed, fontWeight: FontWeight.bold),
-                          ),
-                        )
+                        widget.groundName
+                            ? GestureDetector(
+                                onTap: () => _selectDate(context),
+                                child: dateNow == ''
+                                    ? Text(
+                                        'Select date',
+                                        style: themeData()
+                                            .textTheme
+                                            .bodyText1!
+                                            .copyWith(
+                                                color: KRed,
+                                                fontWeight: FontWeight.bold),
+                                      )
+                                    : Text(
+                                        dateNow,
+                                        style: themeData()
+                                            .textTheme
+                                            .bodyText1!
+                                            .copyWith(
+                                                color: KRed,
+                                                fontWeight: FontWeight.bold),
+                                      ),
+                              )
+                            : Text(
+                                dateString,
+                                style: themeData()
+                                    .textTheme
+                                    .bodyText1!
+                                    .copyWith(
+                                        color: KRed,
+                                        fontWeight: FontWeight.bold),
+                              )
                       ],
                     ),
                   ),

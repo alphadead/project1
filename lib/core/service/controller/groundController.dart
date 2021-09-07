@@ -160,12 +160,12 @@ class GroundController extends GetxController {
     print(selectedGround?.name);
     CreateMatch response = await api.createMatch(
       prefs.getString("userId")!,
-      matchName!,
+      matchName ?? '',
       selectedGround?.id,
       selectedGround?.name,
       selectedGround?.location,
       selectedGround?.bookingFee,
-      bookingDate!,
+      bookingDate ?? '',
       [
         {
           "opening_time": timeSlots[selectedIndices.first].slotStartTime,
