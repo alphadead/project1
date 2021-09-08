@@ -2,7 +2,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vamos/core/service/controller/addsController.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,30 +10,8 @@ import 'package:vamos/widget/formWidgets/buttons.dart';
 import 'package:vamos/widget/customAppBar.dart';
 import 'package:vamos/widget/customBottomNavBar.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
-
-  @override
-  _HomeScreenState createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  String userType = '';
-
-  @override
-  void initState() {
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
-      // Get.find<AddsController>().getUserType();
-      getUserType();
-    });
-    // TODO: implement initState
-    super.initState();
-  }
-
-  void getUserType() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    userType = prefs.getString("register_type")!;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,44 +42,75 @@ class _HomeScreenState extends State<HomeScreen> {
                     options: CarouselOptions(
                         scrollDirection: Axis.horizontal, autoPlay: true),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                    child: GridView.count(
-                      crossAxisSpacing: 5.w,
-                      physics: ScrollPhysics(),
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      crossAxisCount: 2,
-                      children: [
-                        logoContainer(
-                            context, 'assets/images/team_logo.webp', 'Team',
-                            nextRoute: "/teamList"),
-                        logoContainer(
-                            context, 'assets/images/player_logo.webp', 'Player',
-                            nextRoute: '/playerList'),
-                        userType == "Ground"
-                            ? SizedBox()
-                            : logoContainer(
+                  _addService.userType == "Ground"
+                      ? Padding(
+                          padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                          child: GridView.count(
+                            crossAxisSpacing: 5.w,
+                            physics: ScrollPhysics(),
+                            scrollDirection: Axis.vertical,
+                            shrinkWrap: true,
+                            crossAxisCount: 2,
+                            children: [
+                              logoContainer(context,
+                                  'assets/images/team_logo.webp', 'Team',
+                                  nextRoute: "/teamList"),
+                              logoContainer(context,
+                                  'assets/images/player_logo.webp', 'Player',
+                                  nextRoute: '/playerList'),
+                              logoContainer(
                                 context,
-                                'assets/images/create_logo.webp',
-                                'Create Own Team'),
-                        logoContainer(
-                          context,
-                          'assets/images/ground_logo.webp',
-                          'Match',
-                          nextRoute: '/matchListing',
-                        ),
-                        logoContainer(
-                            context,
-                            'assets/images/upcoming_logo.webp',
-                            'Upcoming Matches'),
-                        logoContainer(
-                            context,
-                            'assets/images/tournaments_logo.webp',
-                            'Tournaments')
-                      ],
-                    ),
-                  )
+                                'assets/images/ground_logo.webp',
+                                'Match',
+                                nextRoute: '/matchListing',
+                              ),
+                              logoContainer(
+                                  context,
+                                  'assets/images/upcoming_logo.webp',
+                                  'Upcoming Matches'),
+                              logoContainer(
+                                  context,
+                                  'assets/images/tournaments_logo.webp',
+                                  'Tournaments')
+                            ],
+                          ),
+                        )
+                      : Padding(
+                          padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                          child: GridView.count(
+                            crossAxisSpacing: 5.w,
+                            physics: ScrollPhysics(),
+                            scrollDirection: Axis.vertical,
+                            shrinkWrap: true,
+                            crossAxisCount: 2,
+                            children: [
+                              logoContainer(context,
+                                  'assets/images/team_logo.webp', 'Team',
+                                  nextRoute: "/teamList"),
+                              logoContainer(context,
+                                  'assets/images/player_logo.webp', 'Player',
+                                  nextRoute: '/playerList'),
+                              logoContainer(
+                                  context,
+                                  'assets/images/create_logo.webp',
+                                  'Create Own Team'),
+                              logoContainer(
+                                context,
+                                'assets/images/ground_logo.webp',
+                                'Match',
+                                nextRoute: '/matchListing',
+                              ),
+                              logoContainer(
+                                  context,
+                                  'assets/images/upcoming_logo.webp',
+                                  'Upcoming Matches'),
+                              logoContainer(
+                                  context,
+                                  'assets/images/tournaments_logo.webp',
+                                  'Tournaments')
+                            ],
+                          ),
+                        )
                 ],
               ),
             ),
