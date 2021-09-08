@@ -23,12 +23,14 @@ class ValidateFeild {
     }
   }
 
-  bool isValidateName(String arg) {
-    if (arg.length == 0) {
-      return false;
-    } else {
-      return true;
-    }
+  bool isValidateName(String? arg) {
+    print(arg);
+    return true;
+    // if (arg.length == 0) {
+    //   return false;
+    // } else {
+    //   return true;
+    // }
   }
 
   bool isValidateID(String id) {

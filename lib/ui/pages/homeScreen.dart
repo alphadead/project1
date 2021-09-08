@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vamos/core/service/controller/addsController.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,8 +11,34 @@ import 'package:vamos/widget/formWidgets/buttons.dart';
 import 'package:vamos/widget/customAppBar.dart';
 import 'package:vamos/widget/customBottomNavBar.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  String userType = '';
+
+  @override
+  void initState() {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      // Get.find<AddsController>().getUserType();
+      getUserType();
+    });
+    // TODO: implement initState
+    super.initState();
+  }
+
+  void getUserType() async {
+    print("+++++++++++++++++");
+    print("lkj");
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    userType = prefs.getString("register_type")!;
+    print("iop");
+    print(userType);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,8 +84,12 @@ class HomeScreen extends StatelessWidget {
                         logoContainer(
                             context, 'assets/images/player_logo.webp', 'Player',
                             nextRoute: '/playerList'),
-                        logoContainer(context, 'assets/images/create_logo.webp',
-                            'Create Own Team'),
+                        userType == "Ground"
+                            ? SizedBox()
+                            : logoContainer(
+                                context,
+                                'assets/images/create_logo.webp',
+                                'Create Own Team'),
                         logoContainer(
                           context,
                           'assets/images/ground_logo.webp',
