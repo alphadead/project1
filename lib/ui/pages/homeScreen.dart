@@ -32,12 +32,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void getUserType() async {
-    print("+++++++++++++++++");
-    print("lkj");
     SharedPreferences prefs = await SharedPreferences.getInstance();
     userType = prefs.getString("register_type")!;
-    print("iop");
-    print(userType);
   }
 
   @override

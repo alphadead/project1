@@ -83,7 +83,7 @@ class _CreateGroundState extends State<CreateGround> {
                       _groundService.groundName = value;
                     }, validate: (arg) {
                       arg = _groundService.groundName;
-                      if (ValidateFeild().isValidateName(arg)) {
+                      if (ValidateFeild().isValidateGroundDetails(arg)) {
                         return null;
                       } else {
                         return "Enter valid name";
@@ -93,15 +93,14 @@ class _CreateGroundState extends State<CreateGround> {
                         keyType: TextInputType.name),
                     inputField("Ground Location", (value) {
                       _groundService.groundLocation = value;
+                    }, validate: (arg) {
+                      arg = _groundService.groundLocation;
+                      if (ValidateFeild().isValidateGroundDetails(arg)) {
+                        return null;
+                      } else {
+                        return "Enter valid name";
+                      }
                     },
-                        // validate: (arg) {
-                        //   arg = _groundService.groundLocation;
-                        //   if (ValidateFeild().isValidateName(arg!)) {
-                        //     return null;
-                        //   } else {
-                        //     return "Enter valid name";
-                        //   }
-                        // },
                         initialValue: _groundService.groundLocation.toString(),
                         keyType: TextInputType.name),
                     Container(
@@ -240,14 +239,15 @@ class _CreateGroundState extends State<CreateGround> {
                               onChanged: (value) {
                                 _groundService.bookingFee = value;
                               },
-                              // validator: (arg) {
-                              //   arg = _groundService.bookingFees;
-                              //   if (ValidateFeild().isValidateName(arg!)) {
-                              //     return null;
-                              //   } else {
-                              //     return "Enter valid name";
-                              //   }
-                              // },
+                              validator: (arg) {
+                                arg = _groundService.bookingFee;
+                                if (ValidateFeild()
+                                    .isValidateGroundDetails(arg)) {
+                                  return null;
+                                } else {
+                                  return "Enter valid ammount";
+                                }
+                              },
                             )),
                           ),
                         ],
@@ -289,11 +289,7 @@ class _CreateGroundState extends State<CreateGround> {
                           onTap: () {
                             if (_groundService.formKey.currentState!
                                 .validate()) {
-                              print("++++++++++++++++++");
-                              print("===========");
-                              // _groundService.groundUpdate();
-                            } else {
-                              print("^^^^^^^^^^^^^");
+                              _groundService.groundUpdate();
                             }
                           },
                           child: Container(

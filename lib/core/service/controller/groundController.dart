@@ -125,7 +125,7 @@ class GroundController extends GetxController {
 
   String? latitude;
   String? longitude;
-  String? bookingFees;
+  String? bookingFees = "";
   List? photos;
   // GroundInfo? groundInfo;
   // GroundInfo? groundDisplay;
