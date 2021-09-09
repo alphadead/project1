@@ -15,6 +15,7 @@ class PlayerListController extends GetxController {
   List<PlayerData> playerList = [];
   List<PlayerData> playerListDisplay = [];
   late bool apiCall;
+  String userType = '';
 
   List<Color> statusColor = [moneyBox, containerGreen, KRed];
 
@@ -25,6 +26,8 @@ class PlayerListController extends GetxController {
   }
 
   void getPlayerlist() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    userType = prefs.getString("register_type")!;
     Utility.showLoadingDialog();
     PlayerListResponse response = await api.getPlayerlist();
     if (response.data != null) {

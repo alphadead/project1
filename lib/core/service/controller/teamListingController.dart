@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vamos/core/models/acceptRejectResponse.dart';
 import 'package:vamos/core/models/genericResponse.dart';
 import 'package:vamos/core/models/joinTeam.dart';
@@ -16,9 +17,12 @@ class TeamListController extends GetxController {
   List<Datum> teamRequestList = [];
   Api api = locator<Api>();
   bool joinedTeam = false;
+  String userType = '';
 
   void getteamlist() async {
     Utility.showLoadingDialog();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    userType = prefs.getString("register_type")!;
     TeamListResponse response = await api.getteamlist();
     if (response.data != null) {
       Utility.closeDialog();
@@ -29,8 +33,6 @@ class TeamListController extends GetxController {
     }
     update();
   }
-
-
 
   void joinTeam(teamId) async {
     JoinTeamResponse response = await api.joinTeam(teamId);

@@ -38,4 +38,12 @@ class ValidateFeild {
       return false;
     }
   }
+
+  bool isValidateGroundDetails(String? arg) {
+    if (arg!.length == 0) {
+      return false;
+    } else {
+      return true;
+    }
+  }
 }
