@@ -15,6 +15,9 @@ import 'package:vamos/ui/utils/utility.dart';
 class GroundController extends GetxController {
   Api api = locator<Api>();
   String? groundName;
+  String? _customGroundName;
+  String? _customGroundLocation;
+  bool _isCustom = false;
   String? matchName;
   String _eventDetails = '';
   String? groundLocation;
@@ -34,9 +37,28 @@ class GroundController extends GetxController {
   List<Datum> timeSlots = [];
   List<int> selectedIndices = [];
   Grounds? selectedGround;
+  Grounds? customGround;
   String get eventDetails => _eventDetails;
   set eventDetails(String value) {
     _eventDetails = value;
+    update();
+  }
+
+  String? get customGroundName => _customGroundName;
+  set customGroundName(String? val) {
+    _customGroundName = val;
+    update();
+  }
+
+  bool get isCustom => _isCustom;
+  set isCustom(bool val) {
+    _isCustom = val;
+    update();
+  }
+
+  String? get customGroundlocation => _customGroundLocation;
+  set customGroundlocation(String? val) {
+    _customGroundLocation = val;
     update();
   }
 
@@ -154,32 +176,43 @@ class GroundController extends GetxController {
   }
 
   void createMatch() async {
-    // Utility.showLoadingDialog();
+    Utility.showLoadingDialog();
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    print(selectedGround?.location);
-    print(selectedGround?.name);
+    print(customGroundlocation);
+    print(customGroundName);
     CreateMatch response = await api.createMatch(
       prefs.getString("userId")!,
       matchName ?? '',
-      selectedGround?.id,
-      selectedGround?.name,
-      selectedGround?.location,
-      selectedGround?.bookingFee,
-      bookingDate ?? '',
-      [
-        {
-          "opening_time": timeSlots[selectedIndices.first].slotStartTime,
-          "closing_time": timeSlots[selectedIndices.last].slotEndTime
-        }
-      ],
-      timeSlots[selectedIndices.first].slotTime,
+      customGround?.id,
+      isCustom ? customGroundName : selectedGround?.name,
+      isCustom ? customGroundlocation : selectedGround?.location,
+      bookingFee,
+      bookingDate,
+      isCustom
+          ? [
+              {
+                "opening_time":
+                    DateFormat('HH:mm').format(selectedOpeningTime!),
+                "closing_time": DateFormat('HH:mm').format(selectedClosingTime!)
+              }
+            ]
+          : [
+              {
+                "opening_time": timeSlots[selectedIndices.first].slotStartTime,
+                "closing_time": timeSlots[selectedIndices.last].slotEndTime
+              }
+            ],
+      '',
     );
-    print(response.data);
+
     if (response.data != null) {
       Get.find<MatchController>().matchId = response.data?.id;
       update();
       Utility.closeDialog();
       Get.toNamed("/inviteTeamMatch");
+    } else {
+      Utility.closeDialog();
+      Utility.showSnackbar("${response.message}");
     }
   }
 

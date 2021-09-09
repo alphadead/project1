@@ -1,13 +1,13 @@
-import 'package:date_picker_timeline/date_picker_timeline.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:vamos/core/service/controller/groundController.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/loginbkground.dart';
 import 'package:vamos/ui/utils/theme.dart';
 import 'package:vamos/widget/formWidgets/inputField.dart';
-import 'package:vamos/widget/groundWidgets/customCalendar.dart';
 
 List<String> months = [
   'January',
@@ -38,7 +38,6 @@ class _ScheduleCardState extends State<ScheduleCard> {
   var date;
 
   DateTime currentDate = DateTime.now();
-  String dateNow = '';
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(
@@ -49,7 +48,9 @@ class _ScheduleCardState extends State<ScheduleCard> {
     if (pickedDate != null && pickedDate != currentDate)
       setState(() {
         currentDate = pickedDate;
-        dateNow = currentDate.day.toString() +
+        Get.find<GroundController>().bookingDate =
+            DateFormat('yyyy-MM-dd').format(pickedDate).toString();
+        date = currentDate.day.toString() +
             (currentDate.day == 1
                 ? "st"
                 : currentDate.day == 2
@@ -64,6 +65,7 @@ class _ScheduleCardState extends State<ScheduleCard> {
   @override
   Widget build(BuildContext context) {
     bool isVisible = false;
+
     return GetBuilder<GroundController>(builder: (_groundService) {
       String dateString = "${widget.scheduleDate.day}" +
           (widget.scheduleDate.day == 1
@@ -99,7 +101,7 @@ class _ScheduleCardState extends State<ScheduleCard> {
                   ),
                   widget.groundName
                       ? inputField("Ground name", (value) {
-                          _groundService.selectedGround?.name = value;
+                          _groundService.customGroundName = value;
                         }, validate: (arg) {
                           if (arg?.isEmpty ?? false) {
                             return "Ground name is required!";
@@ -110,7 +112,7 @@ class _ScheduleCardState extends State<ScheduleCard> {
                       : SizedBox(),
                   widget.groundName
                       ? inputField("Ground location", (value) {
-                          _groundService.selectedGround?.location = value;
+                          _groundService.customGroundlocation = value;
                         }, validate: (arg) {
                           if (arg?.isEmpty ?? false) {
                             return "Ground location is required!";
@@ -140,7 +142,7 @@ class _ScheduleCardState extends State<ScheduleCard> {
                         widget.groundName
                             ? GestureDetector(
                                 onTap: () => _selectDate(context),
-                                child: dateNow == ''
+                                child: date == null
                                     ? Text(
                                         'Select date',
                                         style: themeData()
@@ -151,7 +153,7 @@ class _ScheduleCardState extends State<ScheduleCard> {
                                                 fontWeight: FontWeight.bold),
                                       )
                                     : Text(
-                                        dateNow,
+                                        date,
                                         style: themeData()
                                             .textTheme
                                             .bodyText1!
@@ -182,11 +184,6 @@ class _ScheduleCardState extends State<ScheduleCard> {
                       isDate: true,
                       defaultDateValue: DateTime(DateTime.now().year)
                           .add(Duration(hours: 11, minutes: 30))),
-                  CalenderScheduleRow(
-                      title: "Slot Time(Mins)",
-                      isDate: true,
-                      defaultDateValue: DateTime(DateTime.now().year)
-                          .add(Duration(minutes: 30))),
                   widget.groundName
                       ? Container(
                           margin: EdgeInsets.only(bottom: 15.h, top: 10.h),
@@ -208,9 +205,12 @@ class _ScheduleCardState extends State<ScheduleCard> {
                                 width: 100.w,
                                 color: KLightGrey.withOpacity(0.2),
                                 child: Center(
-                                    child: Text(
-                                  _groundService.selectedGround?.bookingFee ??
-                                      "",
+                                    child: TextField(
+                                  textAlign: TextAlign.center,
+                                  keyboardType: TextInputType.number,
+                                  onChanged: (val) {
+                                    _groundService.bookingFee = val;
+                                  },
                                   style: themeData()
                                       .textTheme
                                       .bodyText1!
@@ -257,8 +257,12 @@ class _ScheduleCardState extends State<ScheduleCard> {
                           color: moneyBox,
                           context: context,
                           onPressed: () {
-                            _groundService.clearSchedule();
-                            Get.back();
+                            if (!_groundService.isCustom) {
+                              _groundService.clearSchedule();
+                              Get.back();
+                            } else {
+                              Get.back();
+                            }
                           },
                           text: "Cancel",
                           width: 100,
@@ -272,10 +276,12 @@ class _ScheduleCardState extends State<ScheduleCard> {
                         child: primaryActionButton(
                           context: context,
                           onPressed: () {
-                            widget.groundName
-                                ? _groundService.createMatch()
-                                : _groundService.updateSchedule();
-                            _groundService.clearSchedule();
+                            if (widget.groundName) {
+                              _groundService.isCustom = true;
+                            } else {
+                              _groundService.updateSchedule();
+                              _groundService.clearSchedule();
+                            }
 
                             Get.back();
                           },
@@ -430,7 +436,14 @@ class _CalenderScheduleRowState extends State<CalenderScheduleRow> {
                           setState(() {
                             _currentDateValue =
                                 _currentDateValue!.add(Duration(minutes: 1));
+                            widget.title == "Closing Time"
+                                ? _groundService.selectedClosingTime =
+                                    _currentDateValue
+                                : _groundService.selectedOpeningTime =
+                                    _currentDateValue;
                           });
+                          print('AAAAAAAAAa');
+                          print(_currentDateValue);
                         }
                       } else {
                         if (_currentPriceValue! < 9999) {
