@@ -203,8 +203,8 @@ class _PlayerListScreenState extends State<PlayerListScreen> {
                                                 : SizedBox(),
                                             GestureDetector(
                                               child: Container(
-                                                margin:
-                                                    EdgeInsets.only(left: 10),
+                                                padding:
+                                                    EdgeInsets.only(left: 5),
                                                 child: Image.asset(
                                                   "assets/images/teamListInfo.webp",
                                                   height: 15,
@@ -219,6 +219,7 @@ class _PlayerListScreenState extends State<PlayerListScreen> {
                                   ),
                                 ),
                               ),
+
                               _playerListController.userType == "Ground"
                                   ? SizedBox()
                                   : Positioned(

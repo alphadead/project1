@@ -39,7 +39,6 @@ class _AboutMatchState extends State<AboutMatch> {
       WidgetsBinding.instance!.addPostFrameCallback(
           (_) => Get.find<MyTeamController>().getTeamInfo());
     } else {
-      
       WidgetsBinding.instance!.addPostFrameCallback(
           (_) => Get.find<GroundController>().getProfileData());
     }
@@ -104,69 +103,75 @@ class _AboutMatchState extends State<AboutMatch> {
                             return null;
                           }
                         }, keyType: TextInputType.name),
-                        (profileType??"Player") == "Player"?
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: DropdownButtonFormField(
-                            isExpanded: true,
-                            elevation: 25,
-                            hint: Text(
-                              'Ground name',
-                              style: TextStyle(color: KLightGrey),
-                            ),
-                            onChanged: (String? newValue) {
-                              _groundService
-                                  .setSelectedGroundInfo(int.parse(newValue!));
-                            },
-                            items: List.generate(
-                              _groundService.groundList.length,
-                              (index) {
-                                return DropdownMenuItem<String>(
-                                  value: _groundService.groundList[index].id
-                                      .toString(),
-                                  child: Text(
-                                    _groundService.groundList[index].name
-                                        .toString(),
-                                    style: TextStyle(
-                                        color: inputText, fontSize: 16),
+                        (profileType ?? "Player") == "Player"
+                            ? Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8.0),
+                                child: DropdownButtonFormField(
+                                  isExpanded: true,
+                                  elevation: 25,
+                                  hint: Text(
+                                    'Ground name',
+                                    style: TextStyle(color: KLightGrey),
                                   ),
-                                );
-                              },
-                            ),
-                          ),
-                        ): Container(),
-                        (profileType??"Player") == "Player"?
-                        Container(
-                          margin: EdgeInsets.only(bottom: 5.h, top: 5.h),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  showDialog(
-                                    context: context,
-                                    barrierDismissible: false,
-                                    builder: (BuildContext context) {
-                                      return ScheduleCard(
-                                        groundName: true,
-                                        scheduleDate: DateTime.now(),
+                                  onChanged: (String? newValue) {
+                                    _groundService.setSelectedGroundInfo(
+                                        int.parse(newValue!));
+                                  },
+                                  items: List.generate(
+                                    _groundService.groundList.length,
+                                    (index) {
+                                      return DropdownMenuItem<String>(
+                                        value: _groundService
+                                            .groundList[index].id
+                                            .toString(),
+                                        child: Text(
+                                          _groundService.groundList[index].name
+                                              .toString(),
+                                          style: TextStyle(
+                                              color: inputText, fontSize: 16),
+                                        ),
                                       );
                                     },
-                                  );
-                                },
-                                child: Text(
-                                  "Add New +",
-                                  style:
-                                      themeData().textTheme.bodyText1!.copyWith(
-                                            color: KRed,
-                                            fontSize: 15.sp,
-                                            fontWeight: FontWeight.bold,
-                                          ),
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        ): Container(),
+                              )
+                            : Container(),
+                        (profileType ?? "Player") == "Player"
+                            ? Container(
+                                margin: EdgeInsets.only(bottom: 5.h, top: 5.h),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {
+                                        showDialog(
+                                          context: context,
+                                          barrierDismissible: false,
+                                          builder: (BuildContext context) {
+                                            return ScheduleCard(
+                                              groundName: true,
+                                              scheduleDate: DateTime.now(),
+                                            );
+                                          },
+                                        );
+                                      },
+                                      child: Text(
+                                        "Add New +",
+                                        style: themeData()
+                                            .textTheme
+                                            .bodyText1!
+                                            .copyWith(
+                                              color: KRed,
+                                              fontSize: 15.sp,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            : Container(),
                         Container(
                           margin: EdgeInsets.only(bottom: 5.h, top: 15.h),
                           child: Row(
@@ -428,5 +433,4 @@ class _AboutMatchState extends State<AboutMatch> {
       ],
     );
   }
-
 }
