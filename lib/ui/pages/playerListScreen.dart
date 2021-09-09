@@ -19,6 +19,12 @@ class PlayerListScreen extends StatefulWidget {
 
 class _PlayerListScreenState extends State<PlayerListScreen> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     String buttonMsg;
     Color buttonCol;
@@ -213,51 +219,63 @@ class _PlayerListScreenState extends State<PlayerListScreen> {
                                   ),
                                 ),
                               ),
-                              Positioned(
-                                right: 25.w,
-                                bottom: 10.h,
-                                child: GestureDetector(
-                                  onTap: () {
-                                    if (!_playerListController
-                                        .playerListDisplay[index].isJoined!) {
-                                      _playerListController.requestPlayer(
-                                          _playerListController
-                                              .playerListDisplay[index].id,
-                                          index);
-                                    } else {
-                                      Utility.showSnackbar(AppLocalizations.of(
-                                              context)!
-                                          .registeredTeamsPage_alreadyPresentSnackbar);
-                                    }
-                                  },
-                                  child: Container(
-                                    width: 80.w,
-                                    height: 25.h,
-                                    decoration: BoxDecoration(
-                                      color: _playerListController
+
+                              _playerListController.userType == "Ground"
+                                  ? SizedBox()
+                                  : Positioned(
+                                      right: 15.w,
+                                      bottom: 10.h,
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          if (!_playerListController
+                                              .playerListDisplay[index]
+                                              .isJoined!) {
+                                            _playerListController.requestPlayer(
+                                                _playerListController
+                                                    .playerListDisplay[index]
+                                                    .id);
+                                            setState(() {
+                                              _playerListController
                                                   .playerListDisplay[index]
-                                                  .isJoined ==
-                                              true
-                                          ? _playerListController.statusColor[0]
-                                          : buttonCol,
-                                      borderRadius:
-                                          BorderRadius.circular(2.5.w),
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                        buttonMsg,
-                                        style: themeData()
-                                            .textTheme
-                                            .bodyText1!
-                                            .copyWith(
-                                                fontSize: 12.sp,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.white),
+                                                  .status = 'pending';
+                                            });
+                                          } else {
+                                            Utility.showSnackbar(AppLocalizations
+                                                    .of(context)!
+                                                .registeredTeamsPage_alreadyPresentSnackbar);
+                                          }
+                                        },
+                                        child: Container(
+                                          width: 80.w,
+                                          height: 25.h,
+                                          decoration: BoxDecoration(
+                                            color: _playerListController
+                                                        .playerListDisplay[
+                                                            index]
+                                                        .isJoined ==
+                                                    true
+                                                ? _playerListController
+                                                    .statusColor[0]
+                                                : buttonCol,
+                                            borderRadius:
+                                                BorderRadius.circular(2.5.w),
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              buttonMsg,
+                                              style: themeData()
+                                                  .textTheme
+                                                  .bodyText1!
+                                                  .copyWith(
+                                                      fontSize: 12.sp,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.white),
+                                            ),
+                                          ),
+                                        ),
                                       ),
-                                    ),
-                                  ),
-                                ),
-                              )
+                                    )
                             ],
                           ),
                         ),
