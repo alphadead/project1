@@ -39,79 +39,90 @@ class _InviteTeamPageState extends State<InviteTeamPage> {
         textDirection: TextDirection.ltr,
         child: Scaffold(
           floatingActionButton: LocaleFloatingActionButton(),
-          body: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                  child: Column(
-                    children: [
-                      Container(
-                        margin: EdgeInsets.symmetric(vertical: 20.h),
-                        child: Column(
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(bottom: 10.h),
-                              height: 56.h,
-                              child:
-                                  Image.asset("assets/images/team_logo.webp"),
+          body: Stack(
+            children: [
+              SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                      child: Column(
+                        children: [
+                          Container(
+                            margin: EdgeInsets.symmetric(vertical: 20.h),
+                            child: Column(
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.only(bottom: 10.h),
+                                  height: 56.h,
+                                  child: Image.asset(
+                                      "assets/images/team_logo.webp"),
+                                ),
+                                Text(
+                                  "Invite Teams For Match",
+                                  style:
+                                      themeData().textTheme.bodyText1!.copyWith(
+                                            color: profileContainerColor,
+                                            fontSize: 12.sp,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                ),
+                              ],
                             ),
-                            Text(
-                              "Invite Teams For Match",
-                              style: themeData().textTheme.bodyText1!.copyWith(
-                                    color: profileContainerColor,
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                            ),
-                          ],
-                        ),
+                          ),
+                          Container(
+                            height: 20,
+                          ),
+                          ListView.builder(
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: _authService.teamList.length,
+                            itemBuilder: (context, index) {
+                              return ListTile(
+                                title: registeredTeamContainer(
+                                    context: context,
+                                    team: _authService.teamList[index],
+                                    buttonText: "Invite",
+                                    onPressed: () {
+                                      if (!_authService
+                                          .teamList[index].isJoined!) {
+                                        Get.find<MatchController>()
+                                            .requestMatch(_authService
+                                                .teamList[index].id
+                                                .toString());
+                                        setState(() {
+                                          _authService
+                                              .teamList[index].isJoined = true;
+                                        });
+                                      } else {
+                                        Utility.showSnackbar(AppLocalizations
+                                                .of(context)!
+                                            .registeredTeamsPage_alreadyPresentSnackbar);
+                                      }
+                                    },
+                                    pressed:
+                                        _authService.teamList[index].isJoined),
+                              );
+                            },
+                          ),
+                        ],
                       ),
-                      Container(
-                        height: 20,
-                      ),
-                      ListView.builder(
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: _authService.teamList.length,
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                            title: registeredTeamContainer(
-                                context: context,
-                                team: _authService.teamList[index],
-                                buttonText: "Invite",
-                                onPressed: () {
-                                  if (!_authService.teamList[index].isJoined!) {
-                                    Get.find<MatchController>().requestMatch(
-                                        _authService.teamList[index].id
-                                            .toString());
-                                    setState(() {
-                                      _authService.teamList[index].isJoined =
-                                          true;
-                                    });
-                                  } else {
-                                    Utility.showSnackbar(AppLocalizations.of(
-                                            context)!
-                                        .registeredTeamsPage_alreadyPresentSnackbar);
-                                  }
-                                },
-                                pressed: _authService.teamList[index].isJoined),
-                          );
-                        },
-                      ),
-                      Container(
-                        padding: EdgeInsets.symmetric(vertical: 30),
-                        child: primaryActionButton(
-                            context: context,
-                            onPressed: () {
-                              Get.offAllNamed("/homeScreen");
-                            }),
-                      )
-                    ],
-                  ),
-                )
-              ],
-            ),
+                    )
+                  ],
+                ),
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  padding: EdgeInsets.symmetric(vertical: 30),
+                  child: primaryActionButton(
+                      context: context,
+                      onPressed: () {
+                        Get.offAllNamed("/homeScreen");
+                      }),
+                ),
+              )
+            ],
           ),
         ),
       ),

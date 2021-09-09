@@ -34,7 +34,7 @@ class _CreateGroundState extends State<CreateGround> {
   void initState() {
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       setState(() {
-        arguments = Get.arguments;
+        arguments = Get.arguments ?? false;
       });
       if (arguments) {
         Get.find<GroundController>().getProfileData();
@@ -86,7 +86,7 @@ class _CreateGroundState extends State<CreateGround> {
                       if (ValidateFeild().isValidateGroundDetails(arg)) {
                         return null;
                       } else {
-                        return "Enter valid name";
+                        return "This field is required!";
                       }
                     },
                         initialValue: _groundService.groundName.toString(),
@@ -98,7 +98,7 @@ class _CreateGroundState extends State<CreateGround> {
                       if (ValidateFeild().isValidateGroundDetails(arg)) {
                         return null;
                       } else {
-                        return "Enter valid name";
+                        return "This field is required!";
                       }
                     },
                         initialValue: _groundService.groundLocation.toString(),
@@ -225,7 +225,7 @@ class _CreateGroundState extends State<CreateGround> {
                           Container(
                             height: 35.h,
                             width: 100.w,
-                            color: KLightGrey.withOpacity(0.2),
+                            // color: KLightGrey.withOpacity(0.2),
                             child: Center(
                                 child: TextFormField(
                               initialValue: _groundService.bookingFees,
@@ -245,7 +245,7 @@ class _CreateGroundState extends State<CreateGround> {
                                     .isValidateGroundDetails(arg)) {
                                   return null;
                                 } else {
-                                  return "Enter valid ammount";
+                                  return "Required!";
                                 }
                               },
                             )),

@@ -106,8 +106,9 @@ class CustomBottomAppBarState extends State<CustomBottomAppBar> {
             onTap: () => index == 0
                 ? playerUI == "Player"
                     ? Get.toNamed('/playerInfo')
-                    : Get.toNamed('/viewGroundScreen')
-                : index == 1
+                    : Get.toNamed('/viewGroundScreen'):
+                  index == 3 ? Get.toNamed('/settings'):
+                 index == 1
                     ? Get.toNamed('/walletPage')
                     : onPressed != null
                         ? onPressed(index)

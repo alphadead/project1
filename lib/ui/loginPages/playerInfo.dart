@@ -333,15 +333,15 @@ class _PlayerInfoState extends State<PlayerInfo> {
               SizedBox(
                 height: 10.h,
               ),
-              primaryActionButton(
-                  context: context,
-                  onPressed: () async {
-                    SharedPreferences prefs =
-                        await SharedPreferences.getInstance();
-                    prefs.clear();
-                    Get.offAllNamed("/login");
-                  },
-                  text: "Logout"),
+              // primaryActionButton(
+              //     context: context,
+              //     onPressed: () async {
+              //       SharedPreferences prefs =
+              //           await SharedPreferences.getInstance();
+              //       prefs.clear();
+              //       Get.offAllNamed("/login");
+              //     },
+              //     text: "Logout"),
               SizedBox(
                 height: 50.h,
               ),

@@ -15,7 +15,7 @@ import 'package:vamos/ui/utils/utility.dart';
 
 class GroundController extends GetxController {
   Api api = locator<Api>();
-  String? groundName;
+  String? groundName = '';
   String? _customGroundName;
   String? _customGroundLocation;
   bool _isCustom = false;
@@ -84,9 +84,7 @@ class GroundController extends GetxController {
       "date": DateFormat('yyyy-MM-dd').format(selectedDate!),
       "availability": {
         "opening_time": DateFormat('HH:mm').format(selectedOpeningTime!),
-        "closing_time": DateFormat('HH:mm').format(selectedClosingTime!),
-        "slot_time": DateFormat('mm').format(selectedSlotDuration!),
-        "event_details": eventDetails
+        "closing_time": DateFormat('HH:mm').format(selectedClosingTime!)
       },
     };
     availableDates.add(newValue);
