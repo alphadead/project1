@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -14,10 +15,10 @@ import 'package:vamos/ui/utils/utility.dart';
 
 class GroundController extends GetxController {
   Api api = locator<Api>();
-  String? groundName;
+  String? groundName = '';
   String? matchName;
   String _eventDetails = '';
-  String? groundLocation;
+  String? groundLocation = "";
   int currentDateIndex = -1;
   int? _groundId;
   DateTime? selectedDate;
@@ -34,6 +35,9 @@ class GroundController extends GetxController {
   List<Datum> timeSlots = [];
   List<int> selectedIndices = [];
   Grounds? selectedGround;
+
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   String get eventDetails => _eventDetails;
   set eventDetails(String value) {
     _eventDetails = value;
@@ -121,7 +125,7 @@ class GroundController extends GetxController {
 
   String? latitude;
   String? longitude;
-  String? bookingFees;
+  String? bookingFees = "";
   List? photos;
   // GroundInfo? groundInfo;
   // GroundInfo? groundDisplay;
