@@ -195,7 +195,7 @@ class _MyTeamState extends State<MyTeam> {
                                   setState(() {
                                     joinedTeamListView = true;
                                   });
-                                }, joinedTeamListView, 'Joined Team'),
+                                }, joinedTeamListView, 'Joined Player'),
                                 primaryActionButtonKRed(() {
                                   setState(() {
                                     _myTeamService.getPlayerRequestListByTeam();

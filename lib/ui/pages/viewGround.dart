@@ -18,7 +18,6 @@ List schedule = [
   ["FIFA World Cup", "12:22"],
 ];
 
-
 class ViewGroundScreen extends StatefulWidget {
   const ViewGroundScreen({Key? key}) : super(key: key);
 
@@ -208,6 +207,7 @@ class _ViewGroundScreenState extends State<ViewGroundScreen> {
                                     barrierDismissible: false,
                                     builder: (BuildContext context) {
                                       return ScheduleCard(
+                                        isEdit: true,
                                         groundName: false,
                                         scheduleDate:
                                             _groundService.selectedDate!,
@@ -249,7 +249,7 @@ class _ViewGroundScreenState extends State<ViewGroundScreen> {
                   //     );
                   //   },
                   // ),
-                 
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
@@ -289,4 +289,3 @@ class _ViewGroundScreenState extends State<ViewGroundScreen> {
     );
   }
 }
-

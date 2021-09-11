@@ -233,12 +233,7 @@ class _PlayerListScreenState extends State<PlayerListScreen> {
                                             _playerListController.requestPlayer(
                                                 _playerListController
                                                     .playerListDisplay[index]
-                                                    .id);
-                                            setState(() {
-                                              _playerListController
-                                                  .playerListDisplay[index]
-                                                  .status = 'pending';
-                                            });
+                                                    .id, index);
                                           } else {
                                             Utility.showSnackbar(AppLocalizations
                                                     .of(context)!

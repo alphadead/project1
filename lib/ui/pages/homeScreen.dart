@@ -67,11 +67,13 @@ class HomeScreen extends StatelessWidget {
                               logoContainer(
                                   context,
                                   'assets/images/upcoming_logo.webp',
-                                  'Upcoming Matches'),
+                                  'Upcoming Matches',
+                                  message: "No Upcoming Matches Present!"),
                               logoContainer(
                                   context,
                                   'assets/images/tournaments_logo.webp',
-                                  'Tournaments')
+                                  'Tournaments',
+                                  message: "No Tournaments Present!")
                             ],
                           ),
                         )
@@ -93,7 +95,7 @@ class HomeScreen extends StatelessWidget {
                               logoContainer(
                                   context,
                                   'assets/images/create_logo.webp',
-                                  'Create Own Team'),
+                                  'Create Own Team', nextRoute: "/createTeam"),
                               logoContainer(
                                 context,
                                 'assets/images/ground_logo.webp',
@@ -103,11 +105,13 @@ class HomeScreen extends StatelessWidget {
                               logoContainer(
                                   context,
                                   'assets/images/upcoming_logo.webp',
-                                  'Upcoming Matches'),
+                                  'Upcoming Matches',
+                                  message: "No Upcoming Matches Present!"),
                               logoContainer(
                                   context,
                                   'assets/images/tournaments_logo.webp',
-                                  'Tournaments')
+                                  'Tournaments',
+                                  message: "No Tournaments Present!")
                             ],
                           ),
                         )

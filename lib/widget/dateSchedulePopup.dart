@@ -1,13 +1,13 @@
-import 'package:date_picker_timeline/date_picker_timeline.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:vamos/core/service/controller/groundController.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/loginbkground.dart';
 import 'package:vamos/ui/utils/theme.dart';
 import 'package:vamos/widget/formWidgets/inputField.dart';
-import 'package:vamos/widget/groundWidgets/customCalendar.dart';
 
 List<String> months = [
   'January',
@@ -25,10 +25,15 @@ List<String> months = [
 ];
 
 class ScheduleCard extends StatefulWidget {
-  ScheduleCard({Key? key, required this.groundName, required this.scheduleDate})
+  ScheduleCard(
+      {Key? key,
+      required this.groundName,
+      required this.scheduleDate,
+      required this.isEdit})
       : super(key: key);
   final DateTime scheduleDate;
   final bool groundName;
+  final bool isEdit;
 
   @override
   _ScheduleCardState createState() => _ScheduleCardState();
@@ -37,9 +42,35 @@ class ScheduleCard extends StatefulWidget {
 class _ScheduleCardState extends State<ScheduleCard> {
   var date;
 
+  DateTime currentDate = DateTime.now();
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? pickedDate = await showDatePicker(
+        context: context,
+        initialDate: currentDate,
+        firstDate: DateTime.now(),
+        lastDate: DateTime.now().add(Duration(days: 60)));
+    if (pickedDate != null && pickedDate != currentDate)
+      setState(() {
+        currentDate = pickedDate;
+        Get.find<GroundController>().bookingDate =
+            DateFormat('yyyy-MM-dd').format(pickedDate).toString();
+        date = currentDate.day.toString() +
+            (currentDate.day == 1
+                ? "st"
+                : currentDate.day == 2
+                    ? "nd"
+                    : currentDate.day == 3
+                        ? "rd"
+                        : "th") +
+            " ${months[currentDate.month - 1].substring(0, 3)} ${currentDate.year}";
+      });
+  }
+
   @override
   Widget build(BuildContext context) {
     bool isVisible = false;
+
     return GetBuilder<GroundController>(builder: (_groundService) {
       String dateString = "${widget.scheduleDate.day}" +
           (widget.scheduleDate.day == 1
@@ -58,7 +89,7 @@ class _ScheduleCardState extends State<ScheduleCard> {
           child: Container(
             margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             width: 305.w,
-            height: 415.h,
+            height: 250.h,
             decoration:
                 BoxDecoration(borderRadius: BorderRadius.circular(2.5.h)),
             child: SingleChildScrollView(
@@ -75,25 +106,33 @@ class _ScheduleCardState extends State<ScheduleCard> {
                   ),
                   widget.groundName
                       ? inputField("Ground name", (value) {
-                          _groundService.selectedGround?.name = value;
+                          _groundService.customGroundName = value;
                         }, validate: (arg) {
                           if (arg?.isEmpty ?? false) {
                             return "Ground name is required!";
                           } else {
                             return null;
                           }
-                        }, keyType: TextInputType.name)
+                        },
+                          keyType: TextInputType.name,
+                          initialValue: widget.isEdit
+                              ? _groundService.customGroundName
+                              : '')
                       : SizedBox(),
                   widget.groundName
                       ? inputField("Ground location", (value) {
-                          _groundService.selectedGround?.location = value;
+                          _groundService.customGroundlocation = value;
                         }, validate: (arg) {
                           if (arg?.isEmpty ?? false) {
                             return "Ground location is required!";
                           } else {
                             return null;
                           }
-                        }, keyType: TextInputType.name)
+                        },
+                          keyType: TextInputType.name,
+                          initialValue: widget.isEdit
+                              ? _groundService.customGroundlocation
+                              : '')
                       : SizedBox(),
                   Container(
                     margin: EdgeInsets.only(top: 20.sp),
@@ -113,32 +152,64 @@ class _ScheduleCardState extends State<ScheduleCard> {
                             ),
                           ],
                         ),
-                        GestureDetector(
-                          onTap: () {},
-                          child: Text(
-                            dateString,
-                            style: themeData().textTheme.bodyText1!.copyWith(
-                                color: KRed, fontWeight: FontWeight.bold),
-                          ),
-                        )
+                        widget.groundName
+                            ? GestureDetector(
+                                onTap: () => _selectDate(context),
+                                child: date == null
+                                    ? Text(
+                                        widget.isEdit
+                                            ? _groundService.bookingDate
+                                                .toString()
+                                            : 'Select date',
+                                        style: themeData()
+                                            .textTheme
+                                            .bodyText1!
+                                            .copyWith(
+                                                color: KRed,
+                                                fontWeight: FontWeight.bold),
+                                      )
+                                    : Text(
+                                        date,
+                                        style: themeData()
+                                            .textTheme
+                                            .bodyText1!
+                                            .copyWith(
+                                                color: KRed,
+                                                fontWeight: FontWeight.bold),
+                                      ),
+                              )
+                            : Text(
+                                dateString,
+                                style: themeData()
+                                    .textTheme
+                                    .bodyText1!
+                                    .copyWith(
+                                        color: KRed,
+                                        fontWeight: FontWeight.bold),
+                              )
                       ],
                     ),
                   ),
                   CalenderScheduleRow(
                       title: "Opening Time",
                       isDate: true,
-                      defaultDateValue: DateTime(DateTime.now().year)
-                          .add(Duration(hours: 5, minutes: 30))),
+                      defaultDateValue: DateTime(DateTime.now().year).add(widget
+                              .isEdit
+                          ? Duration(
+                              hours: _groundService.selectedOpeningTime!.hour,
+                              minutes:
+                                  _groundService.selectedOpeningTime!.minute)
+                          : Duration(hours: 5, minutes: 30))),
                   CalenderScheduleRow(
                       title: "Closing Time",
                       isDate: true,
-                      defaultDateValue: DateTime(DateTime.now().year)
-                          .add(Duration(hours: 11, minutes: 30))),
-                  CalenderScheduleRow(
-                      title: "Slot Time(Mins)",
-                      isDate: true,
-                      defaultDateValue: DateTime(DateTime.now().year)
-                          .add(Duration(minutes: 30))),
+                      defaultDateValue: DateTime(DateTime.now().year).add(widget
+                              .isEdit
+                          ? Duration(
+                              hours: _groundService.selectedClosingTime!.hour,
+                              minutes:
+                                  _groundService.selectedClosingTime!.minute)
+                          : Duration(hours: 11, minutes: 30))),
                   widget.groundName
                       ? Container(
                           margin: EdgeInsets.only(bottom: 15.h, top: 10.h),
@@ -160,9 +231,15 @@ class _ScheduleCardState extends State<ScheduleCard> {
                                 width: 100.w,
                                 color: KLightGrey.withOpacity(0.2),
                                 child: Center(
-                                    child: Text(
-                                  _groundService.selectedGround?.bookingFee ??
-                                      "",
+                                    child: TextFormField(
+                                  textAlign: TextAlign.center,
+                                  keyboardType: TextInputType.number,
+                                  onChanged: (val) {
+                                    _groundService.bookingFee = val;
+                                  },
+                                  initialValue: widget.isEdit
+                                      ? _groundService.bookingFee
+                                      : '',
                                   style: themeData()
                                       .textTheme
                                       .bodyText1!
@@ -173,32 +250,9 @@ class _ScheduleCardState extends State<ScheduleCard> {
                           ),
                         )
                       : SizedBox(),
-                  widget.groundName
-                      ? SizedBox()
-                      : TextFormField(
-                          minLines: 3,
-                          maxLines: 20,
-                          onChanged: (value) {
-                            _groundService.eventDetails = value;
-                          },
-                          decoration: InputDecoration(
-                            alignLabelWithHint: true,
-                            floatingLabelBehavior: FloatingLabelBehavior.never,
-                            labelText: "Text Goes Here",
-                            labelStyle: themeData()
-                                .textTheme
-                                .bodyText1!
-                                .copyWith(color: KLightGrey),
-                            enabledBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: KLightGrey, width: 1.0),
-                                borderRadius: BorderRadius.zero),
-                            focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: KLightGrey, width: 1.0),
-                                borderRadius: BorderRadius.zero),
-                          ),
-                        ),
+                  SizedBox(
+                    height: 10.h,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -209,8 +263,12 @@ class _ScheduleCardState extends State<ScheduleCard> {
                           color: moneyBox,
                           context: context,
                           onPressed: () {
-                            _groundService.clearSchedule();
-                            Get.back();
+                            if (!_groundService.isCustom) {
+                              _groundService.clearSchedule();
+                              Get.back();
+                            } else {
+                              Get.back();
+                            }
                           },
                           text: "Cancel",
                           width: 100,
@@ -224,10 +282,12 @@ class _ScheduleCardState extends State<ScheduleCard> {
                         child: primaryActionButton(
                           context: context,
                           onPressed: () {
-                            widget.groundName
-                                ? _groundService.createMatch()
-                                : _groundService.updateSchedule();
-                            _groundService.clearSchedule();
+                            if (widget.groundName) {
+                              _groundService.isCustom = true;
+                            } else {
+                              _groundService.updateSchedule();
+                              _groundService.clearSchedule();
+                            }
 
                             Get.back();
                           },
@@ -382,6 +442,11 @@ class _CalenderScheduleRowState extends State<CalenderScheduleRow> {
                           setState(() {
                             _currentDateValue =
                                 _currentDateValue!.add(Duration(minutes: 1));
+                            widget.title == "Closing Time"
+                                ? _groundService.selectedClosingTime =
+                                    _currentDateValue
+                                : _groundService.selectedOpeningTime =
+                                    _currentDateValue;
                           });
                         }
                       } else {

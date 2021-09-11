@@ -70,10 +70,16 @@ class _CustomAppBarState extends State<CustomAppBar> {
         margin: EdgeInsets.only(left: 30.w),
         child: CustomSwitch(),
       ),
-      title: Container(
-        width: 50.w,
-        child: Image.asset(
-          "assets/logo.webp",
+      title: GestureDetector(
+        onTap: () {
+                Get.offAllNamed('/homeScreen');
+
+        },
+        child: Container(
+          width: 50.w,
+          child: Image.asset(
+            "assets/logo.webp",
+          ),
         ),
       ),
     );

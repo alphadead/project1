@@ -20,6 +20,7 @@ import 'package:vamos/ui/pages/match/outgoingRequestListByMatch.dart';
 import 'package:vamos/ui/pages/myTeam.dart';
 import 'package:vamos/ui/pages/playerListScreen.dart';
 import 'package:vamos/ui/pages/playerListingScreen.dart';
+import 'package:vamos/ui/pages/settings.dart';
 import 'package:vamos/ui/pages/teamListScreen.dart';
 import 'package:vamos/ui/pages/viewGround.dart';
 
@@ -213,5 +214,12 @@ abstract class AppPages {
       transition: Transition.downToUp,
       binding: AllBinder(),
     ),
+      GetPage(
+      name: '/settings',
+      transitionDuration: transitionDuration,
+      page: () => Settings(),
+      transition: Transition.downToUp,
+      binding: AllBinder(),
+    )
   ];
 }

@@ -23,7 +23,7 @@ class CreateMatch {
   factory CreateMatch.fromJson(Map<String, dynamic> json) => CreateMatch(
         success: json["success"],
         message: json["message"],
-        data: MatchData.fromJson(json["data"]),
+        data: json["data"] == null ? null : MatchData.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {

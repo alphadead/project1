@@ -16,6 +16,9 @@ import 'package:vamos/ui/utils/utility.dart';
 class GroundController extends GetxController {
   Api api = locator<Api>();
   String? groundName = '';
+  String? _customGroundName;
+  String? _customGroundLocation;
+  bool _isCustom = false;
   String? matchName;
   String _eventDetails = '';
   String? groundLocation = "";
@@ -35,12 +38,31 @@ class GroundController extends GetxController {
   List<Datum> timeSlots = [];
   List<int> selectedIndices = [];
   Grounds? selectedGround;
+  Grounds? customGround;
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   String get eventDetails => _eventDetails;
   set eventDetails(String value) {
     _eventDetails = value;
+    update();
+  }
+
+  String? get customGroundName => _customGroundName;
+  set customGroundName(String? val) {
+    _customGroundName = val;
+    update();
+  }
+
+  bool get isCustom => _isCustom;
+  set isCustom(bool val) {
+    _isCustom = val;
+    update();
+  }
+
+  String? get customGroundlocation => _customGroundLocation;
+  set customGroundlocation(String? val) {
+    _customGroundLocation = val;
     update();
   }
 
@@ -62,9 +84,7 @@ class GroundController extends GetxController {
       "date": DateFormat('yyyy-MM-dd').format(selectedDate!),
       "availability": {
         "opening_time": DateFormat('HH:mm').format(selectedOpeningTime!),
-        "closing_time": DateFormat('HH:mm').format(selectedClosingTime!),
-        "slot_time": DateFormat('mm').format(selectedSlotDuration!),
-        "event_details": eventDetails
+        "closing_time": DateFormat('HH:mm').format(selectedClosingTime!)
       },
     };
     availableDates.add(newValue);
@@ -127,8 +147,6 @@ class GroundController extends GetxController {
   String? longitude;
   String? bookingFees = "";
   List? photos;
-  // GroundInfo? groundInfo;
-  // GroundInfo? groundDisplay;
 
   void getProfileData() async {
     Utility.showLoadingDialog();
@@ -158,32 +176,41 @@ class GroundController extends GetxController {
   }
 
   void createMatch() async {
-    // Utility.showLoadingDialog();
+    Utility.showLoadingDialog();
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    print(selectedGround?.location);
-    print(selectedGround?.name);
     CreateMatch response = await api.createMatch(
       prefs.getString("userId")!,
-      matchName!,
-      selectedGround?.id,
-      selectedGround?.name,
-      selectedGround?.location,
-      selectedGround?.bookingFee,
-      bookingDate!,
-      [
-        {
-          "opening_time": timeSlots[selectedIndices.first].slotStartTime,
-          "closing_time": timeSlots[selectedIndices.last].slotEndTime
-        }
-      ],
-      timeSlots[selectedIndices.first].slotTime,
+      matchName ?? '',
+      customGround?.id,
+      isCustom ? customGroundName : selectedGround?.name,
+      isCustom ? customGroundlocation : selectedGround?.location,
+      bookingFee,
+      bookingDate,
+      isCustom
+          ? [
+              {
+                "opening_time":
+                    DateFormat('HH:mm').format(selectedOpeningTime!),
+                "closing_time": DateFormat('HH:mm').format(selectedClosingTime!)
+              }
+            ]
+          : [
+              {
+                "opening_time": timeSlots[selectedIndices.first].slotStartTime,
+                "closing_time": timeSlots[selectedIndices.last].slotEndTime
+              }
+            ],
+      '',
     );
-    print(response.data);
+
     if (response.data != null) {
       Get.find<MatchController>().matchId = response.data?.id;
       update();
       Utility.closeDialog();
       Get.toNamed("/inviteTeamMatch");
+    } else {
+      Utility.closeDialog();
+      Utility.showSnackbar("${response.message}");
     }
   }
 

@@ -77,8 +77,9 @@ class _TeamListScreenState extends State<TeamListScreen> {
               ),
               body: TabBarView(
                 children: [
-                  SingleChildScrollView(
-                    child: Column(
+                  Stack(children: [
+                    SingleChildScrollView(
+                        child: Column(
                       children: [
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -329,41 +330,45 @@ class _TeamListScreenState extends State<TeamListScreen> {
                             );
                           },
                         ),
-                        Container(
-                          margin: EdgeInsets.only(right: 10),
-                          height: 100,
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                FloatingActionButton(
-                                  backgroundColor: containerGreen,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Image.asset(
-                                        "assets/images/TeamListMyTeam.webp",
-                                        height: 25.h,
-                                      ),
-                                      Text(
-                                        "MyTeam",
-                                        style: themeData()
-                                            .textTheme
-                                            .bodyText1!
-                                            .copyWith(
-                                                fontSize: 6.4.sp,
-                                                color: Colors.white),
-                                      )
-                                    ],
-                                  ),
-                                  onPressed: () {
-                                    Get.toNamed('/myTeam');
-                                  },
-                                ),
-                              ]),
-                        )
                       ],
-                    ),
-                  ),
+                    )),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Container(
+                        margin: EdgeInsets.only(right: 10.w),
+                        height: 100,
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              FloatingActionButton(
+                                heroTag: null,
+                                backgroundColor: containerGreen,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Image.asset(
+                                      "assets/images/TeamListMyTeam.webp",
+                                      height: 25.h,
+                                    ),
+                                    Text(
+                                      AppLocalizations.of(context)!.my_team,
+                                      style: themeData()
+                                          .textTheme
+                                          .bodyText1!
+                                          .copyWith(
+                                              fontSize: 6.4.sp,
+                                              color: Colors.white),
+                                    )
+                                  ],
+                                ),
+                                onPressed: () {
+                                  Get.toNamed('/myTeam');
+                                },
+                              ),
+                            ]),
+                      ),
+                    )
+                  ]),
                   SingleChildScrollView(
                     child: Column(
                       children: [
