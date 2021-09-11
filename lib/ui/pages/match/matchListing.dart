@@ -72,244 +72,234 @@ class _MatchListingState extends State<MatchListing> {
             ),
             body: TabBarView(
               children: [
-                SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      pageHeader(
-                          "List of Matches", "assets/images/team_logo.webp"),
-                      ListView.builder(
-                          physics: NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: matchService.matches?.length ?? 0,
-                          itemBuilder: (context, index) {
-                            Match? match = matchService.matches?[index];
-                            return GestureDetector(
-                              onTap: () {
-                                Get.put(MatchController())
-                                    .getTeamRequestsByMatch(match?.id);
-                              },
-                              child: Container(
-                                margin: EdgeInsets.only(top: 10.h),
-                                child: Center(
-                                  child: Container(
-                                    height: 100.h,
-                                    width: 300.w,
-                                    child: Card(
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(2.5.w)),
-                                      elevation: 3,
-                                      margin: EdgeInsets.fromLTRB(
-                                          5.w, 0, 5.w, 25.h),
-                                      child: Row(children: [
-                                        Container(
-                                            height: 54.h,
-                                            margin: EdgeInsets.symmetric(
-                                                vertical: 5.h, horizontal: 15),
-                                            child: CircleAvatar(
-                                                radius: 20.h,
-                                                backgroundImage: AssetImage(
-                                                    'assets/images/placeholder_team_icon.png'))),
-                                        Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Container(
-                                              width: 170.w,
-                                              child: Text(
-                                                match?.name?.toString() ?? "",
-                                                maxLines: 2,
-                                                overflow: TextOverflow.ellipsis,
-                                                style: themeData()
-                                                    .textTheme
-                                                    .bodyText1!
-                                                    .copyWith(
-                                                      fontSize: 12.sp,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: KRed,
-                                                    ),
-                                              ),
-                                            ),
-                                            Text(
-                                              'Time Slot: ' +
-                                                  "${match?.bookingTimeSlots?.first['opening_time']} -  ${match?.bookingTimeSlots?.first['closing_time']} ",
-                                              style: themeData()
-                                                  .textTheme
-                                                  .bodyText1!
-                                                  .copyWith(
-                                                    fontSize: 11.sp,
-                                                  ),
-                                            )
-                                          ],
-                                        ),
-                                      ]),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            );
-                          }),
-                      Container(
-                        margin: EdgeInsets.only(right: 10),
-                        height: 50.h,
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              FloatingActionButton(
-                                backgroundColor: containerGreen,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [Icon(Icons.add)],
-                                ),
-                                onPressed: () {
-                                  Get.toNamed('/aboutMatch');
-                                },
-                              ),
-                            ]),
-                      )
-                    ],
-                  ),
-                ),
-                SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      pageHeader(
-                          "List of Matches", "assets/images/team_logo.webp"),
-                      ListView.builder(
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: matchService.matchRequests?.length ?? 0,
-                        itemBuilder: (context, index) {
-                          MatchRequest? match =
-                              matchService.matchRequests?[index];
-                          return GestureDetector(
-                            onTap: () {
-                              Get.put(MatchController())
-                                  .getTeamRequestsByMatch(match?.id);
-                            },
-                            child: Container(
-                              margin: EdgeInsets.only(top: 10.h),
-                              child: Center(
-                                  child: Stack(children: [
-                                Container(
-                                  height: 100.h,
-                                  width: 300.w,
-                                  child: Card(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(2.5.w)),
-                                    elevation: 3,
-                                    margin:
-                                        EdgeInsets.fromLTRB(5.w, 0, 5.w, 25.h),
-                                    child: Row(children: [
-                                      Container(
-                                          height: 54.h,
-                                          margin: EdgeInsets.symmetric(
-                                              vertical: 5.h, horizontal: 15),
-                                          child: CircleAvatar(
-                                              radius: 20.h,
-                                              backgroundImage: AssetImage(
-                                                  'assets/images/placeholder_team_icon.png'))),
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Container(
-                                            width: 170.w,
-                                            child: Text(
-                                              match?.matchName?.toString() ??
-                                                  "",
-                                              maxLines: 2,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: themeData()
-                                                  .textTheme
-                                                  .bodyText1!
-                                                  .copyWith(
-                                                    fontSize: 12.sp,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: KRed,
-                                                  ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ]),
-                                  ),
-                                ),
-                                Positioned(
-                                  right: 15.w,
-                                  bottom: 10.h,
-                                  child: Row(
-                                    children: [
-                                      GestureDetector(
-                                        onTap: () {
-                                          matchService.updateRequest(match?.id,
-                                              match?.matchId, "Accept");
-                                          matchService.matchRequests
-                                              ?.removeAt(index);
-                                          matchService.update();
-                                        },
-                                        child: Container(
-                                          margin: EdgeInsets.only(right: 10),
-                                          width: 40.w,
-                                          height: 25.h,
-                                          decoration: BoxDecoration(
-                                            color: containerGreen,
-                                            borderRadius:
-                                                BorderRadius.circular(2.5.w),
-                                          ),
-                                          child: Center(
-                                            child: Icon(
-                                              Icons.check,
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      GestureDetector(
-                                        onTap: () {
-                                          matchService.updateRequest(match?.id,
-                                              match?.matchId, "Reject");
-                                          matchService.matchRequests
-                                              ?.removeAt(index);
-                                          matchService.update();
-                                        },
-                                        child: Container(
-                                          width: 40.w,
-                                          height: 25.h,
-                                          decoration: BoxDecoration(
-                                            color: KRed,
-                                            borderRadius:
-                                                BorderRadius.circular(2.5.w),
-                                          ),
-                                          child: Center(
-                                            child: Icon(
-                                              Icons.close,
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ])),
-                            ),
-                          );
-                        },
-                      )
-                    ],
-                  ),
-                ),
+                myMatches(matchService),
+                incomingRequests(matchService)
               ],
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget myMatches(matchService) {
+    return Stack(
+      children: [
+        SingleChildScrollView(
+          child: Column(
+            children: [
+              pageHeader("List of Matches", "assets/images/team_logo.webp"),
+              ListView.builder(
+                  physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: matchService.matches?.length ?? 0,
+                  itemBuilder: (context, index) {
+                    Match? match = matchService.matches?[index];
+                    return GestureDetector(
+                      onTap: () {
+                        Get.put(MatchController())
+                            .getTeamRequestsByMatch(match?.id);
+                      },
+                      child: Container(
+                        margin: EdgeInsets.only(top: 10.h),
+                        child: Center(
+                          child: Container(
+                            height: 100.h,
+                            width: 300.w,
+                            child: Card(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(2.5.w)),
+                              elevation: 3,
+                              margin: EdgeInsets.fromLTRB(5.w, 0, 5.w, 25.h),
+                              child: Row(children: [
+                                Container(
+                                    height: 54.h,
+                                    margin: EdgeInsets.symmetric(
+                                        vertical: 5.h, horizontal: 15),
+                                    child: CircleAvatar(
+                                        radius: 20.h,
+                                        backgroundImage: AssetImage(
+                                            'assets/images/placeholder_team_icon.png'))),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      width: 170.w,
+                                      child: Text(
+                                        match?.name?.toString() ?? "",
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: themeData()
+                                            .textTheme
+                                            .bodyText1!
+                                            .copyWith(
+                                              fontSize: 12.sp,
+                                              fontWeight: FontWeight.bold,
+                                              color: KRed,
+                                            ),
+                                      ),
+                                    ),
+                                    Text(
+                                      'Time Slot: ' +
+                                          "${match?.bookingTimeSlots?.first['opening_time']} -  ${match?.bookingTimeSlots?.first['closing_time']} ",
+                                      style: themeData()
+                                          .textTheme
+                                          .bodyText1!
+                                          .copyWith(
+                                            fontSize: 11.sp,
+                                          ),
+                                    )
+                                  ],
+                                ),
+                              ]),
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  }),
+            ],
+          ),
+        ),
+        Align(
+          alignment: Alignment.bottomRight,
+          child: Padding(
+            padding: EdgeInsets.only(right: 10.w, bottom: 10.h ),
+            child: FloatingActionButton(
+              heroTag: null,
+              backgroundColor: containerGreen,
+              child: Container(
+                child:Icon(Icons.add),
+              ),
+              onPressed: () {
+                Get.toNamed('/aboutMatch');
+              },
+            ),
+          ),
+        )
+      ],
+    );
+  }
+
+  Widget incomingRequests(matchService) {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          pageHeader("List of Matches", "assets/images/team_logo.webp"),
+          ListView.builder(
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: matchService.matchRequests?.length ?? 0,
+            itemBuilder: (context, index) {
+              MatchRequest? match = matchService.matchRequests?[index];
+              return GestureDetector(
+                onTap: () {
+                  // Get.put(MatchController()).getTeamRequestsByMatch(match?.id);
+                },
+                child: Container(
+                  margin: EdgeInsets.only(top: 10.h),
+                  child: Center(
+                      child: Stack(children: [
+                    Container(
+                      height: 100.h,
+                      width: 300.w,
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(2.5.w)),
+                        elevation: 3,
+                        margin: EdgeInsets.fromLTRB(5.w, 0, 5.w, 25.h),
+                        child: Row(children: [
+                          Container(
+                              height: 54.h,
+                              margin: EdgeInsets.symmetric(
+                                  vertical: 5.h, horizontal: 15),
+                              child: CircleAvatar(
+                                  radius: 20.h,
+                                  backgroundImage: AssetImage(
+                                      'assets/images/placeholder_team_icon.png'))),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: 170.w,
+                                child: Text(
+                                  match?.matchName?.toString() ?? "",
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style:
+                                      themeData().textTheme.bodyText1!.copyWith(
+                                            fontSize: 12.sp,
+                                            fontWeight: FontWeight.bold,
+                                            color: KRed,
+                                          ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ]),
+                      ),
+                    ),
+                    Positioned(
+                      right: 15.w,
+                      bottom: 10.h,
+                      child: Row(
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              matchService.updateRequest(
+                                  match?.id, match?.matchId, "Accept");
+                              matchService.matchRequests?.removeAt(index);
+                              matchService.update();
+                            },
+                            child: Container(
+                              margin: EdgeInsets.only(right: 10),
+                              width: 40.w,
+                              height: 25.h,
+                              decoration: BoxDecoration(
+                                color: containerGreen,
+                                borderRadius: BorderRadius.circular(2.5.w),
+                              ),
+                              child: Center(
+                                child: Icon(
+                                  Icons.check,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              matchService.updateRequest(
+                                  match?.id, match?.matchId, "Reject");
+                              matchService.matchRequests?.removeAt(index);
+                              matchService.update();
+                            },
+                            child: Container(
+                              width: 40.w,
+                              height: 25.h,
+                              decoration: BoxDecoration(
+                                color: KRed,
+                                borderRadius: BorderRadius.circular(2.5.w),
+                              ),
+                              child: Center(
+                                child: Icon(
+                                  Icons.close,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ])),
+                ),
+              );
+            },
+          )
+        ],
       ),
     );
   }

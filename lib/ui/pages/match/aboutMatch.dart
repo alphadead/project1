@@ -110,40 +110,44 @@ class _AboutMatchState extends State<AboutMatch> {
                         !_groundService.isCustom
                             ? Column(
                                 children: [
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 8.0),
-                                    child: DropdownButtonFormField(
-                                      isExpanded: true,
-                                      elevation: 25,
-                                      hint: Text(
-                                        'Ground name',
-                                        style: TextStyle(color: KLightGrey),
-                                      ),
-                                      onChanged: (String? newValue) {
-                                        _groundService.setSelectedGroundInfo(
-                                            int.parse(newValue!));
-                                      },
-                                      items: List.generate(
-                                        _groundService.groundList.length,
-                                        (index) {
-                                          return DropdownMenuItem<String>(
-                                            value: _groundService
-                                                .groundList[index].id
-                                                .toString(),
-                                            child: Text(
-                                              _groundService
-                                                  .groundList[index].name
-                                                  .toString(),
-                                              style: TextStyle(
-                                                  color: inputText,
-                                                  fontSize: 16),
+                                  (profileType ?? "Player") == "Player"
+                                      ? Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 8.0),
+                                          child: DropdownButtonFormField(
+                                            isExpanded: true,
+                                            elevation: 25,
+                                            hint: Text(
+                                              'Ground name',
+                                              style:
+                                                  TextStyle(color: KLightGrey),
                                             ),
-                                          );
-                                        },
-                                      ),
-                                    ),
-                                  ),
+                                            onChanged: (String? newValue) {
+                                              _groundService
+                                                  .setSelectedGroundInfo(
+                                                      int.parse(newValue!));
+                                            },
+                                            items: List.generate(
+                                              _groundService.groundList.length,
+                                              (index) {
+                                                return DropdownMenuItem<String>(
+                                                  value: _groundService
+                                                      .groundList[index].id
+                                                      .toString(),
+                                                  child: Text(
+                                                    _groundService
+                                                        .groundList[index].name
+                                                        .toString(),
+                                                    style: TextStyle(
+                                                        color: inputText,
+                                                        fontSize: 16),
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                          ),
+                                        )
+                                      : Container(),
                                   (profileType ?? "Player") == "Player"
                                       ? Container(
                                           margin: EdgeInsets.only(
@@ -241,176 +245,198 @@ class _AboutMatchState extends State<AboutMatch> {
                                   ),
                                 ],
                               )
-                            : Padding(
-                                padding: const EdgeInsets.only(top: 10),
-                                child: Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 10),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            "Ground name :",
-                                            style: themeData()
-                                                .textTheme
-                                                .bodyText1!
-                                                .copyWith(
-                                                  color: profileContainerColor,
-                                                  fontSize: 15.sp,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                          ),
-                                          Text(
-                                            _groundService.customGroundName!,
-                                            style: themeData()
-                                                .textTheme
-                                                .bodyText1!
-                                                .copyWith(
-                                                  color: moneyBox,
-                                                  fontSize: 15.sp,
-                                                ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 10),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            "Ground location :",
-                                            style: themeData()
-                                                .textTheme
-                                                .bodyText1!
-                                                .copyWith(
-                                                  color: profileContainerColor,
-                                                  fontSize: 15.sp,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                          ),
-                                          Text(
-                                            _groundService
-                                                .customGroundlocation!,
-                                            style: themeData()
-                                                .textTheme
-                                                .bodyText1!
-                                                .copyWith(
-                                                  color: moneyBox,
-                                                  fontSize: 15.sp,
-                                                ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 10),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            "Booking date :",
-                                            style: themeData()
-                                                .textTheme
-                                                .bodyText1!
-                                                .copyWith(
-                                                  color: profileContainerColor,
-                                                  fontSize: 15.sp,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                          ),
-                                          Text(
-                                            _groundService.bookingDate!,
-                                            style: themeData()
-                                                .textTheme
-                                                .bodyText1!
-                                                .copyWith(
-                                                  color: moneyBox,
-                                                  fontSize: 15.sp,
-                                                ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 10),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            "Opening time :",
-                                            style: themeData()
-                                                .textTheme
-                                                .bodyText1!
-                                                .copyWith(
-                                                  color: profileContainerColor,
-                                                  fontSize: 15.sp,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                          ),
-                                          Text(
-                                            _groundService
-                                                    .selectedOpeningTime!.hour
-                                                    .toString() +
-                                                ':' +
+                            : (profileType ?? "Player") == "Player"
+                                ? Padding(
+                                    padding: const EdgeInsets.only(top: 10),
+                                    child: Column(
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(top: 10),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                "Ground name :",
+                                                style: themeData()
+                                                    .textTheme
+                                                    .bodyText1!
+                                                    .copyWith(
+                                                      color:
+                                                          profileContainerColor,
+                                                      fontSize: 15.sp,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                              ),
+                                              Text(
                                                 _groundService
-                                                    .selectedOpeningTime!.minute
-                                                    .toString(),
-                                            style: themeData()
-                                                .textTheme
-                                                .bodyText1!
-                                                .copyWith(
-                                                  color: moneyBox,
-                                                  fontSize: 15.sp,
-                                                ),
+                                                    .customGroundName!,
+                                                style: themeData()
+                                                    .textTheme
+                                                    .bodyText1!
+                                                    .copyWith(
+                                                      color: moneyBox,
+                                                      fontSize: 15.sp,
+                                                    ),
+                                              ),
+                                            ],
                                           ),
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 10),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            "Closing time :",
-                                            style: themeData()
-                                                .textTheme
-                                                .bodyText1!
-                                                .copyWith(
-                                                  color: profileContainerColor,
-                                                  fontSize: 15.sp,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                          ),
-                                          Text(
-                                            _groundService
-                                                    .selectedClosingTime!.hour
-                                                    .toString() +
-                                                ':' +
+                                        ),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(top: 10),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                "Ground location :",
+                                                style: themeData()
+                                                    .textTheme
+                                                    .bodyText1!
+                                                    .copyWith(
+                                                      color:
+                                                          profileContainerColor,
+                                                      fontSize: 15.sp,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                              ),
+                                              Text(
                                                 _groundService
-                                                    .selectedClosingTime!.minute
-                                                    .toString(),
-                                            style: themeData()
-                                                .textTheme
-                                                .bodyText1!
-                                                .copyWith(
-                                                  color: moneyBox,
-                                                  fontSize: 15.sp,
-                                                ),
+                                                    .customGroundlocation!,
+                                                style: themeData()
+                                                    .textTheme
+                                                    .bodyText1!
+                                                    .copyWith(
+                                                      color: moneyBox,
+                                                      fontSize: 15.sp,
+                                                    ),
+                                              ),
+                                            ],
                                           ),
-                                        ],
-                                      ),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(top: 10),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                "Booking date :",
+                                                style: themeData()
+                                                    .textTheme
+                                                    .bodyText1!
+                                                    .copyWith(
+                                                      color:
+                                                          profileContainerColor,
+                                                      fontSize: 15.sp,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                              ),
+                                              Text(
+                                                _groundService.bookingDate!,
+                                                style: themeData()
+                                                    .textTheme
+                                                    .bodyText1!
+                                                    .copyWith(
+                                                      color: moneyBox,
+                                                      fontSize: 15.sp,
+                                                    ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(top: 10),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                "Opening time :",
+                                                style: themeData()
+                                                    .textTheme
+                                                    .bodyText1!
+                                                    .copyWith(
+                                                      color:
+                                                          profileContainerColor,
+                                                      fontSize: 15.sp,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                              ),
+                                              Text(
+                                                _groundService
+                                                        .selectedOpeningTime!
+                                                        .hour
+                                                        .toString() +
+                                                    ':' +
+                                                    _groundService
+                                                        .selectedOpeningTime!
+                                                        .minute
+                                                        .toString(),
+                                                style: themeData()
+                                                    .textTheme
+                                                    .bodyText1!
+                                                    .copyWith(
+                                                      color: moneyBox,
+                                                      fontSize: 15.sp,
+                                                    ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(top: 10),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                "Closing time :",
+                                                style: themeData()
+                                                    .textTheme
+                                                    .bodyText1!
+                                                    .copyWith(
+                                                      color:
+                                                          profileContainerColor,
+                                                      fontSize: 15.sp,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                              ),
+                                              Text(
+                                                _groundService
+                                                        .selectedClosingTime!
+                                                        .hour
+                                                        .toString() +
+                                                    ':' +
+                                                    _groundService
+                                                        .selectedClosingTime!
+                                                        .minute
+                                                        .toString(),
+                                                style: themeData()
+                                                    .textTheme
+                                                    .bodyText1!
+                                                    .copyWith(
+                                                      color: moneyBox,
+                                                      fontSize: 15.sp,
+                                                    ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                ),
-                              ),
+                                  )
+                                : Container(),
                         Container(
                           margin: EdgeInsets.only(bottom: 15.h, top: 10.h),
                           child: Row(

@@ -38,73 +38,80 @@ class _RegisteredTeamPageState extends State<RegisteredTeamPage> {
         textDirection: TextDirection.ltr,
         child: Scaffold(
           floatingActionButton: LocaleFloatingActionButton(),
-          body: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                  child: Column(
-                    children: [
-                      LoginPageStack(
-                        heading: AppLocalizations.of(context)!
-                            .registeredTeamsPage_registeredTeams,
-                        imageWidget: Positioned(
-                          bottom: -50.h,
-                          left: 120.w,
-                          height: 330.h,
-                          width: 330.w,
-                          child: Image.asset(
-                            'assets/images/group_3.png',
+          body: Stack(children: [
+            SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Container(
+                    child: Column(
+                      children: [
+                        LoginPageStack(
+                          heading: AppLocalizations.of(context)!
+                              .registeredTeamsPage_registeredTeams,
+                          imageWidget: Positioned(
+                            bottom: -50.h,
+                            left: 120.w,
+                            height: 330.h,
+                            width: 330.w,
+                            child: Image.asset(
+                              'assets/images/group_3.png',
+                            ),
                           ),
                         ),
-                      ),
-                      Container(
-                        height: 20,
-                      ),
-                      ListView.builder(
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: _authService.teamList.length,
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                            title: registeredTeamContainer(
-                                context: context,
-                                team: _authService.teamList[index],
-                                buttonText: AppLocalizations.of(context)!
-                                    .registeredTeamsPage_joinButtonText,
-                                onPressed: () {
-                                  if (!_authService.teamList[index].isJoined!) {
-                                    _authService.joinTeam(
-                                        _authService.teamList[index].id!);
-                                    setState(() {
-                                      _authService.teamList[index].isJoined =
-                                          true;
-                                    });
-                                  } else {
-                                    Utility.showSnackbar(AppLocalizations.of(
-                                            context)!
-                                        .registeredTeamsPage_alreadyPresentSnackbar);
-                                  }
-                                },
-                                pressed: _authService.teamList[index].isJoined),
-                          );
-                        },
-                      ),
-                      Container(
-                        padding: EdgeInsets.symmetric(vertical: 30),
-                        child: primaryActionButton(
-                            context: context,
-                            onPressed: () {
-                              Get.find<AuthController>()
-                                  .completedStep("3", "/inviteScreen");
-                            }),
-                      )
-                    ],
-                  ),
-                )
-              ],
+                        Container(
+                          height: 20,
+                        ),
+                        ListView.builder(
+                          physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: _authService.teamList.length,
+                          itemBuilder: (context, index) {
+                            return ListTile(
+                              title: registeredTeamContainer(
+                                  context: context,
+                                  team: _authService.teamList[index],
+                                  buttonText: AppLocalizations.of(context)!
+                                      .registeredTeamsPage_joinButtonText,
+                                  onPressed: () {
+                                    if (!_authService
+                                        .teamList[index].isJoined!) {
+                                      _authService.joinTeam(
+                                          _authService.teamList[index].id!);
+                                      setState(() {
+                                        _authService.teamList[index].isJoined =
+                                            true;
+                                      });
+                                    } else {
+                                      Utility.showSnackbar(AppLocalizations.of(
+                                              context)!
+                                          .registeredTeamsPage_alreadyPresentSnackbar);
+                                    }
+                                  },
+                                  pressed:
+                                      _authService.teamList[index].isJoined),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
-          ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                padding: EdgeInsets.symmetric(vertical: 30),
+                child: primaryActionButton(
+                    context: context,
+                    onPressed: () {
+                      Get.find<AuthController>()
+                          .completedStep("3", "/inviteScreen");
+                    }),
+              ),
+            )
+          ]),
         ),
       ),
     ));

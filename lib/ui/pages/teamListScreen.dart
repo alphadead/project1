@@ -77,8 +77,9 @@ class _TeamListScreenState extends State<TeamListScreen> {
               ),
               body: TabBarView(
                 children: [
-                  SingleChildScrollView(
-                    child: Column(
+                  Stack(children: [
+                    SingleChildScrollView(
+                        child: Column(
                       children: [
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -268,94 +269,106 @@ class _TeamListScreenState extends State<TeamListScreen> {
                                         ),
                                       ),
                                     ),
-                                    Positioned(
-                                      right: 15.w,
-                                      bottom: 10.h,
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          if (!_teamService
-                                              .teamList[index].isJoined!) {
-                                            _teamService.joinTeam(_teamService
-                                                .teamList[index].id);
-                                            setState(() {
-                                              _teamService.teamList[index]
-                                                  .status = 'pending';
-                                            });
-                                          } else {
-                                            Utility.showSnackbar(AppLocalizations
-                                                    .of(context)!
-                                                .registeredTeamsPage_alreadyPresentSnackbar);
-                                          }
-                                        },
-                                        child: Container(
-                                          width: 80.w,
-                                          height: 25.h,
-                                          decoration: BoxDecoration(
-                                            color: _teamService.teamList[index]
-                                                        .isJoined ==
-                                                    true
-                                                ? teamListColor[0]
-                                                : buttonCol,
-                                            borderRadius:
-                                                BorderRadius.circular(2.5.w),
-                                          ),
-                                          child: Center(
-                                            child: Text(
-                                              buttonMsg,
-                                              style: themeData()
-                                                  .textTheme
-                                                  .bodyText1!
-                                                  .copyWith(
-                                                      fontSize: 12.sp,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Colors.white),
+                                    _teamService.userType == "Ground"
+                                        ? SizedBox()
+                                        : Positioned(
+                                            right: 15.w,
+                                            bottom: 10.h,
+                                            child: GestureDetector(
+                                              onTap: () {
+                                                if (!_teamService
+                                                    .teamList[index]
+                                                    .isJoined!) {
+                                                  _teamService.joinTeam(
+                                                      _teamService
+                                                          .teamList[index].id);
+                                                  setState(() {
+                                                    _teamService.teamList[index]
+                                                        .status = 'pending';
+                                                  });
+                                                } else {
+                                                  Utility.showSnackbar(
+                                                      AppLocalizations.of(
+                                                              context)!
+                                                          .registeredTeamsPage_alreadyPresentSnackbar);
+                                                }
+                                              },
+                                              child: Container(
+                                                width: 80.w,
+                                                height: 25.h,
+                                                decoration: BoxDecoration(
+                                                  color: _teamService
+                                                              .teamList[index]
+                                                              .isJoined ==
+                                                          true
+                                                      ? teamListColor[0]
+                                                      : buttonCol,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          2.5.w),
+                                                ),
+                                                child: Center(
+                                                  child: Text(
+                                                    buttonMsg,
+                                                    style: themeData()
+                                                        .textTheme
+                                                        .bodyText1!
+                                                        .copyWith(
+                                                            fontSize: 12.sp,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color:
+                                                                Colors.white),
+                                                  ),
+                                                ),
+                                              ),
                                             ),
-                                          ),
-                                        ),
-                                      ),
-                                    )
+                                          )
                                   ],
                                 ),
                               ),
                             );
                           },
                         ),
-                        Container(
-                          margin: EdgeInsets.only(right: 10),
-                          height: 100,
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                FloatingActionButton(
-                                  backgroundColor: containerGreen,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Image.asset(
-                                        "assets/images/TeamListMyTeam.webp",
-                                        height: 25.h,
-                                      ),
-                                      Text(
-                                        "MyTeam",
-                                        style: themeData()
-                                            .textTheme
-                                            .bodyText1!
-                                            .copyWith(
-                                                fontSize: 6.4.sp,
-                                                color: Colors.white),
-                                      )
-                                    ],
-                                  ),
-                                  onPressed: () {
-                                    Get.toNamed('/myTeam');
-                                  },
-                                ),
-                              ]),
-                        )
                       ],
-                    ),
-                  ),
+                    )),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Container(
+                        margin: EdgeInsets.only(right: 10),
+                        height: 100,
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              FloatingActionButton(
+                                heroTag: null,
+                                backgroundColor: containerGreen,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Image.asset(
+                                      "assets/images/TeamListMyTeam.webp",
+                                      height: 25.h,
+                                    ),
+                                    Text(
+                                      "MyTeam",
+                                      style: themeData()
+                                          .textTheme
+                                          .bodyText1!
+                                          .copyWith(
+                                              fontSize: 6.4.sp,
+                                              color: Colors.white),
+                                    )
+                                  ],
+                                ),
+                                onPressed: () {
+                                  Get.toNamed('/myTeam');
+                                },
+                              ),
+                            ]),
+                      ),
+                    )
+                  ]),
                   SingleChildScrollView(
                     child: Column(
                       children: [

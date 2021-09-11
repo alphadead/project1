@@ -49,7 +49,8 @@ class _WalletPageState extends State<WalletPage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     _profileService.profile?.photo == null ||
-                            _profileService.profile?.photo.toString() == ''
+                            _profileService.profile?.photo.toString() == '' || _profileService
+                                .profile!.photo!.length == 0
                         ? CircleAvatar(
                             radius: 40.h,
                             backgroundImage: AssetImage(

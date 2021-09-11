@@ -9,7 +9,7 @@ import 'package:vamos/ui/utils/utility.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 Widget logoContainer(BuildContext context, String image, String logoName,
-    {String nextRoute = "/createTeam"}) {
+    {String? nextRoute, String? message}) {
   return Stack(children: [
     Positioned(
       child: InkWell(
@@ -18,8 +18,10 @@ Widget logoContainer(BuildContext context, String image, String logoName,
             WidgetsBinding.instance!.addPostFrameCallback((_) {
               Get.put(MyTeamController()).getTeamInfo(nextRoute: "/createTeam");
             });
-          } else {
+          } else if (nextRoute != null) {
             Get.toNamed(nextRoute);
+          } else {
+            Utility.showSnackbar(message!);
           }
         },
         child: Container(

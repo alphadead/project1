@@ -89,7 +89,7 @@ class _ScheduleCardState extends State<ScheduleCard> {
           child: Container(
             margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             width: 305.w,
-            height: 415.h,
+            height: 250.h,
             decoration:
                 BoxDecoration(borderRadius: BorderRadius.circular(2.5.h)),
             child: SingleChildScrollView(
@@ -250,32 +250,9 @@ class _ScheduleCardState extends State<ScheduleCard> {
                           ),
                         )
                       : SizedBox(),
-                  widget.groundName
-                      ? SizedBox()
-                      : TextFormField(
-                          minLines: 3,
-                          maxLines: 20,
-                          onChanged: (value) {
-                            _groundService.eventDetails = value;
-                          },
-                          decoration: InputDecoration(
-                            alignLabelWithHint: true,
-                            floatingLabelBehavior: FloatingLabelBehavior.never,
-                            labelText: "Text Goes Here",
-                            labelStyle: themeData()
-                                .textTheme
-                                .bodyText1!
-                                .copyWith(color: KLightGrey),
-                            enabledBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: KLightGrey, width: 1.0),
-                                borderRadius: BorderRadius.zero),
-                            focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: KLightGrey, width: 1.0),
-                                borderRadius: BorderRadius.zero),
-                          ),
-                        ),
+                  SizedBox(
+                    height: 10.h,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
