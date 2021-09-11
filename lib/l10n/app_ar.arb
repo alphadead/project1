@@ -75,5 +75,7 @@
     "searchBar_search":"بحث",
     "joined_team":"انضم للفريق",
     "matches_played":"المباريات الملعوبة",
-    "logout":"تسجيل خروج"
+    "logout":"تسجيل خروج",
+    "my_team":"فريقي",
+    "invite_teams_forMatch":"دعوة الفرق للمباراة"
 }

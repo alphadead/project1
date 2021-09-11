@@ -60,7 +60,7 @@ class _RegisteredTeamPageState extends State<RegisteredTeamPage> {
                           ),
                         ),
                         Container(
-                          height: 20,
+                          height: 20.h,
                         ),
                         ListView.builder(
                           physics: NeverScrollableScrollPhysics(),
@@ -102,7 +102,7 @@ class _RegisteredTeamPageState extends State<RegisteredTeamPage> {
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
-                padding: EdgeInsets.symmetric(vertical: 30),
+                padding: EdgeInsets.symmetric(vertical: 30.w),
                 child: primaryActionButton(
                     context: context,
                     onPressed: () {

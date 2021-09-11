@@ -59,7 +59,8 @@ class _InviteTeamPageState extends State<InviteTeamPage> {
                                       "assets/images/team_logo.webp"),
                                 ),
                                 Text(
-                                  "Invite Teams For Match",
+                                  AppLocalizations.of(context)!
+                                      .invite_teams_forMatch,
                                   style:
                                       themeData().textTheme.bodyText1!.copyWith(
                                             color: profileContainerColor,
@@ -71,7 +72,7 @@ class _InviteTeamPageState extends State<InviteTeamPage> {
                             ),
                           ),
                           Container(
-                            height: 20,
+                            height: 20.h,
                           ),
                           ListView.builder(
                             physics: NeverScrollableScrollPhysics(),

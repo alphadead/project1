@@ -335,7 +335,7 @@ class _TeamListScreenState extends State<TeamListScreen> {
                     Align(
                       alignment: Alignment.bottomCenter,
                       child: Container(
-                        margin: EdgeInsets.only(right: 10),
+                        margin: EdgeInsets.only(right: 10.w),
                         height: 100,
                         child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
@@ -351,7 +351,7 @@ class _TeamListScreenState extends State<TeamListScreen> {
                                       height: 25.h,
                                     ),
                                     Text(
-                                      "MyTeam",
+                                      AppLocalizations.of(context)!.my_team,
                                       style: themeData()
                                           .textTheme
                                           .bodyText1!

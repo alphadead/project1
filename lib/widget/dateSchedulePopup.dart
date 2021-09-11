@@ -448,8 +448,6 @@ class _CalenderScheduleRowState extends State<CalenderScheduleRow> {
                                 : _groundService.selectedOpeningTime =
                                     _currentDateValue;
                           });
-                          print('AAAAAAAAAa');
-                          print(_currentDateValue);
                         }
                       } else {
                         if (_currentPriceValue! < 9999) {

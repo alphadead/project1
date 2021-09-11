@@ -147,8 +147,6 @@ class GroundController extends GetxController {
   String? longitude;
   String? bookingFees = "";
   List? photos;
-  // GroundInfo? groundInfo;
-  // GroundInfo? groundDisplay;
 
   void getProfileData() async {
     Utility.showLoadingDialog();
@@ -180,8 +178,6 @@ class GroundController extends GetxController {
   void createMatch() async {
     Utility.showLoadingDialog();
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    print(customGroundlocation);
-    print(customGroundName);
     CreateMatch response = await api.createMatch(
       prefs.getString("userId")!,
       matchName ?? '',
