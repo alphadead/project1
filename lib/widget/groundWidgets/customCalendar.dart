@@ -179,7 +179,7 @@ class _CustomCalenderState extends State<CustomCalender> {
                                       ? () {}
                                       : widget.createMatch
                                           ? () {
-                                            selectedIndex = index;
+                                              selectedIndex = index;
                                               _groundService.groundAvailability(
                                                   DateFormat('yyyy-MM-dd')
                                                       .format(thisDate)
@@ -261,6 +261,7 @@ class _CustomCalenderState extends State<CustomCalender> {
             barrierDismissible: false,
             builder: (BuildContext context) {
               return ScheduleCard(
+                isEdit: false,
                 groundName: false,
                 scheduleDate: DateTime(
                     DateTime.now().year,

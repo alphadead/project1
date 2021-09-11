@@ -160,6 +160,7 @@ class _AboutMatchState extends State<AboutMatch> {
                                                     builder:
                                                         (BuildContext context) {
                                                       return ScheduleCard(
+                                                        isEdit: false,
                                                         groundName: true,
                                                         scheduleDate:
                                                             DateTime.now(),
@@ -487,6 +488,7 @@ class _AboutMatchState extends State<AboutMatch> {
                                           barrierDismissible: false,
                                           builder: (BuildContext context) {
                                             return ScheduleCard(
+                                              isEdit: true,
                                               groundName: true,
                                               scheduleDate: DateTime.now(),
                                             );

@@ -25,10 +25,15 @@ List<String> months = [
 ];
 
 class ScheduleCard extends StatefulWidget {
-  ScheduleCard({Key? key, required this.groundName, required this.scheduleDate})
+  ScheduleCard(
+      {Key? key,
+      required this.groundName,
+      required this.scheduleDate,
+      required this.isEdit})
       : super(key: key);
   final DateTime scheduleDate;
   final bool groundName;
+  final bool isEdit;
 
   @override
   _ScheduleCardState createState() => _ScheduleCardState();
@@ -108,7 +113,11 @@ class _ScheduleCardState extends State<ScheduleCard> {
                           } else {
                             return null;
                           }
-                        }, keyType: TextInputType.name)
+                        },
+                          keyType: TextInputType.name,
+                          initialValue: widget.isEdit
+                              ? _groundService.customGroundName
+                              : '')
                       : SizedBox(),
                   widget.groundName
                       ? inputField("Ground location", (value) {
@@ -119,7 +128,11 @@ class _ScheduleCardState extends State<ScheduleCard> {
                           } else {
                             return null;
                           }
-                        }, keyType: TextInputType.name)
+                        },
+                          keyType: TextInputType.name,
+                          initialValue: widget.isEdit
+                              ? _groundService.customGroundlocation
+                              : '')
                       : SizedBox(),
                   Container(
                     margin: EdgeInsets.only(top: 20.sp),
@@ -144,7 +157,10 @@ class _ScheduleCardState extends State<ScheduleCard> {
                                 onTap: () => _selectDate(context),
                                 child: date == null
                                     ? Text(
-                                        'Select date',
+                                        widget.isEdit
+                                            ? _groundService.bookingDate
+                                                .toString()
+                                            : 'Select date',
                                         style: themeData()
                                             .textTheme
                                             .bodyText1!
@@ -177,13 +193,23 @@ class _ScheduleCardState extends State<ScheduleCard> {
                   CalenderScheduleRow(
                       title: "Opening Time",
                       isDate: true,
-                      defaultDateValue: DateTime(DateTime.now().year)
-                          .add(Duration(hours: 5, minutes: 30))),
+                      defaultDateValue: DateTime(DateTime.now().year).add(widget
+                              .isEdit
+                          ? Duration(
+                              hours: _groundService.selectedOpeningTime!.hour,
+                              minutes:
+                                  _groundService.selectedOpeningTime!.minute)
+                          : Duration(hours: 5, minutes: 30))),
                   CalenderScheduleRow(
                       title: "Closing Time",
                       isDate: true,
-                      defaultDateValue: DateTime(DateTime.now().year)
-                          .add(Duration(hours: 11, minutes: 30))),
+                      defaultDateValue: DateTime(DateTime.now().year).add(widget
+                              .isEdit
+                          ? Duration(
+                              hours: _groundService.selectedClosingTime!.hour,
+                              minutes:
+                                  _groundService.selectedClosingTime!.minute)
+                          : Duration(hours: 11, minutes: 30))),
                   widget.groundName
                       ? Container(
                           margin: EdgeInsets.only(bottom: 15.h, top: 10.h),
@@ -205,12 +231,15 @@ class _ScheduleCardState extends State<ScheduleCard> {
                                 width: 100.w,
                                 color: KLightGrey.withOpacity(0.2),
                                 child: Center(
-                                    child: TextField(
+                                    child: TextFormField(
                                   textAlign: TextAlign.center,
                                   keyboardType: TextInputType.number,
                                   onChanged: (val) {
                                     _groundService.bookingFee = val;
                                   },
+                                  initialValue: widget.isEdit
+                                      ? _groundService.bookingFee
+                                      : '',
                                   style: themeData()
                                       .textTheme
                                       .bodyText1!

@@ -177,6 +177,7 @@ class _CreateGroundState extends State<CreateGround> {
                                     barrierDismissible: false,
                                     builder: (BuildContext context) {
                                       return ScheduleCard(
+                                        isEdit: false,
                                         groundName: false,
                                         scheduleDate:
                                             _groundService.selectedDate!,
