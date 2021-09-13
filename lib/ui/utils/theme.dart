@@ -42,6 +42,10 @@ ThemeData themeData() {
           color: Colors.white, fontSize: 8.sp, fontWeight: FontWeight.bold),
       headline2: TextStyle(
           fontWeight: FontWeight.normal, fontSize: 11.sp, color: Colors.white),
+      headline5: TextStyle(
+          fontWeight: FontWeight.normal, fontSize: 12.sp, color: Colors.black,),
+      headline6: TextStyle(
+          fontWeight: FontWeight.normal, fontSize: 12.sp, color: KRed,),
       headline4: TextStyle(
         fontSize: 8.8.sp,
         fontWeight: FontWeight.bold,

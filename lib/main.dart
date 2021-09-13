@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
         ],
         locale: Get.deviceLocale,
         debugShowCheckedModeBanner: false,
-        initialRoute: "/splashScreen",
+        initialRoute: "/testScreen",
         getPages: AppPages.pages,
       ),
     );
