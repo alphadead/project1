@@ -238,17 +238,23 @@ class _ViewGroundScreenState extends State<ViewGroundScreen> {
                   //     ],
                   //   ),
                   // ),
-                  // ListView.builder(
-                  //   itemCount: schedule.length,
-                  //   physics: NeverScrollableScrollPhysics(),
-                  //   shrinkWrap: true,
-                  //   itemBuilder: (context, index) {
-                  //     return GroundScheduleWidget(
-                  //       text: schedule[index][0],
-                  //       time: schedule[index][1],
-                  //     );
-                  //   },
-                  // ),
+                  ListView.builder(
+                    itemCount: _groundService.availableDates.length,
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return GroundScheduleWidget(
+                        text: _groundService.availableDates[index]['date'] ??
+                            "No Date Available",
+                        opentime: _groundService.availableDates[index]
+                                ['opening_time'] ??
+                            "Not Available",
+                        closeTime: _groundService.availableDates[index]
+                                ['closing_time'] ??
+                            "Not Available",
+                      );
+                    },
+                  ),
 
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,

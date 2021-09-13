@@ -5,8 +5,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class GroundScheduleWidget extends StatelessWidget {
   final String text;
-  final String time;
-  const GroundScheduleWidget({required this.text, required this.time, Key? key})
+  final String opentime;
+  final String closeTime;
+  const GroundScheduleWidget(
+      {required this.text,
+      required this.opentime,
+      required this.closeTime,
+      Key? key})
       : super(key: key);
 
   @override
@@ -17,19 +22,32 @@ class GroundScheduleWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          Text(
-            "10:20",
-            style: themeData().textTheme.bodyText1!.copyWith(
-                  color: KGreyTextUpcomingmatches.withOpacity(0.5),
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.bold,
-                ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(
+                opentime,
+                style: themeData().textTheme.bodyText1!.copyWith(
+                      color: bgroundCol,
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+              Text(
+                closeTime,
+                style: themeData().textTheme.bodyText1!.copyWith(
+                      color: KRed,
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+            ],
           ),
           Card(
             margin: EdgeInsets.only(left: 10.w),
             child: Container(
               height: 40.h,
-              width: 250.w,
+              width: .6.sw,
               child: Container(
                 margin: EdgeInsets.symmetric(horizontal: 15.w),
                 child: Row(
@@ -42,18 +60,6 @@ class GroundScheduleWidget extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                     ),
-                    GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                        height: 25.h,
-                        width: 25.h,
-                        padding: EdgeInsets.all(4.h),
-                        child: Image.asset(
-                          "assets/images/pencil.png",
-                        ),
-                        color: containerGreen,
-                      ),
-                    )
                   ],
                 ),
               ),
