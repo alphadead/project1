@@ -265,18 +265,26 @@ class _MatchListingState extends State<MatchListing> {
                             },
                             child: Container(
                               margin: EdgeInsets.only(right: 10),
-                              width: 40.w,
+                              //width: 40.w,
                               height: 25.h,
                               decoration: BoxDecoration(
                                 color: containerGreen,
                                 borderRadius: BorderRadius.circular(2.5.w),
                               ),
                               child: Center(
-                                child: Icon(
-                                  Icons.check,
-                                  color: Colors.white,
+                                  child: Padding(
+                                padding:
+                                    EdgeInsets.only(left: 5.0.w, right: 5.w),
+                                child: Text(
+                                  "Accept",
+                                  style:
+                                      themeData().textTheme.bodyText1!.copyWith(
+                                            color: Colors.white,
+                                            fontSize: 12.sp,
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                 ),
-                              ),
+                              )),
                             ),
                           ),
                           GestureDetector(
@@ -287,18 +295,25 @@ class _MatchListingState extends State<MatchListing> {
                               matchService.update();
                             },
                             child: Container(
-                              width: 40.w,
+                              //  width: 40.w,
                               height: 25.h,
                               decoration: BoxDecoration(
                                 color: KRed,
                                 borderRadius: BorderRadius.circular(2.5.w),
                               ),
                               child: Center(
-                                child: Icon(
-                                  Icons.close,
-                                  color: Colors.white,
+                                  child: Padding(
+                                padding: EdgeInsets.only(left: 5.w, right: 5.w),
+                                child: Text(
+                                  "Reject",
+                                  style:
+                                      themeData().textTheme.bodyText1!.copyWith(
+                                            color: Colors.white,
+                                            fontSize: 12.sp,
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                 ),
-                              ),
+                              )),
                             ),
                           ),
                         ],
