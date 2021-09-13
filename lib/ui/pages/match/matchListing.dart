@@ -5,6 +5,7 @@ import 'package:vamos/core/service/controller/matchController.dart';
 import 'package:vamos/core/models/match/matchListResponse.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/theme.dart';
+import 'package:vamos/widget/common/matchDetailsDialog.dart';
 import 'package:vamos/widget/common/pageHeaders.dart';
 import 'package:vamos/widget/formWidgets/buttons.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -165,12 +166,12 @@ class _MatchListingState extends State<MatchListing> {
         Align(
           alignment: Alignment.bottomRight,
           child: Padding(
-            padding: EdgeInsets.only(right: 10.w, bottom: 10.h ),
+            padding: EdgeInsets.only(right: 10.w, bottom: 10.h),
             child: FloatingActionButton(
               heroTag: null,
               backgroundColor: containerGreen,
               child: Container(
-                child:Icon(Icons.add),
+                child: Icon(Icons.add),
               ),
               onPressed: () {
                 Get.toNamed('/aboutMatch');
@@ -195,7 +196,16 @@ class _MatchListingState extends State<MatchListing> {
               MatchRequest? match = matchService.matchRequests?[index];
               return GestureDetector(
                 onTap: () {
-                  // Get.put(MatchController()).getTeamRequestsByMatch(match?.id);
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return matchDetailsDialog(
+                          context: context,
+                          groundName: match!.groundName ?? "no data",
+                          groundLocation: match.groundLocation ?? "no data",
+                          bookingFee: match.bookingFee ?? "no data");
+                    },
+                  );
                 },
                 child: Container(
                   margin: EdgeInsets.only(top: 10.h),
