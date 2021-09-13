@@ -20,6 +20,7 @@ import 'package:vamos/ui/pages/match/outgoingRequestListByMatch.dart';
 import 'package:vamos/ui/pages/myTeam.dart';
 import 'package:vamos/ui/pages/playerListScreen.dart';
 import 'package:vamos/ui/pages/playerListingScreen.dart';
+import 'package:vamos/ui/pages/searchBy.dart';
 import 'package:vamos/ui/pages/settings.dart';
 import 'package:vamos/ui/pages/teamListScreen.dart';
 import 'package:vamos/ui/pages/viewGround.dart';
@@ -52,6 +53,11 @@ abstract class AppPages {
       name: '/upcomingmatches',
       transitionDuration: transitionDuration,
       page: () => UpcomingMatchesPage(),
+    ),
+    GetPage(
+      name: '/searchBy',
+      transitionDuration: transitionDuration,
+      page: () => SearchBy(),
     ),
     GetPage(
       name: '/createTeam',
@@ -207,14 +213,14 @@ abstract class AppPages {
       transition: Transition.downToUp,
       binding: AllBinder(),
     ),
-     GetPage(
+    GetPage(
       name: '/teamListingByMatch',
       transitionDuration: transitionDuration,
       page: () => OutgoingRequestsByMatch(),
       transition: Transition.downToUp,
       binding: AllBinder(),
     ),
-      GetPage(
+    GetPage(
       name: '/settings',
       transitionDuration: transitionDuration,
       page: () => Settings(),
