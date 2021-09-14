@@ -1,19 +1,16 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:vamos/core/models/joinedTeamListResponse.dart';
 import 'package:vamos/core/service/controller/otherPlayerInfoController.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:vamos/ui/utils/loginbkground.dart';
 import 'package:vamos/ui/utils/theme.dart';
 import 'package:vamos/widget/customAppBar.dart';
 import 'package:vamos/widget/customBottomNavBar.dart';
 import 'package:vamos/widget/formWidgets/buttons.dart';
 import 'package:vamos/widget/formWidgets/inputField.dart';
-import 'package:vamos/widget/teamWidgets/playerJoinedTeam.dart';
 
 class OtherPlayerInfo extends StatefulWidget {
   const OtherPlayerInfo({Key? key}) : super(key: key);
@@ -38,7 +35,7 @@ class _OtherPlayerInfoState extends State<OtherPlayerInfo> {
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(60.h),
           child: CustomAppBar(
-            isPencil: true,
+            showComments: true,
           ),
         ),
         body: SingleChildScrollView(
