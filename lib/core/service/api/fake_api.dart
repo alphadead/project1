@@ -207,4 +207,10 @@ class FakeApi extends Api {
     // TODO: implement updateMatchRequestsByTeam
     throw UnimplementedError();
   }
+
+  @override
+  Future<GenericResponse> premiumPlayerRequest() {
+    // TODO: implement premiumPlayerRequest
+    throw UnimplementedError();
+  }
 }
