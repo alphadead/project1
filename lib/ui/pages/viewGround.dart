@@ -176,7 +176,7 @@ class _ViewGroundScreenState extends State<ViewGroundScreen> {
                   ),
                   Container(
                     margin: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-                    height: 50,
+                    // height: 50,
                     child: isVisible
                         ? Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -223,32 +223,38 @@ class _ViewGroundScreenState extends State<ViewGroundScreen> {
                           )
                         : SizedBox(),
                   ),
-                  // Container(
-                  //   margin: EdgeInsets.only(bottom: 15.h),
-                  //   child: Row(
-                  //     children: [
-                  //       Text(
-                  //         "Schedule",
-                  //         style: themeData().textTheme.bodyText1!.copyWith(
-                  //               color: profileContainerColor,
-                  //               fontSize: 15.sp,
-                  //               fontWeight: FontWeight.bold,
-                  //             ),
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
-                  // ListView.builder(
-                  //   itemCount: schedule.length,
-                  //   physics: NeverScrollableScrollPhysics(),
-                  //   shrinkWrap: true,
-                  //   itemBuilder: (context, index) {
-                  //     return GroundScheduleWidget(
-                  //       text: schedule[index][0],
-                  //       time: schedule[index][1],
-                  //     );
-                  //   },
-                  // ),
+                  Container(
+                    margin: EdgeInsets.only(bottom: 15.h),
+                    child: Row(
+                      children: [
+                        Text(
+                          "Schedule",
+                          style: themeData().textTheme.bodyText1!.copyWith(
+                                color: profileContainerColor,
+                                fontSize: 15.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  ListView.builder(
+                    itemCount: _groundService.availableDates.length,
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return GroundScheduleWidget(
+                        text: _groundService.availableDates[index]['date'] ??
+                            "No Date Available",
+                        opentime: _groundService.availableDates[index]
+                                ['opening_time'] ??
+                            "NA",
+                        closeTime: _groundService.availableDates[index]
+                                ['closing_time'] ??
+                            "NA",
+                      );
+                    },
+                  ),
 
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
