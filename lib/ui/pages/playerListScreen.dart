@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:vamos/core/service/controller/otherPlayerInfoController.dart';
 import 'package:vamos/core/service/controller/playerListingController.dart';
+import 'package:vamos/ui/pages/profileInformation/otherPlayerProfile.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/theme.dart';
 import 'package:vamos/ui/utils/utility.dart';
@@ -93,185 +95,200 @@ class _PlayerListScreenState extends State<PlayerListScreen> {
                                   'pending'
                               ? _playerListController.statusColor[2]
                               : _playerListController.statusColor[1];
-                      return Container(
-                        margin: EdgeInsets.only(top: 10.h),
-                        child: Center(
-                          child: Stack(
-                            children: [
-                              Container(
-                                height: 100.h,
-                                width: 300.w,
-                                child: Card(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(2.5.w)),
-                                  elevation: 3,
-                                  margin:
-                                      EdgeInsets.fromLTRB(5.w, 0, 5.w, 25.h),
-                                  child: Row(
-                                    children: [
-                                      Container(
-                                        margin: EdgeInsets.symmetric(
-                                            vertical: 5.h, horizontal: 10),
-                                        child: CircleAvatar(
-                                          radius: 24.h,
-                                          backgroundImage: _playerListController
-                                                      .playerListDisplay[index]
-                                                      .photo
-                                                      ?.isNotEmpty ??
-                                                  false
-                                              ? NetworkImage(
-                                                  _playerListController
-                                                      .playerListDisplay[index]
-                                                      .photo?[0]?["url"])
-                                              : NetworkImage(''),
-                                        ),
-                                      ),
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Container(
-                                            width: 170.w,
-                                            child: Text(
-                                              _playerListController
-                                                      .playerListDisplay[index]
-                                                      .firstName! +
-                                                  " " +
-                                                  _playerListController
-                                                      .playerListDisplay[index]
-                                                      .lastName!,
-                                              maxLines: 2,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: themeData()
-                                                  .textTheme
-                                                  .bodyText1!
-                                                  .copyWith(
-                                                    fontSize: 12.sp,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: KRed,
-                                                  ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Expanded(
-                                        child: Container(),
-                                      ),
-                                      Container(
-                                        margin: EdgeInsets.only(right: 10),
-                                        child: Row(
-                                          children: [
-                                            _playerListController
-                                                        .playerListDisplay[
-                                                            index]
-                                                        .status ==
-                                                    'pending'
-                                                ? GestureDetector(
-                                                    child: Container(
-                                                      margin: EdgeInsets.only(
-                                                          left: 10),
-                                                      child: Image.asset(
-                                                        "assets/images/teamListDelete.webp",
-                                                        height: 15,
-                                                      ),
-                                                    ),
-                                                    onTap: () async {
-                                                      bool success = await _playerListController
-                                                          .cancelPlayerRequest(
-                                                              _playerListController
-                                                                  .playerListDisplay[
-                                                                      index]
-                                                                  .id);
-
-                                                      if (success) {
-                                                        setState(() {
-                                                          _playerListController
-                                                              .playerListDisplay[
-                                                                  index]
-                                                              .status = null;
-                                                          _playerListController
-                                                              .playerListDisplay[
-                                                                  index]
-                                                              .isJoined = false;
-                                                        });
-                                                      }
-                                                    },
-                                                  )
-                                                : SizedBox(),
-                                            GestureDetector(
-                                              child: Container(
-                                                padding:
-                                                    EdgeInsets.only(left: 5),
-                                                child: Image.asset(
-                                                  "assets/images/teamListInfo.webp",
-                                                  height: 15,
-                                                ),
-                                              ),
-                                              onTap: () {},
-                                            ),
-                                          ],
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-
-                              _playerListController.userType == "Ground"
-                                  ? SizedBox()
-                                  : Positioned(
-                                      right: 15.w,
-                                      bottom: 10.h,
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          if (!_playerListController
-                                              .playerListDisplay[index]
-                                              .isJoined!) {
-                                            _playerListController.requestPlayer(
+                      return GestureDetector(
+                        onTap: () {
+                          Get.find<OtherPlayerInfoController>().getProfileData(
+                              _playerListController.playerListDisplay[index].id
+                                  .toString());
+                        },
+                        child: Container(
+                          margin: EdgeInsets.only(top: 10.h),
+                          child: Center(
+                            child: Stack(
+                              children: [
+                                Container(
+                                  height: 100.h,
+                                  width: 300.w,
+                                  child: Card(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(2.5.w)),
+                                    elevation: 3,
+                                    margin:
+                                        EdgeInsets.fromLTRB(5.w, 0, 5.w, 25.h),
+                                    child: Row(
+                                      children: [
+                                        Container(
+                                          margin: EdgeInsets.symmetric(
+                                              vertical: 5.h, horizontal: 10),
+                                          child: CircleAvatar(
+                                            radius: 24.h,
+                                            backgroundImage:
                                                 _playerListController
-                                                    .playerListDisplay[index]
-                                                    .id, index);
-                                          } else {
-                                            Utility.showSnackbar(AppLocalizations
-                                                    .of(context)!
-                                                .registeredTeamsPage_alreadyPresentSnackbar);
-                                          }
-                                        },
-                                        child: Container(
-                                          width: 80.w,
-                                          height: 25.h,
-                                          decoration: BoxDecoration(
-                                            color: _playerListController
+                                                            .playerListDisplay[
+                                                                index]
+                                                            .photo
+                                                            ?.isNotEmpty ??
+                                                        false
+                                                    ? NetworkImage(
+                                                        _playerListController
+                                                            .playerListDisplay[
+                                                                index]
+                                                            .photo?[0]?["url"])
+                                                    : NetworkImage(''),
+                                          ),
+                                        ),
+                                        Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Container(
+                                              width: 170.w,
+                                              child: Text(
+                                                _playerListController
                                                         .playerListDisplay[
                                                             index]
-                                                        .isJoined ==
-                                                    true
-                                                ? _playerListController
-                                                    .statusColor[0]
-                                                : buttonCol,
-                                            borderRadius:
-                                                BorderRadius.circular(2.5.w),
-                                          ),
-                                          child: Center(
-                                            child: Text(
-                                              buttonMsg,
-                                              style: themeData()
-                                                  .textTheme
-                                                  .bodyText1!
-                                                  .copyWith(
+                                                        .firstName! +
+                                                    " " +
+                                                    _playerListController
+                                                        .playerListDisplay[
+                                                            index]
+                                                        .lastName!,
+                                                maxLines: 2,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: themeData()
+                                                    .textTheme
+                                                    .bodyText1!
+                                                    .copyWith(
                                                       fontSize: 12.sp,
                                                       fontWeight:
                                                           FontWeight.bold,
-                                                      color: Colors.white),
+                                                      color: KRed,
+                                                    ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Expanded(
+                                          child: Container(),
+                                        ),
+                                        Container(
+                                          margin: EdgeInsets.only(right: 10),
+                                          child: Row(
+                                            children: [
+                                              _playerListController
+                                                          .playerListDisplay[
+                                                              index]
+                                                          .status ==
+                                                      'pending'
+                                                  ? GestureDetector(
+                                                      child: Container(
+                                                        margin: EdgeInsets.only(
+                                                            left: 10),
+                                                        child: Image.asset(
+                                                          "assets/images/teamListDelete.webp",
+                                                          height: 15,
+                                                        ),
+                                                      ),
+                                                      onTap: () async {
+                                                        bool success = await _playerListController
+                                                            .cancelPlayerRequest(
+                                                                _playerListController
+                                                                    .playerListDisplay[
+                                                                        index]
+                                                                    .id);
+
+                                                        if (success) {
+                                                          setState(() {
+                                                            _playerListController
+                                                                .playerListDisplay[
+                                                                    index]
+                                                                .status = null;
+                                                            _playerListController
+                                                                .playerListDisplay[
+                                                                    index]
+                                                                .isJoined = false;
+                                                          });
+                                                        }
+                                                      },
+                                                    )
+                                                  : SizedBox(),
+                                              GestureDetector(
+                                                child: Container(
+                                                  padding:
+                                                      EdgeInsets.only(left: 5),
+                                                  child: Image.asset(
+                                                    "assets/images/teamListInfo.webp",
+                                                    height: 15,
+                                                  ),
+                                                ),
+                                                onTap: () {},
+                                              ),
+                                            ],
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                _playerListController.userType == "Ground"
+                                    ? SizedBox()
+                                    : Positioned(
+                                        right: 15.w,
+                                        bottom: 10.h,
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            if (!_playerListController
+                                                .playerListDisplay[index]
+                                                .isJoined!) {
+                                              _playerListController
+                                                  .requestPlayer(
+                                                      _playerListController
+                                                          .playerListDisplay[
+                                                              index]
+                                                          .id,
+                                                      index);
+                                            } else {
+                                              Utility.showSnackbar(AppLocalizations
+                                                      .of(context)!
+                                                  .registeredTeamsPage_alreadyPresentSnackbar);
+                                            }
+                                          },
+                                          child: Container(
+                                            width: 80.w,
+                                            height: 25.h,
+                                            decoration: BoxDecoration(
+                                              color: _playerListController
+                                                          .playerListDisplay[
+                                                              index]
+                                                          .isJoined ==
+                                                      true
+                                                  ? _playerListController
+                                                      .statusColor[0]
+                                                  : buttonCol,
+                                              borderRadius:
+                                                  BorderRadius.circular(2.5.w),
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                buttonMsg,
+                                                style: themeData()
+                                                    .textTheme
+                                                    .bodyText1!
+                                                    .copyWith(
+                                                        fontSize: 12.sp,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Colors.white),
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                    )
-                            ],
+                                      )
+                              ],
+                            ),
                           ),
                         ),
                       );
