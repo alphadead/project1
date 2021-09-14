@@ -19,10 +19,6 @@ class SearchByController extends GetxController {
 
   Api api = locator<Api>();
 
-  void onInit() {
-    WidgetsBinding.instance!.addPostFrameCallback((_) => getPlayerlist());
-  }
-
   void getPlayerlist() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     userType = prefs.getString("register_type")!;

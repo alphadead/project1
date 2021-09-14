@@ -110,7 +110,7 @@ class CustomBottomAppBarState extends State<CustomBottomAppBar> {
                 : index == 3
                     ? Get.toNamed('/settings')
                     : index == 1
-                        ? Get.toNamed('/searchBy')
+                        ? Get.toNamed('/wallet')
                         : onPressed != null
                             ? onPressed(index)
                             : () {},
