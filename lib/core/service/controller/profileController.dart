@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vamos/core/models/commentsList.dart';
 import 'package:vamos/core/models/profileDataResponse.dart';
 import 'package:vamos/core/models/profile_api.dart';
 import 'package:vamos/core/models/referalEarning.dart';
@@ -83,5 +84,27 @@ class ProfileController extends GetxController {
     } else {
       Utility.showSnackbar("${response.message}");
     }
+  }
+
+  void commentList() async {
+    Utility.showLoadingDialog();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    CommentListModel response =
+        await api.commentListModel(prefs.getString("userId").toString());
+    if (response.data != null) {
+      CommentModel comment = response.data![0];
+
+      print(comment);
+      update();
+      Utility.closeDialog();
+    }
+    // } else {
+    //   if (prefs.getString("completedStep") == "2") {
+    //     Utility.showSnackbar("${response.message}");
+    //   } else {
+    //     Utility.closeDialog();
+    //   }
+    // }
+    update();
   }
 }

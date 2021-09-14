@@ -21,7 +21,11 @@ import 'package:vamos/ui/pages/match/outgoingRequestListByMatch.dart';
 import 'package:vamos/ui/pages/myTeam.dart';
 import 'package:vamos/ui/pages/playerListScreen.dart';
 import 'package:vamos/ui/pages/playerListingScreen.dart';
+<<<<<<< HEAD
 import 'package:vamos/ui/pages/searchBy.dart';
+=======
+import 'package:vamos/ui/pages/profileInformation/otherPlayerProfile.dart';
+>>>>>>> 94bb875d72b8e1edda48554fbc81faf8861798f1
 import 'package:vamos/ui/pages/settings.dart';
 import 'package:vamos/ui/pages/teamListScreen.dart';
 import 'package:vamos/ui/pages/viewGround.dart';
@@ -232,6 +236,13 @@ abstract class AppPages {
       name: '/settings',
       transitionDuration: transitionDuration,
       page: () => Settings(),
+      transition: Transition.downToUp,
+      binding: AllBinder(),
+    ),
+    GetPage(
+      name: '/otherPlayerInfo',
+      transitionDuration: transitionDuration,
+      page: () => OtherPlayerInfo(),
       transition: Transition.downToUp,
       binding: AllBinder(),
     )

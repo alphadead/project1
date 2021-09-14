@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:http/http.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:vamos/core/models/acceptRejectResponse.dart';
+import 'package:vamos/core/models/commentsList.dart';
 import 'package:vamos/core/models/completeStepResponse.dart';
 import 'package:vamos/core/models/match/createMatch.dart';
 import 'package:vamos/core/models/createTeamResponse.dart';
@@ -135,6 +136,12 @@ class HTTPApi extends Api {
   Future<GroundList> getGroundlist() async {
     Map<String, dynamic> response = await getRequest('ground-list?offset=0');
     return GroundList.fromJson(response);
+  }
+
+  Future<CommentListModel> commentListModel(String? userId) async {
+    Map<String, dynamic> response =
+        await getRequest('player/comments?player_id=$userId');
+    return CommentListModel.fromJson(response);
   }
 
   Future<ProfileDataResponse> getProfile(String userId) async {

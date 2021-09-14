@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:vamos/core/models/acceptRejectResponse.dart';
+import 'package:vamos/core/models/commentsList.dart';
 import 'package:vamos/core/models/completeStepResponse.dart';
 import 'package:vamos/core/models/match/createMatch.dart';
 import 'package:vamos/core/models/createTeamResponse.dart';
@@ -191,7 +192,8 @@ class FakeApi extends Api {
   }
 
   @override
-  Future<MatchRequestReceivedByTeamResponse> getIncomingMatchRequests(int teamId) {
+  Future<MatchRequestReceivedByTeamResponse> getIncomingMatchRequests(
+      int teamId) {
     // TODO: implement getIncomingMatchRequests
     throw UnimplementedError();
   }
@@ -203,7 +205,14 @@ class FakeApi extends Api {
   }
 
   @override
-  Future<UpdateMatchRequestsByTeam> updateMatchRequestsByTeam(int? id, String? matchId, String? status) {
+  Future<CommentListModel> commentListModel(String? userId) {
+    // TODO: implement getTeamRequestsSentByMatch
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<UpdateMatchRequestsByTeam> updateMatchRequestsByTeam(
+      int? id, String? matchId, String? status) {
     // TODO: implement updateMatchRequestsByTeam
     throw UnimplementedError();
   }
