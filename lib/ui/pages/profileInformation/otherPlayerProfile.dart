@@ -275,7 +275,9 @@ class _OtherPlayerInfoState extends State<OtherPlayerInfo> {
                                         ),
                               ),
                               Text(
-                                '55',
+                                _playerService.profile?.noOfMatchPayed
+                                        .toString() ??
+                                    "No data",
                                 style:
                                     themeData().textTheme.headline1!.copyWith(
                                           color: KColorBlack,
@@ -299,7 +301,7 @@ class _OtherPlayerInfoState extends State<OtherPlayerInfo> {
                                         ),
                               ),
                               Text(
-                                'Golden Knights',
+                                _playerService.profile?.teamName ?? "No data",
                                 style:
                                     themeData().textTheme.headline1!.copyWith(
                                           color: KColorBlack,
