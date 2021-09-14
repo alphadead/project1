@@ -30,7 +30,8 @@ class MatchRequestReceivedByTeamResponse {
         message: json["message"] == null ? null : json["message"],
         data: json["data"] == null
             ? null
-            : List<MatchRequest>.from(json["data"].map((x) => MatchRequest.fromJson(x))),
+            : List<MatchRequest>.from(
+                json["data"].map((x) => MatchRequest.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -43,24 +44,31 @@ class MatchRequestReceivedByTeamResponse {
 }
 
 class MatchRequest {
-  MatchRequest({
-    this.id,
-    this.matchId,
-    this.matchName,
-    this.status,
-  });
+  MatchRequest(
+      {this.id,
+      this.matchId,
+      this.matchName,
+      this.status,
+      this.groundName,
+      this.groundLocation,
+      this.bookingFee});
 
   int? id;
   String? matchId;
   String? matchName;
   String? status;
+  String? groundName;
+  String? groundLocation;
+  String? bookingFee;
 
   factory MatchRequest.fromJson(Map<String, dynamic> json) => MatchRequest(
-        id: json["id"] == null ? null : json["id"],
-        matchId: json["match_id"] == null ? null : json["match_id"],
-        matchName: json["match_name"] == null ? null : json["match_name"],
-        status: json["status"] == null ? null : json["status"],
-      );
+      id: json["id"] == null ? null : json["id"],
+      matchId: json["match_id"] == null ? null : json["match_id"],
+      matchName: json["match_name"] == null ? null : json["match_name"],
+      status: json["status"] == null ? null : json["status"],
+      groundName: json["ground_name"],
+      groundLocation: json["ground_location"],
+      bookingFee: json["booking_fee"]);
 
   Map<String, dynamic> toJson() => {
         "id": id == null ? null : id,
@@ -69,4 +77,3 @@ class MatchRequest {
         "status": status == null ? null : status,
       };
 }
-

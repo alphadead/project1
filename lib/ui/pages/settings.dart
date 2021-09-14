@@ -42,9 +42,8 @@ class _SettingsState extends State<Settings> {
                 padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 30.h),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    _profileService.profile?.photo == null ||
-                            _profileService.profile?.photo.toString() == ''
+                  children: [ _profileService.profile?.photo == null||
+                    _profileService.profile?.photo?.length == 0
                         ? CircleAvatar(
                             radius: 40.h,
                             backgroundImage: AssetImage(
