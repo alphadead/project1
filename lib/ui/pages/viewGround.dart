@@ -176,7 +176,7 @@ class _ViewGroundScreenState extends State<ViewGroundScreen> {
                   ),
                   Container(
                     margin: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-                    height: 50,
+                    // height: 50,
                     child: isVisible
                         ? Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -223,21 +223,21 @@ class _ViewGroundScreenState extends State<ViewGroundScreen> {
                           )
                         : SizedBox(),
                   ),
-                  // Container(
-                  //   margin: EdgeInsets.only(bottom: 15.h),
-                  //   child: Row(
-                  //     children: [
-                  //       Text(
-                  //         "Schedule",
-                  //         style: themeData().textTheme.bodyText1!.copyWith(
-                  //               color: profileContainerColor,
-                  //               fontSize: 15.sp,
-                  //               fontWeight: FontWeight.bold,
-                  //             ),
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
+                  Container(
+                    margin: EdgeInsets.only(bottom: 15.h),
+                    child: Row(
+                      children: [
+                        Text(
+                          "Schedule",
+                          style: themeData().textTheme.bodyText1!.copyWith(
+                                color: profileContainerColor,
+                                fontSize: 15.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
+                        ),
+                      ],
+                    ),
+                  ),
                   ListView.builder(
                     itemCount: _groundService.availableDates.length,
                     physics: NeverScrollableScrollPhysics(),
@@ -248,10 +248,10 @@ class _ViewGroundScreenState extends State<ViewGroundScreen> {
                             "No Date Available",
                         opentime: _groundService.availableDates[index]
                                 ['opening_time'] ??
-                            "Not Available",
+                            "NA",
                         closeTime: _groundService.availableDates[index]
                                 ['closing_time'] ??
-                            "Not Available",
+                            "NA",
                       );
                     },
                   ),

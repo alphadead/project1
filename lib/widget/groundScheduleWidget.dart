@@ -19,48 +19,57 @@ class GroundScheduleWidget extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(bottom: 10.h),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Text(
-                opentime,
+                text,
                 style: themeData().textTheme.bodyText1!.copyWith(
-                      color: bgroundCol,
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
-              ),
-              Text(
-                closeTime,
-                style: themeData().textTheme.bodyText1!.copyWith(
-                      color: KRed,
                       fontSize: 12.sp,
                       fontWeight: FontWeight.bold,
                     ),
               ),
             ],
           ),
-          Card(
-            margin: EdgeInsets.only(left: 10.w),
-            child: Container(
-              height: 40.h,
-              width: .6.sw,
+          Expanded(
+            child: Card(
+              margin: EdgeInsets.only(left: 10.w),
               child: Container(
-                margin: EdgeInsets.symmetric(horizontal: 15.w),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      text,
-                      style: themeData().textTheme.bodyText1!.copyWith(
-                            fontSize: 10.sp,
-                            fontWeight: FontWeight.bold,
-                          ),
-                    ),
-                  ],
+                height: 40.h,
+                width: .6.sw,
+                child: Container(
+                  margin: EdgeInsets.symmetric(horizontal: 15.w),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        opentime,
+                        style: themeData().textTheme.bodyText1!.copyWith(
+                              color: bgroundCol,
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                      ),
+                      Text(
+                        "-",
+                        style: themeData().textTheme.bodyText1!.copyWith(
+                              fontSize: 10.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                      ),
+                      Text(
+                        closeTime,
+                        style: themeData().textTheme.bodyText1!.copyWith(
+                              color: KRed,
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
