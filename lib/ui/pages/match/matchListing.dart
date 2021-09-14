@@ -201,9 +201,25 @@ class _MatchListingState extends State<MatchListing> {
                     builder: (BuildContext context) {
                       return matchDetailsDialog(
                           context: context,
+                          matchName: match?.matchName ?? "No Data",
                           groundName: match!.groundName ?? "no data",
                           groundLocation: match.groundLocation ?? "no data",
-                          bookingFee: match.bookingFee ?? "no data");
+                          bookingFee: match.bookingFee ?? "no data",
+                          onAccept: () {
+                            matchService.updateRequest(
+                                match.id, match.matchId, "Accept");
+                            matchService.matchRequests?.removeAt(index);
+                            matchService.update();
+                            Get.back();
+                          },
+                          onReject: () {
+                            matchService.updateRequest(
+                                match.id, match.matchId, "Accept");
+                            matchService.matchRequests?.removeAt(index);
+                            matchService.update();
+                            Get.back();
+
+                          });
                     },
                   );
                 },
@@ -251,74 +267,76 @@ class _MatchListingState extends State<MatchListing> {
                         ]),
                       ),
                     ),
-                    Positioned(
-                      right: 15.w,
-                      bottom: 10.h,
-                      child: Row(
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              matchService.updateRequest(
-                                  match?.id, match?.matchId, "Accept");
-                              matchService.matchRequests?.removeAt(index);
-                              matchService.update();
-                            },
-                            child: Container(
-                              margin: EdgeInsets.only(right: 10),
-                              //width: 40.w,
-                              height: 25.h,
-                              decoration: BoxDecoration(
-                                color: containerGreen,
-                                borderRadius: BorderRadius.circular(2.5.w),
-                              ),
-                              child: Center(
-                                  child: Padding(
-                                padding:
-                                    EdgeInsets.only(left: 5.0.w, right: 5.w),
-                                child: Text(
-                                  "Accept",
-                                  style:
-                                      themeData().textTheme.bodyText1!.copyWith(
-                                            color: Colors.white,
-                                            fontSize: 12.sp,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                ),
-                              )),
-                            ),
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              matchService.updateRequest(
-                                  match?.id, match?.matchId, "Reject");
-                              matchService.matchRequests?.removeAt(index);
-                              matchService.update();
-                            },
-                            child: Container(
-                              //  width: 40.w,
-                              height: 25.h,
-                              decoration: BoxDecoration(
-                                color: KRed,
-                                borderRadius: BorderRadius.circular(2.5.w),
-                              ),
-                              child: Center(
-                                  child: Padding(
-                                padding: EdgeInsets.only(left: 5.w, right: 5.w),
-                                child: Text(
-                                  "Reject",
-                                  style:
-                                      themeData().textTheme.bodyText1!.copyWith(
-                                            color: Colors.white,
-                                            fontSize: 12.sp,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                ),
-                              )),
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
+                    // Positioned(
+                    //   right: 15.w,
+                    //   bottom: 10.h,
+                    //   child: Row(
+                    //     children: [
+                    //       GestureDetector(
+                    //         onTap: () {
+                    //           matchService.updateRequest(
+                    //               match?.id, match?.matchId, "Accept");
+                    //           matchService.matchRequests?.removeAt(index);
+                    //           matchService.update();
+
+                    //         },
+                    //         child: Container(
+                    //           margin: EdgeInsets.only(right: 10),
+                    //           //width: 40.w,
+                    //           height: 25.h,
+                    //           decoration: BoxDecoration(
+                    //             color: containerGreen,
+                    //             borderRadius: BorderRadius.circular(2.5.w),
+                    //           ),
+                    //           child: Center(
+                    //               child: Padding(
+                    //             padding:
+                    //                 EdgeInsets.only(left: 5.0.w, right: 5.w),
+                    //             child: Text(
+                    //               "Accept",
+                    //               style:
+                    //                   themeData().textTheme.bodyText1!.copyWith(
+                    //                         color: Colors.white,
+                    //                         fontSize: 12.sp,
+                    //                         fontWeight: FontWeight.bold,
+                    //                       ),
+                    //             ),
+                    //           )),
+                    //         ),
+                    //       ),
+                    //       GestureDetector(
+                    //         onTap: () {
+                    //           matchService.updateRequest(
+                    //               match?.id, match?.matchId, "Reject");
+                    //           matchService.matchRequests?.removeAt(index);
+                    //           matchService.update();
+                    //         },
+                    //         child: Container(
+                    //           //  width: 40.w,
+                    //           height: 25.h,
+                    //           decoration: BoxDecoration(
+                    //             color: KRed,
+                    //             borderRadius: BorderRadius.circular(2.5.w),
+                    //           ),
+                    //           child: Center(
+                    //               child: Padding(
+                    //             padding: EdgeInsets.only(left: 5.w, right: 5.w),
+                    //             child: Text(
+                    //               "Reject",
+                    //               style:
+                    //                   themeData().textTheme.bodyText1!.copyWith(
+                    //                         color: Colors.white,
+                    //                         fontSize: 12.sp,
+                    //                         fontWeight: FontWeight.bold,
+                    //                       ),
+                    //             ),
+                    //           )),
+                    //         ),
+                    //       ),
+                       
+                    //     ],
+                    //   ),
+                    // )
                   ])),
                 ),
               );

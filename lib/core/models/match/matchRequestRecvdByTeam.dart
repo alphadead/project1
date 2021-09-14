@@ -66,9 +66,9 @@ class MatchRequest {
       matchId: json["match_id"] == null ? null : json["match_id"],
       matchName: json["match_name"] == null ? null : json["match_name"],
       status: json["status"] == null ? null : json["status"],
-      groundName: json["groundName"],
-      groundLocation: json["groundLocation"],
-      bookingFee: json["bookingFee"]);
+      groundName: json["ground_name"],
+      groundLocation: json["ground_location"],
+      bookingFee: json["booking_fee"]);
 
   Map<String, dynamic> toJson() => {
         "id": id == null ? null : id,
