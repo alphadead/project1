@@ -54,7 +54,10 @@ class ProfileData {
     this.photo,
     this.teamLogo,
     this.teamId,
-    this.isPremium
+    this.isPremium,
+    this.memberOfTeams,
+    this.noOfMatchPayed,
+    this.teamName,
   });
 
   String? user_id;
@@ -75,6 +78,9 @@ class ProfileData {
   String? teamLogo;
   int? teamId;
   String? isPremium;
+  List<MemberOfTeam>? memberOfTeams;
+  String? teamName;
+  int? noOfMatchPayed;
 
   factory ProfileData.fromJson(Map<String, dynamic> json) => ProfileData(
         user_id: json["user_id"],
@@ -94,7 +100,15 @@ class ProfileData {
         photo: json["photo"],
         teamLogo: json["team_logo"],
         teamId: json["team_id"],
-        isPremium: json["is_premium"]
+        isPremium: json["is_premium"],
+        teamName: json["team_name"] == null ? null : json["team_name"],
+        noOfMatchPayed: json["no_of_match_payed"] == null
+            ? null
+            : json["no_of_match_payed"],
+        memberOfTeams: json["member_of_teams"] == null
+            ? null
+            : List<MemberOfTeam>.from(
+                json["member_of_teams"].map((x) => MemberOfTeam.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -114,6 +128,35 @@ class ProfileData {
         "photo": photo,
         "team_logo": teamLogo,
         "team_id": teamId,
-        "is_premium": isPremium
+        "is_premium": isPremium,
+        "no_of_match_payed": noOfMatchPayed == null ? null : noOfMatchPayed,
+        "team_name": teamName == null ? null : teamName,
+        "member_of_teams": memberOfTeams == null
+            ? null
+            : List<dynamic>.from(memberOfTeams!.map((x) => x.toJson())),
+      };
+}
+
+class MemberOfTeam {
+  MemberOfTeam({
+    this.teamId,
+    this.teamName,
+    this.teamLogo,
+  });
+
+  int? teamId;
+  String? teamName;
+  String? teamLogo;
+
+  factory MemberOfTeam.fromJson(Map<String, dynamic> json) => MemberOfTeam(
+        teamId: json["team_id"] == null ? null : json["team_id"],
+        teamName: json["team_name"] == null ? null : json["team_name"],
+        teamLogo: json["team_logo"] == null ? null : json["team_logo"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "team_id": teamId == null ? null : teamId,
+        "team_name": teamName == null ? null : teamName,
+        "team_logo": teamLogo == null ? null : teamLogo,
       };
 }
