@@ -59,33 +59,32 @@ class _OtherPlayerInfoState extends State<OtherPlayerInfo> {
                         fit: BoxFit.fitWidth,
                       ),
                     ),
-                    // Positioned(
-                    //   bottom: -70.h,
-                    //   left: 20.w,
-                    //   height: 400.h,
-                    //   width: 330.w,
-                    //   child: CarouselSlider(
-                    //     options: CarouselOptions(
-                    //       autoPlay: true,
-                    //       aspectRatio: 0.4,
-                    //       viewportFraction: 1,
-                    //       enlargeCenterPage: true,
-                    //     ),
-                    //     items: List.generate(
-                    //       _profileService.profile?.photo?.length ?? 0,
-                    //       (index) => _profileService.profile?.photo == null ||
-                    //               _profileService.profile?.photo.toString() ==
-                    //                   ''
-                    //           ? Image.network('')
-                    //           : CircleAvatar(
-                    //               radius: 150.h,
-                    //               backgroundImage: NetworkImage(_profileService
-                    //                   .profile!.photo![index]["url"]
-                    //                   .toString()),
-                    //             ),
-                    //     ),
-                    //   ),
-                    // ),
+                    Positioned(
+                      bottom: -70.h,
+                      left: 20.w,
+                      height: 400.h,
+                      width: 330.w,
+                      child: CarouselSlider(
+                        options: CarouselOptions(
+                          autoPlay: true,
+                          aspectRatio: 0.4,
+                          viewportFraction: 1,
+                          enlargeCenterPage: true,
+                        ),
+                        items: List.generate(
+                          _playerService.profile?.photo?.length ?? 0,
+                          (index) => _playerService.profile?.photo == null ||
+                                  _playerService.profile?.photo.toString() == ''
+                              ? Image.network('')
+                              : CircleAvatar(
+                                  radius: 150.h,
+                                  backgroundImage: NetworkImage(_playerService
+                                      .profile!.photo![index]["url"]
+                                      .toString()),
+                                ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -124,15 +123,14 @@ class _OtherPlayerInfoState extends State<OtherPlayerInfo> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           CircleAvatar(
-                            radius: 25,
-                            // backgroundImage: _profileService.profile?.photo ==
-                            //             null ||
-                            //         _profileService.profile?.photo.toString() ==
-                            //             ''
-                            //     ? NetworkImage('')
-                            //     : NetworkImage(
-                            //         _profileService.profile!.photo.toString()),
-                          ),
+                              radius: 25,
+                              backgroundImage: _playerService
+                                              .profile?.teamLogo ==
+                                          null ||
+                                      _playerService.profile?.teamLogo == ''
+                                  ? NetworkImage('')
+                                  : NetworkImage(
+                                      _playerService.profile?.teamLogo ?? '')),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -340,41 +338,84 @@ class _OtherPlayerInfoState extends State<OtherPlayerInfo> {
                           ),
                           SizedBox(
                             height: 150.h,
-                            child: ListView.builder(
-                                itemCount: 20,
-                                scrollDirection: Axis.horizontal,
-                                itemBuilder: (context, index) {
-                                  return Container(
-                                    margin: EdgeInsets.only(top: 20.h),
-                                    child: Card(
-                                      elevation: 4,
-                                      child: Padding(
-                                        padding: EdgeInsets.only(
-                                            left: 18.w, right: 18.w),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            Padding(
-                                              padding:
-                                                  EdgeInsets.only(top: 8.0),
-                                              child: CircleAvatar(
-                                                radius: 25,
-                                              ),
+                            child: _playerService
+                                        .profile?.memberOfTeams?.length !=
+                                    0
+                                ? ListView.builder(
+                                    itemCount: _playerService
+                                        .profile?.memberOfTeams?.length,
+                                    scrollDirection: Axis.horizontal,
+                                    itemBuilder: (context, index) {
+                                      return Container(
+                                        margin: EdgeInsets.only(top: 20.h),
+                                        child: Card(
+                                          elevation: 4,
+                                          child: Padding(
+                                            padding: EdgeInsets.only(
+                                                left: 18.w, right: 18.w),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      EdgeInsets.only(top: 8.0),
+                                                  child: CircleAvatar(
+                                                    radius: 25,
+                                                    backgroundImage: _playerService
+                                                                    .profile
+                                                                    ?.memberOfTeams![
+                                                                        index]
+                                                                    .teamLogo ==
+                                                                null ||
+                                                            _playerService
+                                                                    .profile
+                                                                    ?.memberOfTeams![
+                                                                        index]
+                                                                    .teamLogo ==
+                                                                ''
+                                                        ? NetworkImage('')
+                                                        : NetworkImage(
+                                                            _playerService
+                                                                    .profile
+                                                                    ?.memberOfTeams![
+                                                                        index]
+                                                                    .teamLogo ??
+                                                                ''),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      EdgeInsets.only(top: 8.h),
+                                                  child: Text(_playerService
+                                                          .profile
+                                                          ?.memberOfTeams![
+                                                              index]
+                                                          .teamName ??
+                                                      "No data"),
+                                                ),
+                                              ],
                                             ),
-                                            Padding(
-                                              padding:
-                                                  EdgeInsets.only(top: 8.h),
-                                              child: Text("Badgers"),
-                                            ),
-                                          ],
+                                          ),
                                         ),
-                                      ),
+                                      );
+                                    })
+                                : Container(
+                                    child: Center(
+                                    child: Text(
+                                      " Not a member",
+                                      style: themeData()
+                                          .textTheme
+                                          .headline1!
+                                          .copyWith(
+                                            color: KColorBlack,
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 14.sp,
+                                          ),
                                     ),
-                                  );
-                                }),
+                                  )),
                           ),
                           Container(
                             margin: EdgeInsets.only(top: 40.h),
