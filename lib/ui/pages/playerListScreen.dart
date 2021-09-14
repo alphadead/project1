@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:vamos/core/service/controller/otherPlayerInfoController.dart';
 import 'package:vamos/core/service/controller/playerListingController.dart';
+import 'package:vamos/ui/pages/profileInformation/otherPlayerProfile.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/theme.dart';
 import 'package:vamos/ui/utils/utility.dart';
@@ -210,7 +212,16 @@ class _PlayerListScreenState extends State<PlayerListScreen> {
                                                   height: 15,
                                                 ),
                                               ),
-                                              onTap: () {},
+                                              onTap: () {
+                                                Get.find<
+                                                        OtherPlayerInfoController>()
+                                                    .getProfileData(
+                                                        _playerListController
+                                                            .playerListDisplay[
+                                                                index]
+                                                            .id
+                                                            .toString());
+                                              },
                                             ),
                                           ],
                                         ),
@@ -219,7 +230,6 @@ class _PlayerListScreenState extends State<PlayerListScreen> {
                                   ),
                                 ),
                               ),
-
                               _playerListController.userType == "Ground"
                                   ? SizedBox()
                                   : Positioned(
@@ -233,7 +243,8 @@ class _PlayerListScreenState extends State<PlayerListScreen> {
                                             _playerListController.requestPlayer(
                                                 _playerListController
                                                     .playerListDisplay[index]
-                                                    .id, index);
+                                                    .id,
+                                                index);
                                           } else {
                                             Utility.showSnackbar(AppLocalizations
                                                     .of(context)!
