@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:vamos/core/service/Binder/authBinder.dart';
 import 'package:vamos/splashScreen.dart';
 import 'package:vamos/testScreen.dart';
+import 'package:vamos/ui/pages/commentsPage.dart';
 import 'package:vamos/ui/pages/match/aboutMatch.dart';
 import 'package:vamos/ui/pages/createGround.dart';
 import 'package:vamos/ui/pages/homeScreen.dart';
@@ -87,6 +88,13 @@ abstract class AppPages {
       name: '/registerScreen',
       transitionDuration: transitionDuration,
       page: () => RegisterPage(),
+      transition: Transition.downToUp,
+      binding: AllBinder(),
+    ),
+    GetPage(
+      name: '/commentsPage',
+      transitionDuration: transitionDuration,
+      page: () => CommentsPage(),
       transition: Transition.downToUp,
       binding: AllBinder(),
     ),
