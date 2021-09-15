@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vamos/core/models/groundList.dart';
 import 'package:vamos/core/service/controller/groundController.dart';
+import 'package:vamos/core/service/controller/otherPlayerInfoController.dart';
 import 'package:vamos/core/service/controller/playerListingController.dart';
 import 'package:vamos/core/models/playerListResponse.dart';
+import 'package:vamos/core/service/controller/searchByController.dart';
 import 'package:vamos/core/service/controller/teamListingController.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/theme.dart';
@@ -54,17 +56,17 @@ class _SearchByState extends State<SearchBy> {
   void initState() {
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback((_) {
-      Get.put(TeamListController()).getteamlist();
-      Get.put(PlayerListController()).getPlayerlist();
-      Get.put(GroundController()).getGroundlist();
+      Get.find<TeamListController>().getteamlist();
+      Get.find<PlayerListController>().getPlayerlist();
+      Get.put(SearchByController()).getGroundlist();
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: GetBuilder<PlayerListController>(
-        builder: (_searchByService) => Directionality(
+    return GetBuilder<SearchByController>(
+      builder: (searchService) => SafeArea(
+        child: Directionality(
           textDirection: TextDirection.ltr,
           child: Scaffold(
             drawer: SearchDrawer(playerCont
@@ -86,7 +88,8 @@ class _SearchByState extends State<SearchBy> {
             body: SingleChildScrollView(
               child: Column(
                 children: [
-                  searchBar(_searchByService),
+                  GetBuilder<PlayerListController>(
+                      builder: (_playerService) => searchBar(_playerService)),
                   Center(
                     child: Container(
                       height: 100.h,
@@ -197,15 +200,13 @@ class _SearchByState extends State<SearchBy> {
                     ),
                   ),
                   playerCont
-                      ? playerContainer(_searchByService, searchSlug, context)
+                      ? playerContainer(
+                          Get.find<PlayerListController>(), searchSlug, context)
                       : teamCont
-                          ? GetBuilder<TeamListController>(
-                              builder: (_teamService) =>
-                                  teamContainer(_teamService, searchSlug))
+                          ? teamContainer(
+                              Get.find<TeamListController>(), searchSlug)
                           : groundCont
-                              ? GetBuilder<GroundController>(
-                                  builder: (_groundService) => groundContainer(
-                                      _groundService, searchSlug))
+                              ? groundContainer(searchService, searchSlug)
                               : Container(),
                   SizedBox(
                     height: 20.h,
@@ -706,15 +707,24 @@ class _SearchByState extends State<SearchBy> {
                                                 )
                                               : SizedBox(),
                                           GestureDetector(
-                                            child: Container(
-                                              padding: EdgeInsets.only(left: 5),
-                                              child: Image.asset(
-                                                "assets/images/teamListInfo.webp",
-                                                height: 15,
+                                              child: Container(
+                                                padding:
+                                                    EdgeInsets.only(left: 5),
+                                                child: Image.asset(
+                                                  "assets/images/teamListInfo.webp",
+                                                  height: 15,
+                                                ),
                                               ),
-                                            ),
-                                            onTap: () {},
-                                          ),
+                                              onTap: () {
+                                                Get.find<
+                                                        OtherPlayerInfoController>()
+                                                    .getProfileData(
+                                                        _searchByService
+                                                            .playerListDisplay[
+                                                                index]
+                                                            .id
+                                                            .toString());
+                                              }),
                                         ],
                                       ),
                                     )

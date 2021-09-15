@@ -98,6 +98,7 @@ class _OtherPlayerInfoState extends State<OtherPlayerInfo> {
                       padding: EdgeInsets.fromLTRB(10, 12, 10, 0),
                       child: Center(
                         child: RatingBar.builder(
+                          ignoreGestures: true,
                           initialRating: 3,
                           minRating: 1,
                           direction: Axis.horizontal,
