@@ -3,8 +3,10 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:vamos/core/models/acceptRejectResponse.dart';
+import 'package:vamos/core/models/addComment.dart';
 import 'package:vamos/core/models/commentsList.dart';
 import 'package:vamos/core/models/completeStepResponse.dart';
+import 'package:vamos/core/models/deleteComments.dart';
 import 'package:vamos/core/models/match/createMatch.dart';
 import 'package:vamos/core/models/createTeamResponse.dart';
 import 'package:vamos/core/models/deleteMedia.dart';
@@ -206,7 +208,20 @@ class FakeApi extends Api {
 
   @override
   Future<CommentListModel> commentListModel(String? userId) {
-    // TODO: implement getTeamRequestsSentByMatch
+    // TODO: implement commentList
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<AddComment> addComment(
+      String? playerId, String? comment, double? rating) {
+    // TODO: implement addComment
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<DeleteComment> deleteComment(int? id) {
+    // TODO: deleteComment
     throw UnimplementedError();
   }
 

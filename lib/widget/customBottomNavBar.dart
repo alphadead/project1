@@ -110,7 +110,7 @@ class CustomBottomAppBarState extends State<CustomBottomAppBar> {
                 : index == 3
                     ? Get.toNamed('/commentsPage')
                     : index == 1
-                        ? Get.toNamed('/searchBy')
+                        ? Get.toNamed('/commentsPage')
                         : onPressed != null
                             ? onPressed(index)
                             : () {},

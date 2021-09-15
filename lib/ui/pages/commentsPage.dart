@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vamos/core/models/commentsList.dart';
+import 'package:vamos/core/service/controller/commentController.dart';
 import 'package:vamos/core/service/controller/profileController.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/theme.dart';
@@ -18,10 +19,19 @@ class CommentsPage extends StatefulWidget {
 
 class _CommentsPageState extends State<CommentsPage> {
   @override
+  void initState() {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      Get.find<CommentController>().commentList();
+      Get.find<ProfileController>().getProfileData();
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: GetBuilder<ProfileController>(
-        builder: (_profileService) => Directionality(
+      child: GetBuilder<CommentController>(
+        builder: (_commentsService) => Directionality(
           textDirection: TextDirection.ltr,
           child: Scaffold(
             resizeToAvoidBottomInset: false,
@@ -66,10 +76,8 @@ class _CommentsPageState extends State<CommentsPage> {
                       child: Padding(
                         padding: const EdgeInsets.only(top: 12),
                         child: ListView.builder(
-                          itemCount: 10,
+                          itemCount: _commentsService.comment!.length,
                           itemBuilder: (BuildContext context, int index) {
-                            // List<CommentModel> comments =
-                            //     _profileService.commentList();
                             return Container(
                               width: 260.w,
                               child: Card(
@@ -86,7 +94,7 @@ class _CommentsPageState extends State<CommentsPage> {
                                           MainAxisAlignment.start,
                                       children: [
                                         SizedBox(
-                                          height: 10.h,
+                                          height: 7.h,
                                         ),
                                         Container(
                                           margin: EdgeInsets.symmetric(
@@ -114,7 +122,7 @@ class _CommentsPageState extends State<CommentsPage> {
                                                 CrossAxisAlignment.center,
                                             children: [
                                               Text(
-                                                'Lionel Andres Messi',
+                                                'Cristiano',
                                                 maxLines: 2,
                                                 overflow: TextOverflow.ellipsis,
                                                 style: themeData()
@@ -130,23 +138,34 @@ class _CommentsPageState extends State<CommentsPage> {
                                               SizedBox(
                                                 width: 90.w,
                                               ),
-                                              Image.asset(
-                                                'assets/images/teamListDelete.webp',
-                                                height: 12.h,
+                                              GestureDetector(
+                                                onTap: () {
+                                                  _commentsService
+                                                      .deleteComment(
+                                                          index,
+                                                          _commentsService
+                                                              .comment![index]
+                                                              .id!);
+                                                },
+                                                child: Image.asset(
+                                                  'assets/images/teamListDelete.webp',
+                                                  height: 12.h,
+                                                ),
                                               )
                                             ],
                                           ),
                                           Container(
                                             width: 210.w,
                                             child: Text(
-                                              'Duo ipsum elitr sit diam amet duo, diam diam magna vero kasd amet sed est eos, ea gubergren no justo at eos. Eirmod et est dolor sadipscing aliquyam duo et ea. Gubergren et amet sanctus clita sit dolor amet, nonumy elitr no et sea sadipscing invidunt sed sed. Dolore gubergren.',
+                                              _commentsService
+                                                  .comment![index].comment!,
                                               maxLines: 10,
                                               style: themeData()
                                                   .textTheme
                                                   .bodyText1!
                                                   .copyWith(
                                                     color: KColorBlack,
-                                                    fontSize: 8.sp,
+                                                    fontSize: 9.sp,
                                                   ),
                                             ),
                                           )

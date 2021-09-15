@@ -2,8 +2,10 @@ import 'dart:io';
 
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:vamos/core/models/acceptRejectResponse.dart';
+import 'package:vamos/core/models/addComment.dart';
 import 'package:vamos/core/models/commentsList.dart';
 import 'package:vamos/core/models/completeStepResponse.dart';
+import 'package:vamos/core/models/deleteComments.dart';
 import 'package:vamos/core/models/match/createMatch.dart';
 import 'package:vamos/core/models/createTeamResponse.dart';
 import 'package:vamos/core/models/deleteMedia.dart';
@@ -97,8 +99,10 @@ abstract class Api {
   Future<AcceptRejectRequestResponse> requestAcceptReject(id, status);
   Future<GroundAvailability> groundAvailable(int id, String date);
   Future<MyTeamInfo> myTeamInfo();
+  Future<DeleteComment> deleteComment(int id);
   Future<CommentListModel> commentListModel(String userId);
   Future<JoinedTeamListResponse> getJoinedTeams();
+  Future<AddComment> addComment(String playerId, String comment, double rating);
   Future<MatchListResponse> getMatchList();
   Future<TeamRequestSentByMatch> getTeamRequestsSentByMatch(int? matchId);
   Future<MatchRequestReceivedByTeamResponse> getIncomingMatchRequests(

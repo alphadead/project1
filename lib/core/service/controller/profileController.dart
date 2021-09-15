@@ -85,26 +85,4 @@ class ProfileController extends GetxController {
       Utility.showSnackbar("${response.message}");
     }
   }
-
-  void commentList() async {
-    Utility.showLoadingDialog();
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    CommentListModel response =
-        await api.commentListModel(prefs.getString("userId").toString());
-    if (response.data != null) {
-      CommentModel comment = response.data![0];
-
-      print(comment);
-      update();
-      Utility.closeDialog();
-    }
-    // } else {
-    //   if (prefs.getString("completedStep") == "2") {
-    //     Utility.showSnackbar("${response.message}");
-    //   } else {
-    //     Utility.closeDialog();
-    //   }
-    // }
-    update();
-  }
 }
