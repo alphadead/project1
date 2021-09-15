@@ -69,117 +69,215 @@ class _CommentsPageState extends State<CommentsPage> {
                       ),
                     ),
                   ),
-                  SingleChildScrollView(
-                    child: Container(
-                      height: 400.h,
-                      width: 320.w,
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 12),
-                        child: ListView.builder(
-                          itemCount: _commentsService.comment!.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return Container(
-                              width: 260.w,
-                              child: Card(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(2.5.w)),
-                                elevation: 1,
-                                margin: EdgeInsets.fromLTRB(5.w, 0, 5.w, 25.h),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        SizedBox(
-                                          height: 7.h,
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.symmetric(
-                                              vertical: 0.h, horizontal: 0),
-                                          child: CircleAvatar(
-                                              radius: 18.h,
-                                              backgroundImage: AssetImage(
-                                                  'assets/images/placeholder_team_icon.png')),
-                                        ),
-                                      ],
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 15, vertical: 12),
-                                      child: Column(
+                  Stack(
+                    children: [
+                      Align(
+                        alignment: Alignment.center,
+                        child: SingleChildScrollView(
+                          child: Container(
+                            height: 400.h,
+                            width: 320.w,
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 12),
+                              child: ListView.builder(
+                                itemCount: _commentsService.comment!.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return Container(
+                                    width: 260.w,
+                                    child: Card(
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(2.5.w)),
+                                      elevation: 1,
+                                      margin: EdgeInsets.fromLTRB(
+                                          5.w, 0, 5.w, 25.h),
+                                      child: Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                            MainAxisAlignment.center,
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Row(
+                                          Column(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.start,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
                                             children: [
-                                              Text(
-                                                'Cristiano',
-                                                maxLines: 2,
-                                                overflow: TextOverflow.ellipsis,
+                                              SizedBox(
+                                                height: 7.h,
+                                              ),
+                                              Container(
+                                                margin: EdgeInsets.symmetric(
+                                                    vertical: 0.h,
+                                                    horizontal: 8.w),
+                                                child: CircleAvatar(
+                                                    radius: 18.h,
+                                                    backgroundImage: AssetImage(
+                                                        'assets/images/placeholder_team_icon.png')),
+                                              ),
+                                            ],
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 5, vertical: 12),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Container(
+                                                      width: 150,
+                                                      child: Text(
+                                                        'Cristiano Ronaldo',
+                                                        maxLines: 2,
+                                                        softWrap: true,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        style: themeData()
+                                                            .textTheme
+                                                            .bodyText1!
+                                                            .copyWith(
+                                                              fontSize: 12.sp,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color: KRed,
+                                                            ),
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 90.w,
+                                                    ),
+                                                    GestureDetector(
+                                                      onTap: () {
+                                                        _commentsService
+                                                            .deleteComment(
+                                                                index,
+                                                                _commentsService
+                                                                    .comment![
+                                                                        index]
+                                                                    .id!);
+                                                      },
+                                                      child: Image.asset(
+                                                        'assets/images/teamListDelete.webp',
+                                                        height: 12.h,
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                                Container(
+                                                  width: 210.w,
+                                                  child: Text(
+                                                    _commentsService
+                                                        .comment![index]
+                                                        .comment!,
+                                                    maxLines: 10,
+                                                    style: themeData()
+                                                        .textTheme
+                                                        .bodyText1!
+                                                        .copyWith(
+                                                          color: KColorBlack,
+                                                          fontSize: 9.sp,
+                                                        ),
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.bottomRight,
+                        child: Container(
+                          margin: EdgeInsets.only(right: 10.w),
+                          height: 220.h,
+                          child: FloatingActionButton(
+                            heroTag: null,
+                            backgroundColor: containerGreen,
+                            child: Icon(Icons.add),
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return Center(
+                                    child: Container(
+                                      margin: EdgeInsets.symmetric(
+                                          horizontal: 20, vertical: 10),
+                                      width: 250.w,
+                                      height: 250.h,
+                                      decoration: BoxDecoration(
+                                          color: titleText,
+                                          borderRadius:
+                                              BorderRadius.circular(2.5.h)),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.fromLTRB(
+                                                      10, 8, 0, 0),
+                                              child: Text(
+                                                'Add comment and\nRate a player',
                                                 style: themeData()
                                                     .textTheme
                                                     .bodyText1!
                                                     .copyWith(
+                                                      color:
+                                                          profileContainerColor,
+                                                      fontSize: 15.sp,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.fromLTRB(
+                                                      10, 20, 0, 5),
+                                              child: Text(
+                                                'Comment',
+                                                style: themeData()
+                                                    .textTheme
+                                                    .bodyText1!
+                                                    .copyWith(
+                                                      color: KLightGrey,
                                                       fontSize: 12.sp,
                                                       fontWeight:
                                                           FontWeight.bold,
-                                                      color: KRed,
                                                     ),
                                               ),
-                                              SizedBox(
-                                                width: 90.w,
-                                              ),
-                                              GestureDetector(
-                                                onTap: () {
-                                                  _commentsService
-                                                      .deleteComment(
-                                                          index,
-                                                          _commentsService
-                                                              .comment![index]
-                                                              .id!);
-                                                },
-                                                child: Image.asset(
-                                                  'assets/images/teamListDelete.webp',
-                                                  height: 12.h,
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                          Container(
-                                            width: 210.w,
-                                            child: Text(
-                                              _commentsService
-                                                  .comment![index].comment!,
-                                              maxLines: 10,
-                                              style: themeData()
-                                                  .textTheme
-                                                  .bodyText1!
-                                                  .copyWith(
-                                                    color: KColorBlack,
-                                                    fontSize: 9.sp,
-                                                  ),
                                             ),
-                                          )
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                  ],
-                                ),
-                              ),
-                            );
-                          },
+                                  );
+                                },
+                              );
+                            },
+                          ),
                         ),
-                      ),
-                    ),
+                      )
+                    ],
                   ),
                 ],
               ),

@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:vamos/core/models/commentsList.dart';
+import 'package:vamos/core/models/genericResponse.dart';
 import 'package:vamos/core/models/profileDataResponse.dart';
 import 'package:vamos/core/models/profile_api.dart';
 import 'package:vamos/core/models/referalEarning.dart';
@@ -31,13 +31,6 @@ class ProfileController extends GetxController {
       update();
       Utility.closeDialog();
     }
-    // } else {
-    //   if (prefs.getString("completedStep") == "2") {
-    //     Utility.showSnackbar("${response.message}");
-    //   } else {
-    //     Utility.closeDialog();
-    //   }
-    // }
     update();
   }
 
@@ -84,5 +77,16 @@ class ProfileController extends GetxController {
     } else {
       Utility.showSnackbar("${response.message}");
     }
+  }
+
+  void premiumPlayerRequest() async {
+    Utility.showLoadingDialog();
+    GenericResponse response = await api.premiumPlayerRequest();
+    if (response.success ?? false) {
+      profile?.isPremium = "2";
+    }
+    update();
+    Utility.closeDialog();
+    Utility.showSnackbar("${response.message}");
   }
 }

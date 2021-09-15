@@ -110,4 +110,5 @@ abstract class Api {
   Future<UpdateMatchRequestsByTeam> updateMatchRequestsByTeam(
       int? id, String? matchId, String? status);
   Future<GenericResponse> cancelPlayerRequest(teamId, userId);
+  Future<GenericResponse> premiumPlayerRequest();
 }

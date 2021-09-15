@@ -48,6 +48,7 @@ class PlayerData {
       this.email,
       this.phone,
       this.address,
+      this.nationality,
       this.street2,
       this.city,
       this.state,
@@ -64,6 +65,7 @@ class PlayerData {
   String? email;
   String? phone;
   String? address;
+  String? nationality;
   dynamic street2;
   dynamic city;
   dynamic state;
@@ -87,6 +89,7 @@ class PlayerData {
       pincode: json["pincode"],
       photo: json["photo"],
       status: json["status"] == null ? null : json["status"],
+      nationality: json["nationality"],
       createdAt: json["created_at"] == null
           ? null
           : DateTime.parse(json["created_at"]),

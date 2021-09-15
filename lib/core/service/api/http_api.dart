@@ -340,4 +340,13 @@ class HTTPApi extends Api {
 
     return UpdateMatchRequestsByTeam.fromJson(response);
   }
+
+  @override
+  Future<GenericResponse> premiumPlayerRequest() async {
+    Map<String, dynamic> body = {};
+
+    Map<String, dynamic> response =
+        await postRequest('apply-for-premium-player', body);
+    return GenericResponse.fromJson(response);
+  }
 }

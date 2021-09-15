@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:vamos/core/service/Binder/authBinder.dart';
 import 'package:vamos/splashScreen.dart';
-import 'package:vamos/testScreen.dart';
 import 'package:vamos/ui/pages/commentsPage.dart';
 import 'package:vamos/ui/pages/match/aboutMatch.dart';
 import 'package:vamos/ui/pages/createGround.dart';
@@ -77,13 +76,6 @@ abstract class AppPages {
       name: '/splashScreen',
       transitionDuration: transitionDuration,
       page: () => SplashScreen(),
-    ),
-    GetPage(
-      name: '/testScreen',
-      transitionDuration: transitionDuration,
-      page: () => TestScreen(),
-      transition: Transition.downToUp,
-      binding: AllBinder(),
     ),
     GetPage(
       name: '/registerScreen',
