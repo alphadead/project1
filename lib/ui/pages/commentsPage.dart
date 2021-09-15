@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:vamos/core/service/controller/commentController.dart';
@@ -261,11 +262,11 @@ class _CommentsPageState extends State<CommentsPage> {
                                                         .textTheme
                                                         .bodyText1!
                                                         .copyWith(
-                                                          color: KLightGrey,
-                                                          fontSize: 12.sp,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
+                                                            fontSize: 12.sp,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .normal,
+                                                            color: KLightGrey),
                                                   ),
                                                 ),
                                                 Container(
@@ -321,58 +322,42 @@ class _CommentsPageState extends State<CommentsPage> {
                                                     ),
                                                   ),
                                                 ),
-                                                Card(
-                                                  elevation: 0,
-                                                  child: Container(
-                                                    margin: EdgeInsets.only(
-                                                      bottom: 15.h,
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.fromLTRB(
+                                                          8, 0, 0, 5),
+                                                  child: Text(
+                                                    'Rating',
+                                                    style: themeData()
+                                                        .textTheme
+                                                        .bodyText1!
+                                                        .copyWith(
+                                                            fontSize: 12.sp,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .normal,
+                                                            color: KLightGrey),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  child: RatingBar.builder(
+                                                    initialRating: 3,
+                                                    minRating: 1,
+                                                    direction: Axis.horizontal,
+                                                    allowHalfRating: true,
+                                                    itemCount: 5,
+                                                    itemBuilder: (context, _) =>
+                                                        Transform.scale(
+                                                      scale: 0.8.h,
+                                                      child: Icon(
+                                                        Icons.star_rounded,
+                                                        color: iconColStar,
+                                                      ),
                                                     ),
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        Text(
-                                                          "Ratings",
-                                                          style: themeData()
-                                                              .textTheme
-                                                              .bodyText1!
-                                                              .copyWith(
-                                                                  color:
-                                                                      KLightGrey),
-                                                        ),
-                                                        SizedBox(
-                                                          width: 10.w,
-                                                        ),
-                                                        Container(
-                                                          height: 35.h,
-                                                          width: 100.w,
-                                                          color: KLightGrey
-                                                              .withOpacity(0.2),
-                                                          child: Center(
-                                                              child:
-                                                                  TextFormField(
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            keyboardType:
-                                                                TextInputType
-                                                                    .number,
-                                                            onChanged: (val) {
-                                                              _commentsService
-                                                                  .rating = val;
-                                                            },
-                                                            initialValue: '',
-                                                            style: themeData()
-                                                                .textTheme
-                                                                .bodyText1!
-                                                                .copyWith(
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold),
-                                                          )),
-                                                        ),
-                                                      ],
-                                                    ),
+                                                    onRatingUpdate: (rating) {
+                                                      _commentsService.rating =
+                                                          rating.toString();
+                                                    },
                                                   ),
                                                 ),
                                                 Row(
@@ -408,6 +393,7 @@ class _CommentsPageState extends State<CommentsPage> {
                                                         onPressed: () {
                                                           _commentsService
                                                               .commentAdd();
+                                                          Get.back();
                                                         },
                                                         text: "Save",
                                                         width: 100,
