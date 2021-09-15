@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:vamos/core/models/commentsList.dart';
 import 'package:vamos/core/service/controller/commentController.dart';
 import 'package:vamos/core/service/controller/profileController.dart';
 import 'package:vamos/ui/utils/color.dart';
+import 'package:vamos/ui/utils/loginbkground.dart';
 import 'package:vamos/ui/utils/theme.dart';
 import 'package:vamos/widget/customAppBar.dart';
 import 'package:vamos/widget/customBottomNavBar.dart';
 import 'package:vamos/widget/formWidgets/buttons.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CommentsPage extends StatefulWidget {
   const CommentsPage({Key? key}) : super(key: key);
@@ -29,6 +29,7 @@ class _CommentsPageState extends State<CommentsPage> {
 
   @override
   Widget build(BuildContext context) {
+    String ss;
     return SafeArea(
       child: GetBuilder<CommentController>(
         builder: (_commentsService) => Directionality(
@@ -211,68 +212,218 @@ class _CommentsPageState extends State<CommentsPage> {
                             child: Icon(Icons.add),
                             onPressed: () {
                               showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return Center(
-                                    child: Container(
-                                      margin: EdgeInsets.symmetric(
-                                          horizontal: 20, vertical: 10),
-                                      width: 250.w,
-                                      height: 250.h,
-                                      decoration: BoxDecoration(
-                                          color: titleText,
-                                          borderRadius:
-                                              BorderRadius.circular(2.5.h)),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.fromLTRB(
-                                                      10, 8, 0, 0),
-                                              child: Text(
-                                                'Add comment and\nRate a player',
-                                                style: themeData()
-                                                    .textTheme
-                                                    .bodyText1!
-                                                    .copyWith(
-                                                      color:
-                                                          profileContainerColor,
-                                                      fontSize: 15.sp,
-                                                      fontWeight:
-                                                          FontWeight.bold,
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return Center(
+                                      child: Container(
+                                        margin: EdgeInsets.symmetric(
+                                            horizontal: 20, vertical: 10),
+                                        width: 250.w,
+                                        height: 250.h,
+                                        decoration: BoxDecoration(
+                                            color: titleText,
+                                            borderRadius:
+                                                BorderRadius.circular(2.5.h)),
+                                        child: SingleChildScrollView(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.fromLTRB(
+                                                          10, 8, 0, 0),
+                                                  child: Text(
+                                                    'Add comment and\nRate a player',
+                                                    style: themeData()
+                                                        .textTheme
+                                                        .bodyText1!
+                                                        .copyWith(
+                                                          color:
+                                                              profileContainerColor,
+                                                          fontSize: 15.sp,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.fromLTRB(
+                                                          8, 20, 0, 5),
+                                                  child: Text(
+                                                    'Comment',
+                                                    style: themeData()
+                                                        .textTheme
+                                                        .bodyText1!
+                                                        .copyWith(
+                                                          color: KLightGrey,
+                                                          fontSize: 12.sp,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  height: 130.h,
+                                                  child: Card(
+                                                    elevation: 0,
+                                                    child: TextFormField(
+                                                      minLines: 3,
+                                                      maxLines: 20,
+                                                      onChanged: (value) {
+                                                        _commentsService
+                                                                .commentByUser =
+                                                            value;
+                                                      },
+                                                      decoration:
+                                                          InputDecoration(
+                                                        alignLabelWithHint:
+                                                            true,
+                                                        floatingLabelBehavior:
+                                                            FloatingLabelBehavior
+                                                                .never,
+                                                        labelText:
+                                                            "Comment Goes Here",
+                                                        labelStyle: themeData()
+                                                            .textTheme
+                                                            .bodyText1!
+                                                            .copyWith(
+                                                                color:
+                                                                    KLightGrey),
+                                                        enabledBorder:
+                                                            OutlineInputBorder(
+                                                                borderSide:
+                                                                    BorderSide(
+                                                                        color:
+                                                                            KLightGrey,
+                                                                        width:
+                                                                            1.0),
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .zero),
+                                                        focusedBorder:
+                                                            OutlineInputBorder(
+                                                                borderSide:
+                                                                    BorderSide(
+                                                                        color:
+                                                                            KLightGrey,
+                                                                        width:
+                                                                            1.0),
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .zero),
+                                                      ),
                                                     ),
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.fromLTRB(
-                                                      10, 20, 0, 5),
-                                              child: Text(
-                                                'Comment',
-                                                style: themeData()
-                                                    .textTheme
-                                                    .bodyText1!
-                                                    .copyWith(
-                                                      color: KLightGrey,
-                                                      fontSize: 12.sp,
-                                                      fontWeight:
-                                                          FontWeight.bold,
+                                                  ),
+                                                ),
+                                                Card(
+                                                  elevation: 0,
+                                                  child: Container(
+                                                    margin: EdgeInsets.only(
+                                                      bottom: 15.h,
                                                     ),
-                                              ),
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        Text(
+                                                          "Ratings",
+                                                          style: themeData()
+                                                              .textTheme
+                                                              .bodyText1!
+                                                              .copyWith(
+                                                                  color:
+                                                                      KLightGrey),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 10.w,
+                                                        ),
+                                                        Container(
+                                                          height: 35.h,
+                                                          width: 100.w,
+                                                          color: KLightGrey
+                                                              .withOpacity(0.2),
+                                                          child: Center(
+                                                              child:
+                                                                  TextFormField(
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            keyboardType:
+                                                                TextInputType
+                                                                    .number,
+                                                            onChanged: (val) {
+                                                              _commentsService
+                                                                  .rating = val;
+                                                            },
+                                                            initialValue: '',
+                                                            style: themeData()
+                                                                .textTheme
+                                                                .bodyText1!
+                                                                .copyWith(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold),
+                                                          )),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Container(
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                              vertical: 20.h,
+                                                              horizontal: 10.w),
+                                                      child:
+                                                          primaryActionButton(
+                                                        color: moneyBox,
+                                                        context: context,
+                                                        onPressed: () {
+                                                          Get.back();
+                                                        },
+                                                        text: "Cancel",
+                                                        width: 100,
+                                                        height: 30,
+                                                        fontSize: 12,
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                              vertical: 20.h,
+                                                              horizontal: 10.w),
+                                                      child:
+                                                          primaryActionButton(
+                                                        context: context,
+                                                        onPressed: () {
+                                                          _commentsService
+                                                              .commentAdd();
+                                                        },
+                                                        text: "Save",
+                                                        width: 100,
+                                                        height: 30,
+                                                        fontSize: 12,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                )
+                                              ],
                                             ),
-                                          ],
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  );
-                                },
-                              );
+                                    );
+                                  });
                             },
                           ),
                         ),

@@ -102,7 +102,8 @@ abstract class Api {
   Future<DeleteComment> deleteComment(int id);
   Future<CommentListModel> commentListModel(String userId);
   Future<JoinedTeamListResponse> getJoinedTeams();
-  Future<AddComment> addComment(String playerId, String comment, double rating);
+  Future<AddComment> addComment(
+      String playerId, String comment, String? rating);
   Future<MatchListResponse> getMatchList();
   Future<TeamRequestSentByMatch> getTeamRequestsSentByMatch(int? matchId);
   Future<MatchRequestReceivedByTeamResponse> getIncomingMatchRequests(

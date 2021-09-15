@@ -250,7 +250,7 @@ class HTTPApi extends Api {
   }
 
   Future<AddComment> addComment(
-      String? playerId, String? comment, double? rating) async {
+      String? playerId, String? comment, String? rating) async {
     Map<String, dynamic> body = {
       "player_id": playerId,
       "comment": comment,

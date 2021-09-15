@@ -214,7 +214,7 @@ class FakeApi extends Api {
 
   @override
   Future<AddComment> addComment(
-      String? playerId, String? comment, double? rating) {
+      String? playerId, String? comment, String? rating) {
     // TODO: implement addComment
     throw UnimplementedError();
   }

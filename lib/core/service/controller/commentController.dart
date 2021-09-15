@@ -8,7 +8,7 @@ import 'package:vamos/locator.dart';
 import 'package:vamos/ui/utils/utility.dart';
 
 class CommentController extends GetxController {
-  double? rating;
+  String? rating;
   String? commentByUser;
   String? playerId;
   Api api = locator<Api>();
@@ -25,13 +25,6 @@ class CommentController extends GetxController {
       update();
       Utility.closeDialog();
     }
-    // } else {
-    //   if (prefs.getString("completedStep") == "2") {
-    //     Utility.showSnackbar("${response.message}");
-    //   } else {
-    //     Utility.closeDialog();
-    //   }
-    // }
     update();
   }
 
@@ -39,7 +32,7 @@ class CommentController extends GetxController {
     Utility.showLoadingDialog();
 
     AddComment response =
-        await api.addComment(playerId!, commentByUser!, rating!);
+        await api.addComment(145.toString(), commentByUser!, rating!);
     if (response.data != null) {
       comments.add(response.data!.comment!);
       update();
