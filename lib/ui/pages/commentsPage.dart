@@ -30,7 +30,6 @@ class _CommentsPageState extends State<CommentsPage> {
 
   @override
   Widget build(BuildContext context) {
-    String ss;
     return SafeArea(
       child: GetBuilder<CommentController>(
         builder: (_commentsService) => Directionality(
@@ -112,8 +111,7 @@ class _CommentsPageState extends State<CommentsPage> {
 
   Widget commentContainer(CommentController _commentsService, int index) {
     return Card(
-      shape:
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(2.5.w)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(2.5.w)),
       elevation: 4,
       margin: EdgeInsets.only(left: 10.w, right: 10.w, bottom: 10.h),
       child: Row(
@@ -129,9 +127,10 @@ class _CommentsPageState extends State<CommentsPage> {
               Container(
                 margin: EdgeInsets.symmetric(vertical: 0.h, horizontal: 8.w),
                 child: CircleAvatar(
-                    radius: 18.h,
-                    backgroundImage: AssetImage(
-                        'assets/images/placeholder_team_icon.png')),
+                  radius: 18.h,
+                  backgroundImage: NetworkImage(
+                      _commentsService.comment![index].createdPhoto!),
+                ),
               ),
             ],
           ),
@@ -148,7 +147,7 @@ class _CommentsPageState extends State<CommentsPage> {
                     Container(
                       width: 150,
                       child: Text(
-                        'Cristiano Ronaldo',
+                        _commentsService.comment![index].createdName!,
                         maxLines: 2,
                         softWrap: true,
                         overflow: TextOverflow.ellipsis,
@@ -292,40 +291,43 @@ class _CommentsPageState extends State<CommentsPage> {
                           },
                         ),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 20.h, horizontal: 10.w),
-                            child: primaryActionButton(
-                              color: moneyBox,
-                              context: context,
-                              onPressed: () {
-                                Get.back();
-                              },
-                              text: "Cancel",
-                              width: 100,
-                              height: 30,
-                              fontSize: 12,
+                      Card(
+                        elevation: 0,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 20.h, horizontal: 10.w),
+                              child: primaryActionButton(
+                                color: moneyBox,
+                                context: context,
+                                onPressed: () {
+                                  Get.back();
+                                },
+                                text: "Cancel",
+                                width: 100,
+                                height: 30,
+                                fontSize: 12,
+                              ),
                             ),
-                          ),
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 20.h, horizontal: 10.w),
-                            child: primaryActionButton(
-                              context: context,
-                              onPressed: () {
-                                _commentsService.commentAdd();
-                                Get.back();
-                              },
-                              text: "Save",
-                              width: 100,
-                              height: 30,
-                              fontSize: 12,
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 20.h, horizontal: 10.w),
+                              child: primaryActionButton(
+                                context: context,
+                                onPressed: () {
+                                  _commentsService.commentAdd();
+                                  Get.back();
+                                },
+                                text: "Save",
+                                width: 100,
+                                height: 30,
+                                fontSize: 12,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       )
                     ],
                   ),

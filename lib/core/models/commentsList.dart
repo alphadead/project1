@@ -39,6 +39,8 @@ class CommentModel {
   CommentModel({
     this.id,
     this.playerId,
+    this.createdName,
+    this.createdPhoto,
     this.comment,
     this.rating,
     this.createdById,
@@ -49,6 +51,8 @@ class CommentModel {
 
   int? id;
   String? playerId;
+  String? createdName;
+  String? createdPhoto;
   String? comment;
   String? rating;
   String? createdById;
@@ -59,6 +63,8 @@ class CommentModel {
   factory CommentModel.fromJson(Map<String, dynamic> json) => CommentModel(
         id: json["id"],
         playerId: json["player_id"],
+        createdName: json["created_by_name"],
+        createdPhoto: json["created_by_photo"],
         comment: json["comment"],
         rating: json["rating"],
         createdById: json["created_by_id"].toString(),
@@ -70,6 +76,8 @@ class CommentModel {
   Map<String, dynamic> toJson() => {
         "id": id,
         "player_id": playerId,
+        "created_by_name": createdName,
+        "created_by_photo": createdPhoto,
         "comment": comment,
         "rating": rating,
         "created_by_id": createdById,
