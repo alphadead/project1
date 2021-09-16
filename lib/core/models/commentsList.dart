@@ -61,7 +61,7 @@ class CommentModel {
         playerId: json["player_id"],
         comment: json["comment"],
         rating: json["rating"],
-        createdById: json["created_by_id"],
+        createdById: json["created_by_id"].toString(),
         createdAt: json["created_at"],
         updatedAt: json["updated_at"],
         deletedAt: json["deleted_at"],

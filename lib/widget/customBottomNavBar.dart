@@ -108,9 +108,9 @@ class CustomBottomAppBarState extends State<CustomBottomAppBar> {
                     ? Get.toNamed('/playerInfo')
                     : Get.toNamed('/viewGroundScreen')
                 : index == 3
-                    ? Get.toNamed('/commentsPage')
+                    ? Get.toNamed('/settings')
                     : index == 1
-                        ? Get.toNamed('/commentsPage')
+                        ? Get.toNamed('/wallet')
                         : onPressed != null
                             ? onPressed(index)
                             : () {},
