@@ -54,6 +54,7 @@ class ProfileData {
     this.photo,
     this.teamLogo,
     this.teamId,
+    this.isPremium,
     this.memberOfTeams,
     this.noOfMatchPayed,
     this.teamName,
@@ -76,6 +77,7 @@ class ProfileData {
   List? photo;
   String? teamLogo;
   int? teamId;
+  String? isPremium;
   List<MemberOfTeam>? memberOfTeams;
   String? teamName;
   int? noOfMatchPayed;
@@ -98,6 +100,7 @@ class ProfileData {
         photo: json["photo"],
         teamLogo: json["team_logo"],
         teamId: json["team_id"],
+        isPremium: json["is_premium"],
         teamName: json["team_name"] == null ? null : json["team_name"],
         noOfMatchPayed: json["no_of_match_payed"] == null
             ? null
@@ -125,6 +128,7 @@ class ProfileData {
         "photo": photo,
         "team_logo": teamLogo,
         "team_id": teamId,
+        "is_premium": isPremium,
         "no_of_match_payed": noOfMatchPayed == null ? null : noOfMatchPayed,
         "team_name": teamName == null ? null : teamName,
         "member_of_teams": memberOfTeams == null

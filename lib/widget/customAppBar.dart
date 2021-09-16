@@ -1,17 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:vamos/core/service/controller/profileController.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/theme.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:vamos/widget/profileContainer.dart';
 
 class CustomAppBar extends StatefulWidget {
   final bool isPencil;
+  final bool showComments;
   final PreferredSizeWidget? tabBar;
-  CustomAppBar({this.isPencil = false, this.tabBar, Key? key})
+  CustomAppBar(
+      {this.isPencil = false, this.showComments = false, this.tabBar, Key? key})
       : super(key: key);
 
   @override
@@ -25,33 +25,43 @@ class _CustomAppBarState extends State<CustomAppBar> {
       bottom: widget.tabBar,
       actions: [
         widget.isPencil == false
-            ? Stack(
-                alignment: Alignment.center,
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(right: 30.w),
-                    child: Image.asset(
-                      "assets/images/notifications.png",
-                      scale: 3.5,
-                    ),
-                  ),
-                  Transform.translate(
-                    offset: Offset(-2, -13),
+            ? widget.showComments
+                ? GestureDetector(
+                    onTap: () async {
+                      Get.offNamed("/profileScreen", arguments: true);
+                    },
                     child: Container(
-                      //padding: EdgeInsets
-                      padding: EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.red,
-                      ),
-                      child: Text(
-                        AppLocalizations.of(context)!.homePage_demoNotif_5,
-                        style: themeData().textTheme.headline3,
-                      ),
+                      margin: EdgeInsets.only(right: 30.w),
+                      child: Icon(Icons.comment_rounded, color: Colors.white,),
                     ),
                   )
-                ],
-              )
+                : Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(right: 30.w),
+                        child: Image.asset(
+                          "assets/images/notifications.png",
+                          scale: 3.5,
+                        ),
+                      ),
+                      Transform.translate(
+                        offset: Offset(-2, -13),
+                        child: Container(
+                          //padding: EdgeInsets
+                          padding: EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.red,
+                          ),
+                          child: Text(
+                            AppLocalizations.of(context)!.homePage_demoNotif_5,
+                            style: themeData().textTheme.headline3,
+                          ),
+                        ),
+                      )
+                    ],
+                  )
             : GestureDetector(
                 onTap: () async {
                   Get.offNamed("/profileScreen", arguments: true);
@@ -72,8 +82,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
       ),
       title: GestureDetector(
         onTap: () {
-                Get.offAllNamed('/homeScreen');
-
+          Get.offAllNamed('/homeScreen');
         },
         child: Container(
           width: 50.w,

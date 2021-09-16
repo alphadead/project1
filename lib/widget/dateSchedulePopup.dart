@@ -328,11 +328,13 @@ class CalenderScheduleRow extends StatefulWidget {
 class _CalenderScheduleRowState extends State<CalenderScheduleRow> {
   DateTime? _currentDateValue;
   int? _currentPriceValue;
-
+  TextEditingController _textController = TextEditingController();
   @override
   void initState() {
     _currentDateValue = widget.defaultDateValue;
     _currentPriceValue = widget.defaultPriceValue;
+    _textController.text =
+        DateFormat('HH:mm').format(widget.defaultDateValue ?? DateTime.now());
     widget.isDate
         ? updateControllerValue(widget.defaultDateValue)
         : updateControllerValue(widget.defaultPriceValue);
@@ -376,6 +378,7 @@ class _CalenderScheduleRowState extends State<CalenderScheduleRow> {
               width: 90.w,
               height: 30.h,
               child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   InkWell(
@@ -400,6 +403,8 @@ class _CalenderScheduleRowState extends State<CalenderScheduleRow> {
                             _currentDateValue = _currentDateValue!
                                 .subtract((Duration(minutes: 1)));
                             updateControllerValue(_currentDateValue);
+                            _textController.text = DateFormat('HH:mm')
+                                .format(_currentDateValue ?? DateTime.now());
                           });
                         }
                       } else {
@@ -412,14 +417,32 @@ class _CalenderScheduleRowState extends State<CalenderScheduleRow> {
                       }
                     },
                   ),
-                  Text(
-                    widget.isDate
-                        ? "${_currentDateValue!.hour}:${_currentDateValue!.minute}"
-                        : "\$$_currentPriceValue",
-                    style: themeData().textTheme.bodyText1!.copyWith(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 10),
+                  Container(
+                    width: 30.w,
+                    margin: EdgeInsets.only(bottom: 5.h),
+                    child: TextField(
+                      controller: _textController,
+                      // place widget.isDate
+                      //     ? "${_currentDateValue!.hour}:${_currentDateValue!.minute}"
+                      //     : "\$$_currentPriceValue",
+                      style: themeData().textTheme.bodyText1!.copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 10),
+                      onChanged: (value) {
+                        final DateTime now = DateTime.now();
+                        final DateFormat formatter = DateFormat('yyyy-MM-dd');
+                        String formatted = formatter.format(now);
+                        var formattedValue =
+                            DateTime.tryParse(formatted + " " + value);
+                        print(formattedValue);
+                        if (formattedValue != null) {
+                          _currentDateValue = formattedValue;
+
+                          updateControllerValue(formattedValue);
+                        }
+                      },
+                    ),
                   ),
                   InkWell(
                     borderRadius: BorderRadius.circular(15),
@@ -447,6 +470,8 @@ class _CalenderScheduleRowState extends State<CalenderScheduleRow> {
                                     _currentDateValue
                                 : _groundService.selectedOpeningTime =
                                     _currentDateValue;
+                            _textController.text = DateFormat('HH:mm')
+                                .format(_currentDateValue ?? DateTime.now());
                           });
                         }
                       } else {

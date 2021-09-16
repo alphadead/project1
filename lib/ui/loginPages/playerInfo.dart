@@ -32,6 +32,7 @@ class _PlayerInfoState extends State<PlayerInfo> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ProfileController>(builder: (_profileService) {
+      int isPremium = int.parse(_profileService.profile?.isPremium ?? "0");
       return Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: sliderGreenActive,
@@ -129,16 +130,28 @@ class _PlayerInfoState extends State<PlayerInfo> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          CircleAvatar(
-                            radius: 25,
-                            backgroundImage: _profileService.profile?.photo ==
-                                        null ||
-                                    _profileService.profile?.photo.toString() ==
-                                        ''
-                                ? NetworkImage('')
-                                : NetworkImage(
-                                    _profileService.profile!.photo.toString()),
-                          ),
+                          Stack(overflow: Overflow.visible, children: [
+                            CircleAvatar(
+                              radius: 25,
+                              backgroundImage:
+                                  _profileService.profile?.teamLogo == null
+                                      ? NetworkImage('')
+                                      : NetworkImage(_profileService
+                                              .profile?.teamLogo
+                                              .toString() ??
+                                          ""),
+                            ),
+                            _profileService.profile?.isPremium == "1"
+                                ? Positioned(
+                                    top: -5.h,
+                                    left: 40.w,
+                                    child: Icon(
+                                      Icons.verified,
+                                      color: KColorAppBar,
+                                    ),
+                                  )
+                                : Container()
+                          ]),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -329,7 +342,29 @@ class _PlayerInfoState extends State<PlayerInfo> {
                     ),
                   ],
                 ),
-              ),      
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              primaryActionButton(
+                  context: context,
+                  onPressed: () {
+                    _profileService.premiumPlayerRequest();
+                  },
+                  color: isPremium == 2
+                      ? KRed
+                      : isPremium == 1
+                          ? KBlueContainerUpcomingmatches
+                          : isPremium == 3
+                              ? KRed
+                              : KBlueContainerUpcomingmatches,
+                  text: isPremium == 2
+                      ? "Request Pending"
+                      : isPremium == 1
+                          ? "Premium Player"
+                          : isPremium == 3
+                              ? "Request Rejected"
+                              : "Premium Player Request"),
               SizedBox(
                 height: 50.h,
               ),

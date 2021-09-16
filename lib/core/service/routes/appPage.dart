@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:vamos/core/service/Binder/authBinder.dart';
 import 'package:vamos/splashScreen.dart';
-import 'package:vamos/testScreen.dart';
 import 'package:vamos/ui/pages/match/aboutMatch.dart';
 import 'package:vamos/ui/pages/createGround.dart';
 import 'package:vamos/ui/pages/homeScreen.dart';
@@ -20,6 +19,7 @@ import 'package:vamos/ui/pages/match/outgoingRequestListByMatch.dart';
 import 'package:vamos/ui/pages/myTeam.dart';
 import 'package:vamos/ui/pages/playerListScreen.dart';
 import 'package:vamos/ui/pages/playerListingScreen.dart';
+import 'package:vamos/ui/pages/searchBy.dart';
 import 'package:vamos/ui/pages/profileInformation/otherPlayerProfile.dart';
 import 'package:vamos/ui/pages/settings.dart';
 import 'package:vamos/ui/pages/teamListScreen.dart';
@@ -55,6 +55,11 @@ abstract class AppPages {
       page: () => UpcomingMatchesPage(),
     ),
     GetPage(
+      name: '/searchBy',
+      transitionDuration: transitionDuration,
+      page: () => SearchBy(),
+    ),
+    GetPage(
       name: '/createTeam',
       transitionDuration: transitionDuration,
       page: () => CreateTeams(),
@@ -70,13 +75,6 @@ abstract class AppPages {
       name: '/splashScreen',
       transitionDuration: transitionDuration,
       page: () => SplashScreen(),
-    ),
-    GetPage(
-      name: '/testScreen',
-      transitionDuration: transitionDuration,
-      page: () => TestScreen(),
-      transition: Transition.downToUp,
-      binding: AllBinder(),
     ),
     GetPage(
       name: '/registerScreen',

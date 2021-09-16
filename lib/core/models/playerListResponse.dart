@@ -48,6 +48,7 @@ class PlayerData {
       this.email,
       this.phone,
       this.address,
+      this.nationality,
       this.street2,
       this.city,
       this.state,
@@ -56,6 +57,7 @@ class PlayerData {
       this.updatedAt,
       this.isJoined,
       this.photo,
+      this.isPremium,
       this.status});
 
   int? id;
@@ -64,6 +66,7 @@ class PlayerData {
   String? email;
   String? phone;
   String? address;
+  String? nationality;
   dynamic street2;
   dynamic city;
   dynamic state;
@@ -72,6 +75,7 @@ class PlayerData {
   DateTime? updatedAt;
   bool? isJoined = false;
   List<dynamic>? photo;
+  String? isPremium;
   String? status;
 
   factory PlayerData.fromJson(Map<String, dynamic> json) => PlayerData(
@@ -87,12 +91,14 @@ class PlayerData {
       pincode: json["pincode"],
       photo: json["photo"],
       status: json["status"] == null ? null : json["status"],
+      nationality: json["nationality"],
       createdAt: json["created_at"] == null
           ? null
           : DateTime.parse(json["created_at"]),
       updatedAt: json["updated_at"] == null
           ? null
           : DateTime.parse(json["updated_at"]),
+      isPremium: json["is_premium"] == null ? null : json["is_premium"],
       isJoined: json["isJoined"] == null ? false : true);
 
   Map<String, dynamic> toJson() => {
@@ -108,6 +114,7 @@ class PlayerData {
         "pincode": pincode,
         "photo": photo,
         "status": status == null ? null : status,
+        "is_premium": isPremium == null ? null : isPremium,
         "created_at": createdAt == null ? null : createdAt!.toIso8601String(),
         "updated_at": updatedAt == null ? null : updatedAt!.toIso8601String(),
       };

@@ -245,6 +245,7 @@ class GroundController extends GetxController {
       Utility.closeDialog();
 
       groundList = response.data!;
+      update();
     } else {
       Utility.closeDialog();
       Utility.showSnackbar("${response.message}");

@@ -29,7 +29,7 @@ Widget homeFABBottomNav() {
             child: FloatingActionButton(
               elevation: 0,
               onPressed: () {
-                // Get.offAllNamed('/homeScreen');
+                Get.toNamed('/searchBy');
               },
               backgroundColor: KRed,
               child: SizedBox(

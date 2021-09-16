@@ -112,23 +112,41 @@ class _PlayerListScreenState extends State<PlayerListScreen> {
                                       EdgeInsets.fromLTRB(5.w, 0, 5.w, 25.h),
                                   child: Row(
                                     children: [
-                                      Container(
-                                        margin: EdgeInsets.symmetric(
-                                            vertical: 5.h, horizontal: 10),
-                                        child: CircleAvatar(
-                                          radius: 24.h,
-                                          backgroundImage: _playerListController
-                                                      .playerListDisplay[index]
-                                                      .photo
-                                                      ?.isNotEmpty ??
-                                                  false
-                                              ? NetworkImage(
-                                                  _playerListController
-                                                      .playerListDisplay[index]
-                                                      .photo?[0]?["url"])
-                                              : NetworkImage(''),
+                                      Stack(children: [
+                                        Container(
+                                          margin: EdgeInsets.symmetric(
+                                              vertical: 5.h, horizontal: 10),
+                                          child: CircleAvatar(
+                                            radius: 24.h,
+                                            backgroundImage:
+                                                _playerListController
+                                                            .playerListDisplay[
+                                                                index]
+                                                            .photo
+                                                            ?.isNotEmpty ??
+                                                        false
+                                                    ? NetworkImage(
+                                                        _playerListController
+                                                            .playerListDisplay[
+                                                                index]
+                                                            .photo?[0]?["url"])
+                                                    : NetworkImage(''),
+                                          ),
                                         ),
-                                      ),
+                                        _playerListController
+                                                    .playerListDisplay[index]
+                                                    .isPremium ==
+                                                "1"
+                                            ? Align(
+                                                alignment:
+                                                    Alignment.centerRight,
+                                                child: Icon(
+                                                  Icons.verified,
+                                                  color: KColorAppBar,
+                                                ),
+                                              )
+                                            : Align()
+                                      ]),
                                       Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
