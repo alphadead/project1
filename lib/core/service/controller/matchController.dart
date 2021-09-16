@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vamos/core/models/match/matchListResponse.dart';
@@ -96,19 +97,21 @@ class MatchController extends GetxController {
     }
   }
 
-  void updateRequest(int? id, String? matchId, String? status) async {
+  void updateRequest(
+      BuildContext context, int? id, String? matchId, String? status) async {
     Utility.showLoadingDialog();
 
     UpdateMatchRequestsByTeam response =
         await api.updateMatchRequestsByTeam(id, matchId, status);
     if (response.data != null) {
       Utility.closeDialog();
-
       Utility.showSnackbar("${response.message}");
+      Get.back();
     } else {
       Utility.closeDialog();
 
       Utility.showSnackbar("${response.message}");
+      Get.back();
     }
   }
 }

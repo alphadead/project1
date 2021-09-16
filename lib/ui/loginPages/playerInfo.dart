@@ -130,16 +130,28 @@ class _PlayerInfoState extends State<PlayerInfo> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          CircleAvatar(
-                            radius: 25,
-                            backgroundImage:
-                                _profileService.profile?.teamLogo == null
-                                    ? NetworkImage('')
-                                    : NetworkImage(_profileService
-                                            .profile?.teamLogo
-                                            .toString() ??
-                                        ""),
-                          ),
+                          Stack(overflow: Overflow.visible, children: [
+                            CircleAvatar(
+                              radius: 25,
+                              backgroundImage:
+                                  _profileService.profile?.teamLogo == null
+                                      ? NetworkImage('')
+                                      : NetworkImage(_profileService
+                                              .profile?.teamLogo
+                                              .toString() ??
+                                          ""),
+                            ),
+                            _profileService.profile?.isPremium == "1"
+                                ? Positioned(
+                                    top: -5.h,
+                                    left: 40.w,
+                                    child: Icon(
+                                      Icons.verified,
+                                      color: KColorAppBar,
+                                    ),
+                                  )
+                                : Container()
+                          ]),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [

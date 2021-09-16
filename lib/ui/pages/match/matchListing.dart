@@ -5,7 +5,7 @@ import 'package:vamos/core/service/controller/matchController.dart';
 import 'package:vamos/core/models/match/matchListResponse.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/theme.dart';
-import 'package:vamos/widget/common/matchDetailsDialog.dart';
+import 'package:vamos/widget/common/AlertDialog/matchDetailsAlert.dart';
 import 'package:vamos/widget/common/pageHeaders.dart';
 import 'package:vamos/widget/formWidgets/buttons.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -98,8 +98,21 @@ class _MatchListingState extends State<MatchListing> {
                     Match? match = matchService.matches?[index];
                     return GestureDetector(
                       onTap: () {
-                        Get.put(MatchController())
-                            .getTeamRequestsByMatch(match?.id);
+                        matchDetailsDialog(
+                            context: context,
+                            matchName: match?.name ?? "No Data",
+                            groundName: match!.groundName ?? "no data",
+                            groundLocation: match.groundLocation ?? "no data",
+                            bookingFee: match.bookingFee ?? "no data",
+                            onAccept: () {
+                              Get.put(MatchController())
+                                  .getTeamRequestsByMatch(match.id);
+                            },
+                            onReject: () {
+                              Get.back();
+                            },
+                            acceptText: "View",
+                            rejectText: "Cancel");
                       },
                       child: Container(
                         margin: EdgeInsets.only(top: 10.h),
@@ -196,32 +209,26 @@ class _MatchListingState extends State<MatchListing> {
               MatchRequest? match = matchService.matchRequests?[index];
               return GestureDetector(
                 onTap: () {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return matchDetailsDialog(
-                          context: context,
-                          matchName: match?.matchName ?? "No Data",
-                          groundName: match!.groundName ?? "no data",
-                          groundLocation: match.groundLocation ?? "no data",
-                          bookingFee: match.bookingFee ?? "no data",
-                          onAccept: () {
-                            matchService.updateRequest(
-                                match.id, match.matchId, "Accept");
-                            matchService.matchRequests?.removeAt(index);
-                            matchService.update();
-                            Get.back();
-                          },
-                          onReject: () {
-                            matchService.updateRequest(
-                                match.id, match.matchId, "Accept");
-                            matchService.matchRequests?.removeAt(index);
-                            matchService.update();
-                            Get.back();
-
-                          });
-                    },
-                  );
+                  matchDetailsDialog(
+                      context: context,
+                      matchName: match?.matchName ?? "No Data",
+                      groundName: match!.groundName ?? "no data",
+                      groundLocation: match.groundLocation ?? "no data",
+                      bookingFee: match.bookingFee ?? "no data",
+                      onAccept: () {
+                        matchService.updateRequest(
+                            context, match.id, match.matchId, "Accept");
+                        matchService.matchRequests?.removeAt(index);
+                        matchService.update();
+                      },
+                      onReject: () {
+                        matchService.updateRequest(
+                            context, match.id, match.matchId, "Accept");
+                        matchService.matchRequests?.removeAt(index);
+                        matchService.update();
+                      },
+                      acceptText: "Accept",
+                      rejectText: "Reject");
                 },
                 child: Container(
                   margin: EdgeInsets.only(top: 10.h),
@@ -333,7 +340,7 @@ class _MatchListingState extends State<MatchListing> {
                     //           )),
                     //         ),
                     //       ),
-                       
+
                     //     ],
                     //   ),
                     // )
