@@ -31,6 +31,7 @@ import 'package:vamos/core/models/referalEarning.dart';
 import 'package:vamos/core/models/registerResponse.dart';
 import 'package:vamos/core/models/teamListingResponse.dart';
 import 'package:vamos/core/models/teamRequestReceviedAsPlayerResponse.dart';
+import 'package:vamos/core/models/upcomingMatches.dart';
 import 'package:vamos/core/models/updateGround.dart';
 import 'package:vamos/core/models/verifyOtpResponse.dart';
 import 'package:vamos/core/service/api/api.dart';
@@ -215,6 +216,12 @@ class FakeApi extends Api {
   @override
   Future<AddComment> addComment(
       String? playerId, String? comment, String? rating) {
+    // TODO: implement addComment
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<UpcomingMatches> upcomingMatches(String? date) {
     // TODO: implement addComment
     throw UnimplementedError();
   }

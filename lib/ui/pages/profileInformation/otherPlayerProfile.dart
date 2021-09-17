@@ -417,41 +417,6 @@ class _OtherPlayerInfoState extends State<OtherPlayerInfo> {
                                     ),
                                   )),
                           ),
-                          Container(
-                            margin: EdgeInsets.only(top: 40.h),
-                            child: Text(
-                              'Comment',
-                              style: themeData().textTheme.headline1!.copyWith(
-                                    color: containerGreen,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 12.sp,
-                                  ),
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(top: 5.h),
-                            child: inputField("comment", (value) {},
-                                validate: (arg) {},
-                                keyType: TextInputType.emailAddress),
-                          ),
-                          Container(
-                            height: 40.h,
-                            margin: EdgeInsets.only(top: 40.h, right: 12.w),
-                            child: Center(
-                              child: Text(
-                                "Submit",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 12.sp,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                            decoration: BoxDecoration(
-                              color: KRed,
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                          ),
                         ],
                       ),
                     ),
@@ -462,7 +427,7 @@ class _OtherPlayerInfoState extends State<OtherPlayerInfo> {
                 ),
               ),
               SizedBox(
-                height: 200.h,
+                height: 50.h,
               ),
             ],
           ),

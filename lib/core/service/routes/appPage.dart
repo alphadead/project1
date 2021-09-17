@@ -54,6 +54,7 @@ abstract class AppPages {
       name: '/upcomingmatches',
       transitionDuration: transitionDuration,
       page: () => UpcomingMatchesPage(),
+      binding: AllBinder(),
     ),
     GetPage(
       name: '/searchBy',

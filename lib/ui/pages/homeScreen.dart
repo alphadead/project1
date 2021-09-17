@@ -68,7 +68,7 @@ class HomeScreen extends StatelessWidget {
                                   context,
                                   'assets/images/upcoming_logo.webp',
                                   'Upcoming Matches',
-                                  message: "No Upcoming Matches Present!"),
+                                  nextRoute: '/upcomingmatches'),
                               logoContainer(
                                   context,
                                   'assets/images/tournaments_logo.webp',
@@ -95,7 +95,8 @@ class HomeScreen extends StatelessWidget {
                               logoContainer(
                                   context,
                                   'assets/images/create_logo.webp',
-                                  'Create Own Team', nextRoute: "/createTeam"),
+                                  'Create Own Team',
+                                  nextRoute: "/createTeam"),
                               logoContainer(
                                 context,
                                 'assets/images/ground_logo.webp',
@@ -106,7 +107,7 @@ class HomeScreen extends StatelessWidget {
                                   context,
                                   'assets/images/upcoming_logo.webp',
                                   'Upcoming Matches',
-                                  message: "No Upcoming Matches Present!"),
+                                  nextRoute: '/upcomingmatches'),
                               logoContainer(
                                   context,
                                   'assets/images/tournaments_logo.webp',
