@@ -319,4 +319,10 @@ class HTTPApi extends Api {
         await postRequest('apply-for-premium-player', body);
     return GenericResponse.fromJson(response);
   }
+
+  Future<PlayerListResponse> searchPlayerlist(int isPremium) async {
+    Map<String, dynamic> response =
+        await getRequest('players?is_premium=$isPremium');
+    return PlayerListResponse.fromJson(response);
+  }
 }
