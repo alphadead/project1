@@ -104,7 +104,7 @@ class _UpcomingMatchesPageState extends State<UpcomingMatchesPage> {
                                             .textTheme
                                             .headline4!
                                             .copyWith(
-                                              fontSize: 18.1.sp,
+                                              fontSize: 16.sp,
                                               color: Colors.black,
                                             ),
                                       ),
@@ -113,9 +113,18 @@ class _UpcomingMatchesPageState extends State<UpcomingMatchesPage> {
                                             MainAxisAlignment.spaceEvenly,
                                         children: [
                                           TeamInfoCircularCard(
-                                            title: "TeamA",
+                                            title:
+                                                // _matchService
+                                                //         .upcomingMatchesList![index]
+                                                //         .matchTeams![0]
+                                                //         .teamName ??
+                                                'Team B',
                                             image:
-                                                "assets/images/placeholder_team_icon.png",
+                                                //  _matchService
+                                                //         .upcomingMatchesList![index]
+                                                //         .matchTeams![0]
+                                                //         .teamLogo ??
+                                                'assets/images/placeholder_team_icon.png',
                                           ),
                                           Text(
                                             "Vs",
@@ -128,23 +137,33 @@ class _UpcomingMatchesPageState extends State<UpcomingMatchesPage> {
                                                 ),
                                           ),
                                           TeamInfoCircularCard(
-                                            title: "Team B",
+                                            title:
+                                                // _matchService
+                                                //         .upcomingMatchesList![index]
+                                                //         .matchTeams![1]
+                                                //         .teamName ??
+                                                'Team A',
                                             image:
-                                                "assets/images/placeholder_team_icon.png",
+                                                // _matchService
+                                                //         .upcomingMatchesList![index]
+                                                //         .matchTeams![1]
+                                                //         .teamLogo ??
+                                                'assets/images/placeholder_team_icon.png',
                                           ),
                                         ],
                                       ),
                                       Container(
                                         width: 170.w,
                                         child: Text(
-                                          "Tournament live Streaming " +
-                                              _matchService
-                                                  .upcomingMatchesList![index]
-                                                  .groundName +
-                                              ', ' +
-                                              _matchService
-                                                  .upcomingMatchesList![index]
-                                                  .groundName,
+                                          "Tournament live Streaming ",
+                                          // +
+                                          //     _matchService
+                                          //         .upcomingMatchesList![index]
+                                          //         .groundName! +
+                                          //     ', ' +
+                                          //     _matchService
+                                          //         .upcomingMatchesList![index]
+                                          //         .groundName!,
                                           textAlign: TextAlign.center,
                                           style: themeData()
                                               .textTheme
