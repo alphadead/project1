@@ -64,7 +64,8 @@ class HTTPApi extends Api {
       "email": email,
       "type": type,
       "password": password,
-      "referrer_code": referralCode
+      "referrer_code": referralCode,
+      "address": address
     };
     Map<String, dynamic> response = await postRequest("register", body);
     return RegisterResponse.fromJson(response);
