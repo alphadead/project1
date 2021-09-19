@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:vamos/core/service/controller/myTeamController.dart';
 import 'package:vamos/core/service/controller/teamListingController.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/theme.dart';
@@ -260,7 +261,14 @@ class _TeamListScreenState extends State<TeamListScreen> {
                                                         height: 15,
                                                       ),
                                                     ),
-                                                    onTap: () {},
+                                                    onTap: () {
+                                                      Get.put(MyTeamController())
+                                                          .getParticularTeamDetails(
+                                                              _teamService
+                                                                  .teamList[
+                                                                      index]
+                                                                  .id!);
+                                                    },
                                                   ),
                                                 ],
                                               ),
@@ -362,7 +370,7 @@ class _TeamListScreenState extends State<TeamListScreen> {
                                   ],
                                 ),
                                 onPressed: () {
-                                  Get.toNamed('/myTeam');
+                                  Get.toNamed('/myTeam', arguments: true);
                                 },
                               ),
                             ]),

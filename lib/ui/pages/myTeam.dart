@@ -19,12 +19,17 @@ class MyTeam extends StatefulWidget {
 
 class _MyTeamState extends State<MyTeam> {
   bool joinedTeamListView = true;
+  bool argument = true;
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback(
-        (_) => Get.find<MyTeamController>().getTeamInfo());
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      setState(() {
+        argument = Get.arguments;
+      });
+      argument ? Get.find<MyTeamController>().getTeamInfo() : () {};
+    });
   }
 
   @override
@@ -86,12 +91,13 @@ class _MyTeamState extends State<MyTeam> {
                             child: Container(
                               width: 150.w,
                               child: Text(
-                                'My Team',
+                                argument ? 'My Team' : 'Team',
                                 style: TextStyle(
                                   color: sliderGreenActive,
                                   fontSize: 20.sp,
                                   fontWeight: FontWeight.bold,
                                 ),
+                                textAlign: TextAlign.center,
                               ),
                             ),
                           ),
@@ -165,15 +171,18 @@ class _MyTeamState extends State<MyTeam> {
                                       ],
                                     ),
                                   ),
-                                  IconButton(
-                                    onPressed: () {
-                                      Get.toNamed('/playerList');
-                                    },
-                                    icon: Icon(
-                                      Icons.add_circle_outline,
-                                      color: sliderGreenActive,
-                                    ),
-                                  ),
+                                  //Get.arguments
+                                  argument
+                                      ? IconButton(
+                                          onPressed: () {
+                                            Get.toNamed('/playerList');
+                                          },
+                                          icon: Icon(
+                                            Icons.add_circle_outline,
+                                            color: sliderGreenActive,
+                                          ),
+                                        )
+                                      : Container(),
                                 ],
                               ),
                             ),
@@ -196,12 +205,17 @@ class _MyTeamState extends State<MyTeam> {
                                     joinedTeamListView = true;
                                   });
                                 }, joinedTeamListView, 'Joined Player'),
-                                primaryActionButtonKRed(() {
-                                  setState(() {
-                                    _myTeamService.getPlayerRequestListByTeam();
-                                    joinedTeamListView = false;
-                                  });
-                                }, !joinedTeamListView, 'Requested Player'),
+                                //   Get.arguments
+                                argument
+                                    ? primaryActionButtonKRed(() {
+                                        setState(() {
+                                          _myTeamService
+                                              .getPlayerRequestListByTeam();
+                                          joinedTeamListView = false;
+                                        });
+                                      },
+                                        !joinedTeamListView, 'Requested Player')
+                                    : Container(),
                               ],
                             ),
                           ),
@@ -239,28 +253,30 @@ class _MyTeamState extends State<MyTeam> {
                           SizedBox(
                             height: 10.h,
                           ),
-                          Center(
-                            child: GestureDetector(
-                              onTap: () {},
-                              child: Container(
-                                width: 95.h,
-                                height: 30.w,
-                                child: Center(
-                                  child: Text(
-                                    'Update',
-                                    style: TextStyle(
-                                      fontSize: 12.sp,
-                                      color: Colors.white,
+                          argument
+                              ? Center(
+                                  child: GestureDetector(
+                                    onTap: () {},
+                                    child: Container(
+                                      width: 95.h,
+                                      height: 30.w,
+                                      child: Center(
+                                        child: Text(
+                                          'Update',
+                                          style: TextStyle(
+                                            fontSize: 12.sp,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                      decoration: BoxDecoration(
+                                        color: KRed,
+                                        borderRadius: BorderRadius.circular(30),
+                                      ),
                                     ),
                                   ),
-                                ),
-                                decoration: BoxDecoration(
-                                  color: KRed,
-                                  borderRadius: BorderRadius.circular(30),
-                                ),
-                              ),
-                            ),
-                          ),
+                                )
+                              : SizedBox(),
                           SizedBox(
                             height: 10.h,
                           )

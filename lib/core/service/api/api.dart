@@ -106,4 +106,5 @@ abstract class Api {
   Future<GenericResponse> cancelPlayerRequest(teamId, userId);
   Future<GenericResponse> premiumPlayerRequest();
   Future<PlayerListResponse> searchPlayerlist(int isPremium);
+  Future<MyTeamInfo> teamInfo(teamId);
 }

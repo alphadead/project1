@@ -325,4 +325,9 @@ class HTTPApi extends Api {
         await getRequest('players?is_premium=$isPremium');
     return PlayerListResponse.fromJson(response);
   }
+
+  Future<MyTeamInfo> teamInfo(teamId) async {
+    Map<String, dynamic> response = await getRequest('team-info?id=$teamId');
+    return MyTeamInfo.fromJson(response);
+  }
 }
