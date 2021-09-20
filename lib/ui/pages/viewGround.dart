@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -146,7 +147,7 @@ class _ViewGroundScreenState extends State<ViewGroundScreen> {
                                 decoration: BoxDecoration(
                                   image: DecorationImage(
                                     fit: BoxFit.fill,
-                                    image: NetworkImage(
+                                    image: CachedNetworkImageProvider(
                                       "https://tests4geeks.com/blog/wp-content/uploads/2016/04/Marker.png",
                                     ),
                                   ),

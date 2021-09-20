@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -75,9 +76,10 @@ class _OtherPlayerInfoState extends State<OtherPlayerInfo> {
                               ? Image.network('')
                               : CircleAvatar(
                                   radius: 150.h,
-                                  backgroundImage: NetworkImage(_playerService
-                                      .profile!.photo![index]["url"]
-                                      .toString()),
+                                  backgroundImage: CachedNetworkImageProvider(
+                                      _playerService
+                                          .profile!.photo![index]["url"]
+                                          .toString()),
                                 ),
                         ),
                       ),
@@ -126,8 +128,8 @@ class _OtherPlayerInfoState extends State<OtherPlayerInfo> {
                                               .profile?.teamLogo ==
                                           null ||
                                       _playerService.profile?.teamLogo == ''
-                                  ? NetworkImage('')
-                                  : NetworkImage(
+                                  ? CachedNetworkImageProvider('')
+                                  : CachedNetworkImageProvider(
                                       _playerService.profile?.teamLogo ?? '')),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -376,8 +378,9 @@ class _OtherPlayerInfoState extends State<OtherPlayerInfo> {
                                                                         index]
                                                                     .teamLogo ==
                                                                 ''
-                                                        ? NetworkImage('')
-                                                        : NetworkImage(
+                                                        ? CachedNetworkImageProvider(
+                                                            '')
+                                                        : CachedNetworkImageProvider(
                                                             _playerService
                                                                     .profile
                                                                     ?.memberOfTeams![

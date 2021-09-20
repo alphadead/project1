@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vamos/core/models/playerRequestResponse.dart';
@@ -121,11 +122,11 @@ class _MyTeamState extends State<MyTeam> {
                                           _myTeamInfo.teamInfo?.logo == null ||
                                                   _myTeamInfo.teamInfo?.logo ==
                                                       ''
-                                              ? NetworkImage('')
-                                              : NetworkImage(_myTeamInfo
-                                                      .teamInfo?.logo
-                                                      .toString() ??
-                                                  ""),
+                                              ? CachedNetworkImageProvider('')
+                                              : CachedNetworkImageProvider(
+                                                  _myTeamInfo.teamInfo?.logo
+                                                          .toString() ??
+                                                      ""),
                                     ),
                                   ),
                                   Expanded(
@@ -296,8 +297,8 @@ class _MyTeamState extends State<MyTeam> {
                   backgroundColor: Colors.grey.shade300,
                   radius: 15.h,
                   backgroundImage: playerData.photo!.length > 0
-                      ? NetworkImage(playerData.photo?[0]?["url"])
-                      : NetworkImage(""),
+                      ? CachedNetworkImageProvider(playerData.photo?[0]?["url"])
+                      : CachedNetworkImageProvider(""),
                 ),
               ),
               Expanded(

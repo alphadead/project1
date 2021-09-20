@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -84,11 +85,23 @@ class _PlayerInfoState extends State<PlayerInfo> {
                                   _profileService.profile?.photo.toString() ==
                                       ''
                               ? Image.network('')
+                              // : Container(
+                              //     width: 100.w,
+                              //     height: 100.h,
+                              //     decoration: BoxDecoration(
+                              //         shape: BoxShape.circle,
+                              //         image: DecorationImage(
+                              //             image: CachedNetworkImageProvider(
+                              //                 _profileService.profile!
+                              //                     .photo![index]["url"]
+                              //                     .toString()))),
+                              //   )
                               : CircleAvatar(
                                   radius: 150.h,
-                                  backgroundImage: NetworkImage(_profileService
-                                      .profile!.photo![index]["url"]
-                                      .toString()),
+                                  backgroundImage: CachedNetworkImageProvider(
+                                      _profileService
+                                          .profile!.photo![index]["url"]
+                                          .toString()),
                                 ),
                         ),
                       ),
@@ -135,11 +148,11 @@ class _PlayerInfoState extends State<PlayerInfo> {
                               radius: 25,
                               backgroundImage:
                                   _profileService.profile?.teamLogo == null
-                                      ? NetworkImage('')
-                                      : NetworkImage(_profileService
-                                              .profile?.teamLogo
-                                              .toString() ??
-                                          ""),
+                                      ? CachedNetworkImageProvider('')
+                                      : CachedNetworkImageProvider(
+                                          _profileService.profile?.teamLogo
+                                                  .toString() ??
+                                              ""),
                             ),
                             _profileService.profile?.isPremium == "1"
                                 ? Positioned(

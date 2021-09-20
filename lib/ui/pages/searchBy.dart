@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vamos/core/models/groundList.dart';
@@ -358,8 +359,8 @@ class _SearchByState extends State<SearchBy> {
                                               null ||
                                           _teamService.teamList[index].logo ==
                                               ''
-                                      ? NetworkImage('')
-                                      : NetworkImage(_teamService
+                                      ? CachedNetworkImageProvider('')
+                                      : CachedNetworkImageProvider(_teamService
                                           .teamList[index].logo
                                           .toString()),
                                 ),
@@ -626,10 +627,11 @@ class _SearchByState extends State<SearchBy> {
                                                     .photo
                                                     ?.isNotEmpty ??
                                                 false
-                                            ? NetworkImage(_searchByService
-                                                .playerListDisplay[index]
-                                                .photo?[0]?["url"])
-                                            : NetworkImage(''),
+                                            ? CachedNetworkImageProvider(
+                                                _searchByService
+                                                    .playerListDisplay[index]
+                                                    .photo?[0]?["url"])
+                                            : CachedNetworkImageProvider(''),
                                       ),
                                     ),
                                     Column(
