@@ -117,9 +117,13 @@ class MatchController extends GetxController {
     }
   }
 
-  void upcomingMatch(String? date) async {
+  void upcomingMatch() async {
     Utility.showLoadingDialog();
-
+    String date = DateTime.now().year.toString() +
+        '-' +
+        DateTime.now().month.toString() +
+        '-' +
+        DateTime.now().day.toString();
     UpcomingMatches response = await api.upcomingMatches(date);
     if (response.data != null) {
       upcomingMatchesList = response.data;

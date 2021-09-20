@@ -21,22 +21,18 @@ class UpcomingMatchesPage extends StatefulWidget {
 }
 
 class _UpcomingMatchesPageState extends State<UpcomingMatchesPage> {
-  String date = DateTime.now().year.toString() +
-      '-' +
-      DateTime.now().month.toString() +
-      '-' +
-      DateTime.now().day.toString();
+  
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback(
-        (_) => Get.find<MatchController>().upcomingMatch(date));
+        (_) => Get.find<MatchController>().upcomingMatch());
   }
 
   @override
   Widget build(BuildContext context) {
-    print(date);
+    
     return SafeArea(
       child: GetBuilder<MatchController>(
         builder: (_matchService) => Directionality(
