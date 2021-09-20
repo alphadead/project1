@@ -107,4 +107,5 @@ abstract class Api {
   Future<GenericResponse> premiumPlayerRequest();
   Future<PlayerListResponse> searchPlayerlist(int isPremium);
   Future<MyTeamInfo> teamInfo(teamId);
+  Future<PlayerListResponse> searchPlayerWithFilter(value, filters);
 }

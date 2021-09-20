@@ -33,27 +33,7 @@ class _SearchByState extends State<SearchBy> {
   bool normalCont = true;
   bool premiumCont = false;
   String searchSlug = '';
-  List<Map<String, dynamic>> playerFilters = [
-    {'displayName': 'Player Name', 'value': true, 'key': 'first_name'},
-    {'displayName': 'Nationality', 'value': false, 'key': 'nationality'},
-    {'displayName': 'Age', 'value': false, 'key': 'age'},
-    {'displayName': 'Rating', 'value': false, 'key': 'rating'},
-    {'displayName': 'Player Role', 'value': false, 'key': 'role'},
-  ];
 
-  List<Map<String, dynamic>> teamFilters = [
-    {'displayName': 'Team Name', 'value': true, 'key': 'name'},
-    {'displayName': 'Team Size', 'value': false, 'key': 'team_size'},
-  ];
-  List<Map<String, dynamic>> groundFilters = [
-    {'displayName': 'Ground Name', 'value': true, 'key': 'name'},
-    {'displayName': 'Ground Location', 'value': false, 'key': 'location'},
-    {
-      'displayName': 'Ground Availability',
-      'value': false,
-      'key': 'availability'
-    },
-  ];
   @override
   void initState() {
     super.initState();
@@ -72,11 +52,11 @@ class _SearchByState extends State<SearchBy> {
           textDirection: TextDirection.ltr,
           child: Scaffold(
             drawer: SearchDrawer(playerCont
-                ? playerFilters
+                ? searchService.playerFilters
                 : teamCont
-                    ? teamFilters
+                    ? searchService.teamFilters
                     : groundCont
-                        ? groundFilters
+                        ? searchService.groundFilters
                         : []),
             resizeToAvoidBottomInset: false,
             floatingActionButtonLocation:
@@ -91,7 +71,7 @@ class _SearchByState extends State<SearchBy> {
               child: Column(
                 children: [
                   GetBuilder<PlayerListController>(
-                      builder: (_playerService) => searchBar(_playerService)),
+                      builder: (_playerService) => searchBar(searchService)),
                   Center(
                     child: Container(
                       height: 100.h,
@@ -971,28 +951,43 @@ class _SearchByState extends State<SearchBy> {
   // }
 
   Widget searchBar(_searchByService) {
+    late String text;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Container(
         child: TextFormField(
+          // onChanged: (value) {
+          //   String text = value.toLowerCase();
+          //   setState(() {
+          //     if (playerCont) {
+          //       _searchByService.playerListDisplay =
+          //           _searchByService.playerList.where((element) {
+          //         PlayerData player = element;
+          //         var playerTitle =
+          //             player.toJson()["first_name"]?.toLowerCase();
+          //         var playerLastName =
+          //             player.toJson()["last_name"]?.toLowerCase();
+
+          //         return playerTitle.contains(text) ||
+          //             playerLastName.contains(text);
+          //       }).toList();
+          //     } else {
+          //       print("not a player object,$value ");
+          //     }
+          //     print("SEARCH FIELD $value");
+          //     searchSlug = value.toLowerCase();
+          //   });
+          // },
           onChanged: (value) {
-            String text = value.toLowerCase();
-            setState(() {
-              if (playerCont) {
-                _searchByService.playerListDisplay =
-                    _searchByService.playerList.where((element) {
-                  PlayerData player = element;
-                  var playerTitle =
-                      player.toJson()["first_name"]?.toLowerCase();
-                  var playerLastName =
-                      player.toJson()["last_name"]?.toLowerCase();
-                  return playerTitle.contains(text) ||
-                      playerLastName.contains(text);
-                }).toList();
-              }
-              print("SEARCH FIELD $value");
-              searchSlug = value.toLowerCase();
-            });
+            text = value.toLowerCase();
+          },
+          onEditingComplete: () {
+            if (playerCont) {
+              print("value");
+              _searchByService.playerFilterSearch(text);
+            } else {
+              print("other thing");
+            }
           },
           decoration: InputDecoration(
             hintText: 'Enter Search here',

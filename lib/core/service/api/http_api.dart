@@ -331,4 +331,10 @@ class HTTPApi extends Api {
     Map<String, dynamic> response = await getRequest('team-info?id=$teamId');
     return MyTeamInfo.fromJson(response);
   }
+
+  Future<PlayerListResponse> searchPlayerWithFilter(value, filters) async {
+    Map<String, dynamic> response =
+        await getRequest('players?offset=0&search=$value&search_in[]=$filters');
+    return PlayerListResponse.fromJson(response);
+  }
 }
