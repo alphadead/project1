@@ -98,8 +98,9 @@ class _UpcomingMatchesPageState extends State<UpcomingMatchesPage> {
                                     children: [
                                       Text(
                                         _matchService
-                                            .upcomingMatchesList![index].name
-                                            .toString(),
+                                                .upcomingMatchesList![index]
+                                                .name ??
+                                            '',
                                         style: themeData()
                                             .textTheme
                                             .headline4!
@@ -114,13 +115,13 @@ class _UpcomingMatchesPageState extends State<UpcomingMatchesPage> {
                                         children: [
                                           TeamInfoCircularCard(
                                             title:
-                                                // _matchService
+                                                //  _matchService
                                                 //         .upcomingMatchesList![index]
                                                 //         .matchTeams![0]
                                                 //         .teamName ??
-                                                'Team B',
+                                                'Team ??',
                                             image:
-                                                //  _matchService
+                                                // _matchService
                                                 //         .upcomingMatchesList![index]
                                                 //         .matchTeams![0]
                                                 //         .teamLogo ??
@@ -142,9 +143,9 @@ class _UpcomingMatchesPageState extends State<UpcomingMatchesPage> {
                                                 //         .upcomingMatchesList![index]
                                                 //         .matchTeams![1]
                                                 //         .teamName ??
-                                                'Team A',
+                                                'Team ??',
                                             image:
-                                                // _matchService
+                                                //  _matchService
                                                 //         .upcomingMatchesList![index]
                                                 //         .matchTeams![1]
                                                 //         .teamLogo ??
@@ -155,15 +156,18 @@ class _UpcomingMatchesPageState extends State<UpcomingMatchesPage> {
                                       Container(
                                         width: 170.w,
                                         child: Text(
-                                          "Tournament live Streaming ",
-                                          // +
-                                          //     _matchService
-                                          //         .upcomingMatchesList![index]
-                                          //         .groundName! +
-                                          //     ', ' +
-                                          //     _matchService
-                                          //         .upcomingMatchesList![index]
-                                          //         .groundName!,
+                                          "Tournament live Streaming " +
+                                              (_matchService
+                                                      .upcomingMatchesList![
+                                                          index]
+                                                      .groundName ??
+                                                  '') +
+                                              ', ' +
+                                              (_matchService
+                                                      .upcomingMatchesList![
+                                                          index]
+                                                      .groundName ??
+                                                  ''),
                                           textAlign: TextAlign.center,
                                           style: themeData()
                                               .textTheme

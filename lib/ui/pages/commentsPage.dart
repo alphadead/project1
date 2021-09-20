@@ -130,7 +130,7 @@ class _CommentsPageState extends State<CommentsPage> {
                 child: CircleAvatar(
                   radius: 18.h,
                   backgroundImage: CachedNetworkImageProvider(
-                      _commentsService.comment![index].createdPhoto!),
+                      _commentsService.comment![index].createdPhoto ?? ''),
                 ),
               ),
             ],
@@ -148,7 +148,7 @@ class _CommentsPageState extends State<CommentsPage> {
                     Container(
                       width: 150,
                       child: Text(
-                        _commentsService.comment![index].createdName!,
+                        _commentsService.comment![index].createdName ?? '',
                         maxLines: 2,
                         softWrap: true,
                         overflow: TextOverflow.ellipsis,

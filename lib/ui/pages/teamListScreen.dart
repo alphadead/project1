@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:vamos/core/service/controller/myTeamController.dart';
 import 'package:vamos/core/service/controller/teamListingController.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/theme.dart';
@@ -264,7 +265,14 @@ class _TeamListScreenState extends State<TeamListScreen> {
                                                         height: 15,
                                                       ),
                                                     ),
-                                                    onTap: () {},
+                                                    onTap: () {
+                                                      Get.put(MyTeamController())
+                                                          .getParticularTeamDetails(
+                                                              _teamService
+                                                                  .teamList[
+                                                                      index]
+                                                                  .id!);
+                                                    },
                                                   ),
                                                 ],
                                               ),
@@ -366,7 +374,7 @@ class _TeamListScreenState extends State<TeamListScreen> {
                                   ],
                                 ),
                                 onPressed: () {
-                                  Get.toNamed('/myTeam');
+                                  Get.toNamed('/myTeam', arguments: true);
                                 },
                               ),
                             ]),
@@ -486,6 +494,32 @@ class _TeamListScreenState extends State<TeamListScreen> {
                                             Expanded(
                                               child: Container(),
                                             ),
+                                            Container(
+                                              margin:
+                                                  EdgeInsets.only(right: 10),
+                                              child: Row(
+                                                children: [
+                                                  GestureDetector(
+                                                    child: Container(
+                                                      padding: EdgeInsets.only(
+                                                          left: 5),
+                                                      child: Image.asset(
+                                                        "assets/images/teamListInfo.webp",
+                                                        height: 15,
+                                                      ),
+                                                    ),
+                                                    onTap: () {
+                                                      Get.put(MyTeamController())
+                                                          .getParticularTeamDetails(
+                                                              int.parse(_teamService
+                                                                  .teamRequestList[
+                                                                      index]
+                                                                  .teamId!));
+                                                    },
+                                                  ),
+                                                ],
+                                              ),
+                                            )
                                           ],
                                         ),
                                       ),
