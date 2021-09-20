@@ -487,6 +487,32 @@ class _TeamListScreenState extends State<TeamListScreen> {
                                             Expanded(
                                               child: Container(),
                                             ),
+                                            Container(
+                                              margin:
+                                                  EdgeInsets.only(right: 10),
+                                              child: Row(
+                                                children: [
+                                                  GestureDetector(
+                                                    child: Container(
+                                                      padding: EdgeInsets.only(
+                                                          left: 5),
+                                                      child: Image.asset(
+                                                        "assets/images/teamListInfo.webp",
+                                                        height: 15,
+                                                      ),
+                                                    ),
+                                                    onTap: () {
+                                                      Get.put(MyTeamController())
+                                                          .getParticularTeamDetails(
+                                                              int.parse(_teamService
+                                                                  .teamRequestList[
+                                                                      index]
+                                                                  .teamId!));
+                                                    },
+                                                  ),
+                                                ],
+                                              ),
+                                            )
                                           ],
                                         ),
                                       ),
