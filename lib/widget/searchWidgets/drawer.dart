@@ -80,39 +80,7 @@ class _SearchDrawerState extends State<SearchDrawer> {
                               },
                             ),
                           ))
-                      .toList()
-
-                  // widget.values.keys.map((String key) {
-                  // return Theme(
-                  //   data: ThemeData(
-                  //     checkboxTheme: CheckboxThemeData(
-                  //       shape: RoundedRectangleBorder(
-                  //         side: BorderSide(color: Colors.black),
-                  //         borderRadius: BorderRadius.circular(5),
-                  //       ),
-                  //     ),
-                  //   ),
-                  //   child: new CheckboxListTile(
-                  //     contentPadding: EdgeInsets.only(left: 10),
-                  //     dense: true,
-                  //     activeColor: KRed,
-                  //     controlAffinity: ListTileControlAffinity.leading,
-                  //     title: new Text(
-                  //       key,
-                  //       style: widget.values[key] == false
-                  //           ? themeData().textTheme.headline5
-                  //           : themeData().textTheme.headline6,
-                  //     ),
-                  //     value: widget.values[key],
-                  //     onChanged: (bool? value) {
-                  //       setState(() {
-                  //         widget.values[key] = value;
-                  //       });
-                  //     },
-                  //   ),
-                  // );
-                  // }).toList(),
-                  ),
+                      .toList()),
             ),
           ),
           Padding(
@@ -154,7 +122,7 @@ class _SearchDrawerState extends State<SearchDrawer> {
                   padding: const EdgeInsets.only(left: 10.0),
                   child: GestureDetector(
                     onTap: () {
-                      print(Get.find<SearchByController>().filters);
+                      Get.back();
                     },
                     child: Container(
                       width: 120.h,
