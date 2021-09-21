@@ -75,13 +75,10 @@ class MyTeamController extends GetxController {
   }
 
   Future<int?>? getTeamInfo({String? nextRoute}) async {
-    print("CALLING GET TEAM INFO!!!");
     Utility.showLoadingDialog();
     MyTeamInfo response = await api.myTeamInfo();
     Utility.closeDialog();
     if (response.data != null) {
-      print(response.data?.toJson().toString());
-
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString("team_id", response.data?.id?.toString() ?? "");
 
@@ -106,12 +103,10 @@ class MyTeamController extends GetxController {
   }
 
   void getParticularTeamDetails(int teamId) async {
-    print("CALLING GET TEAM INFO!!!");
     Utility.showLoadingDialog();
     MyTeamInfo response = await api.teamInfo(teamId);
     Utility.closeDialog();
     if (response.data != null) {
-      print(response.data?.toJson().toString());
       teamInfo = response.data!;
       getPlayerJoinedListByTeam(teamJoinedId: teamId);
     } else {
