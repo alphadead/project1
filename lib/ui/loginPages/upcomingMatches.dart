@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:vamos/core/models/upcomingMatches.dart';
 import 'package:vamos/core/service/controller/authController.dart';
 import 'package:vamos/core/service/controller/matchController.dart';
+import 'package:vamos/core/service/controller/myTeamController.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vamos/ui/utils/theme.dart';
@@ -67,6 +69,22 @@ class _UpcomingMatchesPageState extends State<UpcomingMatchesPage> {
                       physics: NeverScrollableScrollPhysics(),
                       itemCount: _matchService.upcomingMatchesList?.length ?? 0,
                       itemBuilder: (context, index) {
+                        MatchTeam? FirstmatchTeam = _matchService
+                                    .upcomingMatchesList![index]
+                                    .matchTeams!
+                                    .length >
+                                0
+                            ? _matchService
+                                .upcomingMatchesList![index].matchTeams![0]
+                            : null;
+                        MatchTeam? SecondmatchTeam = _matchService
+                                    .upcomingMatchesList![index]
+                                    .matchTeams!
+                                    .length >
+                                1
+                            ? _matchService
+                                .upcomingMatchesList![index].matchTeams![1]
+                            : null;
                         return Card(
                           margin: EdgeInsets.only(bottom: 30.h),
                           elevation: 8,
@@ -106,19 +124,26 @@ class _UpcomingMatchesPageState extends State<UpcomingMatchesPage> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceEvenly,
                                         children: [
-                                          TeamInfoCircularCard(
-                                            title:
-                                                //  _matchService
-                                                //         .upcomingMatchesList![index]
-                                                //         .matchTeams![0]
-                                                //         .teamName ??
-                                                'Team ??',
-                                            image:
-                                                // _matchService
-                                                //         .upcomingMatchesList![index]
-                                                //         .matchTeams![0]
-                                                //         .teamLogo ??
-                                                'assets/images/placeholder_team_icon.png',
+                                          GestureDetector(
+                                            onTap: () {
+                                              FirstmatchTeam!.teamId != null
+                                                  ? Get.put(MyTeamController())
+                                                      .getParticularTeamDetails(
+                                                          int.parse(
+                                                              FirstmatchTeam
+                                                                  .teamId!))
+                                                  : '';
+                                            },
+                                            child: TeamInfoCircularCard(
+                                              title: FirstmatchTeam?.teamName ??
+                                                  "Team NA",
+                                              image:
+                                                  // _matchService
+                                                  //         .upcomingMatchesList![index]
+                                                  //         .matchTeams![0]
+                                                  //         .teamLogo ??
+                                                  'assets/images/placeholder_team_icon.png',
+                                            ),
                                           ),
                                           Text(
                                             "Vs",
@@ -130,19 +155,27 @@ class _UpcomingMatchesPageState extends State<UpcomingMatchesPage> {
                                                   color: Colors.black,
                                                 ),
                                           ),
-                                          TeamInfoCircularCard(
-                                            title:
-                                                // _matchService
-                                                //         .upcomingMatchesList![index]
-                                                //         .matchTeams![1]
-                                                //         .teamName ??
-                                                'Team ??',
-                                            image:
-                                                //  _matchService
-                                                //         .upcomingMatchesList![index]
-                                                //         .matchTeams![1]
-                                                //         .teamLogo ??
-                                                'assets/images/placeholder_team_icon.png',
+                                          GestureDetector(
+                                            onTap: () {
+                                              SecondmatchTeam!.teamId != null
+                                                  ? Get.put(MyTeamController())
+                                                      .getParticularTeamDetails(
+                                                          int.parse(
+                                                              SecondmatchTeam
+                                                                  .teamId!))
+                                                  : '';
+                                            },
+                                            child: TeamInfoCircularCard(
+                                              title:
+                                                  SecondmatchTeam?.teamName ??
+                                                      "Team NA",
+                                              image:
+                                                  //  _matchService
+                                                  //         .upcomingMatchesList![index]
+                                                  //         .matchTeams![1]
+                                                  //         .teamLogo ??
+                                                  'assets/images/placeholder_team_icon.png',
+                                            ),
                                           ),
                                         ],
                                       ),
@@ -159,7 +192,7 @@ class _UpcomingMatchesPageState extends State<UpcomingMatchesPage> {
                                               (_matchService
                                                       .upcomingMatchesList![
                                                           index]
-                                                      .groundName ??
+                                                      .groundLocation ??
                                                   ''),
                                           textAlign: TextAlign.center,
                                           style: themeData()
