@@ -59,6 +59,7 @@ abstract class AppPages {
       name: '/searchBy',
       transitionDuration: transitionDuration,
       page: () => SearchBy(),
+      binding: AllBinder(),
     ),
     GetPage(
       name: '/createTeam',

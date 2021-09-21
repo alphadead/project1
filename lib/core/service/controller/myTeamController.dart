@@ -52,12 +52,14 @@ class MyTeamController extends GetxController {
     update();
   }
 
-  void getPlayerJoinedListByTeam() async {
+  void getPlayerJoinedListByTeam({int? teamJoinedId}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    int? teamId = prefs.getString("team_id") == null
-        ? null
-        : int.parse(prefs.getString("team_id").toString());
+    int? teamId = teamJoinedId != null
+        ? teamJoinedId
+        : prefs.getString("team_id") == null
+            ? null
+            : int.parse(prefs.getString("team_id").toString());
     Utility.showLoadingDialog();
     PlayerRequestResponse response =
         await api.getPlayerJoinedListByTeam(teamId);
@@ -65,6 +67,7 @@ class MyTeamController extends GetxController {
       Utility.closeDialog();
 
       playerJoinedList = response.data!;
+      teamJoinedId != null ? Get.toNamed("/myTeam", arguments: false) : () {};
     } else {
       Utility.showSnackbar("${response.message}");
     }
@@ -99,6 +102,21 @@ class MyTeamController extends GetxController {
         Utility.showSnackbar("Please Create a Team and Continue.");
         return null;
       }
+    }
+  }
+
+  void getParticularTeamDetails(int teamId) async {
+    print("CALLING GET TEAM INFO!!!");
+    Utility.showLoadingDialog();
+    MyTeamInfo response = await api.teamInfo(teamId);
+    Utility.closeDialog();
+    if (response.data != null) {
+      print(response.data?.toJson().toString());
+      teamInfo = response.data!;
+      getPlayerJoinedListByTeam(teamJoinedId: teamId);
+    } else {
+      Utility.closeDialog();
+      Utility.showSnackbar(response.message!);
     }
   }
 }

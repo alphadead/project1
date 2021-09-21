@@ -14,21 +14,25 @@ class MyTeamInfo {
     this.status,
     this.message,
     this.data,
+    this.success,
   });
 
   String? status;
+  bool? success;
   String? message;
   TeamInfo? data;
 
   factory MyTeamInfo.fromJson(Map<String, dynamic> json) => MyTeamInfo(
+        success: json["success"],
         status: json["status"],
         message: json["message"],
-        data: json["data"] == null? null: TeamInfo.fromJson(json["data"]),
+        data: json["data"] == null ? null : TeamInfo.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {
         "status": status,
         "message": message,
+        "success": success,
         "data": data!.toJson(),
       };
 }
