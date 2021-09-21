@@ -21,18 +21,15 @@ class UpcomingMatchesPage extends StatefulWidget {
 }
 
 class _UpcomingMatchesPageState extends State<UpcomingMatchesPage> {
-  
-
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback(
-        (_) => Get.find<MatchController>().upcomingMatch());
+        (_) => Get.put(MatchController()).upcomingMatch());
   }
 
   @override
   Widget build(BuildContext context) {
-    
     return SafeArea(
       child: GetBuilder<MatchController>(
         builder: (_matchService) => Directionality(
@@ -68,7 +65,7 @@ class _UpcomingMatchesPageState extends State<UpcomingMatchesPage> {
                     child: ListView.builder(
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
-                      itemCount: _matchService.upcomingMatchesList!.length,
+                      itemCount: _matchService.upcomingMatchesList?.length ?? 0,
                       itemBuilder: (context, index) {
                         return Card(
                           margin: EdgeInsets.only(bottom: 30.h),

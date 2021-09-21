@@ -130,7 +130,8 @@ class _CommentsPageState extends State<CommentsPage> {
                 child: CircleAvatar(
                   radius: 18.h,
                   backgroundImage: CachedNetworkImageProvider(
-                      _commentsService.comment![index].createdPhoto ?? ''),
+                    _commentsService.comment![index].createdPhoto ?? '',
+                  ),
                 ),
               ),
             ],

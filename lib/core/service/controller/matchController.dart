@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vamos/core/models/match/matchListResponse.dart';
 import 'package:vamos/core/models/match/matchRequest.dart';
@@ -119,17 +120,14 @@ class MatchController extends GetxController {
 
   void upcomingMatch() async {
     Utility.showLoadingDialog();
-    String date = DateTime.now().year.toString() +
-        '-' +
-        DateTime.now().month.toString() +
-        '-' +
-        DateTime.now().day.toString();
+
+    String date = DateFormat('yyyy-MM-dd').format(DateTime.now());
     UpcomingMatches response = await api.upcomingMatches(date);
     if (response.data != null) {
       upcomingMatchesList = response.data;
       print(upcomingMatchesList);
       Utility.closeDialog();
-      Utility.showSnackbar("${response.message}");
+      update();
     } else {
       Utility.closeDialog();
       Utility.showSnackbar("${response.message}");
