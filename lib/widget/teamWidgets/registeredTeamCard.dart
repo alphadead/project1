@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:vamos/core/models/playerListResponse.dart';
@@ -41,8 +42,8 @@ Widget registeredTeamContainer(
               backgroundColor: Colors.grey.shade300,
               radius: 25.h,
               backgroundImage: player?.photo?.isNotEmpty ?? false
-                  ? NetworkImage(player?.photo?[0]?["url"])
-                  : NetworkImage(""),
+                  ? CachedNetworkImageProvider(player?.photo?[0]?["url"])
+                  : CachedNetworkImageProvider(""),
             ),
           ),
           Container(

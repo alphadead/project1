@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vamos/core/service/controller/otherPlayerInfoController.dart';
@@ -118,19 +119,19 @@ class _PlayerListScreenState extends State<PlayerListScreen> {
                                               vertical: 5.h, horizontal: 10),
                                           child: CircleAvatar(
                                             radius: 24.h,
-                                            backgroundImage:
-                                                _playerListController
-                                                            .playerListDisplay[
-                                                                index]
-                                                            .photo
-                                                            ?.isNotEmpty ??
-                                                        false
-                                                    ? NetworkImage(
-                                                        _playerListController
-                                                            .playerListDisplay[
-                                                                index]
-                                                            .photo?[0]?["url"])
-                                                    : NetworkImage(''),
+                                            backgroundImage: _playerListController
+                                                        .playerListDisplay[
+                                                            index]
+                                                        .photo
+                                                        ?.isNotEmpty ??
+                                                    false
+                                                ? CachedNetworkImageProvider(
+                                                    _playerListController
+                                                        .playerListDisplay[
+                                                            index]
+                                                        .photo?[0]?["url"])
+                                                : CachedNetworkImageProvider(
+                                                    ''),
                                           ),
                                         ),
                                         _playerListController

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -32,8 +33,8 @@ class _JoinedTeamListingScreenState extends State<JoinedTeamListingScreen> {
               isPencil: true,
             ),
           ),
-          floatingActionButtonLocation: 
-                  FloatingActionButtonLocation.miniCenterDocked,
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.miniCenterDocked,
           floatingActionButton: homeFABBottomNav(),
           bottomNavigationBar: CustomBottomAppBar(
             height: 50.h,
@@ -99,10 +100,11 @@ class _JoinedTeamListingScreenState extends State<JoinedTeamListingScreen> {
                                                       .joinedTeamList![index]
                                                       .logo ==
                                                   ''
-                                          ? NetworkImage('')
-                                          : NetworkImage(_teamService
-                                              .joinedTeamList![index].logo
-                                              .toString()),
+                                          ? CachedNetworkImageProvider('')
+                                          : CachedNetworkImageProvider(
+                                              _teamService
+                                                  .joinedTeamList![index].logo
+                                                  .toString()),
                                     ),
                                   ),
                                   Column(

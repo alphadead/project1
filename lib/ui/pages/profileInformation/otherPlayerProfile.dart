@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -75,9 +76,10 @@ class _OtherPlayerInfoState extends State<OtherPlayerInfo> {
                               ? Image.network('')
                               : CircleAvatar(
                                   radius: 150.h,
-                                  backgroundImage: NetworkImage(_playerService
-                                      .profile!.photo![index]["url"]
-                                      .toString()),
+                                  backgroundImage: CachedNetworkImageProvider(
+                                      _playerService
+                                          .profile!.photo![index]["url"]
+                                          .toString()),
                                 ),
                         ),
                       ),
@@ -126,8 +128,8 @@ class _OtherPlayerInfoState extends State<OtherPlayerInfo> {
                                               .profile?.teamLogo ==
                                           null ||
                                       _playerService.profile?.teamLogo == ''
-                                  ? NetworkImage('')
-                                  : NetworkImage(
+                                  ? CachedNetworkImageProvider('')
+                                  : CachedNetworkImageProvider(
                                       _playerService.profile?.teamLogo ?? '')),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -376,8 +378,9 @@ class _OtherPlayerInfoState extends State<OtherPlayerInfo> {
                                                                         index]
                                                                     .teamLogo ==
                                                                 ''
-                                                        ? NetworkImage('')
-                                                        : NetworkImage(
+                                                        ? CachedNetworkImageProvider(
+                                                            '')
+                                                        : CachedNetworkImageProvider(
                                                             _playerService
                                                                     .profile
                                                                     ?.memberOfTeams![
@@ -417,41 +420,6 @@ class _OtherPlayerInfoState extends State<OtherPlayerInfo> {
                                     ),
                                   )),
                           ),
-                          Container(
-                            margin: EdgeInsets.only(top: 40.h),
-                            child: Text(
-                              'Comment',
-                              style: themeData().textTheme.headline1!.copyWith(
-                                    color: containerGreen,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 12.sp,
-                                  ),
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(top: 5.h),
-                            child: inputField("comment", (value) {},
-                                validate: (arg) {},
-                                keyType: TextInputType.emailAddress),
-                          ),
-                          Container(
-                            height: 40.h,
-                            margin: EdgeInsets.only(top: 40.h, right: 12.w),
-                            child: Center(
-                              child: Text(
-                                "Submit",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 12.sp,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                            decoration: BoxDecoration(
-                              color: KRed,
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                          ),
                         ],
                       ),
                     ),
@@ -462,7 +430,7 @@ class _OtherPlayerInfoState extends State<OtherPlayerInfo> {
                 ),
               ),
               SizedBox(
-                height: 200.h,
+                height: 50.h,
               ),
             ],
           ),

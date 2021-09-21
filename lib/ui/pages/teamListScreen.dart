@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vamos/core/service/controller/myTeamController.dart';
@@ -162,10 +163,13 @@ class _TeamListScreenState extends State<TeamListScreen> {
                                                                 .teamList[index]
                                                                 .logo ==
                                                             ''
-                                                    ? NetworkImage('')
-                                                    : NetworkImage(_teamService
-                                                        .teamList[index].logo
-                                                        .toString()),
+                                                    ? CachedNetworkImageProvider(
+                                                        '')
+                                                    : CachedNetworkImageProvider(
+                                                        _teamService
+                                                            .teamList[index]
+                                                            .logo
+                                                            .toString()),
                                               ),
                                             ),
                                             Column(
@@ -448,11 +452,14 @@ class _TeamListScreenState extends State<TeamListScreen> {
                                                                     index]
                                                                 .teamLogo ==
                                                             ''
-                                                    ? NetworkImage('')
-                                                    : NetworkImage(_teamService
-                                                        .teamRequestList[index]
-                                                        .teamLogo
-                                                        .toString()),
+                                                    ? CachedNetworkImageProvider(
+                                                        '')
+                                                    : CachedNetworkImageProvider(
+                                                        _teamService
+                                                            .teamRequestList[
+                                                                index]
+                                                            .teamLogo
+                                                            .toString()),
                                               ),
                                             ),
                                             Column(

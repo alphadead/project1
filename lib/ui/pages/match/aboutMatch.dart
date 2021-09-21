@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -673,7 +674,7 @@ class _AboutMatchState extends State<AboutMatch> {
                                 'assets/images/placeholder_team_icon.png'))
                         : CircleAvatar(
                             radius: 20.h,
-                            backgroundImage: NetworkImage(
+                            backgroundImage: CachedNetworkImageProvider(
                                 _myTeamInfo.teamInfo?.logo.toString() ?? ""),
                           ),
                   ),

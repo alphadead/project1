@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -128,8 +129,9 @@ class _CommentsPageState extends State<CommentsPage> {
                 margin: EdgeInsets.symmetric(vertical: 0.h, horizontal: 8.w),
                 child: CircleAvatar(
                   radius: 18.h,
-                  backgroundImage: NetworkImage(
-                      _commentsService.comment![index].createdPhoto!),
+                  backgroundImage: CachedNetworkImageProvider(
+                    _commentsService.comment![index].createdPhoto ?? '',
+                  ),
                 ),
               ),
             ],
@@ -147,7 +149,7 @@ class _CommentsPageState extends State<CommentsPage> {
                     Container(
                       width: 150,
                       child: Text(
-                        _commentsService.comment![index].createdName!,
+                        _commentsService.comment![index].createdName ?? '',
                         maxLines: 2,
                         softWrap: true,
                         overflow: TextOverflow.ellipsis,

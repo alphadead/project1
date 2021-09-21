@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -49,17 +50,17 @@ class _WalletPageState extends State<WalletPage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     _profileService.profile?.photo == null ||
-                            _profileService.profile?.photo.toString() == '' || _profileService
-                                .profile!.photo!.length == 0
+                            _profileService.profile?.photo.toString() == '' ||
+                            _profileService.profile!.photo!.length == 0
                         ? CircleAvatar(
                             radius: 40.h,
                             backgroundImage: AssetImage(
                                 'assets/images/placeholder_team_icon.png'))
                         : CircleAvatar(
                             radius: 40.h,
-                            backgroundImage: NetworkImage(_profileService
-                                .profile!.photo![0]["url"]
-                                .toString()),
+                            backgroundImage: CachedNetworkImageProvider(
+                                _profileService.profile!.photo![0]["url"]
+                                    .toString()),
                           ),
                     SizedBox(
                       height: 35.h,
@@ -106,7 +107,7 @@ class _WalletPageState extends State<WalletPage> {
                             fontWeight: FontWeight.bold,
                           ),
                     ),
-                           SizedBox(
+                    SizedBox(
                       height: 35.h,
                     ),
                     Center(
@@ -119,9 +120,10 @@ class _WalletPageState extends State<WalletPage> {
                             ),
                       ),
                     ),
-                    Text('KD  ' +
-                      (_profileService.referals?.referAmount.toString() ??
-                          ''),
+                    Text(
+                      'KD  ' +
+                          (_profileService.referals?.referAmount.toString() ??
+                              ''),
                       style: themeData().textTheme.bodyText1!.copyWith(
                             color: KColorBlack.withOpacity(0.8),
                             fontSize: 25.sp,

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -19,7 +20,6 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -42,17 +42,18 @@ class _SettingsState extends State<Settings> {
                 padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 30.h),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [ _profileService.profile?.photo == null||
-                    _profileService.profile?.photo?.length == 0
+                  children: [
+                    _profileService.profile?.photo == null ||
+                            _profileService.profile?.photo?.length == 0
                         ? CircleAvatar(
                             radius: 40.h,
                             backgroundImage: AssetImage(
                                 'assets/images/placeholder_team_icon.png'))
                         : CircleAvatar(
                             radius: 40.h,
-                            backgroundImage: NetworkImage(_profileService
-                                .profile!.photo![0]["url"]
-                                .toString()),
+                            backgroundImage: CachedNetworkImageProvider(
+                                _profileService.profile!.photo![0]["url"]
+                                    .toString()),
                           ),
                     SizedBox(
                       height: 35.h,

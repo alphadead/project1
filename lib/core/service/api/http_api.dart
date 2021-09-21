@@ -31,6 +31,7 @@ import 'package:vamos/core/models/referalEarning.dart';
 import 'package:vamos/core/models/registerResponse.dart';
 import 'package:vamos/core/models/teamListingResponse.dart';
 import 'package:vamos/core/models/teamRequestReceviedAsPlayerResponse.dart';
+import 'package:vamos/core/models/upcomingMatches.dart';
 import 'package:vamos/core/models/updateGround.dart';
 import 'package:vamos/core/models/verifyOtpResponse.dart';
 import 'package:vamos/core/service/api/api.dart';
@@ -271,6 +272,12 @@ class HTTPApi extends Api {
     Map<String, dynamic> response =
         await getRequest('ground-availability?id=$id&date=$date');
     return GroundAvailability.fromJson(response);
+  }
+
+  Future<UpcomingMatches> upcomingMatches(String? date) async {
+    Map<String, dynamic> response =
+        await getRequest('match-list?offset=0&date=$date');
+    return UpcomingMatches.fromJson(response);
   }
 
   Future<AcceptRejectRequestResponse> requestAcceptReject(id, status) async {

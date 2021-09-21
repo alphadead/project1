@@ -8,6 +8,9 @@ import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/loginbkground.dart';
 import 'package:vamos/ui/utils/theme.dart';
 import 'package:vamos/ui/utils/utility.dart';
+import 'package:vamos/widget/customAppBar.dart';
+import 'package:vamos/widget/customBottomNavBar.dart';
+import 'package:vamos/widget/formWidgets/buttons.dart';
 import 'package:vamos/widget/localeFloatingActionButtonDebug.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -38,7 +41,16 @@ class _InviteTeamPageState extends State<InviteTeamPage> {
       builder: (_authService) => Directionality(
         textDirection: TextDirection.ltr,
         child: Scaffold(
-          floatingActionButton: LocaleFloatingActionButton(),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.miniCenterDocked,
+          floatingActionButton: homeFABBottomNav(),
+          bottomNavigationBar: CustomBottomAppBar(
+            height: 50.h,
+          ),
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(60.h),
+            child: CustomAppBar(),
+          ),
           body: Stack(
             children: [
               SingleChildScrollView(
@@ -113,9 +125,16 @@ class _InviteTeamPageState extends State<InviteTeamPage> {
                 ),
               ),
               Align(
+                alignment: Alignment.bottomRight,
+                child: Padding(
+                  padding: EdgeInsets.only(right: 10.w, bottom: 10.h),
+                  child: LocaleFloatingActionButton(),
+                ),
+              ),
+              Align(
                 alignment: Alignment.bottomCenter,
                 child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 30),
+                  padding: EdgeInsets.symmetric(vertical: 35),
                   child: primaryActionButton(
                       context: context,
                       onPressed: () {

@@ -1,11 +1,13 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vamos/core/models/match/matchListResponse.dart';
 import 'package:vamos/core/models/match/matchRequest.dart';
 import 'package:vamos/core/models/match/matchRequestRecvdByTeam.dart';
 import 'package:vamos/core/models/match/teamRequestSentByMatch.dart';
 import 'package:vamos/core/models/match/updateMatchRequest.dart';
+import 'package:vamos/core/models/upcomingMatches.dart';
 import 'package:vamos/core/service/api/api.dart';
 import 'package:vamos/core/service/controller/myTeamController.dart';
 import 'package:vamos/locator.dart';
@@ -18,6 +20,7 @@ class MatchController extends GetxController {
   List<Match>? _matches;
   List<Team>? _teams;
   List<MatchRequest>? _matchRequests;
+  List<ComingMatch>? upcomingMatchesList;
 
   List<Match>? get matches => _matches;
   List<Team>? get teams => _teams;
@@ -112,6 +115,21 @@ class MatchController extends GetxController {
 
       Utility.showSnackbar("${response.message}");
       Get.back();
+    }
+  }
+
+  void upcomingMatch() async {
+    Utility.showLoadingDialog();
+
+    String date = DateFormat('yyyy-MM-dd').format(DateTime.now());
+    UpcomingMatches response = await api.upcomingMatches(date);
+    if (response.data != null) {
+      upcomingMatchesList = response.data;
+      Utility.closeDialog();
+      update();
+    } else {
+      Utility.closeDialog();
+      Utility.showSnackbar("${response.message}");
     }
   }
 }
