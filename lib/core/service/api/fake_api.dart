@@ -252,4 +252,8 @@ class FakeApi extends Api {
   Future<MyTeamInfo> teamInfo(teamId) {
     throw UnimplementedError();
   }
+
+  Future<PlayerListResponse> searchPlayerWithFilter(value, filters) {
+    throw UnimplementedError();
+  }
 }
