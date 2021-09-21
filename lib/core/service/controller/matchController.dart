@@ -125,7 +125,6 @@ class MatchController extends GetxController {
     UpcomingMatches response = await api.upcomingMatches(date);
     if (response.data != null) {
       upcomingMatchesList = response.data;
-      print(upcomingMatchesList);
       Utility.closeDialog();
       update();
     } else {

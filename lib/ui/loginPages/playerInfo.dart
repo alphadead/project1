@@ -85,17 +85,6 @@ class _PlayerInfoState extends State<PlayerInfo> {
                                   _profileService.profile?.photo.toString() ==
                                       ''
                               ? Image.network('')
-                              // : Container(
-                              //     width: 100.w,
-                              //     height: 100.h,
-                              //     decoration: BoxDecoration(
-                              //         shape: BoxShape.circle,
-                              //         image: DecorationImage(
-                              //             image: CachedNetworkImageProvider(
-                              //                 _profileService.profile!
-                              //                     .photo![index]["url"]
-                              //                     .toString()))),
-                              //   )
                               : CircleAvatar(
                                   radius: 150.h,
                                   backgroundImage: CachedNetworkImageProvider(
