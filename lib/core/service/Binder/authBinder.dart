@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:vamos/core/service/controller/commentController.dart';
 import 'package:vamos/core/service/controller/groundController.dart';
 import 'package:vamos/core/service/controller/inviteController.dart';
 import 'package:vamos/core/service/controller/addsController.dart';
@@ -26,5 +27,6 @@ class AllBinder extends Bindings {
     Get.lazyPut<MatchController>(() => MatchController());
     Get.lazyPut<SearchByController>(() => SearchByController());
     Get.lazyPut<OtherPlayerInfoController>(() => OtherPlayerInfoController());
+    Get.lazyPut<CommentController>(() => CommentController());
   }
 }

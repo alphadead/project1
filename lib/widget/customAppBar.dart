@@ -28,7 +28,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
             ? widget.showComments
                 ? GestureDetector(
                     onTap: () async {
-                      Get.offNamed("/profileScreen", arguments: true);
+                      Get.toNamed('/commentsPage');
                     },
                     child: Container(
                       margin: EdgeInsets.only(right: 30.w),

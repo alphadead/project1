@@ -3,7 +3,10 @@ import 'dart:io';
 import 'package:http/http.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:vamos/core/models/acceptRejectResponse.dart';
+import 'package:vamos/core/models/addComment.dart';
+import 'package:vamos/core/models/commentsList.dart';
 import 'package:vamos/core/models/completeStepResponse.dart';
+import 'package:vamos/core/models/deleteComments.dart';
 import 'package:vamos/core/models/match/createMatch.dart';
 import 'package:vamos/core/models/createTeamResponse.dart';
 import 'package:vamos/core/models/deleteMedia.dart';
@@ -138,10 +141,25 @@ class HTTPApi extends Api {
     return GroundList.fromJson(response);
   }
 
+  Future<CommentListModel> commentListModel(String? userId) async {
+    Map<String, dynamic> response =
+        await getRequest('player/comments?player_id=$userId');
+    return CommentListModel.fromJson(response);
+  }
+
   Future<ProfileDataResponse> getProfile(String userId) async {
     Map<String, dynamic> response =
         await getRequest('profile?user_id=' + userId);
     return ProfileDataResponse.fromJson(response);
+  }
+
+  Future<DeleteComment> deleteComment(int? id) async {
+    Map<String, dynamic> body = {
+      "id": id,
+    };
+    Map<String, dynamic> response =
+        await postRequest('player/delete-comment', body);
+    return DeleteComment.fromJson(response);
   }
 
   Future<JoinTeamResponse> joinTeam(int teamId) async {
@@ -230,6 +248,18 @@ class HTTPApi extends Api {
     Map<String, dynamic> response =
         await postRequest('team/cancel-request', body);
     return GenericResponse.fromJson(response);
+  }
+
+  Future<AddComment> addComment(
+      String? playerId, String? comment, String? rating) async {
+    Map<String, dynamic> body = {
+      "player_id": playerId,
+      "comment": comment,
+      "rating": rating
+    };
+    Map<String, dynamic> response =
+        await postRequest('player/store-comment', body);
+    return AddComment.fromJson(response);
   }
 
   Future<TeamRequestReceivedAsPlayerResponse> requestRecived() async {

@@ -11,7 +11,7 @@ Widget primaryActionButtonKRed(void Function() onTap, bool enabled, String text)
       width: 110.h,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
-          color: enabled ? KRed : moneyBox.withOpacity(0.2)),
+          color: enabled ? KRed : KRed.withOpacity(0.4)),
       child: Center(
         child: Text(
           text,

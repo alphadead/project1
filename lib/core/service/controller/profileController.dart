@@ -82,7 +82,7 @@ class ProfileController extends GetxController {
   void premiumPlayerRequest() async {
     Utility.showLoadingDialog();
     GenericResponse response = await api.premiumPlayerRequest();
-    if (response.success??false) {
+    if (response.success ?? false) {
       profile?.isPremium = "2";
     }
     update();
