@@ -64,7 +64,8 @@ class HTTPApi extends Api {
       "email": email,
       "type": type,
       "password": password,
-      "referrer_code": referralCode
+      "referrer_code": referralCode,
+      "address": address
     };
     Map<String, dynamic> response = await postRequest("register", body);
     return RegisterResponse.fromJson(response);
@@ -318,5 +319,22 @@ class HTTPApi extends Api {
     Map<String, dynamic> response =
         await postRequest('apply-for-premium-player', body);
     return GenericResponse.fromJson(response);
+  }
+
+  Future<PlayerListResponse> searchPlayerlist(int isPremium) async {
+    Map<String, dynamic> response =
+        await getRequest('players?is_premium=$isPremium');
+    return PlayerListResponse.fromJson(response);
+  }
+
+  Future<MyTeamInfo> teamInfo(teamId) async {
+    Map<String, dynamic> response = await getRequest('team-info?id=$teamId');
+    return MyTeamInfo.fromJson(response);
+  }
+
+  Future<PlayerListResponse> searchPlayerWithFilter(value, filters) async {
+    Map<String, dynamic> response =
+        await getRequest('players?offset=0&search=$value&search_in[]=$filters');
+    return PlayerListResponse.fromJson(response);
   }
 }

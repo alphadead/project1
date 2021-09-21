@@ -99,8 +99,13 @@ abstract class Api {
   Future<JoinedTeamListResponse> getJoinedTeams();
   Future<MatchListResponse> getMatchList();
   Future<TeamRequestSentByMatch> getTeamRequestsSentByMatch(int? matchId);
-  Future<MatchRequestReceivedByTeamResponse> getIncomingMatchRequests(int teamId);
-  Future<UpdateMatchRequestsByTeam> updateMatchRequestsByTeam(int? id, String? matchId, String? status);
+  Future<MatchRequestReceivedByTeamResponse> getIncomingMatchRequests(
+      int teamId);
+  Future<UpdateMatchRequestsByTeam> updateMatchRequestsByTeam(
+      int? id, String? matchId, String? status);
   Future<GenericResponse> cancelPlayerRequest(teamId, userId);
   Future<GenericResponse> premiumPlayerRequest();
+  Future<PlayerListResponse> searchPlayerlist(int isPremium);
+  Future<MyTeamInfo> teamInfo(teamId);
+  Future<PlayerListResponse> searchPlayerWithFilter(value, filters);
 }

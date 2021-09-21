@@ -191,7 +191,8 @@ class FakeApi extends Api {
   }
 
   @override
-  Future<MatchRequestReceivedByTeamResponse> getIncomingMatchRequests(int teamId) {
+  Future<MatchRequestReceivedByTeamResponse> getIncomingMatchRequests(
+      int teamId) {
     // TODO: implement getIncomingMatchRequests
     throw UnimplementedError();
   }
@@ -203,7 +204,8 @@ class FakeApi extends Api {
   }
 
   @override
-  Future<UpdateMatchRequestsByTeam> updateMatchRequestsByTeam(int? id, String? matchId, String? status) {
+  Future<UpdateMatchRequestsByTeam> updateMatchRequestsByTeam(
+      int? id, String? matchId, String? status) {
     // TODO: implement updateMatchRequestsByTeam
     throw UnimplementedError();
   }
@@ -211,6 +213,18 @@ class FakeApi extends Api {
   @override
   Future<GenericResponse> premiumPlayerRequest() {
     // TODO: implement premiumPlayerRequest
+    throw UnimplementedError();
+  }
+
+  Future<PlayerListResponse> searchPlayerlist(int isPremium) {
+    throw UnimplementedError();
+  }
+
+  Future<MyTeamInfo> teamInfo(teamId) {
+    throw UnimplementedError();
+  }
+
+  Future<PlayerListResponse> searchPlayerWithFilter(value, filters) {
     throw UnimplementedError();
   }
 }

@@ -78,4 +78,19 @@ class PlayerListController extends GetxController {
       return false;
     }
   }
+
+  void searchPlayerlist(int isPremium) async {
+    Utility.showLoadingDialog();
+    PlayerListResponse response = await api.searchPlayerlist(isPremium);
+    if (response.data != null) {
+      Utility.closeDialog();
+      playerList = response.data!;
+      playerListDisplay = playerList;
+      print(playerList.length);
+    } else {
+      Utility.closeDialog();
+      Utility.showSnackbar("${response.message}");
+    }
+    update();
+  }
 }
