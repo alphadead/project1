@@ -256,4 +256,8 @@ class FakeApi extends Api {
   Future<PlayerListResponse> searchPlayerWithFilter(value, filters) {
     throw UnimplementedError();
   }
+
+  Future<CommentListModel> commentListPageModel(int page, String userId) {
+    throw UnimplementedError();
+  }
 }

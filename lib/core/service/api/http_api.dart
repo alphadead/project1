@@ -374,4 +374,10 @@ class HTTPApi extends Api {
         await getRequest('players?offset=0&search=$value&search_in[]=$filters');
     return PlayerListResponse.fromJson(response);
   }
+
+  Future<CommentListModel> commentListPageModel(int page, String userId) async {
+    Map<String, dynamic> response = await getRequest(
+        'player/comments?player_id=$userId&offset=$page&limit=10');
+    return CommentListModel.fromJson(response);
+  }
 }
