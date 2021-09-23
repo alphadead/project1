@@ -24,6 +24,7 @@ import 'package:vamos/core/models/match/teamRequestSentByMatch.dart';
 import 'package:vamos/core/models/match/updateMatchRequest.dart';
 import 'package:vamos/core/models/myTeamInfo.dart';
 import 'package:vamos/core/models/playerListResponse.dart';
+import 'package:vamos/core/models/playerPosition.dart';
 import 'package:vamos/core/models/playerRequestResponse.dart';
 import 'package:vamos/core/models/profileDataResponse.dart';
 import 'package:vamos/core/models/profile_api.dart';
@@ -31,6 +32,7 @@ import 'package:vamos/core/models/referalEarning.dart';
 import 'package:vamos/core/models/registerResponse.dart';
 import 'package:vamos/core/models/teamListingResponse.dart';
 import 'package:vamos/core/models/teamRequestReceviedAsPlayerResponse.dart';
+import 'package:vamos/core/models/teamSize.dart';
 import 'package:vamos/core/models/upcomingMatches.dart';
 import 'package:vamos/core/models/updateGround.dart';
 import 'package:vamos/core/models/verifyOtpResponse.dart';
@@ -91,6 +93,7 @@ class FakeApi extends Api {
     String? bookingDate,
     bookingTimeslots,
     bookingSlotTime,
+    String? teamSize,
   ) {
     throw UnimplementedError();
   }
@@ -100,6 +103,14 @@ class FakeApi extends Api {
   }
 
   Future<GroundList> getGroundlist() {
+    throw UnimplementedError();
+  }
+
+  Future<TeamSizeModel> teamSize() {
+    throw UnimplementedError();
+  }
+
+  Future<PlayerPositionModel> position() {
     throw UnimplementedError();
   }
 

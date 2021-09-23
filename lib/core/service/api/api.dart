@@ -23,6 +23,7 @@ import 'package:vamos/core/models/match/teamRequestSentByMatch.dart';
 import 'package:vamos/core/models/match/updateMatchRequest.dart';
 import 'package:vamos/core/models/myTeamInfo.dart';
 import 'package:vamos/core/models/playerListResponse.dart';
+import 'package:vamos/core/models/playerPosition.dart';
 import 'package:vamos/core/models/playerRequestResponse.dart';
 import 'package:vamos/core/models/profileDataResponse.dart';
 import 'package:vamos/core/models/profile_api.dart';
@@ -30,6 +31,7 @@ import 'package:vamos/core/models/referalEarning.dart';
 import 'package:vamos/core/models/registerResponse.dart';
 import 'package:vamos/core/models/teamListingResponse.dart';
 import 'package:vamos/core/models/teamRequestReceviedAsPlayerResponse.dart';
+import 'package:vamos/core/models/teamSize.dart';
 import 'package:vamos/core/models/upcomingMatches.dart';
 import 'package:vamos/core/models/updateGround.dart';
 import 'package:vamos/core/models/verifyOtpResponse.dart';
@@ -92,6 +94,7 @@ abstract class Api {
     String? bookingDate,
     bookingTimeslots,
     bookingSlotTime,
+    String? teamSize,
   );
   Future<DeleteMedia> deleteMedias(String mediaId);
   Future<GenericResponse> cancelTeamRequest(teamId);
@@ -100,6 +103,8 @@ abstract class Api {
   Future<AcceptRejectRequestResponse> requestAcceptReject(id, status);
   Future<GroundAvailability> groundAvailable(int id, String date);
   Future<MyTeamInfo> myTeamInfo();
+  Future<TeamSizeModel> teamSize();
+  Future<PlayerPositionModel> position();
   Future<DeleteComment> deleteComment(int id);
   Future<CommentListModel> commentListModel(String userId);
   Future<JoinedTeamListResponse> getJoinedTeams();

@@ -24,6 +24,7 @@ import 'package:vamos/core/models/match/teamRequestSentByMatch.dart';
 import 'package:vamos/core/models/match/updateMatchRequest.dart';
 import 'package:vamos/core/models/myTeamInfo.dart';
 import 'package:vamos/core/models/playerListResponse.dart';
+import 'package:vamos/core/models/playerPosition.dart';
 import 'package:vamos/core/models/playerRequestResponse.dart';
 import 'package:vamos/core/models/profileDataResponse.dart';
 import 'package:vamos/core/models/profile_api.dart';
@@ -31,6 +32,7 @@ import 'package:vamos/core/models/referalEarning.dart';
 import 'package:vamos/core/models/registerResponse.dart';
 import 'package:vamos/core/models/teamListingResponse.dart';
 import 'package:vamos/core/models/teamRequestReceviedAsPlayerResponse.dart';
+import 'package:vamos/core/models/teamSize.dart';
 import 'package:vamos/core/models/upcomingMatches.dart';
 import 'package:vamos/core/models/updateGround.dart';
 import 'package:vamos/core/models/verifyOtpResponse.dart';
@@ -117,6 +119,7 @@ class HTTPApi extends Api {
     String? bookingDate,
     bookingTimeslots,
     bookingSlotTime,
+    String? teamSize,
   ) async {
     Map<String, dynamic> body = {
       "name": name,
@@ -266,6 +269,16 @@ class HTTPApi extends Api {
   Future<TeamRequestReceivedAsPlayerResponse> requestRecived() async {
     Map<String, dynamic> response = await getRequest('team/request-received');
     return TeamRequestReceivedAsPlayerResponse.fromJson(response);
+  }
+
+  Future<TeamSizeModel> teamSize() async {
+    Map<String, dynamic> response = await getRequest('team-sizes');
+    return TeamSizeModel.fromJson(response);
+  }
+
+  Future<PlayerPositionModel> position() async {
+    Map<String, dynamic> response = await getRequest('player-positions');
+    return PlayerPositionModel.fromJson(response);
   }
 
   Future<GroundAvailability> groundAvailable(int id, String date) async {

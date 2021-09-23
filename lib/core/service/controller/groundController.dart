@@ -201,6 +201,8 @@ class GroundController extends GetxController {
               }
             ],
       '',
+      // team size
+      '6',
     );
 
     if (response.data != null) {
