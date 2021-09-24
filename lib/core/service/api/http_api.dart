@@ -381,4 +381,15 @@ class HTTPApi extends Api {
         'player/comments?player_id=$userId&offset=$offset&limit=10');
     return CommentListModel.fromJson(response);
   }
+
+  @override
+  Future<GenericResponse> updateTeamRequestsByMatch(
+      int? id, String? status) async {
+    Map<String, dynamic> body = {"id": id, "status": status};
+
+    Map<String, dynamic> response =
+        await putRequest('team/update-match-request', body);
+
+    return GenericResponse.fromJson(response);
+  }
 }
