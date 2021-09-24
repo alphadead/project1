@@ -257,7 +257,7 @@ class FakeApi extends Api {
     throw UnimplementedError();
   }
 
-  Future<CommentListModel> commentListPageModel(int page, String userId) {
+  Future<CommentListModel> commentListPageModel(int offset, String userId) {
     throw UnimplementedError();
   }
 }

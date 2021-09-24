@@ -103,20 +103,17 @@ class _CommentsPageState extends State<CommentsPage> {
                                 commentContainer(_commentsService, index),
                           ),
                         ),
-                      ],
-                    ),
-                    if (_commentsService.isloading) ...[
-                      Positioned(
-                          left: 0,
-                          bottom: 0,
-                          child: Container(
+                        if (_commentsService.isloading) ...[
+                          Container(
                             width: 1.sw,
                             height: 80,
                             child: Center(
                               child: CircularProgressIndicator(),
                             ),
-                          ))
-                    ]
+                          )
+                        ]
+                      ],
+                    ),
                   ]),
                 ),
                 Align(

@@ -25,6 +25,7 @@ class CommentController extends GetxController {
     CommentListModel response =
         await api.commentListPageModel(offset, profileId);
     if (response.data != null) {
+      offset = offset + 10;
       comment = response.data;
       update();
       Utility.closeDialog();

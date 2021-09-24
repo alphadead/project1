@@ -118,5 +118,5 @@ abstract class Api {
   Future<MyTeamInfo> teamInfo(teamId);
   Future<PlayerListResponse> searchPlayerWithFilter(value, filters);
 
-  Future<CommentListModel> commentListPageModel(int page, String userId);
+  Future<CommentListModel> commentListPageModel(int offset, String userId);
 }
