@@ -6,7 +6,8 @@ import 'package:vamos/ui/utils/theme.dart';
 class TeamInfoCircularCard extends StatelessWidget {
   final String? title;
   final String? image;
-  const TeamInfoCircularCard({Key? key, this.image, this.title})
+  final bool isAsset;
+  const TeamInfoCircularCard({Key? key, this.image, this.title, this.isAsset = true})
       : super(key: key);
 
   @override
@@ -20,7 +21,7 @@ class TeamInfoCircularCard extends StatelessWidget {
           child: Container(
             height: 50,
             width: 50,
-            child: Image.asset(image.toString()),
+            child: isAsset? Image.asset(image.toString()): Image.network(image.toString()),
           ),
         ),
         Text(
