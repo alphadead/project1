@@ -5,9 +5,9 @@ class PlayerPositionsResponse {
     this.data,
   });
 
-  String? success;
+  bool? success;
   String? message;
-  List<String>? data;
+  List<dynamic>? data;
 
   factory PlayerPositionsResponse.fromJson(Map<String, dynamic> json) =>
       PlayerPositionsResponse(

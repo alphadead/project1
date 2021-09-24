@@ -5,7 +5,7 @@ class TeamSizesResponse {
     this.data,
   });
 
-  String? success;
+  bool? success;
   String? message;
   Map<String, dynamic>? data;
 

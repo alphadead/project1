@@ -30,6 +30,8 @@ import 'package:vamos/core/models/profileDataResponse.dart';
 import 'package:vamos/core/models/profile_api.dart';
 import 'package:vamos/core/models/referalEarning.dart';
 import 'package:vamos/core/models/registerResponse.dart';
+import 'package:vamos/core/models/setup/playerPositionsResponse.dart';
+import 'package:vamos/core/models/setup/teamSizesResponse.dart';
 import 'package:vamos/core/models/teamListingResponse.dart';
 import 'package:vamos/core/models/teamRequestReceviedAsPlayerResponse.dart';
 import 'package:vamos/core/models/teamSize.dart';
@@ -271,6 +273,16 @@ class FakeApi extends Api {
   @override
   Future<GenericResponse> updateTeamRequestsByMatch(int? id, String? status) {
     // TODO: implement updateTeamRequestsByMatch
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<TeamSizesResponse> getTeamSize() {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<PlayerPositionsResponse> getPlayerPosition() {
     throw UnimplementedError();
   }
 }

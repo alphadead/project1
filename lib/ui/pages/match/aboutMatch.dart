@@ -32,8 +32,10 @@ class _AboutMatchState extends State<AboutMatch> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback(
-        (_) => Get.find<GroundController>().getGroundlist());
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      Get.find<GroundController>().getGroundlist();
+      Get.find<GroundController>().getTeamSize();
+    });
     setProfileType();
   }
 
@@ -149,6 +151,22 @@ class _AboutMatchState extends State<AboutMatch> {
                                           ),
                                         )
                                       : Container(),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 8.0),
+                                    child: DropdownButtonFormField(
+                                      isExpanded: true,
+                                      elevation: 25,
+                                      hint: Text(
+                                        'Team Size',
+                                        style: TextStyle(color: KLightGrey),
+                                      ),
+                                      onChanged: (String? newValue) {
+                                        print(newValue);
+                                      },
+                                      items: _groundService.menuItems,
+                                    ),
+                                  ),
                                   (profileType ?? "Player") == "Player"
                                       ? Container(
                                           margin: EdgeInsets.only(
@@ -190,6 +208,19 @@ class _AboutMatchState extends State<AboutMatch> {
                                           ),
                                         )
                                       : Container(),
+
+                                  /* this is for testing purpose , CreateTeam for match screen is not intergrated with create match scree so 
+                                  for the navigation to that screen i used this.
+                              */
+                                  GestureDetector(
+                                    onTap: () {
+                                      Get.toNamed("/createTeamForMatch");
+                                    },
+                                    child: Container(
+                                      child: Text(
+                                          "Click me to create Team for Match"),
+                                    ),
+                                  ),
                                   Container(
                                     margin:
                                         EdgeInsets.only(bottom: 5.h, top: 15.h),

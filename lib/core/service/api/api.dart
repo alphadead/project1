@@ -29,6 +29,8 @@ import 'package:vamos/core/models/profileDataResponse.dart';
 import 'package:vamos/core/models/profile_api.dart';
 import 'package:vamos/core/models/referalEarning.dart';
 import 'package:vamos/core/models/registerResponse.dart';
+import 'package:vamos/core/models/setup/playerPositionsResponse.dart';
+import 'package:vamos/core/models/setup/teamSizesResponse.dart';
 import 'package:vamos/core/models/teamListingResponse.dart';
 import 'package:vamos/core/models/teamRequestReceviedAsPlayerResponse.dart';
 import 'package:vamos/core/models/teamSize.dart';
@@ -117,11 +119,12 @@ abstract class Api {
       int teamId);
   Future<UpdateMatchRequestsByTeam> updateMatchRequestsByTeam(
       int? id, String? matchId, String? status);
-  Future<GenericResponse> updateTeamRequestsByMatch(
-      int? id, String? status);
+  Future<GenericResponse> updateTeamRequestsByMatch(int? id, String? status);
   Future<GenericResponse> cancelPlayerRequest(teamId, userId);
   Future<GenericResponse> premiumPlayerRequest();
   Future<PlayerListResponse> searchPlayerlist(int isPremium);
   Future<MyTeamInfo> teamInfo(teamId);
   Future<PlayerListResponse> searchPlayerWithFilter(value, filters);
+  Future<TeamSizesResponse> getTeamSize();
+  Future<PlayerPositionsResponse> getPlayerPosition();
 }

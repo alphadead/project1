@@ -13,6 +13,7 @@ import 'package:vamos/ui/loginPages/setPass.dart';
 import 'package:vamos/ui/loginPages/signUp.dart';
 import 'package:vamos/ui/loginPages/upcomingMatches.dart';
 import 'package:vamos/ui/pages/inviteScreen.dart';
+import 'package:vamos/ui/pages/match/createTeamForMatch.dart';
 import 'package:vamos/ui/pages/match/inviteTeamMatch.dart';
 import 'package:vamos/ui/pages/joinedTeamListing.dart';
 import 'package:vamos/ui/pages/match/matchListing.dart';
@@ -234,6 +235,13 @@ abstract class AppPages {
       name: '/otherPlayerInfo',
       transitionDuration: transitionDuration,
       page: () => OtherPlayerInfo(),
+      transition: Transition.downToUp,
+      binding: AllBinder(),
+    ),
+    GetPage(
+      name: '/createTeamForMatch',
+      transitionDuration: transitionDuration,
+      page: () => CreateTeamForMatch(),
       transition: Transition.downToUp,
       binding: AllBinder(),
     )

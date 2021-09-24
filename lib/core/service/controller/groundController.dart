@@ -6,11 +6,15 @@ import 'package:vamos/core/models/match/createMatch.dart';
 import 'package:vamos/core/models/groundList.dart';
 import 'package:vamos/core/models/groundAvailability.dart';
 import 'package:vamos/core/models/groundProfileView.dart';
+import 'package:vamos/core/models/playerRequestResponse.dart';
+import 'package:vamos/core/models/setup/playerPositionsResponse.dart';
+import 'package:vamos/core/models/setup/teamSizesResponse.dart';
 import 'package:vamos/core/models/updateGround.dart';
 import 'package:vamos/core/service/api/api.dart';
 import 'package:vamos/core/service/controller/authController.dart';
 import 'package:vamos/core/service/controller/matchController.dart';
 import 'package:vamos/locator.dart';
+import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/utility.dart';
 
 class GroundController extends GetxController {
@@ -39,6 +43,9 @@ class GroundController extends GetxController {
   List<int> selectedIndices = [];
   Grounds? selectedGround;
   Grounds? customGround;
+  late Map<String, dynamic> teamSize;
+  late List<dynamic> playerPosition;
+  late List<PlayerData> playerJoinedList;
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
@@ -295,5 +302,68 @@ class GroundController extends GetxController {
       selectedIndices = [currIndex];
       update();
     }
+  }
+
+  late List<DropdownMenuItem<String>> menuItems = [];
+
+  void getTeamSize() async {
+    Utility.showLoadingDialog();
+    TeamSizesResponse response = await api.getTeamSize();
+    if (response.success!) {
+      teamSize = response.data!;
+      for (String key in response.data!.keys) {
+        menuItems.add(DropdownMenuItem<String>(
+          child: Text(
+            response.data![key],
+            style: TextStyle(color: inputText, fontSize: 16),
+          ),
+          value: key,
+        ));
+      }
+      Utility.closeDialog();
+      print("+++++++++++++++++++");
+      print(teamSize);
+      update();
+    } else {
+      Utility.closeDialog();
+      Utility.showSnackbar(response.message!);
+    }
+  }
+
+  void getPlayerPosition() async {
+    Utility.showLoadingDialog();
+    PlayerPositionsResponse response = await api.getPlayerPosition();
+    if (response.success!) {
+      playerPosition = response.data!;
+
+      Utility.closeDialog();
+      print("+++++++++++++++++++");
+      print(playerPosition);
+      update();
+    } else {
+      Utility.closeDialog();
+      Utility.showSnackbar(response.message!);
+    }
+  }
+
+  void getPlayerJoinedListByTeam({int? teamJoinedId}) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    int? teamId = teamJoinedId != null
+        ? teamJoinedId
+        : prefs.getString("team_id") == null
+            ? null
+            : int.parse(prefs.getString("team_id").toString());
+    Utility.showLoadingDialog();
+    PlayerRequestResponse response =
+        await api.getPlayerJoinedListByTeam(teamId);
+    if (response.data != null) {
+      Utility.closeDialog();
+
+      playerJoinedList = response.data!;
+    } else {
+      Utility.showSnackbar("${response.message}");
+    }
+    update();
   }
 }

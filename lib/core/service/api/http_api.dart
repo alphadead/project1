@@ -30,6 +30,8 @@ import 'package:vamos/core/models/profileDataResponse.dart';
 import 'package:vamos/core/models/profile_api.dart';
 import 'package:vamos/core/models/referalEarning.dart';
 import 'package:vamos/core/models/registerResponse.dart';
+import 'package:vamos/core/models/setup/playerPositionsResponse.dart';
+import 'package:vamos/core/models/setup/teamSizesResponse.dart';
 import 'package:vamos/core/models/teamListingResponse.dart';
 import 'package:vamos/core/models/teamRequestReceviedAsPlayerResponse.dart';
 import 'package:vamos/core/models/teamSize.dart';
@@ -397,5 +399,17 @@ class HTTPApi extends Api {
         await putRequest('team/update-match-request', body);
 
     return GenericResponse.fromJson(response);
+  }
+
+  @override
+  Future<TeamSizesResponse> getTeamSize() async {
+    Map<String, dynamic> response = await getRequest('team-sizes');
+    return TeamSizesResponse.fromJson(response);
+  }
+
+  @override
+  Future<PlayerPositionsResponse> getPlayerPosition() async {
+    Map<String, dynamic> response = await getRequest('player-positions');
+    return PlayerPositionsResponse.fromJson(response);
   }
 }
