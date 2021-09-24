@@ -387,4 +387,15 @@ class HTTPApi extends Api {
         await getRequest('players?offset=0&search=$value&search_in[]=$filters');
     return PlayerListResponse.fromJson(response);
   }
+
+  @override
+  Future<GenericResponse> updateTeamRequestsByMatch(
+      int? id, String? status) async {
+    Map<String, dynamic> body = {"id": id, "status": status};
+
+    Map<String, dynamic> response =
+        await putRequest('team/update-match-request', body);
+
+    return GenericResponse.fromJson(response);
+  }
 }

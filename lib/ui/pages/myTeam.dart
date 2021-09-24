@@ -196,29 +196,39 @@ class _MyTeamState extends State<MyTeam> {
                           ),
                           Padding(
                             padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                primaryActionButtonKRed(() {
-                                  _myTeamService.getPlayerJoinedListByTeam();
+                            child: argument
+                                ? Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      primaryActionButtonKRed(() {
+                                        _myTeamService
+                                            .getPlayerJoinedListByTeam();
 
-                                  setState(() {
-                                    joinedTeamListView = true;
-                                  });
-                                }, joinedTeamListView, 'Joined Player'),
-                                //   Get.arguments
-                                argument
-                                    ? primaryActionButtonKRed(() {
+                                        setState(() {
+                                          joinedTeamListView = true;
+                                        });
+                                      }, joinedTeamListView, 'Joined Player'),
+                                      primaryActionButtonKRed(() {
                                         setState(() {
                                           _myTeamService
                                               .getPlayerRequestListByTeam();
                                           joinedTeamListView = false;
                                         });
-                                      },
-                                        !joinedTeamListView, 'Requested Player')
-                                    : Container(),
-                              ],
-                            ),
+                                      }, !joinedTeamListView,
+                                          'Requested Player')
+                                    ],
+                                  )
+                                : Center(
+                                    child: primaryActionButtonKRed(() {
+                                      _myTeamService
+                                          .getPlayerJoinedListByTeam();
+
+                                      setState(() {
+                                        joinedTeamListView = true;
+                                      });
+                                    }, joinedTeamListView, 'Joined Player'),
+                                  ),
                           ),
                           SingleChildScrollView(
                             child: Container(

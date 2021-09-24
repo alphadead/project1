@@ -94,16 +94,11 @@ class _UpcomingMatchesPageState extends State<UpcomingMatchesPage> {
                                 top: Radius.circular(12.5.sp)),
                           ),
                           child: Container(
-                            width: 300.w,
-                            height: 170.h,
-                            //color: Colors.red,
                             child: Column(
                               children: [
                                 Container(
-                                  height: 140.h,
                                   padding: EdgeInsets.symmetric(vertical: 10.h),
                                   child: Column(
-                                    //mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
                                     children: [
@@ -137,12 +132,9 @@ class _UpcomingMatchesPageState extends State<UpcomingMatchesPage> {
                                             child: TeamInfoCircularCard(
                                               title: FirstmatchTeam?.teamName ??
                                                   "Team NA",
-                                              image:
-                                                  // _matchService
-                                                  //         .upcomingMatchesList![index]
-                                                  //         .matchTeams![0]
-                                                  //         .teamLogo ??
+                                              image: FirstmatchTeam?.teamLogo ??
                                                   'assets/images/placeholder_team_icon.png',
+                                              isAsset: FirstmatchTeam == null,
                                             ),
                                           ),
                                           Text(
@@ -169,12 +161,10 @@ class _UpcomingMatchesPageState extends State<UpcomingMatchesPage> {
                                               title:
                                                   SecondmatchTeam?.teamName ??
                                                       "Team NA",
-                                              image:
-                                                  //  _matchService
-                                                  //         .upcomingMatchesList![index]
-                                                  //         .matchTeams![1]
-                                                  //         .teamLogo ??
+                                              image: SecondmatchTeam
+                                                      ?.teamLogo ??
                                                   'assets/images/placeholder_team_icon.png',
+                                              isAsset: SecondmatchTeam == null,
                                             ),
                                           ),
                                         ],

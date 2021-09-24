@@ -90,4 +90,18 @@ class TeamListController extends GetxController {
     }
     update();
   }
+
+  Future<bool> cancelTeamRequestByMatch(teamId) async {
+    Utility.showLoadingDialog();
+
+    GenericResponse response =
+        await api.updateTeamRequestsByMatch(teamId, "Cancel");
+    if (response.success!) {
+      Utility.showSnackbar("${response.message}");
+      return true;
+    } else {
+      Utility.showSnackbar("${response.message}");
+      return false;
+    }
+  }
 }
