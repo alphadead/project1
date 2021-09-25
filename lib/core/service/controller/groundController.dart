@@ -9,6 +9,7 @@ import 'package:vamos/core/models/ground/groundProfileView.dart';
 import 'package:vamos/core/models/setup/teamSizesResponse.dart';
 import 'package:vamos/core/models/ground/updateGround.dart';
 import 'package:vamos/core/service/api/api.dart';
+import 'package:vamos/core/service/controller/addsController.dart';
 import 'package:vamos/core/service/controller/authController.dart';
 import 'package:vamos/core/service/controller/matchController.dart';
 import 'package:vamos/locator.dart';
@@ -209,7 +210,10 @@ class GroundController extends GetxController {
       Get.find<MatchController>().matchId = response.data?.id;
       update();
       Utility.closeDialog();
-      Get.toNamed("/createTeamForMatch", arguments: false);
+      if (Get.put(AddsController()).userType == "Ground")
+        Get.toNamed("/inviteTeamMatch");
+      else
+        Get.offNamed("/createTeamForMatch", arguments: false);
     } else {
       Utility.closeDialog();
       Utility.showSnackbar("${response.message}");

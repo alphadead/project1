@@ -30,6 +30,7 @@ class TeamListController extends GetxController {
       teamList = response.data!;
     } else {
       Utility.showSnackbar("${response.message}");
+      Utility.closeDialog();
     }
     update();
   }
@@ -60,9 +61,11 @@ class TeamListController extends GetxController {
     TeamRequestReceivedAsPlayerResponse response = await api.requestRecived();
     if (response.status == "Success") {
       teamRequestList = response.data!;
+      Utility.closeDialog();
       Utility.showSnackbar("${response.message}");
     } else {
       Utility.showSnackbar("${response.message}");
+      Utility.closeDialog();
     }
     update();
   }

@@ -211,7 +211,9 @@ class MatchController extends GetxController {
         matchId, teamId, playersMap.values.toList());
     if (response.success ?? false) {
       Utility.closeDialog();
-
+    print(matchId);
+      matchId = matchId;
+      update();
       Get.toNamed("/inviteTeamMatch");
     } else {
       Utility.showSnackbar("${response.message}");
