@@ -10,6 +10,7 @@ import 'package:vamos/core/models/match/updateMatchRequest.dart';
 import 'package:vamos/core/models/upcomingMatches.dart';
 import 'package:vamos/core/service/api/api.dart';
 import 'package:vamos/core/service/controller/myTeamController.dart';
+import 'package:vamos/core/service/controller/teamListingController.dart';
 import 'package:vamos/locator.dart';
 import 'package:vamos/ui/utils/utility.dart';
 
@@ -89,11 +90,13 @@ class MatchController extends GetxController {
     }
   }
 
-  void requestMatch(String teamId) async {
+  void requestMatch(int index, String teamId) async {
     Utility.showLoadingDialog();
     RequestMatch response = await api.requestMatch(teamId, matchId!);
     if (response.data != null) {
-      update();
+      Get.put(TeamListController()).teamList[index].status = 'pending';
+      Get.put(TeamListController()).teamList[index].requestId = response.data?.id;
+      Get.put(TeamListController()).update();
       Utility.closeDialog();
     } else {
       Utility.showSnackbar("${response.message}");

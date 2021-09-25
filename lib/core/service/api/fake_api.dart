@@ -267,4 +267,14 @@ class FakeApi extends Api {
   Future<PlayerListResponse> searchPlayerWithFilter(value, filters) {
     throw UnimplementedError();
   }
+
+  Future<CommentListModel> commentListPageModel(int offset, String userId) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<GenericResponse> updateTeamRequestsByMatch(int? id, String? status) {
+    // TODO: implement updateTeamRequestsByMatch
+    throw UnimplementedError();
+  }
 }

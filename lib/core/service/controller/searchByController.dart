@@ -92,7 +92,6 @@ class SearchByController extends GetxController {
       Get.find<PlayerListController>().playerList = response.data!;
       Get.find<PlayerListController>().playerListDisplay =
           Get.find<PlayerListController>().playerList;
-      print(playerList.length);
     } else {
       Utility.closeDialog();
       Utility.showSnackbar("${response.message}");

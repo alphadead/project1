@@ -117,9 +117,13 @@ abstract class Api {
       int teamId);
   Future<UpdateMatchRequestsByTeam> updateMatchRequestsByTeam(
       int? id, String? matchId, String? status);
+  Future<GenericResponse> updateTeamRequestsByMatch(
+      int? id, String? status);
   Future<GenericResponse> cancelPlayerRequest(teamId, userId);
   Future<GenericResponse> premiumPlayerRequest();
   Future<PlayerListResponse> searchPlayerlist(int isPremium);
   Future<MyTeamInfo> teamInfo(teamId);
   Future<PlayerListResponse> searchPlayerWithFilter(value, filters);
+
+  Future<CommentListModel> commentListPageModel(int offset, String userId);
 }

@@ -50,6 +50,7 @@ class TeamData {
     this.createdAt,
     this.updatedAt,
     this.isJoined,
+    this.requestId
   });
 
   int? id;
@@ -60,6 +61,7 @@ class TeamData {
   String? createdAt;
   String? updatedAt;
   bool? isJoined = false;
+  int? requestId;
 
   factory TeamData.fromJson(Map<String, dynamic> json) => TeamData(
       id: json["id"],
@@ -69,6 +71,7 @@ class TeamData {
       logo: json["logo"],
       createdAt: json["created_at"],
       updatedAt: json["updated_at"],
+      requestId: json["request_id"],
       isJoined: json["isJoined"] == null ? false : true);
 
   Map<String, dynamic> toJson() => {
@@ -79,5 +82,6 @@ class TeamData {
         "logo": logo,
         "created_at": createdAt,
         "updated_at": updatedAt,
+        "request_id": requestId,
       };
 }
