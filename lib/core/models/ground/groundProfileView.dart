@@ -4,7 +4,7 @@
 
 import 'dart:convert';
 
-import 'package:vamos/core/models/updateGround.dart';
+import 'package:vamos/core/models/ground/updateGround.dart';
 
 GroundProfileViewResponse GroundProfileViewResponseFromJson(String str) =>
     GroundProfileViewResponse.fromJson(json.decode(str));
