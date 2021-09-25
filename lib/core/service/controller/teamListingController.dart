@@ -2,10 +2,10 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vamos/core/models/acceptRejectResponse.dart';
 import 'package:vamos/core/models/genericResponse.dart';
-import 'package:vamos/core/models/joinTeam.dart';
-import 'package:vamos/core/models/joinedTeamListResponse.dart';
-import 'package:vamos/core/models/teamListingResponse.dart';
-import 'package:vamos/core/models/teamRequestReceviedAsPlayerResponse.dart';
+import 'package:vamos/core/models/team/joinTeam.dart';
+import 'package:vamos/core/models/team/joinedTeamListResponse.dart';
+import 'package:vamos/core/models/team/teamListingResponse.dart';
+import 'package:vamos/core/models/team/teamRequestReceviedAsPlayerResponse.dart';
 import 'package:vamos/core/service/api/api.dart';
 import 'package:vamos/ui/utils/utility.dart';
 

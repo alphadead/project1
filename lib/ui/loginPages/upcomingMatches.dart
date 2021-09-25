@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:vamos/core/models/upcomingMatches.dart';
-import 'package:vamos/core/service/controller/authController.dart';
+import 'package:vamos/core/models/match/upcomingMatches.dart';
 import 'package:vamos/core/service/controller/matchController.dart';
 import 'package:vamos/core/service/controller/myTeamController.dart';
 import 'package:vamos/ui/utils/color.dart';
@@ -11,7 +10,6 @@ import 'package:vamos/ui/utils/theme.dart';
 import 'package:vamos/widget/formWidgets/buttons.dart';
 import 'package:vamos/widget/customAppBar.dart';
 import 'package:vamos/widget/customBottomNavBar.dart';
-import 'package:vamos/widget/matchInfoCard.dart';
 import 'package:vamos/widget/profileContainer.dart';
 import 'package:vamos/widget/teamWidgets/teamInfoCircularCard.dart';
 

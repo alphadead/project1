@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:vamos/core/models/myTeamInfo.dart';
+import 'package:vamos/core/models/team/myTeamInfo.dart';
 import 'package:vamos/core/models/playerRequestResponse.dart';
 import 'package:vamos/core/service/api/api.dart';
 import 'package:vamos/locator.dart';

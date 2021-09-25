@@ -10,18 +10,18 @@ import 'package:vamos/core/models/match/createMatch.dart';
 import 'package:vamos/core/models/createTeamResponse.dart';
 import 'package:vamos/core/models/deleteMedia.dart';
 import 'package:vamos/core/models/genericResponse.dart';
-import 'package:vamos/core/models/groundAvailability.dart';
-import 'package:vamos/core/models/groundList.dart';
-import 'package:vamos/core/models/groundProfileView.dart';
-import 'package:vamos/core/models/joinTeam.dart';
-import 'package:vamos/core/models/joinedTeamListResponse.dart';
+import 'package:vamos/core/models/ground/groundAvailability.dart';
+import 'package:vamos/core/models/ground/groundList.dart';
+import 'package:vamos/core/models/ground/groundProfileView.dart';
+import 'package:vamos/core/models/team/joinTeam.dart';
+import 'package:vamos/core/models/team/joinedTeamListResponse.dart';
 import 'package:vamos/core/models/loginResponse.dart';
 import 'package:vamos/core/models/match/matchListResponse.dart';
 import 'package:vamos/core/models/match/matchRequest.dart';
 import 'package:vamos/core/models/match/matchRequestRecvdByTeam.dart';
 import 'package:vamos/core/models/match/teamRequestSentByMatch.dart';
 import 'package:vamos/core/models/match/updateMatchRequest.dart';
-import 'package:vamos/core/models/myTeamInfo.dart';
+import 'package:vamos/core/models/team/myTeamInfo.dart';
 import 'package:vamos/core/models/playerListResponse.dart';
 import 'package:vamos/core/models/playerPosition.dart';
 import 'package:vamos/core/models/playerRequestResponse.dart';
@@ -31,11 +31,11 @@ import 'package:vamos/core/models/referalEarning.dart';
 import 'package:vamos/core/models/registerResponse.dart';
 import 'package:vamos/core/models/setup/playerPositionsResponse.dart';
 import 'package:vamos/core/models/setup/teamSizesResponse.dart';
-import 'package:vamos/core/models/teamListingResponse.dart';
-import 'package:vamos/core/models/teamRequestReceviedAsPlayerResponse.dart';
-import 'package:vamos/core/models/teamSize.dart';
-import 'package:vamos/core/models/upcomingMatches.dart';
-import 'package:vamos/core/models/updateGround.dart';
+import 'package:vamos/core/models/team/teamListingResponse.dart';
+import 'package:vamos/core/models/team/teamRequestReceviedAsPlayerResponse.dart';
+import 'package:vamos/core/models/team/teamSize.dart';
+import 'package:vamos/core/models/match/upcomingMatches.dart';
+import 'package:vamos/core/models/ground/updateGround.dart';
 import 'package:vamos/core/models/verifyOtpResponse.dart';
 
 abstract class Api {
@@ -118,7 +118,7 @@ abstract class Api {
   Future<MatchRequestReceivedByTeamResponse> getIncomingMatchRequests(
       int teamId);
   Future<UpdateMatchRequestsByTeam> updateMatchRequestsByTeam(
-      int? id, String? matchId, String? status);
+      int? id, String? matchId, String? status, List? players);
   Future<GenericResponse> updateTeamRequestsByMatch(int? id, String? status);
   Future<GenericResponse> cancelPlayerRequest(teamId, userId);
   Future<GenericResponse> premiumPlayerRequest();
@@ -127,4 +127,6 @@ abstract class Api {
   Future<PlayerListResponse> searchPlayerWithFilter(value, filters);
   Future<TeamSizesResponse> getTeamSize();
   Future<PlayerPositionsResponse> getPlayerPosition();
+  Future<GenericResponse> selectMatchPlayers(matchId, teamId, players);
+
 }
