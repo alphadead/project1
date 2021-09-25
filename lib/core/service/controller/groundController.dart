@@ -3,13 +3,11 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vamos/core/models/match/createMatch.dart';
-import 'package:vamos/core/models/groundList.dart';
-import 'package:vamos/core/models/groundAvailability.dart';
-import 'package:vamos/core/models/groundProfileView.dart';
-import 'package:vamos/core/models/playerRequestResponse.dart';
-import 'package:vamos/core/models/setup/playerPositionsResponse.dart';
+import 'package:vamos/core/models/ground/groundList.dart';
+import 'package:vamos/core/models/ground/groundAvailability.dart';
+import 'package:vamos/core/models/ground/groundProfileView.dart';
 import 'package:vamos/core/models/setup/teamSizesResponse.dart';
-import 'package:vamos/core/models/updateGround.dart';
+import 'package:vamos/core/models/ground/updateGround.dart';
 import 'package:vamos/core/service/api/api.dart';
 import 'package:vamos/core/service/controller/authController.dart';
 import 'package:vamos/core/service/controller/matchController.dart';
@@ -44,11 +42,7 @@ class GroundController extends GetxController {
   Grounds? selectedGround;
   Grounds? customGround;
   late Map<String, dynamic> teamSize;
-  late List<dynamic> playerPosition;
-  late List<PlayerData> playerJoinedList;
-
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
   String get eventDetails => _eventDetails;
   set eventDetails(String value) {
     _eventDetails = value;
@@ -188,10 +182,10 @@ class GroundController extends GetxController {
     CreateMatch response = await api.createMatch(
       prefs.getString("userId")!,
       matchName ?? '',
-      customGround?.id,
+      isCustom ? customGround?.id : selectedGround?.id,
       isCustom ? customGroundName : selectedGround?.name,
       isCustom ? customGroundlocation : selectedGround?.location,
-      bookingFee,
+      isCustom ? bookingFee : selectedGround?.bookingFee,
       bookingDate,
       isCustom
           ? [
@@ -208,15 +202,14 @@ class GroundController extends GetxController {
               }
             ],
       '',
-      // team size
-      '6',
+      Get.put(MatchController()).matchTeamSize,
     );
 
     if (response.data != null) {
       Get.find<MatchController>().matchId = response.data?.id;
       update();
       Utility.closeDialog();
-      Get.toNamed("/inviteTeamMatch");
+      Get.toNamed("/createTeamForMatch", arguments: false);
     } else {
       Utility.closeDialog();
       Utility.showSnackbar("${response.message}");
@@ -321,49 +314,10 @@ class GroundController extends GetxController {
         ));
       }
       Utility.closeDialog();
-      print("+++++++++++++++++++");
-      print(teamSize);
       update();
     } else {
       Utility.closeDialog();
       Utility.showSnackbar(response.message!);
     }
-  }
-
-  void getPlayerPosition() async {
-    Utility.showLoadingDialog();
-    PlayerPositionsResponse response = await api.getPlayerPosition();
-    if (response.success!) {
-      playerPosition = response.data!;
-
-      Utility.closeDialog();
-      print("+++++++++++++++++++");
-      print(playerPosition);
-      update();
-    } else {
-      Utility.closeDialog();
-      Utility.showSnackbar(response.message!);
-    }
-  }
-
-  void getPlayerJoinedListByTeam({int? teamJoinedId}) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    int? teamId = teamJoinedId != null
-        ? teamJoinedId
-        : prefs.getString("team_id") == null
-            ? null
-            : int.parse(prefs.getString("team_id").toString());
-    Utility.showLoadingDialog();
-    PlayerRequestResponse response =
-        await api.getPlayerJoinedListByTeam(teamId);
-    if (response.data != null) {
-      Utility.closeDialog();
-
-      playerJoinedList = response.data!;
-    } else {
-      Utility.showSnackbar("${response.message}");
-    }
-    update();
   }
 }

@@ -4,7 +4,6 @@ import 'package:vamos/ui/utils/color.dart';
 
 abstract class Utility {
   static void showLoadingDialog() {
-    closeDialog();
     Get.dialog<void>(
       Container(
           // width: double.infinity,

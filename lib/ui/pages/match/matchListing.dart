@@ -104,6 +104,7 @@ class _MatchListingState extends State<MatchListing> {
                             groundName: match!.groundName ?? "no data",
                             groundLocation: match.groundLocation ?? "no data",
                             bookingFee: match.bookingFee ?? "no data",
+                            status: match.status ?? "no data",
                             onAccept: () {
                               Get.put(MatchController())
                                   .getTeamRequestsByMatch(match.id);
@@ -196,7 +197,7 @@ class _MatchListingState extends State<MatchListing> {
     );
   }
 
-  Widget incomingRequests(matchService) {
+  Widget incomingRequests(MatchController matchService) {
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -215,17 +216,16 @@ class _MatchListingState extends State<MatchListing> {
                       groundName: match!.groundName ?? "no data",
                       groundLocation: match.groundLocation ?? "no data",
                       bookingFee: match.bookingFee ?? "no data",
+                      status: match.status ?? "no data",
                       onAccept: () {
-                        matchService.updateRequest(
-                            context, match.id, match.matchId, "Accept");
-                        matchService.matchRequests?.removeAt(index);
+                        matchService.matchId = int.parse(match.matchId!);
+                        matchService.requestId = match.id;
                         matchService.update();
+                        Get.back();
+                        Get.toNamed("/createTeamForMatch", arguments: true);
                       },
                       onReject: () {
-                        matchService.updateRequest(
-                            context, match.id, match.matchId, "Accept");
-                        matchService.matchRequests?.removeAt(index);
-                        matchService.update();
+                        matchService.updateRequest(match.id, match.matchId, "Reject");
                       },
                       acceptText: "Accept",
                       rejectText: "Reject");

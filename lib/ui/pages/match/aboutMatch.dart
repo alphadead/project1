@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vamos/core/service/controller/groundController.dart';
+import 'package:vamos/core/service/controller/matchController.dart';
 import 'package:vamos/core/service/controller/myTeamController.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -162,7 +163,8 @@ class _AboutMatchState extends State<AboutMatch> {
                                         style: TextStyle(color: KLightGrey),
                                       ),
                                       onChanged: (String? newValue) {
-                                        print(newValue);
+                                        Get.put(MatchController())
+                                            .matchTeamSize = newValue;
                                       },
                                       items: _groundService.menuItems,
                                     ),
@@ -208,19 +210,6 @@ class _AboutMatchState extends State<AboutMatch> {
                                           ),
                                         )
                                       : Container(),
-
-                                  /* this is for testing purpose , CreateTeam for match screen is not intergrated with create match scree so 
-                                  for the navigation to that screen i used this.
-                              */
-                                  GestureDetector(
-                                    onTap: () {
-                                      Get.toNamed("/createTeamForMatch");
-                                    },
-                                    child: Container(
-                                      child: Text(
-                                          "Click me to create Team for Match"),
-                                    ),
-                                  ),
                                   Container(
                                     margin:
                                         EdgeInsets.only(bottom: 5.h, top: 15.h),

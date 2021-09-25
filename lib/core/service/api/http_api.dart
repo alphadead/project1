@@ -11,18 +11,18 @@ import 'package:vamos/core/models/match/createMatch.dart';
 import 'package:vamos/core/models/createTeamResponse.dart';
 import 'package:vamos/core/models/deleteMedia.dart';
 import 'package:vamos/core/models/genericResponse.dart';
-import 'package:vamos/core/models/groundAvailability.dart';
-import 'package:vamos/core/models/groundList.dart';
-import 'package:vamos/core/models/groundProfileView.dart';
-import 'package:vamos/core/models/joinTeam.dart';
-import 'package:vamos/core/models/joinedTeamListResponse.dart';
+import 'package:vamos/core/models/ground/groundAvailability.dart';
+import 'package:vamos/core/models/ground/groundList.dart';
+import 'package:vamos/core/models/ground/groundProfileView.dart';
+import 'package:vamos/core/models/team/joinTeam.dart';
+import 'package:vamos/core/models/team/joinedTeamListResponse.dart';
 import 'package:vamos/core/models/loginResponse.dart';
 import 'package:vamos/core/models/match/matchListResponse.dart';
 import 'package:vamos/core/models/match/matchRequest.dart';
 import 'package:vamos/core/models/match/matchRequestRecvdByTeam.dart';
 import 'package:vamos/core/models/match/teamRequestSentByMatch.dart';
 import 'package:vamos/core/models/match/updateMatchRequest.dart';
-import 'package:vamos/core/models/myTeamInfo.dart';
+import 'package:vamos/core/models/team/myTeamInfo.dart';
 import 'package:vamos/core/models/playerListResponse.dart';
 import 'package:vamos/core/models/playerPosition.dart';
 import 'package:vamos/core/models/playerRequestResponse.dart';
@@ -32,11 +32,11 @@ import 'package:vamos/core/models/referalEarning.dart';
 import 'package:vamos/core/models/registerResponse.dart';
 import 'package:vamos/core/models/setup/playerPositionsResponse.dart';
 import 'package:vamos/core/models/setup/teamSizesResponse.dart';
-import 'package:vamos/core/models/teamListingResponse.dart';
-import 'package:vamos/core/models/teamRequestReceviedAsPlayerResponse.dart';
-import 'package:vamos/core/models/teamSize.dart';
-import 'package:vamos/core/models/upcomingMatches.dart';
-import 'package:vamos/core/models/updateGround.dart';
+import 'package:vamos/core/models/team/teamListingResponse.dart';
+import 'package:vamos/core/models/team/teamRequestReceviedAsPlayerResponse.dart';
+import 'package:vamos/core/models/team/teamSize.dart';
+import 'package:vamos/core/models/match/upcomingMatches.dart';
+import 'package:vamos/core/models/ground/updateGround.dart';
 import 'package:vamos/core/models/verifyOtpResponse.dart';
 import 'package:vamos/core/service/api/api.dart';
 import 'package:vamos/core/service/api/request.dart';
@@ -131,7 +131,8 @@ class HTTPApi extends Api {
       "booking_date": bookingDate,
       "ground_id": groundId,
       "booking_slot_time": bookingSlotTime,
-      "booking_time_slots": bookingTimeslots
+      "booking_time_slots": bookingTimeslots,
+      "team_size": teamSize
     };
     Map<String, dynamic> response = await postRequest("match/store", body);
     return CreateMatch.fromJson(response);
@@ -351,11 +352,12 @@ class HTTPApi extends Api {
 
   @override
   Future<UpdateMatchRequestsByTeam> updateMatchRequestsByTeam(
-      int? id, String? matchId, String? status) async {
+      int? id, String? matchId, String? status, List? players) async {
     Map<String, dynamic> body = {
       "id": id,
       "match_id": matchId,
-      "status": status
+      "status": status,
+      "players": players
     };
 
     Map<String, dynamic> response =
@@ -411,5 +413,17 @@ class HTTPApi extends Api {
   Future<PlayerPositionsResponse> getPlayerPosition() async {
     Map<String, dynamic> response = await getRequest('player-positions');
     return PlayerPositionsResponse.fromJson(response);
+  }
+
+  @override
+  Future<GenericResponse> selectMatchPlayers(matchId, teamId, players) async {
+    Map<String, dynamic> body = {
+      "match_id": matchId,
+      "team_id": teamId,
+      "players": players,
+    };
+    Map<String, dynamic> response =
+        await postRequest("match/store-players", body);
+    return GenericResponse.fromJson(response);
   }
 }
