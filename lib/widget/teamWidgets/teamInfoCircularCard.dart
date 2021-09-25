@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vamos/ui/utils/color.dart';
@@ -7,7 +8,8 @@ class TeamInfoCircularCard extends StatelessWidget {
   final String? title;
   final String? image;
   final bool isAsset;
-  const TeamInfoCircularCard({Key? key, this.image, this.title, this.isAsset = true})
+  const TeamInfoCircularCard(
+      {Key? key, this.image, this.title, this.isAsset = true})
       : super(key: key);
 
   @override
@@ -21,7 +23,13 @@ class TeamInfoCircularCard extends StatelessWidget {
           child: Container(
             height: 50,
             width: 50,
-            child: isAsset? Image.asset(image.toString()): Image.network(image.toString()),
+            child: isAsset
+                ? Image.asset(image.toString())
+                : ClipRRect(
+                    borderRadius: BorderRadius.circular(25.sp),
+                    child: CachedNetworkImage(
+                      imageUrl: image.toString(),
+                    )),
           ),
         ),
         Text(

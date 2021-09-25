@@ -292,7 +292,7 @@ class HTTPApi extends Api {
 
   Future<UpcomingMatches> upcomingMatches(String? date) async {
     Map<String, dynamic> response =
-        await getRequest('match-list?offset=0&date=$date');
+        await getRequest('match-list?offset=0');
     return UpcomingMatches.fromJson(response);
   }
 
