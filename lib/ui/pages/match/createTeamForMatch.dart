@@ -177,13 +177,21 @@ class _CreateTeamForMatchState extends State<CreateTeamForMatch> {
                 ),
               ),
             ),
-            primaryActionButton(
-                context: context,
-                onPressed: () {
-                  _matchService.selectMatchPlayers(
-                      incomingRequest: incomingRequest);
-                },
-                text: "Invite Teams"),
+            incomingRequest
+                ? primaryActionButton(
+                    context: context,
+                    onPressed: () {
+                      _matchService.selectMatchPlayers(
+                          incomingRequest: incomingRequest);
+                    },
+                    text: "Accept")
+                : primaryActionButton(
+                    context: context,
+                    onPressed: () {
+                      _matchService.selectMatchPlayers(
+                          incomingRequest: incomingRequest);
+                    },
+                    text: "Invite Teams"),
             SizedBox(
               height: 50.h,
             )
