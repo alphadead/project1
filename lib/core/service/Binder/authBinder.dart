@@ -24,7 +24,7 @@ class AllBinder extends Bindings {
     Get.lazyPut<InviteController>(() => InviteController());
     Get.lazyPut<ProfileController>(() => ProfileController());
     Get.lazyPut<GroundController>(() => GroundController());
-    Get.put<MatchController>(MatchController());
+    Get.put<MatchController>(MatchController(), permanent: true);
     Get.lazyPut<SearchByController>(() => SearchByController());
     Get.lazyPut<OtherPlayerInfoController>(() => OtherPlayerInfoController());
     Get.lazyPut<CommentController>(() => CommentController());

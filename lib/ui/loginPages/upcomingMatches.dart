@@ -83,150 +83,141 @@ class _UpcomingMatchesPageState extends State<UpcomingMatchesPage> {
                             ? _matchService
                                 .upcomingMatchesList![index].matchTeams![1]
                             : null;
-                        return GestureDetector(
-                          onTap: () {
-                            print(_matchService
-                                    .upcomingMatchesList?[index]);
-                            Get.toNamed('/matchDetails',
-                                arguments: _matchService
-                                    .upcomingMatchesList?[index]);
-                          },
-                          child: Card(
-                            margin: EdgeInsets.only(bottom: 30.h),
-                            elevation: 8,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.vertical(
-                                  bottom: Radius.circular(0),
-                                  top: Radius.circular(12.5.sp)),
-                            ),
-                            child: Container(
-                              child: Column(
-                                children: [
-                                  Container(
-                                    padding:
-                                        EdgeInsets.symmetric(vertical: 10.h),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        Text(
-                                          _matchService
-                                                  .upcomingMatchesList![index]
-                                                  .name ??
-                                              '',
-                                          style: themeData()
-                                              .textTheme
-                                              .headline4!
-                                              .copyWith(
-                                                fontSize: 16.sp,
-                                                color: Colors.black,
-                                              ),
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            GestureDetector(
-                                              onTap: () {
-                                                if (FirstmatchTeam?.teamId !=
-                                                    null)
-                                                  Get.put(MyTeamController())
-                                                      .getParticularTeamDetails(
-                                                          int.parse(
-                                                              FirstmatchTeam
-                                                                      ?.teamId ??
-                                                                  ""));
-                                              },
-                                              child: TeamInfoCircularCard(
-                                                title:
-                                                    FirstmatchTeam?.teamName ??
-                                                        "Team NA",
-                                                image: FirstmatchTeam
-                                                        ?.teamLogo ??
-                                                    'assets/images/placeholder_team_icon.png',
-                                                isAsset: FirstmatchTeam == null,
-                                              ),
-                                            ),
-                                            Text(
-                                              "Vs",
-                                              style: themeData()
-                                                  .textTheme
-                                                  .headline4!
-                                                  .copyWith(
-                                                    fontSize: 18.1.sp,
-                                                    color: Colors.black,
-                                                  ),
-                                            ),
-                                            GestureDetector(
-                                              onTap: () {
-                                                if (SecondmatchTeam?.teamId !=
-                                                    null)
-                                                  Get.put(MyTeamController())
-                                                      .getParticularTeamDetails(
-                                                          int.parse(
-                                                              SecondmatchTeam
-                                                                      ?.teamId ??
-                                                                  ""));
-                                              },
-                                              child: TeamInfoCircularCard(
-                                                title:
-                                                    SecondmatchTeam?.teamName ??
-                                                        "Team NA",
-                                                image: SecondmatchTeam
-                                                        ?.teamLogo ??
-                                                    'assets/images/placeholder_team_icon.png',
-                                                isAsset:
-                                                    SecondmatchTeam == null,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Container(
-                                          width: 170.w,
-                                          child: Text(
-                                            "Tournament live Streaming " +
-                                                (_matchService
-                                                        .upcomingMatchesList![
-                                                            index]
-                                                        .groundName ??
-                                                    '') +
-                                                ', ' +
-                                                (_matchService
-                                                        .upcomingMatchesList![
-                                                            index]
-                                                        .groundLocation ??
-                                                    ''),
-                                            textAlign: TextAlign.center,
-                                            style: themeData()
-                                                .textTheme
-                                                .headline1!
-                                                .copyWith(
-                                                    color:
-                                                        KGreyTextUpcomingmatches,
-                                                    fontSize: 10.sp,
-                                                    fontWeight:
-                                                        FontWeight.w400),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    height: 30.h,
-                                    width: 300.w,
-                                    color: KBlueContainerUpcomingmatches,
-                                    child: Center(
-                                      child: Text(
-                                        "Tap on the team for more information of team",
+                        return Card(
+                          margin: EdgeInsets.only(bottom: 30.h),
+                          elevation: 8,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.vertical(
+                                bottom: Radius.circular(0),
+                                top: Radius.circular(12.5.sp)),
+                          ),
+                          child: Container(
+                            child: Column(
+                              children: [
+                                Container(
+                                  padding:
+                                      EdgeInsets.symmetric(vertical: 10.h),
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Text(
+                                        _matchService
+                                                .upcomingMatchesList![index]
+                                                .name ??
+                                            '',
                                         style: themeData()
                                             .textTheme
-                                            .headline3!
-                                            .copyWith(fontSize: 10.5.sp),
+                                            .headline4!
+                                            .copyWith(
+                                              fontSize: 16.sp,
+                                              color: Colors.black,
+                                            ),
                                       ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          GestureDetector(
+                                            onTap: () {
+                                              if (FirstmatchTeam?.teamId !=
+                                                  null)
+                                                Get.put(MyTeamController())
+                                                    .getParticularTeamDetails(
+                                                        int.parse(
+                                                            FirstmatchTeam
+                                                                    ?.teamId ??
+                                                                ""));
+                                            },
+                                            child: TeamInfoCircularCard(
+                                              title:
+                                                  FirstmatchTeam?.teamName ??
+                                                      "Team NA",
+                                              image: FirstmatchTeam
+                                                      ?.teamLogo ??
+                                                  'assets/images/placeholder_team_icon.png',
+                                              isAsset: FirstmatchTeam == null,
+                                            ),
+                                          ),
+                                          Text(
+                                            "Vs",
+                                            style: themeData()
+                                                .textTheme
+                                                .headline4!
+                                                .copyWith(
+                                                  fontSize: 18.1.sp,
+                                                  color: Colors.black,
+                                                ),
+                                          ),
+                                          GestureDetector(
+                                            onTap: () {
+                                              if (SecondmatchTeam?.teamId !=
+                                                  null)
+                                                Get.put(MyTeamController())
+                                                    .getParticularTeamDetails(
+                                                        int.parse(
+                                                            SecondmatchTeam
+                                                                    ?.teamId ??
+                                                                ""));
+                                            },
+                                            child: TeamInfoCircularCard(
+                                              title:
+                                                  SecondmatchTeam?.teamName ??
+                                                      "Team NA",
+                                              image: SecondmatchTeam
+                                                      ?.teamLogo ??
+                                                  'assets/images/placeholder_team_icon.png',
+                                              isAsset:
+                                                  SecondmatchTeam == null,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Container(
+                                        width: 170.w,
+                                        child: Text(
+                                          "Tournament live Streaming " +
+                                              (_matchService
+                                                      .upcomingMatchesList![
+                                                          index]
+                                                      .groundName ??
+                                                  '') +
+                                              ', ' +
+                                              (_matchService
+                                                      .upcomingMatchesList![
+                                                          index]
+                                                      .groundLocation ??
+                                                  ''),
+                                          textAlign: TextAlign.center,
+                                          style: themeData()
+                                              .textTheme
+                                              .headline1!
+                                              .copyWith(
+                                                  color:
+                                                      KGreyTextUpcomingmatches,
+                                                  fontSize: 10.sp,
+                                                  fontWeight:
+                                                      FontWeight.w400),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  height: 30.h,
+                                  width: 300.w,
+                                  color: KBlueContainerUpcomingmatches,
+                                  child: Center(
+                                    child: Text(
+                                      "Tap on the team for more information of team",
+                                      style: themeData()
+                                          .textTheme
+                                          .headline3!
+                                          .copyWith(fontSize: 10.5.sp),
                                     ),
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
                         );

@@ -102,7 +102,7 @@ class _CreateTeamForMatchState extends State<CreateTeamForMatch> {
                               (index) {
                                 return DropdownMenuItem<String>(
                                   value: _matchService
-                                      .playerJoinedList?[index].id
+                                      .playerJoinedList?[index].userID
                                       .toString(),
                                   child: Text(
                                     (_matchService.playerJoinedList?[index]

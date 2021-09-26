@@ -16,7 +16,6 @@ import 'package:vamos/ui/pages/inviteScreen.dart';
 import 'package:vamos/ui/pages/match/createTeamForMatch.dart';
 import 'package:vamos/ui/pages/match/inviteTeamMatch.dart';
 import 'package:vamos/ui/pages/joinedTeamListing.dart';
-import 'package:vamos/ui/pages/match/matchDetails.dart';
 import 'package:vamos/ui/pages/match/matchListing.dart';
 import 'package:vamos/ui/pages/match/outgoingRequestListByMatch.dart';
 import 'package:vamos/ui/pages/myTeam.dart';
@@ -243,13 +242,6 @@ abstract class AppPages {
       name: '/createTeamForMatch',
       transitionDuration: transitionDuration,
       page: () => CreateTeamForMatch(),
-      transition: Transition.downToUp,
-      binding: AllBinder(),
-    ),
-    GetPage(
-      name: '/matchDetails',
-      transitionDuration: transitionDuration,
-      page: () => MatchDetails(),
       transition: Transition.downToUp,
       binding: AllBinder(),
     )
