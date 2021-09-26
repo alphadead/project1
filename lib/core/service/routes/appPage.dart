@@ -24,6 +24,7 @@ import 'package:vamos/ui/pages/playerListingScreen.dart';
 import 'package:vamos/ui/pages/searchBy.dart';
 import 'package:vamos/ui/pages/profileInformation/otherPlayerProfile.dart';
 import 'package:vamos/ui/pages/settings.dart';
+import 'package:vamos/ui/pages/team/teamForParticularMatch.dart';
 import 'package:vamos/ui/pages/teamListScreen.dart';
 import 'package:vamos/ui/pages/viewGround.dart';
 
@@ -242,6 +243,13 @@ abstract class AppPages {
       name: '/createTeamForMatch',
       transitionDuration: transitionDuration,
       page: () => CreateTeamForMatch(),
+      transition: Transition.downToUp,
+      binding: AllBinder(),
+    ),
+    GetPage(
+      name: '/teamForParticularMatch',
+      transitionDuration: transitionDuration,
+      page: () => TeamForParticularMatch(),
       transition: Transition.downToUp,
       binding: AllBinder(),
     )

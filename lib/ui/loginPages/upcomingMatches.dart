@@ -95,8 +95,7 @@ class _UpcomingMatchesPageState extends State<UpcomingMatchesPage> {
                             child: Column(
                               children: [
                                 Container(
-                                  padding:
-                                      EdgeInsets.symmetric(vertical: 10.h),
+                                  padding: EdgeInsets.symmetric(vertical: 10.h),
                                   child: Column(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
@@ -120,21 +119,22 @@ class _UpcomingMatchesPageState extends State<UpcomingMatchesPage> {
                                         children: [
                                           GestureDetector(
                                             onTap: () {
-                                              if (FirstmatchTeam?.teamId !=
-                                                  null)
-                                                Get.put(MyTeamController())
-                                                    .getParticularTeamDetails(
-                                                        int.parse(
-                                                            FirstmatchTeam
-                                                                    ?.teamId ??
-                                                                ""));
+                                              Get.toNamed(
+                                                  '/teamForParticularMatch',
+                                                  arguments: [
+                                                    _matchService
+                                                        .upcomingMatchesList![
+                                                            index]
+                                                        .teamSize,
+                                                    FirstmatchTeam?.teamName,
+                                                    FirstmatchTeam?.teamLogo,
+                                                    FirstmatchTeam?.teamPlayers
+                                                  ]);
                                             },
                                             child: TeamInfoCircularCard(
-                                              title:
-                                                  FirstmatchTeam?.teamName ??
-                                                      "Team NA",
-                                              image: FirstmatchTeam
-                                                      ?.teamLogo ??
+                                              title: FirstmatchTeam?.teamName ??
+                                                  "Team NA",
+                                              image: FirstmatchTeam?.teamLogo ??
                                                   'assets/images/placeholder_team_icon.png',
                                               isAsset: FirstmatchTeam == null,
                                             ),
@@ -167,8 +167,7 @@ class _UpcomingMatchesPageState extends State<UpcomingMatchesPage> {
                                               image: SecondmatchTeam
                                                       ?.teamLogo ??
                                                   'assets/images/placeholder_team_icon.png',
-                                              isAsset:
-                                                  SecondmatchTeam == null,
+                                              isAsset: SecondmatchTeam == null,
                                             ),
                                           ),
                                         ],
@@ -196,8 +195,7 @@ class _UpcomingMatchesPageState extends State<UpcomingMatchesPage> {
                                                   color:
                                                       KGreyTextUpcomingmatches,
                                                   fontSize: 10.sp,
-                                                  fontWeight:
-                                                      FontWeight.w400),
+                                                  fontWeight: FontWeight.w400),
                                         ),
                                       )
                                     ],
