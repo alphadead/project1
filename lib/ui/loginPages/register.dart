@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:vamos/core/service/controller/authController.dart';
-import 'package:vamos/ui/loginPages/setPass.dart';
-import 'package:vamos/ui/loginPages/signUp.dart';
 import 'package:vamos/widget/formWidgets/inputField.dart';
 import 'package:vamos/widget/localeFloatingActionButtonDebug.dart';
-import 'package:vamos/widget/loginWidgets/loginpageStack.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vamos/ui/utils/loginbkground.dart';
 import 'package:vamos/ui/utils/validator.dart';
-import 'package:vamos/widget/formWidgets/inputField.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 enum typeenum { player, ground }
@@ -108,7 +103,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             if (ValidateFeild().isValidateName(arg)) {
                               return null;
                             } else {
-                              return "Fill with characters";
+                              return AppLocalizations.of(context)!.validation_required;
                             }
                           }, keyType: TextInputType.name),
                         ),
@@ -123,7 +118,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             if (ValidateFeild().isValidateName(arg)) {
                               return null;
                             } else {
-                              return "Fill with characters";
+                              return AppLocalizations.of(context)!.validation_required;
                             }
                           }, keyType: TextInputType.name),
                         ),
@@ -138,7 +133,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             if (ValidateFeild().isValidateName(arg)) {
                               return null;
                             } else {
-                              return "Fill with characters";
+                              return AppLocalizations.of(context)!.validation_required;
                             }
                           }, keyType: TextInputType.name),
                         ),
@@ -153,7 +148,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             if (ValidateFeild().isEmailValid(arg)) {
                               return null;
                             } else {
-                              return "Enter valid email";
+                              return AppLocalizations.of(context)!.validation_email;
                             }
                           }, keyType: TextInputType.emailAddress),
                         ),
@@ -168,7 +163,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             if (ValidateFeild().isValidatePhone(arg)) {
                               return null;
                             } else {
-                              return "Enter valid phone number";
+                              return AppLocalizations.of(context)!.validation_phone;
                             }
                           }, keyType: TextInputType.phone),
                         ),
@@ -183,7 +178,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               if (ValidateFeild().isValidatePassword(arg)) {
                                 return null;
                               } else {
-                                return "Password must be more than 6 characters";
+                                return AppLocalizations.of(context)!.validation_phone;
                               }
                             }, keyType: TextInputType.name)),
                         Padding(

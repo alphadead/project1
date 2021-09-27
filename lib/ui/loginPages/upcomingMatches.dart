@@ -12,6 +12,7 @@ import 'package:vamos/widget/customAppBar.dart';
 import 'package:vamos/widget/customBottomNavBar.dart';
 import 'package:vamos/widget/profileContainer.dart';
 import 'package:vamos/widget/teamWidgets/teamInfoCircularCard.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class UpcomingMatchesPage extends StatefulWidget {
   const UpcomingMatchesPage({Key? key}) : super(key: key);
@@ -175,8 +176,7 @@ class _UpcomingMatchesPageState extends State<UpcomingMatchesPage> {
                                       Container(
                                         width: 170.w,
                                         child: Text(
-                                          "Tournament live Streaming " +
-                                              (_matchService
+                                          (_matchService
                                                       .upcomingMatchesList![
                                                           index]
                                                       .groundName ??
@@ -207,7 +207,7 @@ class _UpcomingMatchesPageState extends State<UpcomingMatchesPage> {
                                   color: KBlueContainerUpcomingmatches,
                                   child: Center(
                                     child: Text(
-                                      "Tap on the team for more information of team",
+                                      AppLocalizations.of(context)!.tap_for_info,
                                       style: themeData()
                                           .textTheme
                                           .headline3!

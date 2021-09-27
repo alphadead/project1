@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:vamos/core/service/controller/authController.dart';
-import 'package:vamos/ui/loginPages/profile.dart';
-import 'package:vamos/ui/loginPages/signUp.dart';
-import 'package:vamos/ui/utils/color.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vamos/ui/utils/loginbkground.dart';
-import 'package:vamos/ui/utils/theme.dart';
 import 'package:vamos/widget/formWidgets/inputField.dart';
 import 'package:vamos/widget/localeFloatingActionButtonDebug.dart';
 import 'package:vamos/widget/loginWidgets/loginpageStack.dart';
