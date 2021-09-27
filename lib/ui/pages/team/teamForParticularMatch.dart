@@ -148,7 +148,11 @@ class _TeamForParticularMatchState extends State<TeamForParticularMatch> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
                     child: Center(
-                      child: tabIndicatorKRed("Team Preview"),
+                      child: GestureDetector(
+                          onTap: () {
+                            Get.toNamed("/teamPreview");
+                          },
+                          child: tabIndicatorKRed("Team Preview")),
                     ),
                   ),
                   SingleChildScrollView(
