@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:vamos/core/service/controller/myTeamController.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/theme.dart';
+import 'package:vamos/ui/utils/utility.dart';
 import 'package:vamos/widget/customAppBar.dart';
 import 'package:vamos/widget/customBottomNavBar.dart';
 import 'package:vamos/widget/formWidgets/buttons.dart';
@@ -150,7 +151,10 @@ class _TeamForParticularMatchState extends State<TeamForParticularMatch> {
                     child: Center(
                       child: GestureDetector(
                           onTap: () {
-                            Get.toNamed("/teamPreview");
+                            playerList.length == 0
+                                ? Utility.showSnackbar("No Team")
+                                : Get.toNamed("/teamPreview",
+                                    arguments: playerList);
                           },
                           child: tabIndicatorKRed("Team Preview")),
                     ),

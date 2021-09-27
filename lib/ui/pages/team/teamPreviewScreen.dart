@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
@@ -11,23 +12,26 @@ class TeamPreviewScreen extends StatefulWidget {
 }
 
 class _TeamPreviewState extends State<TeamPreviewScreen> {
-  List<String> wkList = [];
-  List<String> batList = [];
-  List<String> arList = [];
-
+  List<dynamic> wkList = [];
+  List<dynamic> batList = [];
+  List<dynamic> arList = [];
+  List<dynamic> midList = [];
+  List<dynamic> playerList = Get.arguments;
   @override
   void initState() {
     super.initState();
 
-    wkList.add('');
-
-    batList.add('');
-    batList.add('');
-    batList.add('');
-
-    arList.add('Pankaj');
-    arList.add('Pankaj');
-    arList.add('Pankaj');
+    for (int i = 0; i < playerList.length; i++) {
+      if (playerList[i].position == "Goal Keeper") {
+        wkList.add(playerList[i]);
+      } else if (playerList[i].position == "Defender") {
+        batList.add(playerList[i]);
+      } else if (playerList[i].position == "Attacker") {
+        arList.add(playerList[i]);
+      } else {
+        midList.add(playerList[i]);
+      }
+    }
   }
 
   @override
@@ -57,6 +61,10 @@ class _TeamPreviewState extends State<TeamPreviewScreen> {
                   Column(children: <Widget>[
                     matchHeader('DEFENDER'),
                     getTypeList(batList)
+                  ]),
+                  Column(children: <Widget>[
+                    matchHeader('MidFIELDER'),
+                    getTypeList(midList),
                   ]),
                   Column(children: <Widget>[
                     matchHeader('ATTACKER'),
@@ -89,7 +97,7 @@ class _TeamPreviewState extends State<TeamPreviewScreen> {
       padding: EdgeInsets.only(bottom: 8, top: 4),
       child: Text(title, style: TextStyle(color: Colors.white)));
 
-  Widget getTypeList(List<String> list) {
+  Widget getTypeList(List<dynamic> list) {
     List<Widget> widgetList = [];
     list.forEach((data) {
       widgetList.add(getPlayerView(data));
@@ -103,7 +111,7 @@ class _TeamPreviewState extends State<TeamPreviewScreen> {
     );
   }
 
-  Widget getPlayerView(String player) {
+  Widget getPlayerView(dynamic player) {
     return Stack(children: <Widget>[
       Container(
           padding: EdgeInsets.only(
@@ -115,17 +123,22 @@ class _TeamPreviewState extends State<TeamPreviewScreen> {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 InkWell(
-                    borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                    onTap: () {},
-                    child: Container(
-                        width:
-                            (MediaQuery.of(context).size.width > 360 ? 45 : 40),
-                        height:
-                            (MediaQuery.of(context).size.width > 360 ? 45 : 40),
-                        child: CircleAvatar(
-                            backgroundColor: Colors.grey.withOpacity(0.1),
-                            backgroundImage:
-                                ExactAssetImage("assets/user_profile.png")))),
+                  borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                  onTap: () {},
+                  child: Container(
+                    width: (MediaQuery.of(context).size.width > 360 ? 45 : 40),
+                    height: (MediaQuery.of(context).size.width > 360 ? 45 : 40),
+                    child: CircleAvatar(
+                      radius: 20,
+                      backgroundColor: Colors.grey.withOpacity(0.1),
+                      backgroundImage:
+                          player.playerPhoto == null || player.playerPhoto == ''
+                              ? CachedNetworkImageProvider('')
+                              : CachedNetworkImageProvider(
+                                  player.playerPhoto ?? ""),
+                    ),
+                  ),
+                ),
                 Container(
                     padding:
                         EdgeInsets.only(left: 6, top: 2, bottom: 2, right: 6),
@@ -133,7 +146,7 @@ class _TeamPreviewState extends State<TeamPreviewScreen> {
                         borderRadius: new BorderRadius.circular(4.0),
                         boxShadow: <BoxShadow>[BoxShadow(color: Colors.white)]),
                     child: Center(
-                        child: Text('name',
+                        child: Text(player.playerName,
                             style: TextStyle(color: Colors.blue)))),
               ])),
       Positioned(
