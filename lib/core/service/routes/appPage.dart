@@ -13,6 +13,7 @@ import 'package:vamos/ui/loginPages/setPass.dart';
 import 'package:vamos/ui/loginPages/signUp.dart';
 import 'package:vamos/ui/loginPages/upcomingMatches.dart';
 import 'package:vamos/ui/pages/inviteScreen.dart';
+import 'package:vamos/ui/pages/match/createTeamForMatch.dart';
 import 'package:vamos/ui/pages/match/inviteTeamMatch.dart';
 import 'package:vamos/ui/pages/joinedTeamListing.dart';
 import 'package:vamos/ui/pages/match/matchListing.dart';
@@ -23,6 +24,8 @@ import 'package:vamos/ui/pages/playerListingScreen.dart';
 import 'package:vamos/ui/pages/searchBy.dart';
 import 'package:vamos/ui/pages/profileInformation/otherPlayerProfile.dart';
 import 'package:vamos/ui/pages/settings.dart';
+import 'package:vamos/ui/pages/team/teamForParticularMatch.dart';
+import 'package:vamos/ui/pages/team/teamPreviewScreen.dart';
 import 'package:vamos/ui/pages/teamListScreen.dart';
 import 'package:vamos/ui/pages/viewGround.dart';
 
@@ -234,6 +237,27 @@ abstract class AppPages {
       name: '/otherPlayerInfo',
       transitionDuration: transitionDuration,
       page: () => OtherPlayerInfo(),
+      transition: Transition.downToUp,
+      binding: AllBinder(),
+    ),
+    GetPage(
+      name: '/createTeamForMatch',
+      transitionDuration: transitionDuration,
+      page: () => CreateTeamForMatch(),
+      transition: Transition.downToUp,
+      binding: AllBinder(),
+    ),
+    GetPage(
+      name: '/teamForParticularMatch',
+      transitionDuration: transitionDuration,
+      page: () => TeamForParticularMatch(),
+      transition: Transition.downToUp,
+      binding: AllBinder(),
+    ),
+    GetPage(
+      name: '/teamPreview',
+      transitionDuration: transitionDuration,
+      page: () => TeamPreviewScreen(),
       transition: Transition.downToUp,
       binding: AllBinder(),
     )

@@ -46,7 +46,8 @@ class Match {
     this.groundName,
     this.groundLocation,
     this.bookingFee,
-    this.bookingTimeSlots
+    this.bookingTimeSlots,
+    this.status
   });
 
   int? id;
@@ -55,6 +56,7 @@ class Match {
   String? groundName;
   String? groundLocation;
   String? bookingFee;
+  String? status;
   List? bookingTimeSlots;
 
   factory Match.fromJson(Map<String, dynamic> json) => Match(
@@ -65,6 +67,7 @@ class Match {
         groundLocation: json["ground_location"] == null ? null : json["ground_location"],
         bookingFee: json["booking_fee"] == null ? null : json["booking_fee"],
         bookingTimeSlots: json["booking_time_slots"] == null ? null : json["booking_time_slots"],
+        status: json["status"] == null ? null : json["status"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -74,6 +77,7 @@ class Match {
         "name": name == null ? null : name,
         "ground_location": groundLocation == null ? null : groundLocation,
         "booking_time_slots": bookingTimeSlots == null ? null : bookingTimeSlots,
+        "status": status == null ? null : status,
         "booking_fee": bookingFee == null ? null : bookingFee,
       };
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:vamos/core/models/groundAvailability.dart';
+import 'package:vamos/core/models/ground/groundAvailability.dart';
 import 'package:vamos/core/service/controller/groundController.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/theme.dart';

@@ -3,14 +3,17 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vamos/core/models/match/createMatch.dart';
-import 'package:vamos/core/models/groundList.dart';
-import 'package:vamos/core/models/groundAvailability.dart';
-import 'package:vamos/core/models/groundProfileView.dart';
-import 'package:vamos/core/models/updateGround.dart';
+import 'package:vamos/core/models/ground/groundList.dart';
+import 'package:vamos/core/models/ground/groundAvailability.dart';
+import 'package:vamos/core/models/ground/groundProfileView.dart';
+import 'package:vamos/core/models/setup/teamSizesResponse.dart';
+import 'package:vamos/core/models/ground/updateGround.dart';
 import 'package:vamos/core/service/api/api.dart';
+import 'package:vamos/core/service/controller/addsController.dart';
 import 'package:vamos/core/service/controller/authController.dart';
 import 'package:vamos/core/service/controller/matchController.dart';
 import 'package:vamos/locator.dart';
+import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/utility.dart';
 
 class GroundController extends GetxController {
@@ -39,9 +42,8 @@ class GroundController extends GetxController {
   List<int> selectedIndices = [];
   Grounds? selectedGround;
   Grounds? customGround;
-
+  late Map<String, dynamic> teamSize;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
   String get eventDetails => _eventDetails;
   set eventDetails(String value) {
     _eventDetails = value;
@@ -181,10 +183,10 @@ class GroundController extends GetxController {
     CreateMatch response = await api.createMatch(
       prefs.getString("userId")!,
       matchName ?? '',
-      customGround?.id,
+      isCustom ? customGround?.id : selectedGround?.id,
       isCustom ? customGroundName : selectedGround?.name,
       isCustom ? customGroundlocation : selectedGround?.location,
-      bookingFee,
+      isCustom ? bookingFee : selectedGround?.bookingFee,
       bookingDate,
       isCustom
           ? [
@@ -201,15 +203,17 @@ class GroundController extends GetxController {
               }
             ],
       '',
-      // team size
-      '6',
+      Get.put(MatchController()).matchTeamSize,
     );
 
     if (response.data != null) {
       Get.find<MatchController>().matchId = response.data?.id;
       update();
       Utility.closeDialog();
-      Get.toNamed("/inviteTeamMatch");
+      if (Get.put(AddsController()).userType == "Ground")
+        Get.toNamed("/inviteTeamMatch");
+      else
+        Get.offNamed("/createTeamForMatch", arguments: false);
     } else {
       Utility.closeDialog();
       Utility.showSnackbar("${response.message}");
@@ -294,6 +298,30 @@ class GroundController extends GetxController {
     } else {
       selectedIndices = [currIndex];
       update();
+    }
+  }
+
+  late List<DropdownMenuItem<String>> menuItems = [];
+
+  void getTeamSize() async {
+    Utility.showLoadingDialog();
+    TeamSizesResponse response = await api.getTeamSize();
+    if (response.success!) {
+      teamSize = response.data!;
+      for (String key in response.data!.keys) {
+        menuItems.add(DropdownMenuItem<String>(
+          child: Text(
+            response.data![key],
+            style: TextStyle(color: inputText, fontSize: 16),
+          ),
+          value: key,
+        ));
+      }
+      Utility.closeDialog();
+      update();
+    } else {
+      Utility.closeDialog();
+      Utility.showSnackbar(response.message!);
     }
   }
 }

@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
         locale: Get.deviceLocale,
         debugShowCheckedModeBanner: false,
         initialRoute: "/splashScreen",
-        //initialRoute: "/otherPlayerInfo",
+        // initialRoute: "/teamPreview",
         getPages: AppPages.pages,
       ),
     );

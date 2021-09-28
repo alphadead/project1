@@ -10,6 +10,7 @@ void matchDetailsDialog(
     required String matchName,
     required String groundLocation,
     required String bookingFee,
+    required String status,
     required Function() onAccept,
     required Function() onReject,
     required String acceptText,
@@ -28,6 +29,7 @@ void matchDetailsDialog(
               detailsDescription(
                   name: 'Ground Location', value: groundLocation),
               detailsDescription(name: "Booking Fee", value: bookingFee),
+              detailsDescription(name: "Status", value: status),
               SizedBox(height: 10.h),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

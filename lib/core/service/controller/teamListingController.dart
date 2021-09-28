@@ -2,10 +2,10 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vamos/core/models/acceptRejectResponse.dart';
 import 'package:vamos/core/models/genericResponse.dart';
-import 'package:vamos/core/models/joinTeam.dart';
-import 'package:vamos/core/models/joinedTeamListResponse.dart';
-import 'package:vamos/core/models/teamListingResponse.dart';
-import 'package:vamos/core/models/teamRequestReceviedAsPlayerResponse.dart';
+import 'package:vamos/core/models/team/joinTeam.dart';
+import 'package:vamos/core/models/team/joinedTeamListResponse.dart';
+import 'package:vamos/core/models/team/teamListingResponse.dart';
+import 'package:vamos/core/models/team/teamRequestReceviedAsPlayerResponse.dart';
 import 'package:vamos/core/service/api/api.dart';
 import 'package:vamos/ui/utils/utility.dart';
 
@@ -30,6 +30,7 @@ class TeamListController extends GetxController {
       teamList = response.data!;
     } else {
       Utility.showSnackbar("${response.message}");
+      Utility.closeDialog();
     }
     update();
   }
@@ -60,9 +61,11 @@ class TeamListController extends GetxController {
     TeamRequestReceivedAsPlayerResponse response = await api.requestRecived();
     if (response.status == "Success") {
       teamRequestList = response.data!;
+      Utility.closeDialog();
       Utility.showSnackbar("${response.message}");
     } else {
       Utility.showSnackbar("${response.message}");
+      Utility.closeDialog();
     }
     update();
   }

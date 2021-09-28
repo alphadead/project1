@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:vamos/core/models/profileDataResponse.dart';
-import 'package:vamos/core/service/controller/authController.dart';
 import 'package:vamos/core/service/controller/profileController.dart';
 import 'package:vamos/ui/loginPages/profileWidgets/fitness.dart';
 import 'package:vamos/ui/loginPages/profileWidgets/nationality.dart';
@@ -15,13 +12,9 @@ import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/loginbkground.dart';
 import 'package:vamos/ui/utils/theme.dart';
 import 'package:vamos/widget/customAppBar.dart';
-import 'package:vamos/widget/formWidgets/inputField.dart';
 import 'package:vamos/widget/localeFloatingActionButtonDebug.dart';
 import 'package:vamos/widget/loginWidgets/loginpageStack.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:vamos/widget/numvalueContainer.dart';
-import 'package:vamos/widget/profileContainer.dart';
-import 'package:country_picker/country_picker.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProfilePage extends StatefulWidget {

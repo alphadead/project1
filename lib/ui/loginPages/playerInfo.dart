@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vamos/core/service/controller/profileController.dart';
 import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/loginbkground.dart';
@@ -361,12 +360,12 @@ class _PlayerInfoState extends State<PlayerInfo> {
                               ? KRed
                               : KBlueContainerUpcomingmatches,
                   text: isPremium == 2
-                      ? "Request Pending"
+                      ? AppLocalizations.of(context)!.request_pending 
                       : isPremium == 1
-                          ? "Premium Player"
+                          ? AppLocalizations.of(context)!.premium_player
                           : isPremium == 3
-                              ? "Request Rejected"
-                              : "Premium Player Request"),
+                              ? AppLocalizations.of(context)!.request_rejected
+                              : AppLocalizations.of(context)!.premium_player),
               SizedBox(
                 height: 50.h,
               ),

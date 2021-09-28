@@ -1,11 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:vamos/core/models/groundList.dart';
-import 'package:vamos/core/service/controller/groundController.dart';
+import 'package:vamos/core/models/ground/groundList.dart';
 import 'package:vamos/core/service/controller/otherPlayerInfoController.dart';
 import 'package:vamos/core/service/controller/playerListingController.dart';
-import 'package:vamos/core/models/playerListResponse.dart';
 import 'package:vamos/core/service/controller/searchByController.dart';
 import 'package:vamos/core/service/controller/teamListingController.dart';
 import 'package:vamos/ui/pages/normalPlayer.dart';
