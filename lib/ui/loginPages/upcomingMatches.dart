@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:vamos/core/models/upcomingMatches.dart';
-import 'package:vamos/core/service/controller/authController.dart';
+import 'package:vamos/core/models/match/upcomingMatches.dart';
 import 'package:vamos/core/service/controller/matchController.dart';
 import 'package:vamos/core/service/controller/myTeamController.dart';
 import 'package:vamos/ui/utils/color.dart';
@@ -11,9 +10,9 @@ import 'package:vamos/ui/utils/theme.dart';
 import 'package:vamos/widget/formWidgets/buttons.dart';
 import 'package:vamos/widget/customAppBar.dart';
 import 'package:vamos/widget/customBottomNavBar.dart';
-import 'package:vamos/widget/matchInfoCard.dart';
 import 'package:vamos/widget/profileContainer.dart';
 import 'package:vamos/widget/teamWidgets/teamInfoCircularCard.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class UpcomingMatchesPage extends StatefulWidget {
   const UpcomingMatchesPage({Key? key}) : super(key: key);
@@ -121,13 +120,17 @@ class _UpcomingMatchesPageState extends State<UpcomingMatchesPage> {
                                         children: [
                                           GestureDetector(
                                             onTap: () {
-                                              FirstmatchTeam!.teamId != null
-                                                  ? Get.put(MyTeamController())
-                                                      .getParticularTeamDetails(
-                                                          int.parse(
-                                                              FirstmatchTeam
-                                                                  .teamId!))
-                                                  : '';
+                                              Get.toNamed(
+                                                  '/teamForParticularMatch',
+                                                  arguments: [
+                                                    _matchService
+                                                        .upcomingMatchesList![
+                                                            index]
+                                                        .teamSize,
+                                                    FirstmatchTeam?.teamName,
+                                                    FirstmatchTeam?.teamLogo,
+                                                    FirstmatchTeam?.teamPlayers
+                                                  ]);
                                             },
                                             child: TeamInfoCircularCard(
                                               title: FirstmatchTeam?.teamName ??
@@ -149,13 +152,14 @@ class _UpcomingMatchesPageState extends State<UpcomingMatchesPage> {
                                           ),
                                           GestureDetector(
                                             onTap: () {
-                                              SecondmatchTeam!.teamId != null
-                                                  ? Get.put(MyTeamController())
-                                                      .getParticularTeamDetails(
-                                                          int.parse(
-                                                              SecondmatchTeam
-                                                                  .teamId!))
-                                                  : '';
+                                              if (SecondmatchTeam?.teamId !=
+                                                  null)
+                                                Get.put(MyTeamController())
+                                                    .getParticularTeamDetails(
+                                                        int.parse(
+                                                            SecondmatchTeam
+                                                                    ?.teamId ??
+                                                                ""));
                                             },
                                             child: TeamInfoCircularCard(
                                               title:
@@ -172,8 +176,7 @@ class _UpcomingMatchesPageState extends State<UpcomingMatchesPage> {
                                       Container(
                                         width: 170.w,
                                         child: Text(
-                                          "Tournament live Streaming " +
-                                              (_matchService
+                                          (_matchService
                                                       .upcomingMatchesList![
                                                           index]
                                                       .groundName ??
@@ -204,7 +207,7 @@ class _UpcomingMatchesPageState extends State<UpcomingMatchesPage> {
                                   color: KBlueContainerUpcomingmatches,
                                   child: Center(
                                     child: Text(
-                                      "Tap on the team for more information of team",
+                                      AppLocalizations.of(context)!.tap_for_info,
                                       style: themeData()
                                           .textTheme
                                           .headline3!

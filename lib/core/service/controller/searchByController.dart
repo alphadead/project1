@@ -1,14 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:vamos/core/models/genericResponse.dart';
-import 'package:vamos/core/models/groundList.dart';
-import 'package:vamos/core/models/joinTeam.dart';
+import 'package:vamos/core/models/ground/groundList.dart';
 import 'package:vamos/core/models/playerListResponse.dart';
-import 'package:vamos/core/models/teamListingResponse.dart';
 import 'package:vamos/core/service/api/api.dart';
 import 'package:vamos/core/service/controller/playerListingController.dart';
-import 'package:vamos/ui/utils/color.dart';
 import 'package:vamos/ui/utils/utility.dart';
 
 import '../../../locator.dart';

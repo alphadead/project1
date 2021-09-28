@@ -1,13 +1,15 @@
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vamos/core/models/genericResponse.dart';
 import 'package:vamos/core/models/match/matchListResponse.dart';
 import 'package:vamos/core/models/match/matchRequest.dart';
 import 'package:vamos/core/models/match/matchRequestRecvdByTeam.dart';
 import 'package:vamos/core/models/match/teamRequestSentByMatch.dart';
 import 'package:vamos/core/models/match/updateMatchRequest.dart';
-import 'package:vamos/core/models/upcomingMatches.dart';
+import 'package:vamos/core/models/match/upcomingMatches.dart';
+import 'package:vamos/core/models/playerRequestResponse.dart';
+import 'package:vamos/core/models/setup/playerPositionsResponse.dart';
 import 'package:vamos/core/service/api/api.dart';
 import 'package:vamos/core/service/controller/myTeamController.dart';
 import 'package:vamos/core/service/controller/teamListingController.dart';
@@ -22,10 +24,26 @@ class MatchController extends GetxController {
   List<Team>? _teams;
   List<MatchRequest>? _matchRequests;
   List<ComingMatch>? upcomingMatchesList;
-
+  List<dynamic>? playerPosition;
+  List<PlayerData>? playerJoinedList;
   List<Match>? get matches => _matches;
   List<Team>? get teams => _teams;
   List<MatchRequest>? get matchRequests => _matchRequests;
+  String? _matchTeamSize = '6';
+  Map<int, Map<String, String>> _playersMap = {};
+  int? requestId;
+
+  Map<int, Map<String, String>> get playersMap => _playersMap;
+  set playersMap(Map<int, Map<String, String>> value) {
+    _playersMap = value;
+    update();
+  }
+
+  String? get matchTeamSize => _matchTeamSize;
+  set matchTeamSize(String? value) {
+    _matchTeamSize = value;
+    update();
+  }
 
   set matches(List<Match>? value) {
     _matches = value;
@@ -95,7 +113,8 @@ class MatchController extends GetxController {
     RequestMatch response = await api.requestMatch(teamId, matchId!);
     if (response.data != null) {
       Get.put(TeamListController()).teamList[index].status = 'pending';
-      Get.put(TeamListController()).teamList[index].requestId = response.data?.id;
+      Get.put(TeamListController()).teamList[index].requestId =
+          response.data?.id;
       Get.put(TeamListController()).update();
       Utility.closeDialog();
     } else {
@@ -103,20 +122,22 @@ class MatchController extends GetxController {
     }
   }
 
-  void updateRequest(
-      BuildContext context, int? id, String? matchId, String? status) async {
+  void updateRequest(int? id, String? matchId, String? status) async {
     Utility.showLoadingDialog();
 
-    UpdateMatchRequestsByTeam response =
-        await api.updateMatchRequestsByTeam(id, matchId, status);
-    if (response.data != null) {
+    UpdateMatchRequestsByTeam response = await api.updateMatchRequestsByTeam(
+        id, matchId, status, playersMap.values.toList());
+    if (response.success ?? false) {
+      Utility.closeDialog();
+      Utility.showSnackbar("${response.message}");
+      matchRequests?.removeWhere((element) => element.id == requestId);
+      Get.back();
+      Get.back();
+      update();
+    } else {
       Utility.closeDialog();
       Utility.showSnackbar("${response.message}");
       Get.back();
-    } else {
-      Utility.closeDialog();
-
-      Utility.showSnackbar("${response.message}");
       Get.back();
     }
   }
@@ -132,6 +153,69 @@ class MatchController extends GetxController {
       update();
     } else {
       Utility.closeDialog();
+      Utility.showSnackbar("${response.message}");
+    }
+  }
+
+  void getPlayerPosition() async {
+    Utility.showLoadingDialog();
+    PlayerPositionsResponse response = await api.getPlayerPosition();
+    if (response.success!) {
+      playerPosition = response.data!;
+      Utility.closeDialog();
+      update();
+    } else {
+      Utility.closeDialog();
+      Utility.showSnackbar(response.message!);
+    }
+  }
+
+  void getPlayerJoinedListByTeam() async {
+    Utility.showLoadingDialog();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int? teamId = prefs.getString("team_id") == null
+        ? null
+        : int.parse(prefs.getString("team_id").toString());
+    PlayerRequestResponse response =
+        await api.getPlayerJoinedListByTeam(teamId);
+    if (response.data != null) {
+      Utility.closeDialog();
+      playerJoinedList = response.data!;
+    } else {
+      Utility.closeDialog();
+      Utility.showSnackbar("${response.message}");
+    }
+    update();
+  }
+
+  void selectMatchPlayers({bool incomingRequest = false}) async {
+    Utility.showLoadingDialog();
+    if (playersMap.values.toList().length < int.parse(matchTeamSize!)) {
+      Utility.showSnackbar(
+          "Not enough players to complete match creation. Make sure to invite all players");
+      return;
+    }
+
+    if (incomingRequest) {
+      updateRequest(requestId, matchId.toString(), "Accept");
+      return;
+    }
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    int? teamId = prefs.getString("team_id") == null
+        ? null
+        : int.parse(prefs.getString("team_id").toString());
+
+    GenericResponse response = await api.selectMatchPlayers(
+        matchId, teamId, playersMap.values.toList());
+    if (response.success ?? false) {
+      Utility.closeDialog();
+    print(matchId);
+      matchId = matchId;
+      update();
+      Get.toNamed("/inviteTeamMatch");
+    } else {
       Utility.showSnackbar("${response.message}");
     }
   }

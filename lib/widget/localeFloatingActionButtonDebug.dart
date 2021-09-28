@@ -7,6 +7,7 @@ class LocaleFloatingActionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
+      heroTag: null,
       onPressed: () {
         if (Get.locale!.languageCode == Locale('en').languageCode) {
           Get.updateLocale(Locale('ar'));

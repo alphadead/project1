@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:provider/provider.dart';
 import 'package:vamos/core/service/controller/authController.dart';
-import 'package:vamos/ui/loginPages/register.dart';
 import 'package:vamos/ui/loginPages/setPass.dart';
 import 'package:vamos/widget/localeFloatingActionButtonDebug.dart';
 import 'package:vamos/widget/loginWidgets/loginpageIndicator.dart';
 import 'package:vamos/widget/loginWidgets/loginpageStack.dart';
 import 'package:vamos/ui/utils/color.dart';
-import 'package:vamos/ui/utils/constants.dart';
 import 'package:vamos/ui/utils/loginbkground.dart';
-import 'package:vamos/ui/utils/theme.dart';
 import 'package:vamos/ui/utils/validator.dart';
 import 'package:vamos/widget/formWidgets/inputField.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -101,7 +96,7 @@ class SignUpPage extends StatelessWidget {
                             if (ValidateFeild().isValidatePhone(arg)) {
                               return null;
                             } else {
-                              return "Enter valid phone number";
+                              return AppLocalizations.of(context)!.validation_phone;
                             }
                           }, keyType: TextInputType.phone),
                         ),
@@ -116,7 +111,7 @@ class SignUpPage extends StatelessWidget {
                               if (ValidateFeild().isValidatePassword(arg)) {
                                 return null;
                               } else {
-                                return "Password must be more than 6 characters";
+                                return AppLocalizations.of(context)!.validation_password;
                               }
                             }, keyType: TextInputType.name)),
                         Row(

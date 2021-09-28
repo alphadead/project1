@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:vamos/core/service/controller/authController.dart';
 import 'package:vamos/ui/utils/color.dart';
-import 'package:vamos/ui/utils/loginbkground.dart';
 import 'package:vamos/ui/utils/validator.dart';
 import 'package:vamos/widget/formWidgets/buttons.dart';
 import 'package:vamos/widget/customAppBar.dart';
@@ -11,8 +10,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vamos/ui/utils/theme.dart';
 import 'package:vamos/widget/customBottomNavBar.dart';
 import 'package:vamos/widget/formWidgets/inputField.dart';
-import 'package:vamos/widget/createteamContainer.dart';
 import 'package:vamos/widget/teamWidgets/teamSizeButtons.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CreateTeams extends StatefulWidget {
   const CreateTeams({Key? key}) : super(key: key);
@@ -72,7 +71,7 @@ class _CreateTeamsState extends State<CreateTeams> {
                       child: Container(
                         width: 150.w,
                         child: Text(
-                          'Create Team',
+                          AppLocalizations.of(context)!.create_team,
                           style: TextStyle(
                             color: sliderGreenActive,
                             fontSize: 20.sp,
@@ -95,20 +94,20 @@ class _CreateTeamsState extends State<CreateTeams> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      inputField("Team Name", (value) {
+                      inputField(AppLocalizations.of(context)!.team_name, (value) {
                         _authService.teamName = value;
                       }, validate: (arg) {
                         arg = _authService.teamName;
                         if (ValidateFeild().isValidateName(arg)) {
                           return null;
                         } else {
-                          return "Enter valid name";
+                          return AppLocalizations.of(context)!.validation_name;
                         }
                       }, keyType: TextInputType.name),
                       Padding(
                         padding: const EdgeInsets.fromLTRB(0, 15, 0, 5),
                         child: Text(
-                          'Team Logo',
+                          AppLocalizations.of(context)!.team_logo,
                           style: themeData()
                               .textTheme
                               .headline3!
@@ -143,7 +142,7 @@ class _CreateTeamsState extends State<CreateTeams> {
                       Padding(
                         padding: const EdgeInsets.fromLTRB(0, 15, 0, 5),
                         child: Text(
-                          'Team Formation',
+                          AppLocalizations.of(context)!.team_formation,
                           style: themeData()
                               .textTheme
                               .headline3!
@@ -162,7 +161,7 @@ class _CreateTeamsState extends State<CreateTeams> {
                               height: 40.w,
                               child: Center(
                                 child: Text(
-                                  'Next',
+                                  AppLocalizations.of(context)!.next,
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 15.sp,
