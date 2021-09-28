@@ -125,8 +125,13 @@ abstract class Api {
   Future<PlayerListResponse> searchPlayerlist(int isPremium);
   Future<MyTeamInfo> teamInfo(teamId);
   Future<PlayerListResponse> searchPlayerWithFilter(value, filters);
+
   Future<TeamSizesResponse> getTeamSize();
   Future<PlayerPositionsResponse> getPlayerPosition();
   Future<GenericResponse> selectMatchPlayers(matchId, teamId, players);
 
+
+
+  Future<CommentListModel> commentListPageModel(int offset, String userId);
+ 
 }

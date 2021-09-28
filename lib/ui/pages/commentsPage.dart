@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -20,13 +21,28 @@ class CommentsPage extends StatefulWidget {
 }
 
 class _CommentsPageState extends State<CommentsPage> {
+  ScrollController _scrollController = ScrollController();
+
   @override
   void initState() {
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       Get.find<CommentController>().commentList();
       Get.find<ProfileController>().getProfileData();
     });
+    _scrollController.addListener(() {
+      if (_scrollController.offset >=
+          _scrollController.position.maxScrollExtent) {
+        Get.find<CommentController>().commentListPage();
+      }
+    });
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _scrollController.dispose();
   }
 
   @override
@@ -48,45 +64,57 @@ class _CommentsPageState extends State<CommentsPage> {
             body: Stack(
               children: [
                 SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Center(
-                        child: Container(
-                          height: 100.h,
-                          margin: EdgeInsets.symmetric(vertical: 20.h),
-                          child: Column(
-                            children: [
-                              Container(
-                                margin: EdgeInsets.symmetric(vertical: 8.h),
-                                height: 56.h,
-                                child: Image.asset(
-                                    'assets/images/searchPage.webp'),
-                              ),
-                              Text(
-                                'Comments',
-                                style:
-                                    themeData().textTheme.bodyText1!.copyWith(
-                                          color: profileContainerColor,
-                                          fontSize: 12.sp,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                              ),
-                            ],
+                  controller: _scrollController,
+                  child: Stack(children: [
+                    Column(
+                      children: [
+                        Center(
+                          child: Container(
+                            height: 100.h,
+                            margin: EdgeInsets.symmetric(vertical: 20.h),
+                            child: Column(
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.symmetric(vertical: 8.h),
+                                  height: 56.h,
+                                  child: Image.asset(
+                                      'assets/images/searchPage.webp'),
+                                ),
+                                Text(
+                                  'Comments',
+                                  style:
+                                      themeData().textTheme.bodyText1!.copyWith(
+                                            color: profileContainerColor,
+                                            fontSize: 12.sp,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 12),
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
-                          itemCount: _commentsService.comment!.length,
-                          itemBuilder: (BuildContext context, int index) =>
-                              commentContainer(_commentsService, index),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 12),
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            itemCount: _commentsService.comment!.length,
+                            itemBuilder: (BuildContext context, int index) =>
+                                commentContainer(_commentsService, index),
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
+                        if (_commentsService.isloading) ...[
+                          Container(
+                            width: 1.sw,
+                            height: 80,
+                            child: Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                          )
+                        ]
+                      ],
+                    ),
+                  ]),
                 ),
                 Align(
                   alignment: Alignment.bottomRight,

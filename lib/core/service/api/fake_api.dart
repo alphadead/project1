@@ -269,6 +269,10 @@ class FakeApi extends Api {
     throw UnimplementedError();
   }
 
+  Future<CommentListModel> commentListPageModel(int offset, String userId) {
+    throw UnimplementedError();
+  }
+
   @override
   Future<GenericResponse> updateTeamRequestsByMatch(int? id, String? status) {
     // TODO: implement updateTeamRequestsByMatch

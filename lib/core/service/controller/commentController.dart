@@ -15,17 +15,42 @@ class CommentController extends GetxController {
   Api api = locator<Api>();
   List<CommentModel>? comment = [];
   List<String> comments = [];
+  bool isloading = false;
+  int offset = 0;
   void commentList() async {
     Utility.showLoadingDialog();
     String profileId =
         Get.find<OtherPlayerInfoController>().profile?.user_id?.toString() ??
             "";
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    CommentListModel response = await api.commentListModel(profileId);
+    CommentListModel response =
+        await api.commentListPageModel(offset, profileId);
     if (response.data != null) {
+      offset = offset + 10;
       comment = response.data;
       update();
       Utility.closeDialog();
+    }
+    update();
+  }
+
+  void commentListPage() async {
+    isloading = true;
+    String profileId =
+        Get.find<OtherPlayerInfoController>().profile?.user_id?.toString() ??
+            "";
+    CommentListModel response =
+        await api.commentListPageModel(offset, profileId);
+    if (response.data != null) {
+      if (response.data!.length > 0) {
+        offset = offset + 10;
+        comment!.addAll(response.data!);
+        isloading = true;
+        update();
+      } else {
+        isloading = false;
+        update();
+        Utility.showSnackbar("No data to load");
+      }
     }
     update();
   }
