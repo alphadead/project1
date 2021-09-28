@@ -19,6 +19,7 @@ import 'package:vamos/widget/dateSchedulePopup.dart';
 import 'package:vamos/widget/groundWidgets/customCalendar.dart';
 import 'package:vamos/widget/groundWidgets/timeslots.dart';
 import 'package:vamos/widget/formWidgets/inputField.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AboutMatch extends StatefulWidget {
   const AboutMatch({Key? key}) : super(key: key);
@@ -83,7 +84,7 @@ class _AboutMatchState extends State<AboutMatch> {
                     child: Image.asset("assets/images/kick_football.webp"),
                   ),
                   Text(
-                    "About Match",
+                    AppLocalizations.of(context)!.about_match,
                     style: themeData().textTheme.bodyText1!.copyWith(
                           color: profileContainerColor,
                           fontSize: 18.sp,
@@ -122,7 +123,8 @@ class _AboutMatchState extends State<AboutMatch> {
                                             isExpanded: true,
                                             elevation: 25,
                                             hint: Text(
-                                              'Ground name',
+                                              AppLocalizations.of(context)!
+                                                  .ground_name,
                                               style:
                                                   TextStyle(color: KLightGrey),
                                             ),
@@ -159,7 +161,7 @@ class _AboutMatchState extends State<AboutMatch> {
                                       isExpanded: true,
                                       elevation: 25,
                                       hint: Text(
-                                        'Team Size',
+                                        AppLocalizations.of(context)!.team_size,
                                         style: TextStyle(color: KLightGrey),
                                       ),
                                       onChanged: (String? newValue) {
@@ -194,7 +196,8 @@ class _AboutMatchState extends State<AboutMatch> {
                                                   );
                                                 },
                                                 child: Text(
-                                                  "Add New +",
+                                                  AppLocalizations.of(context)!
+                                                      .button_addNew,
                                                   style: themeData()
                                                       .textTheme
                                                       .bodyText1!
@@ -216,7 +219,8 @@ class _AboutMatchState extends State<AboutMatch> {
                                     child: Row(
                                       children: [
                                         Text(
-                                          "Ground Availability",
+                                          AppLocalizations.of(context)!
+                                              .ground_availability,
                                           style: themeData()
                                               .textTheme
                                               .bodyText1!
@@ -248,7 +252,8 @@ class _AboutMatchState extends State<AboutMatch> {
                                     child: Row(
                                       children: [
                                         Text(
-                                          "Select Timeslots",
+                                          AppLocalizations.of(context)!
+                                              .time_slots,
                                           style: themeData()
                                               .textTheme
                                               .bodyText1!
@@ -279,7 +284,9 @@ class _AboutMatchState extends State<AboutMatch> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                "Ground name :",
+                                                AppLocalizations.of(context)!
+                                                        .ground_name +
+                                                    ": ",
                                                 style: themeData()
                                                     .textTheme
                                                     .bodyText1!
@@ -313,7 +320,9 @@ class _AboutMatchState extends State<AboutMatch> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                "Ground location :",
+                                                AppLocalizations.of(context)!
+                                                        .ground_location +
+                                                    " :",
                                                 style: themeData()
                                                     .textTheme
                                                     .bodyText1!
@@ -347,7 +356,9 @@ class _AboutMatchState extends State<AboutMatch> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                "Booking date :",
+                                                AppLocalizations.of(context)!
+                                                        .booking_date +
+                                                    " :",
                                                 style: themeData()
                                                     .textTheme
                                                     .bodyText1!
@@ -380,7 +391,9 @@ class _AboutMatchState extends State<AboutMatch> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                "Opening time :",
+                                                AppLocalizations.of(context)!
+                                                        .open_time +
+                                                    " :",
                                                 style: themeData()
                                                     .textTheme
                                                     .bodyText1!
@@ -421,7 +434,9 @@ class _AboutMatchState extends State<AboutMatch> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                "Closing time :",
+                                                AppLocalizations.of(context)!
+                                                        .close_time +
+                                                    " :",
                                                 style: themeData()
                                                     .textTheme
                                                     .bodyText1!
@@ -464,7 +479,7 @@ class _AboutMatchState extends State<AboutMatch> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                "Booking Fees",
+                                AppLocalizations.of(context)!.booking_fees,
                                 style:
                                     themeData().textTheme.bodyText1!.copyWith(
                                           color: profileContainerColor,
@@ -517,7 +532,8 @@ class _AboutMatchState extends State<AboutMatch> {
                                           _groundService.isCustom = false;
                                         });
                                       },
-                                      text: "Delete",
+                                      text: AppLocalizations.of(context)!
+                                          .button_delete,
                                       width: 100,
                                       height: 30,
                                       fontSize: 12,
@@ -542,7 +558,8 @@ class _AboutMatchState extends State<AboutMatch> {
                                           },
                                         );
                                       },
-                                      text: "Edit",
+                                      text: AppLocalizations.of(context)!
+                                          .button_edit,
                                       width: 100,
                                       height: 30,
                                       fontSize: 12,
